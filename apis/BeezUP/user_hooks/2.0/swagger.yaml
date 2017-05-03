@@ -1,0 +1,132 @@
+swagger: '2.0'
+info:
+  version: '2.0'
+  title: Hooks
+  description: |
+    
+    This api allows you to manage your webhooks like subscriptions. 
+    
+    You will be able to:
+    - list all your subscriptions
+    - subscribe to an event
+    - activate or suspend a subscription
+    - update a subscription
+    - delete a subscription
+
+
+    ### We recommend you to read this web site http://resthooks.org/
+    
+  contact:
+    email: support@beezup.com
+  license:
+    name: BeezUP
+    url: http://www.beezup.com
+  x-logo:
+    url: "https://avatars0.githubusercontent.com/u/25665430"
+    backgroundColor: "#FFFFFF"
+    
+  x-changedBy: Johnny KNOBLAUCH
+  x-changeComment: |
+    Creation
+
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /BeezUP/user_hooks/2.0
+
+x-host: api.beezup.com
+x-basePath: /v2/user/hooks
+
+externalDocs: 
+  description: BeezUP API documentation
+  url: https://beezup.github.io/api-docs/
+
+x-servers:
+- url: https://virtserver.swaggerhub.com/BeezUP/user_hooks/v2
+  description: Mock Server
+- url: https://api.beezup.com/v2/user/hooks
+  description: Production Server
+
+
+
+schemes:
+  - https
+
+x-api-name: V2UserHooks
+x-api-namespace: BeezUP2.Framework.Hooks.WebService
+x-api-repo: tbd
+x-api-repo-folder: tbd
+
+consumes:
+  - application/json
+produces:
+  - application/json
+  
+securityDefinitions:
+  api_key:
+    description: The api subscription key
+    type: apiKey
+    name: Ocp-Apim-Subscription-Key
+    in: header
+ 
+security:
+- api_key: []
+
+
+tags:
+- name: Main
+  description: All operations
+
+paths: 
+  '/':
+    get:
+      tags:
+      - Main
+      summary: Get subscription list
+      responses:
+        200:
+          description: OK
+  /{id}:
+    get:
+      tags:
+      - Main
+      summary: Get your subscription 
+      parameters:
+      - name: id
+        description: The subscription identifier
+        type: string
+        format: guid
+        in: path
+        required: true
+        
+      responses:
+        200:
+          description: OK
+    
+
+
+definitions:
+
+  subscription:
+    type: object
+    properties:
+      subscriptionId:
+        description: The subscription identifier
+        type: string
+        format: guid
+      eventName:
+        description: The event name
+        type: string
+        x-lov: Events
+      status:
+        type: string
+        enum:
+        - Paused
+        - Started
+        - Failed
+      errorMessage:
+        type: string
+        description: An error message to explain why the subscription failed
+      retryCount:
+        type: integer
+        format: int32
+        description: The retry count to make if your back end server is unavailable
