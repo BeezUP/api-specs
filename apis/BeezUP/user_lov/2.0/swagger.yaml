@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
-  title: Public - List of Values
-  description: This API gives you public list of values.
+  title: User - List of Values
+  description: This API gives you access to list of values.
   version: "2.0"
   contact:
     email: support@beezup.com
@@ -11,18 +11,31 @@ info:
     name: BeezUP 
     url: http://www.beezup.com
 
+ 
 host: api.beezup.com
-basePath: /v2/public/lov
+basePath: /v2/user/lov
 schemes:
-  - https 
+  - https
+
+x-azure-api-id: 'v2userlov'
+
+x-api-name: UserLOV
+x-api-namespace: BeezUP.Framework.LOV.WebService
 
 consumes:
   - application/json
 produces:
   - application/json
-  
-x-api-name: PublicLOV
-x-api-namespace: BeezUP.Framework.LOV.WebService
+
+securityDefinitions:
+  api_key:
+    description: The api subscription key
+    type: apiKey
+    name: Ocp-Apim-Subscription-Key
+    in: header
+
+security:
+- api_key: []
 
 tags:
 - name: LOV
@@ -30,12 +43,11 @@ tags:
 - name: Groups
   description: All LOV groups operations
 
-
 paths:
   /:
     get:
       summary: Get all list names
-      operationId: GetPublicListNames
+      operationId: GetUserListNames
       tags:
       - LOV
       responses:
@@ -46,37 +58,20 @@ paths:
             items:
               $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
             
-      produces:
-        - application/json
 
-  /groups:
-    get:
-      tags: 
-        - Groups
-      summary: Get list of group of list name
-      operationId: GetPublicListGroupNames
-
-      responses:
-        '200':
-          description: Get the list of group names
-          schema:
-            type: array
-            items:
-              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
-            
   '/{listName}':
     get:
       tags:
       - LOV
       summary: Get the list of values related to this list name
-      operationId: GetPublicListOfValues
+      operationId: GetUserListOfValues
       parameters:
         - name: listName
           in: path
           required: true
           description: The list of value name your want to get
           type: string 
-# [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : camelCase]: 'Accept-Language' does not comply with the rule
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : camelCase]: 'Accept-Language' does not comply with the rule
         - name: 'Accept-Language'
           description: Indicates that the client accepts the following languages.
           in: header
@@ -96,20 +91,37 @@ paths:
               items:
                 type: string
                 collectionFormat: csv
+              
+              
           schema:
             type: array
             items:
               $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ListOfValueItem'
         '404':
           description: The list is unreachable or not found
+            
 
+  /groups:
+    get:
+      tags: 
+        - Groups
+      summary: Get list of group of list name
+      operationId: GetUserListGroupNames
 
+      responses:
+        '200':
+          description: Get the list of group names
+          schema:
+            type: array
+            items:
+              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
+            
   '/groups/{listGroupName}':
     get:
       tags: 
         - Groups
       summary: Get list of values related to this group name
-      operationId: GetPublicListGroup
+      operationId: GetUserListGroup
       parameters:
         - name: listGroupName
           in: path
@@ -125,6 +137,3 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
         '403':
           description: The list is unreachable or not found
-          
-
-x-azure-api-id: 'v2publiclov'
