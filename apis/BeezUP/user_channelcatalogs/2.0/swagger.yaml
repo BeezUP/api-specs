@@ -1,0 +1,1122 @@
+swagger: '2.0'
+info:
+  version: '2.0'
+  title: Channel Catalogs
+  description: |
+    This api allows you to manage your channel catalogs. 
+    
+    A channel catalog is an association between your store and a channel.
+    
+    You will be able to:
+    - map your catalog colums to channel columns.
+    - map your catalog categories to the channel categories and define a cost of this category
+    - configure the general and cost settings of the channel
+    - enable or disable a channel
+    - exclude products using filters for a channel
+    - override product values for a channel
+    - disable or reenable a product on a channel
+
+  contact:
+    email: support@beezup.com
+  x-logo:
+    url: "https://avatars0.githubusercontent.com/u/25665430"
+    backgroundColor: "#FFFFFF"
+
+  
+  license:
+    name: BeezUP 
+    url: http://www.beezup.com
+
+externalDocs: 
+  description: BeezUP API documentation
+  url: https://beezup.github.io/api-docs/
+
+x-servers:
+- url: https://virtserver.swaggerhub.com/BeezUP/user_channelcatalogs/v2
+  description: Mock Server
+- url: https://api.beezup.com/v2/user/channelCatalogs
+  description: Production Server
+
+
+host: api.beezup.com
+basePath: /v2/user/channelCatalogs
+
+x-api-name: V2UserChannelCatalogs
+x-api-namespace: BeezUP2.Channel.ApiService 
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+securityDefinitions:
+  api_key:
+    description: The api subscription key
+    type: apiKey
+    name: Ocp-Apim-Subscription-Key
+    in: header
+
+
+security:
+- api_key: []
+
+
+# tags are used for organizing operations
+tags:
+- name: Channel Catalogs Global
+  description: All global operations
+- name: Channel Catalogs Settings
+  description: All settings operations
+- name: Channel Catalogs Column Mappings
+  description: All column mapping operations
+- name: Channel Catalogs Category Mappings
+  description: All category mapping operations
+- name: Channel Catalogs Exclusion Filters
+  description: All exclusion filters operations
+- name: Channel Catalogs Products
+  description: All products operations
+- name: Channel Catalogs Products Overrides
+  description: All products overrides operations
+- name: Channel Catalogs Products Optimisation
+  description: All products optimisation operations
+
+schemes:
+ - https
+
+
+parameters:
+
+  channelCatalogIdParameter:
+    name: channelCatalogId
+    in: path
+    required: true
+    description: The channel catalog identifier
+    type: string
+    format: guid
+    x-example: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
+    
+    
+  productIdParameter:
+    name: productId
+    description: The product identifier
+    in: path
+    required: true
+    type: string
+    format: guid
+    x-example: '578419df-1bbf-41a6-96fa-862e42182b67'
+
+
+
+paths: 
+  
+  '/':
+    get:
+      tags:
+      - Channel Catalogs Global
+      summary: List all your current channel catalogs 
+      operationId: GetChannelCatalogs
+      parameters:
+      - name: storeId
+        in: query
+        required: false
+        description: The store identifier
+        type: string
+        format: guid
+        x-example: '04730364-9826-4ff3-92e4-51fccd02bf10'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/channelCatalogList'
+    post:
+      tags:
+      - Channel Catalogs Global
+      summary: Create a new channel catalog
+      operationId: CreateChannelCatalog
+      parameters:
+      - name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/createChannelCatalogRequest'
+      responses:
+        201:
+          description: When the channel has been successfully added for this store
+          headers:
+            Location:
+              type: string
+              description: The new location
+              x-example: /v2/user/channelCatalogs/6d6b04de-406b-4539-8e7e-bf3e8da5dfb0
+            Retry-After:
+              description: The duration in second to wait before polling this resource
+              type: integer
+              minimum: 5
+              default: 5
+              x-example: 5
+          schema:
+            description: Link to the new channel catalog
+            type: array
+            items:
+              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
+  
+  
+  '/{channelCatalogId}':
+    get:
+      tags:
+      - Channel Catalogs Global
+      summary: Get the channel catalog information
+      operationId: GetChannelCatalog
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+      
+      responses:
+        200:
+          description: Channel catalog
+          schema:
+            $ref: '#/definitions/channelCatalog'
+    delete:
+      tags:
+      - Channel Catalogs Global
+      summary: Delete the channel catalog
+      operationId: DeleteChannelCatalog
+      responses:
+        204:
+          description: Channel catalog deleted
+
+
+  '/{channelCatalogId}/enable':
+    post:
+      tags:
+      - Channel Catalogs Settings
+      summary: Enable a channel catalog
+      operationId: EnableChannelCatalog
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+      responses:
+        204:
+          description: Channel catalog enabled
+        402:
+          description: You have to upgrade your offer to activate this channel catalog
+          schema:
+            $ref: '#/definitions/upgradeOfferRequired'
+    
+  '/{channelCatalogId}/disable':
+    post:
+      tags:
+      - Channel Catalogs Settings
+      summary: Disable a channel catalog
+      operationId: DisableChannelCatalog
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+      responses:
+        204:
+          description: Channel catalog disabled
+
+
+  '/{channelCatalogId}/settings/general':
+    post:
+      tags:
+      - Channel Catalogs Settings
+      summary: Disable a channel catalog
+      operationId: ConfigureChannelCatalogGeneralSettings
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/generalSettings'
+      responses:
+        204:
+          description: Channel catalog general settings configured
+
+  '/{channelCatalogId}/settings/cost':
+    post:
+      tags:
+      - Channel Catalogs Settings
+      summary: Disable a channel catalog
+      operationId: ConfigureChannelCatalogCostSettings
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/costSettings'
+      responses:
+        204:
+          description: Channel catalog cost settings configured
+          
+      
+  '/{channelCatalogId}/columnMappings':
+    put:
+      tags:
+      - Channel Catalogs Column Mappings
+      summary: Configure channel catalog column mappings
+      operationId: MapChannelCatalogColumns
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/columnMappingList'
+      responses:
+        204:
+          description: Channel catalog column mappings configured
+
+
+  '/{channelCatalogId}/categoryMappings':
+    get:
+      tags:
+      - Channel Catalogs Category Mappings
+      summary: Get channel catalog categories
+      operationId: GetChannelCatalogCategories
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+      responses:
+        200:
+          description: Channel catalog category mappings
+          schema:
+            $ref: '#/definitions/channelCatalogCategoryMappings'
+
+
+  '/{channelCatalogId}/categoryMappings/map':
+    post:
+      tags:
+      - Channel Catalogs Category Mappings
+      summary: Map channel catalog category
+      operationId: MapChannelCatalogCategory
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/mapCategoryRequest'
+      responses:
+        204:
+          description: Channel catalog category mapped
+          
+  '/{channelCatalogId}/categoryMappings/unmap':
+    post:
+      tags:
+      - Channel Catalogs Category Mappings
+      summary: Unmap channel catalog category
+      operationId: UnmapChannelCatalogCategory
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/unmapCategoryRequest'
+      responses:
+        204:
+          description: Channel catalog category unmapped
+
+  '/exclusionFilterOperators':
+    get:
+      tags:
+      - Channel Catalogs Exclusion Filters
+      summary: Get channel catalog exclusion filter operators
+      operationId: GetChannelCatalogExclusionFilterOperators
+      responses:
+        200:
+          description: Channel catalog exclusion filter operator list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/exclusionFilterOperator'
+
+  '/{channelCatalogId}/exclusionFilters':
+    put:
+      tags:
+      - Channel Catalogs Exclusion Filters
+      summary: Configure channel catalog exclusion filters
+      operationId: ConfigureChannelCatalogExclusionFilters
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/exclusionFilters'
+      responses:
+        204:
+          description: Channel catalog exclusion filter list configured
+
+
+
+  '/{channelCatalogId}/products':
+    post:
+      tags:
+      - Channel Catalogs Products
+      summary: Get channel catalog product information list
+      operationId: GetChannelCatalogProductInfoList
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+        - name: request
+          in: body
+          description: The channel catalog product list filter
+          schema:
+            $ref: '#/definitions/getChannelCatalogProductInfoListRequest'
+      responses:
+        200:
+          description: Channel catalog product information
+          schema:
+            $ref: '#/definitions/channelCatalogProductInfoList'
+
+
+  '/{channelCatalogId}/products/{productId}':
+    get:
+      tags:
+      - Channel Catalogs Products
+      summary: Get channel catalog product information
+      operationId: GetChannelCatalogProductInfo
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+        - $ref: '#/parameters/productIdParameter'
+      responses:
+        200:
+          description: Channel catalog product information
+          schema:
+            $ref: '#/definitions/channelCatalogProductInfo'
+
+
+  '/{channelCatalogId}/products/{productId}/overrides':
+    put:
+      tags:
+      - Channel Catalogs Products Overrides
+      summary: Override channel catalog product values
+      operationId: OverrideChannelCatalogProductOverrides
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+        - $ref: '#/parameters/productIdParameter'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/productOverrides'
+      responses:
+        204:
+          description: Channel catalog product overriden
+
+  '/{channelCatalogId}/products/{productId}/overrides/{channelColumnId}':
+    delete:
+      tags:
+      - Channel Catalogs Products Overrides
+      summary: Delete a specific channel catalog product value override
+      operationId: DeleteChannelCatalogProductValueOverride
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+        - $ref: '#/parameters/productIdParameter'
+        - name: channelColumnId
+          description: The channel column identifier
+          in: path
+          type: string
+          format: guid
+          required: true
+          x-example: '8a76f06a-fefc-4c0d-bcfe-b210f1482977'
+      responses:
+        204:
+          description: Channel catalog product value override deleted
+
+
+  '/{channelCatalogId}/products/{productId}/disable':
+    post:
+      tags:
+      - Channel Catalogs Products Optimisation
+      summary: Disable channel catalog product
+      operationId: DisableChannelCatalogProduct
+      description: |
+        By default a all your catalog products are exposed to the channel.
+        You can disable a product by using this operation.
+        /!\ In case of massive optimisation we recommand you to use the analytics api
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+        - $ref: '#/parameters/productIdParameter'
+      responses:
+        204:
+          description: Channel catalog product disabled
+
+  '/{channelCatalogId}/products/{productId}/reenable':
+    post:
+      tags:
+      - Channel Catalogs Products Optimisation
+      summary: Reenable channel catalog product
+      description: |
+        By default a all your catalog products are exposed to the channel.
+        You can reenable a product by using this operation.
+        /!\ In case of massive optimisation we recommand you to use the analytics api
+      operationId: ReenableChannelCatalogProduct
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+        - $ref: '#/parameters/productIdParameter'
+        
+      responses:
+        204:
+          description: Channel catalog product reenabled
+
+
+
+definitions:
+
+  channelCatalogList:
+    type: object
+    properties:
+# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
+      links:
+        description: Indicates how to create a channel catalog and how to get the channel catalog list 
+        type: array
+        items:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
+# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
+      channelCatalogs:
+        type: array
+        items:
+          $ref: '#/definitions/channelCatalogHeader'
+  
+  channelCatalogHeader:
+    type: object
+    properties:
+      channelCatalogId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelCatalogId'
+      channelId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
+      channelName:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelName'
+      isMarketplace:
+        type: boolean
+        description: Indicates if this channel catalog is related to a marketplace
+        example: true
+      storeId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
+# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
+      links:
+        type: object
+        properties:
+          self:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+  
+
+  createChannelCatalogRequest:
+    type: object
+    required:
+    - channelId
+    - storeId
+    properties:
+      channelId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
+      storeId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'  
+
+
+  generalSettings:
+    description: Represents the general settings of your channel catalog 
+    type: object
+    required:
+    - acceptToPublishInfo
+    - useBid
+    - noCategoryMapping
+    - doNotExportOutOfStockProducts
+    - activeBeezUPTracking
+    properties:
+      acceptToPublishInfo:
+        description: If true then you authorize disclosure of my statistics generated from clicks and sales
+        type: boolean
+        example: true
+      useBid:
+        description: Activate bidding for this channel
+        type: boolean
+        example: false
+      noCategoryMapping:
+        description: Indicates that the channel authorize you to do not map your categories with their categories 
+        type: boolean
+        example: false
+      doNotExportOutOfStockProducts:
+        description: |
+          Do not export "out of stock" products. Note: this option is not taken into account by the counter.
+        type: boolean
+        example: true
+      activeBeezUPTracking:
+        description: Activate BeezUP tracking for my statistics (checked by default)
+        type: boolean
+        default: true
+        example: true
+        
+
+  costType:
+    description: |
+      CPC means cost per click.
+      CPA means cost per action.
+      You can have CPC/CPA with a global cost value.
+      You can have CPC/CPA by category the cost value MUST be null
+      You can have global fixed price.
+    type: string
+    enum:
+    - CPC_Global 
+    - CPA_Global
+    - CPC_ByCategory 
+    - CPA_ByCategory
+    - Fixed_Global
+    example: Fixed_Global
+
+  
+  costSettings:
+    description: Depending to the cost type you will have to define a cost value.
+    type: object
+    required:
+    - costType
+    properties:
+      costType:
+        $ref: '#/definitions/costType'
+      globalCostValue:
+        description: In case of global cost type, you have to indicate the cost value.
+        type: number
+        format: decimal
+        example: 10.21
+
+  
+  unmapCategoryRequest:
+    description: The request message to unmap a catalog category path to a channel category path
+    type: object
+    required:
+    - catalogCategoryPath
+    properties:
+      catalogCategoryPath:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'
+    
+  mapCategoryRequest:
+    description: The request message to make a mapping between catalog category path and a channel category path
+    type: object
+    required:
+    - overrideSubCategoryMappings
+    - autoMapNewSubCategories
+    - channelCatalogCategoryMapping
+    properties:
+      overrideSubCategoryMappings:
+        description: Great feature! In case of mapping to parent channel category, you can ask to override the mapping of all sub channel category to this catalog category path
+        type: boolean
+        example: true
+      autoMapNewSubCategories:
+        description: Great feature! In case of mapping to parent catalog category, you can ask to automatically map new sub catalog category in the next importation to this channel category path. 
+        type: boolean
+        example: true
+      channelCatalogCategoryMapping:
+        $ref: '#/definitions/channelCatalogCategoryMapping'
+
+
+  channelCatalogCategoryMappings:
+    type: object
+    required:
+    - links
+    - channelCatalogCategoryMappings
+    properties:
+      links:
+        type: array
+        items: 
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
+        example:
+        - rel: mapCategory
+          operationId: MapChannelCatalogCategory
+          href: /v2/user/channelCatalogs/{channelCatalogId}/categoryMappings/map
+          parameters:
+          - name: channelCatalogId
+            type: string
+            required: true
+            in: path
+            value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
+
+# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
+      channelCatalogCategoryMappings:
+        type: array
+        items:
+          $ref: '#/definitions/channelCatalogCategoryMappingInfo'
+
+  channelCatalogCategoryMappingInfo:
+    allOf:
+    - $ref: '#/definitions/channelCatalogCategoryMapping'
+    - type: object
+      required:
+      - catalogCategoryPath
+      - channelCategoryPath
+      - links
+      properties:
+        links:
+          type: array
+          items: 
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
+          example:
+          - rel: unmapCategory
+            operationId: MapChannelCatalogCategory
+            href: /v2/user/channelCatalogs/{channelCatalogId}/categoryMappings/unmap
+            parameters:
+            - name: channelCatalogId
+              type: string
+              required: true
+              in: path
+              value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
+            - name: request
+              in: path
+              type: object
+              required: true
+              value:
+                catalogCategoryPath:
+                - Vêtements
+                - Femmes
+                - Chaussures
+                
+                
+              
+
+    
+  channelCatalogCategoryMapping:
+    type: object
+    description: |
+      Represent a mapping between a catalog category path and a channel category path. 
+      The cost on this mapping can be applied.
+    required:
+    - catalogCategoryPath
+    - channelCategoryPath
+    properties:
+      catalogCategoryPath:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'
+      channelCategoryPath:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelCategoryPath'
+      costValue:
+        description: In case of CPC_ByCategory or CPA_ByCategory cost type, you have to indicate the cost value.
+        type: number
+        format: decimal
+        example: 10.21
+
+  columnMappingWithName:
+    allOf:
+    - $ref: '#/definitions/columnMapping'
+    - type: object
+      properties:
+        channelColumnName:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelColumnName'
+        catalogColumnName:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogColumnUserName'
+          
+          
+
+  columnMapping:
+    description: Represent a mapping between a channel column considering channel category mapping and a catalog column 
+    type: object
+    properties:
+      channelColumnId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelColumnId'
+      channelCategoryPath:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelCategoryPath'
+      catalogColumnId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogColumnId'
+
+
+
+  upgradeOfferRequired:
+    description: The message contains the offer identifier required to execute this operation
+    type: object
+    required:
+    - offerId
+    properties:
+      offerId:
+        type: integer
+        format: int32
+        description: The offer identifier required
+        example: 9
+
+
+  columnMappingWithNameList:
+    description: The column mapping list between a channel and a catalog 
+    type: array
+    items:
+      $ref: '#/definitions/columnMappingWithName'
+
+  columnMappingList:
+    description: The column mapping list between a channel and a catalog 
+    type: array
+    items:
+      $ref: '#/definitions/columnMapping'
+
+
+  channelCatalogStatus:
+    type: object
+    description: Channel Catalog Status
+    required:
+    - exportedProductCount
+    - columnMappingStatus
+    - categoryMappingStatus
+    - apiSettingStatus
+    properties:
+      exportedProductCount:
+        type: integer
+        format: int32
+        example: 101
+      columnMappingStatus:
+        $ref: '#/definitions/columnMappingStatus'
+      categoryMappingStatus:
+        $ref: '#/definitions/categoryMappingStatus'
+      apiSettingStatus:
+        $ref: '#/definitions/apiSettingStatus'
+      
+
+  columnMappingStatus:
+    type: string
+    enum:
+    - warning
+    - success
+    - failed
+    example: Success
+  categoryMappingStatus:
+    type: string
+    enum:
+    - warning
+    - success
+    - failed
+    example: Success
+    
+  apiSettingStatus:
+    type: string
+    enum:
+    - warning
+    - success
+    - failed
+    example: Success
+      
+
+  channelCatalog:
+    description: The channel catalog
+    type: object
+    required:
+    - channelCatalogId
+    - channelId
+    - storeId
+    properties:
+      enabled:
+        type: boolean
+        description: Indicates if the channel catalog is active
+        example: true
+      isMarketplace:
+        type: boolean
+        description: Indicates if this channel catalog is related to a marketplace
+        example: true
+      channelCatalogId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelCatalogId'
+      channelId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
+      channelName:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelName'
+      storeId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
+      generalSettings:
+        $ref: '#/definitions/generalSettings'
+      costSettings:
+        $ref: '#/definitions/costSettings'
+      columnMappings:
+        $ref: '#/definitions/columnMappingWithNameList'
+      exclusionFilters:
+        $ref: '#/definitions/exclusionFilters'
+      
+      exportUrl:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
+      
+      status:
+        $ref: '#/definitions/channelCatalogStatus'
+      
+      links:
+        description: Indicates the actions you can do on a channel catalog
+        type: array
+        items:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
+        example:
+        - rel: categoryMappings
+          operationId: GetChannelCatalogCategoyMappings
+          href: /v2/user/channelCatalogs/{channelCatalogId}/categoryMappings
+          parameters:
+          - name: channelCatalogId
+            type: string
+            required: true
+            in: path
+            value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
+        - rel: delete
+          operationId: DeleteChannelCatalog
+          href: /v2/user/channelCatalogs/{channelCatalogId}
+          parameters:
+          - name: channelCatalogId
+            type: string
+            required: true
+            in: path
+            value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
+        - rel: disable
+          operationId: DisableChannelCatalog
+          href: /v2/user/channelCatalogs/{channelCatalogId}/disable
+          parameters:
+          - name: channelCatalogId
+            type: string
+            required: true
+            in: path
+            value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
+            
+    
+
+            
+
+  productOverrides:
+    description: The key is the channel column identifier
+    type: object
+    additionalProperties:
+      type: string
+    example:
+      '8a76f06a-fefc-4c0d-bcfe-b210f1482977': '3563'
+      'B7B79A0B-A8DE-54DA-964C-E2704DF3738A': 'SHBELNL56'
+      '57F70E81-E4F2-5034-BC65-E1D5C48EBEDA': 'Sony bravia'
+      '2A77749D-0AAB-5245-89B5-6A1A4E06DACA': 'http://www.blalbla.nl/images/cache/dldldl.jpg'
+      '54B3B3CB-5CA5-5471-9DAE-5310C032059A': 'http://www.blalbla.nl/images/cache/dlmdl.jpg'
+      '0EA21509-1141-57BD-B679-371BC98B2ADA': 'http://www.blalbla.nl/images/cache/ldldld.jpg'
+
+
+  productOverridesWithCatalogValues:
+    description: The key is the channel column identifier
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/productOverrideWithCatalogValue'
+    example:
+      '8a76f06a-fefc-4c0d-bcfe-b210f1482977':
+        catalogValue: 'x235'
+        override: '3563'
+      'B7B79A0B-A8DE-54DA-964C-E2704DF3738A': 
+        catalogValue: 'x_ezlSHBELNL56'
+        override: 'SHBELNL56'
+      '57F70E81-E4F2-5034-BC65-E1D5C48EBEDA': 
+        catalogValue: 'Sony'
+        override: 'Sony bravia'
+      '2A77749D-0AAB-5245-89B5-6A1A4E06DACA': 
+        catalogValue: 'http://www.toto.com/thing/images/cache/dldldl.jpg'
+        override: 'http://www.blalbla.nl/images/cache/dldldl.jpg'
+      '54B3B3CB-5CA5-5471-9DAE-5310C032059A': 
+        catalogValue: 'http://www.toto.com/thing/cache/dlmdl.jpg'
+        override: 'http://www.blalbla.nl/images/cache/dlmdl.jpg'
+      '0EA21509-1141-57BD-B679-371BC98B2ADA': 
+        catalogValue: 'http://www.toto.com/thing/images/cache/ldldld.jpg'
+        override: 'http://www.blalbla.nl/images/cache/ldldld.jpg'
+
+  productOverrideWithCatalogValue:
+    type: object
+    required:
+    - override
+    properties:
+      override:
+        type: string
+        description: The overrided product value
+        example: 'Sony bravia'
+      catalogValue:
+        type: string
+        description: The catalog product value
+        example: 'Sony'
+        
+
+  exclusionFilters:
+    description: The exclusion filter list
+    type: array
+    items:
+      $ref: '#/definitions/exclusionFilter'
+
+
+  exclusionFilterName:
+    type: string
+    description: The exclusion filter name
+    example: Exclude sony products
+
+  
+
+  exclusionFilter:
+    description: The exclusion filter
+    type: object
+    required:
+    - name
+    - position
+    - groupId
+    - positionInGroup
+    - channelColumnId
+    - operatorName
+    properties:
+      name:
+        $ref: '#/definitions/exclusionFilterName'
+      position:
+        type: integer
+        format: int32
+        description: The position of the exclusion filter
+        minimum: 1
+        example: 1
+      groupId:
+        type: string
+        format: guid
+        description: Indicate the filter's group. All filters in the same group means an "AND" operation in the filter group
+        example: 'd9833f4b-718a-436f-bab5-89da3d21bf60'
+      positionInGroup:
+        type: integer
+        format: int32
+        description: Indicate the filter group position. This information is used for the UI purpose and must be unique in the filter group.
+        minimum: 1
+        example: 1
+      channelColumnId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelColumnId'
+      operatorName:
+        $ref: '#/definitions/exclusionFilterOperatorName'
+      value:
+        description: The value indicate by the user when the filter operation requires it.
+        type: string        
+        example: 'sony'
+        
+  exclusionFilterOperatorName:
+    description: The exclusion filter operator name 
+    type: string
+    x-lov: ChannelCatalogExclusionFilterOperator
+    example: Contains
+    
+    
+  exclusionFilterOperatorDataType:
+    description: Data type of the operator
+    enum:
+      - string
+      - number
+    type: string
+    default: string
+    example: string
+    
+
+
+  exclusionFilterOperator:
+    description: The exclusion filter operator
+    type: object
+    properties:
+      name:
+        $ref: '#/definitions/exclusionFilterOperatorName'
+      expectedChannelColumnDataType:
+        $ref: '#/definitions/exclusionFilterOperatorDataType'
+      valueRequired:
+        type: boolean
+        description: This operator requires a value
+        example: true
+      expectedValueDataType:
+        $ref: '#/definitions/exclusionFilterOperatorDataType'
+  
+  
+  getChannelCatalogProductInfoListRequest:
+    type: object
+    properties:
+      sku:
+        type: string
+        description: Search by product sku. If null the filter will not be taken in account.
+        example: M123
+      title:
+        type: string
+        description: Search by product title. If null the filter will not be taken in account.
+        example: Réfrigérateur
+      overrided:
+        type: boolean
+        description: Search overrided products. If null the filter will not be taken in account.
+        example: true
+      disabled:
+        type: boolean
+        description: Search disabled products. If null the filter will not be taken in account.
+        example: false
+      categoryMapped:
+        type: boolean
+        description: Search product with category mapped with the channel. If null the filter will not be taken in account.
+        example: false
+      excluded:
+        type: boolean
+        description: Search excluded products by at least an exclusion filter. If null the filter will not be taken in account.
+        example: false
+      active:
+        type: boolean
+        description: If false, search for product absent from the current catalog. If null the filter will not be taken in account.
+        example: true
+  
+        
+  links.GetChannelCatalogProductInfo:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+  
+  
+  
+  
+  channelCatalogProductInfoList:
+    description: The channel catalog product info list
+    type: object
+    properties:
+# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
+      links:
+        type: object
+        properties:
+          self:
+            $ref: '#/definitions/links.GetChannelCatalogProductInfo'
+          
+# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
+      productInfos:
+        type: array
+        items:
+          $ref: '#/definitions/channelCatalogProductInfo'
+    
+  channelCatalogProductInfo:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductBasicInfo'
+    - type: object
+      description: The channel catalog product information
+      required:
+      - productId
+      - overrides
+      - disabled
+      - categoryMapped
+      - excluded
+      - links
+      properties:
+        overrides:
+          $ref: '#/definitions/productOverridesWithCatalogValues'
+        disabled:
+          type: boolean
+          description: Indicates if the product has been disabled or not
+          default: false
+          example: false
+        categoryMapped:
+          type: boolean
+          description: Indicates if the product's category has been mapped to a channel category 
+          example: true
+        excluded:
+          type: boolean
+          description: Indicates if the product has been excluded by a exclusion filter
+          default: false
+          example: true
+        excludedBy:
+          type: array
+          items:
+            $ref: '#/definitions/exclusionFilterName'
+          example:
+          - Exclude sony products
+        links:
+          $ref: '#/definitions/channelCatalogProductInfoLinks'
+
+  channelCatalogProductInfoLinks:
+    description: Indicates the differents actions you can do on a channel product
+    type: object
+    required:
+    - override
+    properties:
+      override:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
+      disable:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
+      reenable:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
+
+        
+
+
+        
+      
+
+      
+x-azure-api-id: 'V2UserChannelCatalogs'
