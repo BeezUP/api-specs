@@ -1,0 +1,1015 @@
+swagger: '2.0'
+info:
+  version: "2.0"
+  title: Marketplaces - Channel catalogs
+  description: This API allows you to manage your channel catalogs\' marketplace settings and fetch your account\'s catalog publication history
+  contact:
+    email: support@beezup.com
+  license:
+    name: BeezUP
+    url: http://www.beezup.com
+  x-logo:
+    url: "https://avatars0.githubusercontent.com/u/25665430"
+    backgroundColor: "#FFFFFF"
+    
+  x-changeComment: |
+    Link3 integrated
+
+host: api.beezup.com
+basePath: /v2/user/marketplaces/channelcatalogs
+x-host: api.beezup.com
+x-basePath: /v2/user/marketplaces/channelcatalogs
+
+externalDocs: 
+  description: BeezUP API documentation
+  url: https://beezup.github.io/api-docs/
+
+x-servers:
+- url: https://virtserver.swaggerhub.com/BeezUP/user_marketplaces_channelcatalogs/v2
+  description: Mock Server
+- url: https://api.beezup.com/v2/user/marketplaces/channelcatalogs
+  description: Production Server
+
+
+
+schemes:
+  - https
+
+x-api-name: V2UserMarketplacesChannelCatalogs
+x-api-namespace: BeezUP.MarketPlace2.Publication.BackOffice.WebService
+x-api-repo: tbd
+x-api-repo-folder: tbd
+tags:
+- name: Marketplaces - Channel catalogs - Global
+  description: Operations to fetch your marketplace account related to your channel catalogs
+- name: Marketplaces - Channel catalogs - Publications
+  description: Operations to fetch your marketplace account's catalog publication history
+- name: Marketplaces - Channel catalogs - Settings
+  description: Operations to manage your channel catalogs' marketplace settings
+consumes:
+  - application/json
+produces:
+  - application/json
+  
+securityDefinitions:
+  api_key:
+    description: The api subscription key
+    type: apiKey
+    name: Ocp-Apim-Subscription-Key
+    in: header
+ 
+security:
+- api_key: []
+ 
+responses:
+  processingResponse:
+    description: The marketplace configuration related to this channel catalog is currently in progress. Please retry later.
+    headers:
+      Retry-After:
+        description: Indicate the duration to before the next retry in second.
+        type: integer
+        format: int32
+        x-example: 120
+
+
+
+paths:
+  '/':
+    get:
+      tags:
+      - Marketplaces - Channel catalogs - Global
+      summary: Get  you marketplace channel catalog list
+      operationId: GetMarketplaceAccountStores
+      responses:
+        200:
+          description: Marketplace channel catalog list
+          schema:
+            $ref: '#/definitions/marketplaceChannelCatalogList'
+    
+  '/publications/{marketplaceTechnicalCode}/{accountId}/history':
+    get:
+      tags:
+        - Marketplaces - Channel catalogs - Publications
+      summary: Fetch the publication history for an account, sorted by descending start date
+      operationId: GetPublications
+      parameters:
+        - name: marketplaceTechnicalCode
+          in: path
+          description: Marketplace Technical Code to query (required)
+          required: true
+          type: string
+          x-lov: MarketplaceTechnicalCode
+        - name: accountId
+          in: path
+          description: Account Id to query (required)
+          required: true
+          type: integer
+          format: int32
+        - name: channelCatalogId
+          in: query
+          description: Channel Catalog Id by which to filter (optional)
+          required: false
+          type: string
+          format: guid
+        - name: count
+          in: query
+          description: Amount of entries to fetch (optional, default set to 10)
+          required: false
+          type: integer
+          format: int32
+          default: 10
+          minimum: 10
+          maximum: 100
+        - name: publicationTypes
+          x-lov: MarketplacePublicationType
+          in: query
+          description: Publication types by which to filter (optional)
+          required: false
+          type: array
+          items:
+            type: string
+            enum:
+              - PublishProducts
+              - PublishOffers
+              - Unpublish
+            format: publicationType
+            #$ref: '#/definitions/publicationType'
+          #collectionFormat: multi
+      responses:
+        '200':
+          description: Successfully fetched channel catalog settings
+          schema:
+            $ref: '#/definitions/accountPublications'
+        '400':
+          description: Feature only available for Amazon, Ebay, CDiscount and Mirakl marketplaces
+        '404':
+          description: Requested account, marketplace or authorization for current user not found
+        '503':
+          $ref: '#/responses/processingResponse'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+      deprecated: false
+
+      
+      
+  '/{channelCatalogId}/properties':
+    get:
+      tags:
+        - Marketplaces - Channel catalogs - Settings
+      summary: Get the marketplace properties for a channel catalog
+      operationId: GetChannelCatalogMarketplaceProperties
+      parameters:
+        - name: channelCatalogId
+          in: path
+          required: true
+          type: string
+          format: guid
+      responses:
+        '200':
+          description: Successfully fetched channel catalog properties
+          schema:
+            $ref: '#/definitions/channelCatalogMarketplaceProperties'
+        '404':
+          description: Requested channel catalog or authorization for current user not found
+        '503':
+          $ref: '#/responses/processingResponse'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+      
+  
+  '/{channelCatalogId}/settings':
+    get:
+      tags:
+        - Marketplaces - Channel catalogs - Settings
+      summary: Get the marketplace settings for a channel catalog
+      operationId: GetChannelCatalogMarketplaceSettings
+      parameters:
+        - name: channelCatalogId
+          in: path
+          description: Channel Catalog Id to query (required)
+          required: true
+          type: string
+          format: guid
+      responses:
+        '200':
+          description: Successfully fetched channel catalog settings
+          schema:
+            $ref: '#/definitions/channelCatalogMarketplaceSettings'
+        '404':
+          description: Requested channel catalog or authorization for current user not found
+        '503':
+          $ref: '#/responses/processingResponse'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+      
+    post:
+      tags:
+        - Marketplaces - Channel catalogs - Settings
+      summary: Save new marketplace settings for a channel catalog
+      description: |
+        Allow you to configure your marketplace settings. 
+        Partial update accepted.
+      operationId: SetChannelCatalogMarketplaceSettings
+      parameters:
+        - name: channelCatalogId
+          in: path
+          description: Channel Catalog Id to query
+          required: true
+          type: string
+          format: guid
+        - name: model
+          in: body
+          description: Settings to save
+          required: true
+          schema:
+            $ref: '#/definitions/setChannelCatalogMarketplaceSettingsRequest'
+      responses:
+        '204':
+          description: Successfully saved channel catalog settings
+        '400':
+          description: One or more channel catalog property keys or values are invalid for requested channel catalog. See response for details.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        '404':
+          description: Requested channel catalog or authorization for current user not found
+        '503':
+          $ref: '#/responses/processingResponse'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+      
+
+definitions:
+  
+  publicationType:
+    description: The Publication Type
+    type: string
+    enum:
+      - PublishProducts
+      - PublishOffers
+      - Unpublish
+    example: PublishOffers
+    x-lov: MarketplacePublicationType
+  
+  feedType:
+    description: The Feed Type
+    enum:
+      - Products
+      - Inventory
+      - Pricing
+      - Images
+      - Relationships
+      - Unpublish
+      - Offers
+    type: string
+    example: Offers
+    x-lov: MarketplacePublicationFeedType
+ 
+  accountPublicationsLinks:
+    type: object
+    required:
+    - self
+    properties:
+      self:
+        $ref: '#/definitions/links.GetPublicationsLink'
+        
+  accountPublications:
+    description: The publication history for an account
+    type: object
+    required:
+    - links
+    - publications
+    properties:
+      links:
+        $ref: '#/definitions/accountPublicationsLinks'
+      publications:
+        description: The recent publications for the requested account
+        type: array
+        items:
+          $ref: '#/definitions/publicationReporting'
+        example:
+          - publicationType: PublishOffers
+            feeds:
+              - feedType: Offers
+                startUtcDate: '2016-02-13T12:01:11Z'
+                endUtcDate: '2016-02-13T12:02:00Z'
+                processingStatus: Done
+                exportedProducts: 10142
+                transmittedItems: 10042
+                publishedItems: 10041
+                publishedItemsWithWarning: 123
+                failedItems: 1
+                errorMessage: ''
+                htmlReportUrl: http://www.myreporthtml.com
+                htmlReportGenerationErrorMessage: ''
+              - feedType: Inventory
+                startUtcDate: '2016-02-13T12:01:11Z'
+                endUtcDate: '2016-02-13T12:02:00Z'
+                processingStatus: Done
+                exportedProducts: 10142
+                transmittedItems: 10042
+                publishedItems: 10041
+                publishedItemsWithWarning: 123
+                failedItems: 1
+                errorMessage: ''
+                htmlReportUrl: http://www.myreporthtml.com
+                htmlReportGenerationErrorMessage: ''
+              - feedType: Pricing
+                startUtcDate: '2016-02-13T12:01:11Z'
+                processingStatus: InProgress
+                exportedProducts: 10142
+                transmittedItems: 10042
+                publishedItems: 10041
+                publishedItemsWithWarning: 123
+                failedItems: 1
+                errorMessage: ''
+                htmlReportUrl: http://www.myreporthtml.com
+                htmlReportGenerationErrorMessage: ''
+          - publicationType: PublishProducts
+            feeds:
+              - feedType: Product
+                startUtcDate: '2016-02-13T12:01:11Z'
+                endUtcDate: '2016-02-13T12:02:00Z'
+                processingStatus: Done
+                exportedProducts: 10142
+                transmittedItems: 10042
+                publishedItems: 10041
+                publishedItemsWithWarning: 123
+                failedItems: 1
+                errorMessage: ''
+                htmlReportUrl: http://www.myreporthtml.com
+                htmlReportGenerationErrorMessage: ''
+              - feedType: Inventory
+                startUtcDate: '2016-02-13T12:01:11Z'
+                endUtcDate: '2016-02-13T12:02:00Z'
+                processingStatus: Done
+                exportedProducts: 10142
+                transmittedItems: 10042
+                publishedItems: 10041
+                publishedItemsWithWarning: 123
+                failedItems: 1
+                errorMessage: ''
+                htmlReportUrl: http://www.myreporthtml.com
+                htmlReportGenerationErrorMessage: ''
+              - feedType: Pricing
+                startUtcDate: '2016-02-13T12:01:11Z'
+                processingStatus: InProgress
+                exportedProducts: 10142
+                transmittedItems: 10042
+                publishedItems: 10041
+                publishedItemsWithWarning: 123
+                failedItems: 1
+                errorMessage: ''
+                htmlReportUrl: http://www.myreporthtml.com
+                htmlReportGenerationErrorMessage: ''
+          
+  publicationReporting:
+    description: 'Model for a publication reporting, can have multiple feeds'
+    type: object
+    required:
+    - publicationType
+    - feeds
+    properties:
+      publicationType:
+        $ref: '#/definitions/publicationType'
+      feeds:
+        description: The feeds that were published
+        type: array
+        items:
+          $ref: '#/definitions/publicationFeedReporting'
+        example:
+          - feedType: Offers
+            startUtcDate: '2016-02-13T12:01:11Z'
+            endUtcDate: '2016-02-13T12:02:00Z'
+            processingStatus: Done
+            exportedProducts: 10142
+            transmittedItems: 10042
+            publishedItems: 10041
+            publishedItemsWithWarning: 123
+            failedItems: 1
+            errorMessage: ''
+            htmlReportUrl: http://www.myreporthtml.com
+            htmlReportGenerationErrorMessage: ''
+                      
+  publicationFeedReporting:
+    description: Publication feed reporting
+    type: object
+    required:
+    - feedType
+    - processingStatus
+    - startUtcDate
+    properties:
+      feedType:
+        $ref: '#/definitions/feedType'
+      startUtcDate:
+        format: date-time
+        description: The feed publication start time (UTC timezone)
+        type: string
+        example: '2016-02-13T12:01:11Z'
+      endUtcDate:
+        format: date-time
+        description: The feed publication end time (UTC timezone)
+        type: string
+        example: '2016-02-13T12:02:00Z'
+      processingStatus:
+        description: The processing status
+        type: string
+        example: Done
+      exportedProducts:
+        format: int32
+        description: The product count downloaded from BeezUP Export
+        type: integer
+        example: 10142
+      transmittedItems:
+        format: int32
+        description: The item count (products or offers) sent to the marketplace
+        type: integer
+        example: 10042
+      publishedItems:
+        format: int32
+        description: The item count (products or offers) the marketplace flagged as successful
+        type: integer
+        example: 10041
+      publishedItemsWithWarning:
+        format: int32
+        description: The item count (products or offers) the marketplace flagged as successful with warnings
+        type: integer
+        example: 123
+      failedItems:
+        format: int32
+        description: The item count (products or offers) the marketplace flagged as failed
+        type: integer
+        example: 1
+      errorMessage:
+        description: The error message
+        type: string
+        example: ''
+      htmlReportUrl:
+        description: The Url for the Html Report generated
+        type: string
+        example: http://www.myreporthtml.com
+        format: uri
+      htmlReportGenerationErrorMessage:
+        description: The error message if the Html Report generation failed
+        type: string
+        example: null
+      completed:
+        description: Indicates if the publication is completed or not
+        type: boolean
+        example: true
+  
+  links.GetChannelCatalogMarketplacePropertiesLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/marketplaces/channelcatatalogs/6a90fcfd-24c7-422e-a65f-aadb1725bbfe/properties
+  
+
+
+  
+  channelCatalogMarketplacePropertiesLinks:
+    type: object
+    required:
+    - self
+    - settings
+    properties:
+      self:
+        $ref: '#/definitions/links.GetChannelCatalogMarketplacePropertiesLink'
+      settings:
+        $ref: '#/definitions/links.GetChannelCatalogMarketplaceSettingsLink'
+  
+  channelCatalogMarketplaceProperties:
+    type: object
+    required:
+    - links
+    - propertyGroups
+    properties:
+      info:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries'
+      links:
+        $ref: '#/definitions/channelCatalogMarketplacePropertiesLinks'
+      propertyGroups:
+        description: The groups settings with constraints
+        type: array
+        items:
+          $ref: '#/definitions/channelCatalogMarketplacePropertyGroup'
+        example:
+        - displayGroupCode: AccountInformations
+          displayGroupPosition: 1       
+          properties:
+            - name: EbayToken
+              position: 1
+              readOnly: true
+              values:
+                - AgAAAA**AQAAAA**aAAAAA**2VFhVg**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AElISgCJaLpwWdj6x9nY+seQ**OEsBAA**AAMAAA**jzsVAMwj1dPBsyCEp0Fuj/toSBrfZF2JpKKDrrXIirMzgvgbsyxnA2h1wl7WjFD+TfdCmaBq3CAFLOog/433G5gsse1DLTT6uXFajdiHnPVfnL7QtKIpQEIwL8ZO5Tx1dGl0XQLsU7knPwbGHn5X6Z3JzXrCGvvpw2+MIzDNhasYlqPfOEr8Lct5dcsIIdhXl/qgrzALe5++v76/XjaXvP6eic3uCWBEXBiXC1uisjEtOqaNIPkFaiICBaXsQUzVZdM68bQatBg5bwf6hxvqOyNJRw4pttGStovcXXjL+aszw7ejbxLv1lJ6qeTMj5oRwTPl0AzBAejcY+DTBrLEmgdzrvWHLvMOa1ijGOGzVodBoDGimiqadCPQpAVZr0e7HvQIVbOlbmKpuCUFJ4RPCv0NxpkCm1/nxZWeS9H8gd/SfLf9Chgd115dcKzgxFBoSh7myJcw+MRM7szPQ2Pwv980dTRyHvbI8XR4OieYvXmU4H7Nl51N8B3qkjYFkdcp6J06eqs4dO68lDNdWZfXHkjwI3dY6umDUp4y82IdQl8IykPty3/DZfUAfqafgiAwMHZvXjewp5HhPjDi2zgf+5EcDlvf6rNMzjsghjdWUQi4WldDk+LXgkos6jswIQaNPdpW1D4KyPYWtGYknx0Xzzuc6WmBoVwGFalgMvCWWI9Gs2w6PG5GqB9zm1Fnr3svtPbNYPQ6q3VQpkKL2SWQXy383O1cp6ZMLI9GwZe0FnrqCxb/wc4XJUVw2RoR3qiX
+            - name: PayPalEmailAddress
+              position: 2
+              required: true
+              pattern: (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+              x-pattern: (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+        - displayGroupCode: AnnounceTitle
+          displayGroupPosition: 2       
+          properties:
+            - name: Postalcode
+              required: true
+              position: 1
+            - name: Country
+              position: 2
+              required: true
+              lovLink:
+                href: /v2/user/lov/Country_eBay
+              lovRequired: true
+            - name: ReturnsWithinOption
+              position: 3
+              required: true
+              lovLink:
+                href: /v2/user/lov/ReturnsWithinDuration_eBay
+              lovRequired: true
+            - name: ShippingService
+              position: 4
+              required: true
+              lovLink:
+                href: /v2/user/lov/FRA_ShippingService_eBay
+              lovRequired: true
+            - name: Currency
+              position: 5
+              required: true
+              lovLink:
+                href: /v2/user/lov/Currency_eBay
+              lovRequired: true
+            - name: PaymentMethods
+              position: 6
+              required: true
+              lovLink:
+                href: /v2/user/lov/PaymentMethods_eBay
+              lovRequired: true
+              minItems: 1
+              maxItems: 2
+
+        - displayGroupCode: SalesConditions
+          displayGroupPosition: 3       
+          properties:
+            - name: ReturnsAcceptedOption
+              position: 1
+              required: true
+              lovLink:
+                href: /v2/user/lov/ReturnsAcceptedOption_eBay
+              lovRequired: true
+            - name: ShippingCostPaidByOption
+              position: 2
+              required: true
+              lovLink:
+                href: /v2/user/lov/ShippingCostPaidByOption_eBay
+              lovRequired: true
+            - name: RefundOption
+              position: 3
+              required: true
+              lovLink:
+                href: /v2/user/lov/RefundOption_eBay
+              lovRequired: true
+            - name: ReturnsWithinOption
+              position: 4
+              required: true
+              lovLink:
+                href: /v2/user/lov/ReturnsWithinDuration_eBay
+              lovRequired: true
+            - name: ReturnDescription
+              position: 5
+              required: false
+              maxLength: 5000
+        - displayGroupCode: HTML
+          displayGroupPosition: 4       
+          properties:
+            - name: Template_HTML
+              position: 1
+              required: false
+              maxLength: 50000
+        - displayGroupCode: OrdersRetrievalOptions
+          displayGroupPosition: 5       
+          properties:
+            - name: RetrieveOnlyOneCountry
+              description:  If true allows to retireve one marketplace country only
+              position: 1
+              type: boolean
+              required: false
+
+  channelCatalogMarketplacePropertyGroup:
+    required:
+    - displayGroupCode
+    - displayGroupPosition
+    - properties
+    properties:
+      displayGroupCode:
+        type: string
+        description: Indicate the code identifier of the group
+        example: AccountInformations
+        x-lov: MarketplacePropertiesDisplayGroup
+      displayGroupPosition:
+        type: integer
+        description: Indicate the position of the group
+        minimum: 1
+        example: 1
+      properties:
+        type: array
+        items:
+          $ref: '#/definitions/channelCatalogMarketplaceProperty'
+        example:
+          - name: EbayToken
+            position: 1
+            readOnly: true
+            values:
+              - AgAAAA**AQAAAA**aAAAAA**2VFhVg**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AElISgCJaLpwWdj6x9nY+seQ**OEsBAA**AAMAAA**jzsVAMwj1dPBsyCEp0Fuj/toSBrfZF2JpKKDrrXIirMzgvgbsyxnA2h1wl7WjFD+TfdCmaBq3CAFLOog/433G5gsse1DLTT6uXFajdiHnPVfnL7QtKIpQEIwL8ZO5Tx1dGl0XQLsU7knPwbGHn5X6Z3JzXrCGvvpw2+MIzDNhasYlqPfOEr8Lct5dcsIIdhXl/qgrzALe5++v76/XjaXvP6eic3uCWBEXBiXC1uisjEtOqaNIPkFaiICBaXsQUzVZdM68bQatBg5bwf6hxvqOyNJRw4pttGStovcXXjL+aszw7ejbxLv1lJ6qeTMj5oRwTPl0AzBAejcY+DTBrLEmgdzrvWHLvMOa1ijGOGzVodBoDGimiqadCPQpAVZr0e7HvQIVbOlbmKpuCUFJ4RPCv0NxpkCm1/nxZWeS9H8gd/SfLf9Chgd115dcKzgxFBoSh7myJcw+MRM7szPQ2Pwv980dTRyHvbI8XR4OieYvXmU4H7Nl51N8B3qkjYFkdcp6J06eqs4dO68lDNdWZfXHkjwI3dY6umDUp4y82IdQl8IykPty3/DZfUAfqafgiAwMHZvXjewp5HhPjDi2zgf+5EcDlvf6rNMzjsghjdWUQi4WldDk+LXgkos6jswIQaNPdpW1D4KyPYWtGYknx0Xzzuc6WmBoVwGFalgMvCWWI9Gs2w6PG5GqB9zm1Fnr3svtPbNYPQ6q3VQpkKL2SWQXy383O1cp6ZMLI9GwZe0FnrqCxb/wc4XJUVw2RoR3qiX
+          - name: PaypalAddress
+            position: 2
+            required: true
+            pattern: (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+            x-pattern: (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+  
+  type:
+    description: The Data Type
+    enum:
+      - string
+      - integer
+      - boolean
+      - number
+    type: string
+    example: string
+
+  channelCatalogMarketplaceProperty:
+    allOf: 
+      - $ref: '#/definitions/channelCatalogMarketplaceSetting'
+      - type: object
+        required:
+        - name
+        - position
+        - readOnly
+        - required
+        - visible
+        description: Model for fetching a channel catalog marketplace property
+        properties:
+          info:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries'
+          default:
+            description: Indicate the default values of the property
+            type: array
+            items:
+              type: string
+            example: 
+            - 'true'
+          description:
+            type: string
+            description: Indicate the description of the property
+            example: If true allows to retireve one marketplace country only
+          position:
+            type: integer
+            description: Indicate the position of the property in the display group
+            minimum: 1
+            example: 1
+          readOnly:
+            type: boolean
+            description: Indicate if the value cannot be changed. This is used for example for ebay token that should not be changed.
+            default: false
+            example: false
+          minLength:
+            type: integer
+            format: int32
+            description: Indicates the minimum size of the property value
+            default: 0
+            minimum: 0
+            example: 1
+          maxLength:
+            type: integer
+            format: int32
+            description: Indicates the maximum size of the property value
+            minimum: 1
+            example: 500
+          minItems:
+            type: integer
+            format: int32
+            description: Indicates the minimum item count of the property value.
+            default: 1
+            minimum: 0
+            example: 1
+          maxItems:
+            type: integer
+            format: int32
+            description: Indicates the maximum item count of the property value
+            default: 1
+            minimum: 1
+            example: 2
+          lovLink:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+          lovRequired:
+            type: boolean
+            description: Indicates if the property value must be in the list of value.
+            default: false
+            example: true
+          required:
+            type: boolean
+            description: Indicate if the property is required or not
+            default: false
+            example: true
+          offerIdRequired:
+            type: integer
+            description: Indicates the offer identifier required to configure this property.
+            example: 10
+          visible:
+            type: boolean
+            description: Indicates if this property should be displayed in the configuration page.
+            default: true
+            example: true
+          type:
+            $ref: '#/definitions/type'
+          pattern:
+            description: Channel catalog marketplace setting value format validation regular expression
+            type: string
+            example: (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+  
+  setChannelCatalogMarketplaceSettingsRequest:
+    description: The channel catalog marketplace settings to save
+    type: object
+    required:
+    - settings
+    properties:
+      settings:
+        $ref: '#/definitions/channelCatalogMarketplaceSettingArray'
+  
+  
+  links.GetChannelCatalogMarketplaceSettingsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/marketplaces/channelcatatalogs/6a90fcfd-24c7-422e-a65f-aadb1725bbfe/settings
+
+  links.SetChannelCatalogMarketplaceSettingsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/marketplaces/channelcatatalogs/6a90fcfd-24c7-422e-a65f-aadb1725bbfe/settings
+        method: POST
+        paramters:
+          request:
+            in: body
+            type: object
+            schema: setChannelCatalogMarketplaceSettingsRequest
+          
+  channelCatalogMarketplaceSettingsLinks:
+    type: object
+    required:
+    - self
+    - save
+    properties:
+      self:
+        $ref: '#/definitions/links.GetChannelCatalogMarketplaceSettingsLink'
+      save:
+        $ref: '#/definitions/links.SetChannelCatalogMarketplaceSettingsLink'
+        
+  
+  channelCatalogMarketplaceSettings:
+    description: The channel catalog marketplace settings
+    type: object
+    required:
+    - links
+    - settings
+    properties:
+      links:
+        $ref: '#/definitions/channelCatalogMarketplaceSettingsLinks'
+
+#        - href: /v2/user/marketplaces/channelcatatalogs/{channelCatalogId}/settings
+#          rel: SetChannelCatalogMarketplaceSettings
+#          operationId: SetChannelCatalogMarketplaceSettings
+#          method: GET
+#          parameters:
+#          - name: channelCatalogId
+#            type: string
+#            in: path
+#            value: 6a90fcfd-24c7-422e-a65f-aadb1725bbfe
+#          - name: request
+#            type: object
+#            in: body
+
+      settings:
+        type: array
+        items:
+          $ref: '#/definitions/channelCatalogMarketplaceSetting'
+        example:
+        - name: Country
+          values:
+          - FR
+        - name: Currency
+          values:
+          - EUR
+        - name: ListingDuration
+          values:
+          - GTC
+        - name: PaymentMethods
+          values:
+          - CCAccepted
+        - name: PayPalEmailAddress
+          values:
+          - pascal@ixeoline.com
+        - name: PostalCode
+          values:
+          - '69630'
+        - name: RefundOption
+          values:
+          - MoneyBackOrExchange
+        - name: ReturnsAcceptedOption
+          values:
+          - ReturnsAccepted
+        - name: ReturnsWithinOption
+          values:
+          - Days_10
+        - name: ShippingCostPaidByOption
+          values:
+          - Buyer
+        - name: ShippingService
+          values:
+          - FR_ColiposteColissimo
+
+  channelCatalogMarketplaceSettingArray:
+    type: array
+    items:
+      $ref: '#/definitions/channelCatalogMarketplaceSetting'
+    example:
+    - name: Country
+      values:
+      - FR
+    - name: Currency
+      values:
+      - EUR
+    - name: ListingDuration
+      values:
+      - GTC
+    - name: PaymentMethods
+      values:
+      - CCAccepted
+    - name: PayPalEmailAddress
+      values:
+      - pascal@ixeoline.com
+    - name: PostalCode
+      values:
+      - '69630'
+    - name: RefundOption
+      values:
+      - MoneyBackOrExchange
+    - name: ReturnsAcceptedOption
+      values:
+      - ReturnsAccepted
+    - name: ReturnsWithinOption
+      values:
+      - Days_10
+    - name: ShippingCostPaidByOption
+      values:
+      - Buyer
+    - name: ShippingService
+      values:
+      - FR_ColiposteColissimo
+
+  channelCatalogMarketplaceSetting:
+    description: Model for fetching a channel catalog marketplace setting
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        description: Channel catalog marketplace property name
+        type: string
+        example: PaypalAddress
+        x-lov: MarketplaceStoreProperty
+      values:
+        description: Channel catalog marketplace property values
+        type: array
+        items:
+          type: string
+        example:
+          - myemail@mydomain.com
+          
+          
+  marketplaceChannelCatalogList:
+    description: The marketplace channel catalog list
+    type: object
+    required:
+    - links
+    - marketplaceChannelCatalogs
+    properties:
+      links:
+        $ref: '#/definitions/marketplaceChannelCatalogListLinks'
+# [Style Validator (4a994891-7084-43d6-837c-76deda0681aa) : All model properties must have examples]: Field 'example' required in 'properties'
+      marketplaceChannelCatalogs:
+        description: The list of marketplace channel catalog
+        type: array
+        items: 
+          $ref: '#/definitions/marketplaceChannelCatalog'
+
+  links.GetMarketplaceAccountStoresLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/marketplaces/channelcatalogs
+        
+  marketplaceChannelCatalogListLinks:
+    type: object
+    required:
+    - self
+    properties:
+      self:
+        $ref: '#/definitions/links.GetMarketplaceAccountStoresLink'
+
+  marketplaceChannelCatalog:
+    description: This object indicates you the association between a channel catalog and a marketplace. The account identifier will be automatically defined based on your marketplace merchant identfier.
+    type: object
+    required:
+    - marketplaceTechnicalCode
+    - marketplaceBusinessCode
+    - marketplaceMarketPlaceId
+    - marketplaceIsoCountryCodeAlpha2
+    - beezUPMarketplaceName
+    - beezUPChannelId
+    - beezUPChannelCatalogId
+    - beezUPStoreId
+    - beezUPStoreName
+    - lovLinks
+    - links
+    properties:
+      marketplaceTechnicalCode: 
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceTechnicalCode'
+      marketplaceBusinessCode:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceBusinessCode'
+      marketplaceMarketPlaceId:
+        description: The marketplace identifier in the marketplace
+        type: string
+        example: '71'
+      marketplaceIsoCountryCodeAlpha2: 
+        description: The marketplace country iso code alpha 2 (see http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Decoding_table for more details)
+        type: string
+        example: FR
+      beezUPMarketplaceName: 
+        description: The marketplace name
+        example: ebay FRA
+      beezUPChannelId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
+      beezUPChannelCatalogId: 
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelCatalogId'
+      beezUPStoreId: 
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
+      beezUPStoreName:
+        description: The store name
+        type: string
+        example: My Store 1
+ 
+      marketplaceMerchantIdentifiers:
+        type: object
+        description: The marketplace merchant identifier list
+        additionalProperties:
+          type: string
+        example: 
+          'Ebay_PayPalEmailAddress': 'yourEbayId@paypal.com'
+      marketplaceAccountId: 
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceAccountId'
+
+      lovLinks:
+       $ref: '#/definitions/marketplaceChannelCatalogLovLinks'
+
+      links:
+        $ref: '#/definitions/marketplaceChannelCatalogLinks'
+      
+  
+  links.GetPublicationsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/marketplaces/channelcatalogs/publications/Amazon/123/history
+
+  marketplaceChannelCatalogLovLinks:
+    type: object
+    description: Indicates the List Of Values related to the marketplace
+    properties:
+      shippingMethodLOV:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      carrierCodeLOV:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      cancelationReasonCodeLOV:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      refundReasonCodeLOV:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+
+    
+  marketplaceChannelCatalogLinks:
+    description: Indicate the actions you can do on a channel catalog. If the settings are valid, you will be able to access to the publication history.
+    type: object
+    required:
+    - properties
+    - settings
+    properties:
+      properties:
+        $ref: '#/definitions/links.GetChannelCatalogMarketplacePropertiesLink'
+      settings:
+        $ref: '#/definitions/links.GetChannelCatalogMarketplaceSettingsLink'
+      publications:
+        $ref: '#/definitions/links.GetPublicationsLink'
+        
+
+x-azure-api-id: 'V2UserMarketplacesChannelCatalogs'
