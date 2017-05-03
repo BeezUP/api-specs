@@ -1,0 +1,139 @@
+swagger: '2.0'
+info:
+  title: User - List of Values
+  description: This API gives you access to list of values.
+  version: "2.0"
+  contact:
+    email: support@beezup.com
+    
+ 
+  license:
+    name: BeezUP 
+    url: http://www.beezup.com
+
+
+host: api.beezup.com
+basePath: /v2/user/lov
+schemes:
+  - https
+
+x-azure-api-id: 'v2userlov'
+
+x-api-name: UserLOV
+x-api-namespace: BeezUP.Framework.LOV.WebService
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+securityDefinitions:
+  api_key:
+    description: The api subscription key
+    type: apiKey
+    name: Ocp-Apim-Subscription-Key
+    in: header
+
+security:
+- api_key: []
+
+tags:
+- name: LOV
+  description: All LOV operations
+- name: Groups
+  description: All LOV groups operations
+
+paths:
+  /:
+    get:
+      summary: Get all list names
+      operationId: GetUserListNames
+      tags:
+      - LOV
+      responses:
+        '200':
+          description: Get the list names
+          schema:
+            type: array
+            items:
+              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
+            
+
+  '/{listName}':
+    get:
+      tags:
+      - LOV
+      summary: Get the list of values related to this list name
+      operationId: GetUserListOfValues
+      parameters:
+        - name: listName
+          in: path
+          required: true
+          description: The list of value name your want to get
+          type: string 
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : camelCase]: 'Accept-Language' does not comply with the rule
+        - name: 'Accept-Language'
+          description: Indicates that the client accepts the following languages.
+          in: header
+          required: false
+          type: array
+          items:
+            type: string
+            collectionFormat: csv
+
+      responses:
+        '200':
+          description: Get the list of values
+          headers:
+            Content-Language:
+              description: Indicates the language use in the response
+              type: array
+              items:
+                type: string
+                collectionFormat: csv
+              
+              
+          schema:
+            type: array
+            items:
+              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ListOfValueItem'
+        '404':
+          description: The list is unreachable or not found
+            
+
+  /groups:
+    get:
+      tags: 
+        - Groups
+      summary: Get list of group of list name
+      operationId: GetUserListGroupNames
+
+      responses:
+        '200':
+          description: Get the list of group names
+          schema:
+            type: array
+            items:
+              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
+            
+  '/groups/{listGroupName}':
+    get:
+      tags: 
+        - Groups
+      summary: Get list of values related to this group name
+      operationId: GetUserListGroup
+      parameters:
+        - name: listGroupName
+          in: path
+          required: true
+          description: The list group name your want to get
+          type: string 
+      responses:
+        '200':
+          description: Get the list of group names
+          schema:
+            type: array
+            items:
+              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
+        '403':
+          description: The list is unreachable or not found
