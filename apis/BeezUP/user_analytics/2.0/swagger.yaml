@@ -1,0 +1,2795 @@
+swagger: '2.0'
+info:
+  version: "2.0"
+  title: Analytics
+  description: |
+    This API will help you to manage the tracking of your clicks and your sales, get reporting on this trackings and put in place rules based on this reporting to automatically optimize your channel catalogs. \
+    Also, you will be able to consult the rule execution reporting.
+  x-logo:
+    url: "https://avatars0.githubusercontent.com/u/25665430"
+    backgroundColor: "#FFFFFF"
+  
+  contact:
+    email: support@beezup.com
+  
+    
+  
+  license:
+    name: BeezUP 
+    url: http://www.beezup.com
+
+
+host: api.beezup.com
+basePath: /v2/user/analytics
+
+x-api-name: V2UserAnalytics
+x-api-namespace: BeezUP.Channel.WebService 
+
+externalDocs: 
+  description: BeezUP API documentation
+  url: https://beezup.github.io/api-docs/
+
+x-servers:
+- url: https://virtserver.swaggerhub.com/BeezUP/user_analytics/v2
+  description: Mock Server
+- url: https://api.beezup.com/v2/user/analytics
+  description: Production Server
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+securityDefinitions:
+  api_key:
+    description: The api subscription key
+    type: apiKey
+    name: Ocp-Apim-Subscription-Key
+    in: header
+
+
+security:
+- api_key: []
+
+
+# tags are used for organizing operations
+tags:
+- name: Tracking
+  description: All tracking operations
+- name: Statistics
+  description: All statitics operations
+- name: Rules
+  description: All rules operations. Rules are automatic optimisations based on report filters.
+- name: Reports
+  description: All reports operations
+- name: Optimisations
+  description: All optmisations operations
+
+
+parameters:
+    
+  
+  exportFormatInQueryGeneralParameter:
+    name: format
+    in: query
+    required: true
+    type: string
+    enum:
+    - xlsx
+    - csv
+
+  ruleIdOnlyGeneralParameters:
+    name: ruleId
+    in: path
+    required: true
+    type: string
+    format: guid
+    description: Your rule identifier
+  reportFilterIdOnlyGeneralParameters:
+    name: reportFilterId
+    in: path
+    required: true
+    type: string
+    format: guid
+    description: Your report filter identifier
+  optimisationActionNameGeneralParameters:
+    name: actionName
+    in: path
+    required: true
+    type: string
+    enum:
+      - reenable
+      - disable
+    format: optimisationActionName
+
+  
+paths:
+  '/tracking/status':
+    get:
+      tags:
+      - Tracking
+      summary: Display the synchronization status of the clicks and orders
+      description: |
+        Your clicks and orders are eventually consistent. \
+        This operation indicates you at which date the projections are.
+      operationId: GetTrackingStatus
+      responses:
+        200:
+          description: The tracking status informations
+          schema: 
+            $ref: '#/definitions/trackingStatus'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+  '/{storeId}/reports/filters':
+    get:
+      tags:
+        - Reports
+      summary: Get report filter list for the given store
+      operationId: GetReportFilters
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+      responses:
+        200:
+          description: Report filter list
+          schema:
+            $ref: '#/definitions/reportFilters'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+  '/{storeId}/reports/filters/{reportFilterId}':
+    get:
+      tags:
+        - Reports
+      summary: Get the report filter description
+      operationId: GetReportFilter
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/reportFilterIdOnlyGeneralParameters'
+      responses:
+        200:
+          description: Report filter
+          schema:
+            $ref: '#/definitions/reportFilter'
+        404:
+          description: Report filter not found
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+    delete:
+      tags:
+        - Reports
+      summary: Delete the report filter
+      operationId: DeleteReportFilter
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/reportFilterIdOnlyGeneralParameters'
+      responses:
+        204:
+          description: Report filter deleted
+        404:
+          description: Report filter not found
+        401:
+          description: This report filter is used by rule. In the error message you will find the rule identifier.
+          schema:
+            $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+            
+            
+    put:
+      tags:
+        - Reports
+      summary: Save the report filter
+      operationId: SaveReportFilter
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/reportFilterIdOnlyGeneralParameters'
+        - name: reportFilter
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/saveReportFilterRequest'
+      responses:
+        204:
+          description: Report filter saved
+        409:
+          description: Report filter name already exists
+        401:
+          description: This report filter is used by rule. In the error message you will find the rule identifier.
+          schema:
+            $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+             
+             
+  '/{storeId}/reports/byday':
+    post:
+      tags:
+        - Reports
+      summary: Get the report by day
+      description: Get the report by day
+      operationId: GetStoreReportByDay
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/reportByDayRequest'
+      responses:
+        200:
+          description: Your reporting by day
+          schema:
+            $ref: '#/definitions/reportByDayResponse'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+  '/{storeId}/reports/byday/export':
+    post:
+      tags:
+        - Reports
+      summary: Get the report by day
+      description: Get the report by day
+      operationId: GetStoreReportByDayExport
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/exportFormatInQueryGeneralParameter'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/reportByDayRequest'
+      responses:
+        200:
+          description: Your reporting by day exported into a file
+          headers:
+            Location: 
+              description: |
+                To indicate the url of the export file
+                Example: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Days.xslx
+              type: string
+              x-example: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Days.xslx
+          schema:
+            type: array
+            items:
+              $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+            example:
+              - href: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Days.xslx
+                rel: document
+                method: GET 
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+        
+            
+            
+  '/{storeId}/reports/bychannel':
+    post:
+      tags:
+        - Reports
+      summary: Get the report by channel
+      description: Get the report by channel
+      operationId: GetStoreReportByChannel
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/reportByChannelRequest'
+      responses:
+        200:
+          description: Your reporting by channel
+          schema:
+            $ref: '#/definitions/reportByChannelResponse'            
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+  '/{storeId}/reports/bychannel/export':
+    post:
+      tags:
+        - Reports
+      summary: Export the report by channel
+      description: Export the report by channel
+      operationId: ExportStoreReportByChannel
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/exportFormatInQueryGeneralParameter'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/reportByChannelRequest'
+      responses:
+        200:
+          description: Your reporting by channel exported
+          headers:
+            Location: 
+              description: |
+                To indicate the url of the export file
+                Example: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Channels.xslx
+              type: string
+
+          schema:
+            type: array
+            items:
+              $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+            example:
+              - href: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Channels.xslx
+                rel: document
+                method: GET 
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+            
+
+
+  '/{storeId}/reports/bycategory':
+    post:
+      tags:
+        - Reports
+      summary: Get the report by category
+      description: Get the report by category
+      operationId: GetStoreReportByCategory
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/reportByCategoryRequest'
+      responses:
+        200:
+          description: Your reporting by channel
+          schema:
+            $ref: '#/definitions/reportByCategoryResponse'      
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+  '/{storeId}/reports/bycategory/export':
+    post:
+      tags:
+        - Reports
+      summary: Export the report by category
+      description: Export the report by category
+      operationId: ExportStoreReportByCategory
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/exportFormatInQueryGeneralParameter'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/reportByCategoryRequest'
+      responses:
+        200:
+          description: Your reporting by category exported
+          headers:
+            Location: 
+              description: |
+                To indicate the url of the export file
+                Example: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Categories.xslx
+              type: string
+
+          schema:
+            type: array
+            items:
+              $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+            example:
+              - href: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Categories.xslx
+                rel: document
+                method: GET
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+            
+  '/{storeId}/reports/byproduct':
+    post:
+      tags:
+        - Reports
+      summary: Get the report by product
+      description: Get the report by product
+      operationId: GetStoreReportByProduct
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/reportByProductRequest'
+      responses:
+        200:
+          description: Your reporting by product
+          schema:
+            $ref: '#/definitions/reportByProductResponse' 
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+  '/{storeId}/reports/byproduct/export':
+    post:
+      tags:
+        - Reports
+      summary: Export the report by product
+      description: Export the report by product
+      operationId: ExportStoreReportByProduct
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/exportFormatInQueryGeneralParameter'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/reportByProductRequest'
+      responses:
+        200:
+          description: Your reporting by product exported
+          headers:
+            Location: 
+              description: |
+                To indicate the url of the export file
+                Example: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Products.xslx
+              type: string
+
+          schema:
+            type: array
+            items:
+              $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+            example:
+              - href: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Products.xslx
+                rel: document
+                method: GET
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+
+            
+            
+            
+  '/{storeId}/optimisations/{actionName}':
+    post:
+      tags:
+        - Optimisations
+      summary: Optimise products
+      description: |
+        /!\ WARNING /!\ \
+        Apply the operation on every product related to this request. \
+        This operation is used at the bottom of the analytics page result.
+      operationId: Optimise
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/optimisationActionNameGeneralParameters'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/optimiseRequest'
+              
+      responses:
+        204:
+          description: Products optimisatized
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+          
+                      
+  '/{storeId}/optimisations/byproduct/{productId}/{actionName}':
+    post:
+      tags:
+        - Optimisations
+      summary: Optimise products
+      description: |
+        /!\ WARNING /!\ \
+        This operation will reenable or disable this product for every channel indicated in the body. 
+      operationId: OptimiseByProduct
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - name: productId
+          in: path
+          required: true
+          description: The product identifier concerned by this optimisation
+          type: string
+          format: guid
+        - $ref: '#/parameters/optimisationActionNameGeneralParameters'
+        - name: request
+          in: body
+          required: false
+          description: The channel identifier list concerned by this optimisation
+          schema:
+            type: array
+            minItems: 1
+            maxItems: 1
+            uniqueItems: true
+            items:
+              type: string
+              format: guid
+            example:
+              - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
+              
+      responses:
+        204:
+          description: Product(s) optimisatized
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+
+  '/{storeId}/optimisations/bycategory/{catalogCategoryId}/{actionName}':
+    post:
+      tags:
+        - Optimisations
+      summary: Optimise products's category 
+      description: |
+        /!\ WARNING /!\ \
+        This operation will reenable or disable products's category for every channel indicated in the body. 
+      operationId: OptimiseByCategory
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - name: catalogCategoryId
+          in: path
+          required: true
+          description: The category identifier concerned by this optimisation
+          type: string
+          format: guid
+        - $ref: '#/parameters/optimisationActionNameGeneralParameters'
+        - name: request
+          in: body
+          required: false
+          description: The channel identifier list concerned by this optimisation
+          schema:
+            type: array
+            minItems: 1
+            maxItems: 1
+            uniqueItems: true
+            items:
+              type: string
+              format: guid    
+            example:
+              - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
+              
+      responses:
+        204:
+          description: Products optimisatized
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+          
+  '/{storeId}/optimisations/bychannel/{channelId}/{actionName}':
+    post:
+      tags:
+        - Optimisations
+      summary: Optimise products's category 
+      description: |
+        /!\ WARNING /!\ \
+        Apply the operation on every product on this channel.
+      operationId: OptimiseByChannel
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - name: channelId
+          in: path
+          required: true
+          description: The channel identifier concerned by this optimisation
+          type: string
+          format: guid
+        - $ref: '#/parameters/optimisationActionNameGeneralParameters'
+      responses:
+        204:
+          description: Products optimisatized
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+          
+
+  '/{storeId}/tracking/status':
+    get:
+      tags:
+        - Tracking
+      summary: Get store tracking synchronization status
+      description: |
+        Your clicks and orders are eventually consistent. \
+        This operation indicates you at which date the projections are for this store.
+      operationId: GetStoreTrackingStatus
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+      responses:
+        200:
+          description: Store Tracking Status
+          schema:
+            $ref: '#/definitions/storeTrackingStatus'
+        404:
+          description: Store not found
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+  '/{storeId}/tracking/clicks':
+    get:
+      tags:
+        - Tracking
+      summary: Get the latest clicks tracked
+      operationId: GetStoreTrackedClicks
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - name: count
+          in: query
+          type: integer
+          description: The click's count you want to get
+          required: false
+          default: 100
+          minimum: 5
+          maximum: 100
+      responses:
+        200:
+          description: Clicks information
+          schema:
+            $ref: '#/definitions/trackedClicks'
+        404:
+          description: Store not found
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+  '/{storeId}/tracking/orders':
+    get:
+      tags:
+        - Tracking
+      summary: Get the latest orders tracked
+      operationId: GetStoreTrackedOrders
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - name: 'count'
+          in: query
+          type: integer
+          description: The order's count you want to get
+          required: false
+          default: 100
+          minimum: 5
+          maximum: 100
+      responses:
+        200:
+          description: Order list
+          schema:
+            $ref: '#/definitions/trackedOrders'
+        404:
+          description: Store not found
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+          
+  '/{storeId}/tracking/externalorders':
+    get:
+      tags:
+        - Tracking
+      summary: Get the latest external orders tracked
+      operationId: GetStoreTrackedExternalOrders
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - name: 'count'
+          in: query
+          type: integer
+          description: The external order's count you want to get
+          required: false
+          default: 100
+          minimum: 5
+          maximum: 100
+      responses:
+        200:
+          description: External Order list
+          schema:
+            $ref: '#/definitions/trackedExternalOrders'
+        404:
+          description: Store not found
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+          
+  '/{storeId}/rules':
+    get:
+      tags:
+        - Rules
+      summary: Gets the list of rules for a given store
+      operationId: GetRules
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+      responses:
+        200:
+          description: Rule list
+          schema:
+            $ref: '#/definitions/rules'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+    post:
+      tags:
+        - Rules
+      summary: Rule creation
+      operationId: CreateRule
+      consumes:
+        - application/json
+      produces: []
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/createRuleRequest'
+      responses:
+        204:
+          description: Rule created
+        400:
+          description: Period on filter cannot be custom or filter does not exist
+        401:
+          description: Store not allowed to use rules. Please upgrade your offer or contact us.
+        403:
+          description: Reached the maximum amount of rules allowed for your offer. Please upgrade your offer or contact us.
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+        
+
+            
+  '/{storeId}/rules/run':
+    post:
+      tags:
+        - Rules
+      summary: Run all rules for this store
+      operationId: RunRules
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+      responses:
+        204:
+          description: All rules executed.
+        401:
+          description: Store not allowed to use rules. Please upgrade your offer or contact us.
+        404:
+          description: Rule not found
+        409:
+          description: Rules for this store are currently running. Please try again later.
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+            
+  '/{storeId}/rules/executions':
+    get:
+      tags:
+        - Rules
+      summary: Get the rules execution history
+      operationId: GetRulesExecutions
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - name: pageNumber
+          in: query
+          description: The page to retrieve
+          required: true
+          type: integer
+          default: 1
+          minimum: 1
+          
+        - name: pageSize
+          in: query
+          description: The count of rule history to retrieve
+          required: true
+          type: integer
+          default: 10
+          minimum: 10
+          maximum: 100
+      responses:
+        200:
+          description: Rules executions list
+          schema:
+            $ref: '#/definitions/ruleExecutionReportings'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+  '/{storeId}/rules/{ruleId}':
+    get:
+      tags:
+        - Rules
+      summary: Gets the rule
+      operationId: GetRule
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/ruleIdOnlyGeneralParameters'
+      responses:
+        200:
+          description: Get Rule
+          schema:
+            $ref: '#/definitions/rule'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+    delete:
+      tags:
+        - Rules
+      summary: Delete Rule
+      operationId: DeleteRule
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/ruleIdOnlyGeneralParameters'
+      responses:
+        204:
+          description: Rule deleted
+        404:
+          description: Rule not found
+        409:
+          description: Rules for this store are currently running. Please try again later.
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+    patch:
+      tags:
+        - Rules
+      summary: Update Rule
+      operationId: UpdateRule
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/ruleIdOnlyGeneralParameters'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/updateRuleRequest'
+      responses:
+        204:
+          description: Rule updated
+        400:
+          description: Filter does not exist or period on filter cannot be custom
+        401:
+          description: Store not allowed to use rules. Please upgrade your offer or contact us.
+        404:
+          description: Rule not found
+        409:
+          description: Rules for this store are currently running. Please try again later.
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+  '/{storeId}/rules/{ruleId}/run':
+    post:
+      tags:
+        - Rules
+      summary: Run rule
+      operationId: RunRule
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/ruleIdOnlyGeneralParameters'
+      responses:
+        204:
+          description: Rule executed
+        400:
+          description: Rule is not enabled. Please enable this run before trying to run it.
+        401:
+          description: Store not allowed to use rules. Please upgrade your offer or contact us.
+        404:
+          description: Rule not found
+        409:
+          description: Rules for this store are currently running. Please try again later.
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+
+
+
+            
+  '/{storeId}/rules/{ruleId}/moveup':
+    post:
+      tags:
+        - Rules
+      summary: Move the rule up
+      operationId: MoveUpRule
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/ruleIdOnlyGeneralParameters'
+      responses:
+        204:
+          description: Rule moved up
+        400:
+          description: Priority can only be changed when more than one rule is defined
+        404:
+          description: Rule not found
+        409:
+          description: Rules for this store are currently running. Please try again later.
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+  '/{storeId}/rules/{ruleId}/movedown':
+    post:
+      tags:
+        - Rules
+      summary: Move the rule down
+      operationId: MoveDownRule
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/ruleIdOnlyGeneralParameters'
+      responses:
+        204:
+          description: Rule moved down
+        400:
+          description: Priority can only be changed when more than one rule is defined
+        404:
+          description: Rule not found
+        409:
+          description: Rules for this store are currently running. Please try again later.
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+  '/{storeId}/rules/{ruleId}/enable':
+    post:
+      tags:
+        - Rules
+      summary: Enable rule
+      operationId: EnableRule
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/ruleIdOnlyGeneralParameters'
+      responses:
+        204:
+          description: Rune enabled
+        404:
+          description: Rule not found
+        409:
+          description: Rules for this store are currently running. Please try again later.
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+  '/{storeId}/rules/{ruleId}/disable':
+    post:
+      tags:
+        - Rules
+      summary: Disable rule
+      operationId: DisableRule
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/ruleIdOnlyGeneralParameters'
+      responses:
+        204:
+          description: Rule disabled
+        404:
+          description: Rule not found
+        409:
+          description: Rules for this store are currently running. Please try again later.
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+            
+
+
+definitions:
+
+  productStateFilter:
+    type: string
+    description: You can filter on the product state.
+    enum:
+    - All
+    - Enabled
+    - Disabled
+    default: All
+    example: All
+
+  reportByProductRequest:
+    allOf:
+    - $ref: '#/definitions/reportFilterCommonParameters'
+    - type: object
+      required:
+      - beginPeriodUtcDate
+      - endPeriodUtcDate
+      - advancedFilters
+      - productState
+      properties:
+        
+        productColumnsToDisplay:
+          type: array
+          minItems: 0
+          maxItems: 1
+          items:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogColumnId'
+          example:
+          - '4b460e31-3d1f-4117-922d-b159a64ec1d2'
+        productState:
+         $ref: '#/definitions/productStateFilter'
+        productFilters:
+          $ref: '#/definitions/productFilters'
+
+  productFilters:
+    type: object
+    properties:
+      sku:
+        type: string
+        description: The product sku filter
+        example: 'M1234'
+      title:
+        type: string
+        description: The product title filter
+        example: 'Refrigérateur'
+        
+      additionalProductFilters:
+        type: array
+        items:
+          $ref: '#/definitions/reportProductFilter'
+        example:
+          - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
+            operatorName: GreaterTo
+            values:
+              - 100
+
+
+  optimiseRequest:
+    allOf:
+    - $ref: '#/definitions/reportFilterCommonParameters'
+    - type: object
+      required:
+      - beginPeriodUtcDate
+      - endPeriodUtcDate
+      - advancedFilters
+      properties:
+        productState:
+         $ref: '#/definitions/productStateFilter'
+        productFilters:
+          $ref: '#/definitions/productFilters'
+
+
+  reportProductFilter:
+    type: object
+    description: Describe a filter on a product's column
+    required:
+    - columnId
+    - operatorName
+    properties:
+      columnId:
+        type: string
+        format: guid
+        description: The column identifier of your catalog or a custom column.
+        example: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
+      operatorName:
+        $ref: '#/definitions/reportProductFilterOperatorName'
+      values:
+        description: Must be null if the operator is "IsNull" or "IsNotNull". Can contains multiple value in case of "InList" operator. Otherwise a single value is expected.
+        type: array
+        items:
+          type: string
+        example:
+          - My value
+          
+
+  reportProductFilterOperatorName:
+    type: string
+    description: Indicate the operator you want to make on the columnId
+    enum:
+    - Equals
+    - Contains
+    - GreaterTo
+    - LowerTo
+    - InList
+    - IsNull
+    - IsNotNull
+ 
+  reportByChannelResponse:
+    type: object
+    required:
+    - currencyCode
+    - paginationResult
+    - channels
+    - links
+    properties:
+      paginationResult:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
+# [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
+      currencyCode:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CurrencyCode
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      channels:
+        type: array
+        items:
+          $ref: '#/definitions/reportByChannel'
+      links:
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+        example:
+        - href: /v2/user/analytics/{storeId}/optimisations/{actionName}
+          operationId: Optimise
+          rel: EnableAllProducts
+          parameters:
+            - name: storeId
+              in: path
+              type: string
+              value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+            - name: storeId
+              in: path
+              type: string
+              value: reenable
+            - name: request
+              in: body
+              type: object
+              value: 
+                $request.body
+        - href: /v2/user/analytics/{storeId}/optimisations/{actionName}
+          operationId: Optimise
+          rel: DisableAllProducts
+          parameters:
+            - name: storeId
+              in: path
+              type: string
+              value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+            - name: storeId
+              in: path
+              type: string
+              value: disable
+            - name: request
+              in: body
+              type: object
+              value: 
+                $request.body
+
+  reportByCategoryResponse:
+    type: object
+    properties:
+      paginationResult:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
+      currencyCode:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CurrencyCode
+
+
+# [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      categories:
+        type: array
+        items:
+          $ref: '#/definitions/reportByCategory'
+      links:
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+        example:
+          - href: /v2/user/analytics/{storeId}/optimisations/{actionName}
+            operationId: Optimise
+            rel: EnableAllProducts
+            parameters:
+              - name: storeId
+                in: path
+                type: string
+                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+              - name: storeId
+                in: path
+                type: string
+                value: reenable
+              - name: request
+                in: body
+                type: object
+                value: 
+                  $request.body
+          - href: /v2/user/analytics/{storeId}/optimisations/{actionName}
+            operationId: Optimise
+            rel: DisableAllProducts
+            parameters:
+              - name: storeId
+                in: path
+                type: string
+                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+              - name: storeId
+                in: path
+                type: string
+                value: disable
+              - name: request
+                in: body
+                type: object
+                value: 
+                  $request.body
+
+  reportByProductResponse:
+    type: object
+    required:
+    - paginationResult
+    - products
+    - links
+    properties:
+      paginationResult:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
+# [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      products:
+        type: array
+        items:
+          $ref: '#/definitions/reportByProduct'          
+      links:
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+        example:
+          - href: /v2/user/analytics/{storeId}/optimisations/{actionName}
+            operationId: Optimise
+            rel: EnableAllProducts
+            parameters:
+              - name: storeId
+                in: path
+                type: string
+                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+              - name: storeId
+                in: path
+                type: string
+                value: reenable
+              - name: request
+                in: body
+                type: object
+                value: 
+                  $request.body
+          - href: /v2/user/analytics/{storeId}/optimisations/{actionName}
+            operationId: Optimise
+            rel: DisableAllProducts
+            parameters:
+              - name: storeId
+                in: path
+                type: string
+                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+              - name: storeId
+                in: path
+                type: string
+                value: disable
+              - name: request
+                in: body
+                type: object
+                value: 
+                  $request.body
+                
+  reportFilterCommonParameters:
+    description: Contains common filter parameters
+    type: object
+    required:
+    - beginPeriodUtcDate
+    - endPeriodUtcDate
+    - advancedFilters
+    properties:
+      channelId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
+      beginPeriodUtcDate:
+        type: string
+        format: date-time
+        description: The begin date period you want to get the report
+        example: '2006-11-20T00:00:00Z'
+      endPeriodUtcDate:
+        type: string
+        format: date-time
+        description: The end date period you want to get the report.
+        example: '2006-12-20T00:00:00Z'
+      categoryFilter:
+        $ref: '#/definitions/reportCategoryFilter'  
+      indicatorFilters:
+        type: array
+        items:
+          $ref: '#/definitions/reportIndicatorFilter'
+        example:
+          - indicator: Cost
+            operatorName: Equals
+            value: 10.42
+      advancedFilters:
+        $ref: '#/definitions/reportAdvancedFilters' 
+
+  reportByCategoryRequest:
+    allOf:
+    - $ref: '#/definitions/reportFilterCommonParameters'
+    
+  reportByChannelRequest:
+    allOf:
+    - $ref: '#/definitions/reportFilterCommonParameters'
+    
+  reportIndicatorFilterOperatorName:
+    type: string
+    description: Indicates the operator you want to apply on this indicator
+    enum:
+    - Equals
+    - GreaterTo
+    - LowerTo
+    example: Equals
+
+  reportIndicatorFilter:
+    type: object
+    required:
+    - indicator
+    - operatorName
+    - value
+    properties:
+      indicator:
+        $ref: '#/definitions/performanceIndicatorType'
+      operatorName:
+        $ref: '#/definitions/reportIndicatorFilterOperatorName'
+      value:
+        type: number
+        description: Indicates the filter value to apply on this indicator
+        example: 10.42
+
+
+
+  reportCategoryFilter:
+    type: object
+    properties:
+      categoryPath:
+        type: array
+        items: 
+          type: string
+        description: Indicates on which category path you want to make the filter
+        example:
+          - Home
+          - Bedroom
+
+  performanceIndicatorType:
+    type: string
+    description: Indicate on which indicator or value you want to make your formula
+    enum:
+    - Cost
+    - Turnover
+    - Margin
+    - OrderCount
+    - ClickCount
+    - TotalSales
+    example: Cost
+  
+  reportByDayRequest:
+    required:
+    - beginPeriodUtcDate
+    - endPeriodUtcDate
+    - advancedFilters
+    type: object
+    properties:
+      channelId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
+      productId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductId'
+      catalogCategoryId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryId'
+      beginPeriodUtcDate:
+        type: string
+        format: date-time
+        description: The begin date period you want to get the report
+        example: '2006-11-20T00:00:00Z'
+      endPeriodUtcDate:
+        type: string
+        format: date-time
+        description: The end date period you want to get the report.
+        example: '2006-12-20T00:00:00Z'
+      advancedFilters:
+        $ref: '#/definitions/reportAdvancedFilters'
+        
+  margingType:
+    type: string
+    enum:
+    - Tracker
+    - Global
+    example: Global
+    
+  linkClickToOrderType:
+    type: string
+    enum:
+    - OnPurcharseDate
+    - OnClickDate
+    example: OnClickDate
+        
+  reportAdvancedFilters:
+    type: object
+    required:
+    - margingType
+    - linkClickToOrderType
+    - onlyPaymentValidatedOrders
+    - onlyDirectSales
+    - performanceIndicatorFormula
+    properties:
+      margingType:
+        $ref: '#/definitions/margingType'
+      globalMarginPercent:
+        type: integer
+        description: If the margin type is 'Global', indicate the percentage of sale price.
+        example: 10
+      linkClickToOrderType:
+        $ref: '#/definitions/linkClickToOrderType'
+      linkClickToOrderMaxDay:
+        type: integer
+        description: If the linkOrderType is OnClickDate, indicate the max day to search the click from the order
+        example: 5
+      onlyPaymentValidatedOrders:
+        type: boolean
+        description: If true, you will get the only the orders with payment validated. Otherwise, you will get all orders validated or not.
+        example: true
+      onlyDirectSales:
+        type: boolean
+        description: If true, you will get only direct sales. Otherwise the indirect sales will be included. 
+        example: true
+      performanceIndicatorFormula:
+        $ref: '#/definitions/performanceIndicatorFormula'
+
+  
+  reportByDayResponse:
+    type: object
+    required:
+    - currencyCode
+    - globalPerformanceIndicators
+    - days
+    properties:
+      currencyCode:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CurrencyCode
+
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      globalPerformanceIndicators:
+        type: array
+        items:
+          $ref: '#/definitions/globalPerformanceIndicatorByChannel'
+# [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      days:
+        type: array
+        items:
+          $ref: '#/definitions/reportByDay'
+  
+  globalPerformanceIndicatorByChannel:
+    type: object
+    required:
+    - channel
+    - globalPerformanceIndicator
+    properties:
+      channel:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelBasicInfo'
+      globalPerformanceIndicator:
+        type: number
+        description: Indicates the global performance indicator for this channel
+        example: 10.42
+        
+        
+  reportByDay:
+    type: object
+    required:
+    - day
+    - allChannels
+    - byChannels
+    properties:
+      day:
+        type: string
+        format: date
+        example: '2017-02-22'
+      allChannels:
+        $ref: '#/definitions/reportByDayAllChannels'
+# [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      byChannels:
+        type: array
+        items:
+          $ref: '#/definitions/reportByDayByChannel'
+
+
+
+  reportByProduct:
+    type: object
+    required:
+    - product
+    - enabledOnChannelCount
+    - channelCount
+    - clickCount
+    - cost
+    - orderCount
+    - turnOver
+    - margin
+    - performanceIndicator
+    - links
+    properties:
+      product:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductBasicInfo'        
+      enabledOnChannelCount:
+        type: integer
+        description: The count of channel where this product is enabled
+        example: 1
+      channelCount:
+        type: integer
+        description: The channel count where this product can be enabled
+        example: 2
+      clickCount:
+        type: integer
+        description: The click count for this product
+        example: 1234
+      cost:
+        type: number
+        description: The cost for this product
+        example: 101.42
+      orderCount:
+        type: integer
+        description: The order count for this product 
+        example: 234.42
+      turnOver:
+        type: number
+        description: The Turnover for this product 
+        example: 42.01
+      margin:
+        type: number
+        description: The margin for this product 
+        example: 50.00
+      performanceIndicator:
+        type: number
+        description: The performance indicator based on the performance indicator formula indicated in the request for this product
+        example: 10.12
+      links:
+        description: The action list on this product
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+        example:
+          - href: /{channelCatalogId}/products/{productId}/overrides
+            operationId: OptimiseByProduct
+            rel: EditProduct
+            parameters:
+              - name: channelCatalogId
+                in: path
+                type: string
+                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+              - name: productId
+                in: path
+                type: string
+                value: 6d469a54-8426-4855-abc2-9e062e2056b9
+          - href: /v2/user/analytics/{storeId}/optimisations/byproduct/{productId}/{actionName}
+            operationId: OptimiseByProduct
+            rel: EnableProduct
+            parameters:
+              - name: storeId
+                in: path
+                type: string
+                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+              - name: productId
+                in: path
+                type: string
+                value: 6d469a54-8426-4855-abc2-9e062e2056b9
+              - name: actionName
+                in: path
+                type: string
+                value: reenable
+              - name: request
+                in: body
+                type: array
+                value: 
+                  - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
+                  
+          - href: /v2/user/analytics/{storeId}/optimisations/byproduct/{productId}/{actionName}
+            operationId: OptimiseByProduct
+            rel: DisableProduct
+            parameters:
+              - name: storeId
+                in: path
+                type: string
+                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+              - name: productId
+                in: path
+                type: string
+                value: 6d469a54-8426-4855-abc2-9e062e2056b9
+              - name: actionName
+                in: path
+                type: string
+                value: disable
+              - name: request
+                in: body
+                type: array
+                value: 
+                  - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
+
+  reportByCategory:
+    type: object
+    required:
+    - catalogCategoryId
+    - enabledProductCount
+    - catalogProductCount
+    - clickCount
+    - cost
+    - orderCount
+    - turnOver
+    - margin
+    - performanceIndicator
+    properties:
+      catalogCategoryId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryId'
+      catalogCategoryPath:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'
+        
+      enabledProductCount:
+        type: integer
+        description: The enabled product count for this category
+        example: 101
+      catalogProductCount:
+        type: integer
+        description: The catalog product count related to this category
+        example: 101
+      clickCount:
+        type: integer
+        description: The click count for this category
+        example: 1001
+      cost:
+        type: number
+        description: The cost for this category
+        example: 12.42
+      orderCount:
+        type: integer
+        description: The order count for this category
+        example: 25.33
+      turnOver:
+        type: number
+        description: The Turnover for this category 
+        example: 25.33
+      margin:
+        type: number
+        description: The margin for this category 
+        example: 3.33
+      performanceIndicator:
+        type: number
+        description: The performance indicator based on the performance indicator formula indicated in the request for this category
+        example: 25.33
+
+      links:
+        description: The action list on this catagory
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+        example:
+          - href: /v2/user/analytics/{storeId}/optimisations/bycategory/{catalogCategoryId}/{actionName}
+            operationId: OptimiseByCategory
+            rel: EnableProducts
+            parameters:
+              - name: storeId
+                in: path
+                type: string
+                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+              - name: catalogCategoryId
+                in: path
+                type: string
+                value: 4c376178-25b4-4656-a86e-e3bd3a25b139
+              - name: actionName
+                in: path
+                type: string
+                value: reenable
+              - name: request
+                in: body
+                type: array
+                value: 
+                  - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
+                  
+          - href: /v2/user/analytics/{storeId}/optimisations/bycategory/{catalogCategoryId}/{actionName}
+            operationId: OptimiseByCategory
+            rel: DisableProducts
+            parameters:
+              - name: storeId
+                in: path
+                type: string
+                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+              - name: catalogCategoryId
+                in: path
+                type: string
+                value: 4c376178-25b4-4656-a86e-e3bd3a25b139
+              - name: actionName
+                in: path
+                type: string
+                value: disable
+              - name: request
+                in: body
+                type: array
+                value: 
+                  - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
+
+
+
+          
+  reportByChannel:
+    type: object
+    required:
+    - channel
+    - enabledProductCount
+    - catalogProductCount
+    - clickCount
+    - cost
+    - orderCount
+    - turnOver
+    - margin
+    - performanceIndicator
+    properties:
+      channel:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelBasicInfo'
+
+
+      enabledProductCount:
+        type: integer
+        description: The enabled product count for this channel
+        example: 101
+      catalogProductCount:
+        type: integer
+        description: The catalog product count for this channel
+        example: 101
+      clickCount:
+        type: integer
+        description: The click count for this channel
+        example: 1024
+      cost:
+        type: number
+        description: The cost for this channel
+        example: 1234.12
+      orderCount:
+        type: integer
+        description: The order count for this channel
+        example: 42
+      turnOver:
+        type: number
+        description: The Turnover for this channel
+        example: 42.42
+      margin:
+        type: number
+        description: The margin for this channel
+        example: 23.10
+      performanceIndicator:
+        type: number
+        description: The performance indicator based on the performance indicator formula indicated in the request for this channel
+        example: 12.21
+      links:
+        description: The action list on this channel
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2        
+        example:
+          - href: /v2/user/analytics/{storeId}/optimisations/bychannel/{channelId}/{actionName}
+            operationId: OptimiseByChannel
+            rel: EnableProducts
+            parameters:
+              - name: storeId
+                in: path
+                type: string
+                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+              - name: channelId
+                in: path
+                type: string
+                value: a2d38563-50f0-43f1-be2b-b16e7ec4f007
+              - name: actionName
+                in: path
+                type: string
+                value: reenable
+
+          - href: /v2/user/analytics/{storeId}/optimisations/bychannel/{channelId}/{actionName}
+            operationId: OptimiseByChannel
+            rel: DisableProducts
+            parameters:
+              - name: storeId
+                in: path
+                type: string
+                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
+              - name: channelId
+                in: path
+                type: string
+                value: a2d38563-50f0-43f1-be2b-b16e7ec4f007
+              - name: actionName
+                in: path
+                type: string
+                value: disable
+
+                
+
+
+  reportByDayAllChannels:
+    type: object
+    required:
+    - clickCount
+    - cost
+    - orderCount
+    - turnOver
+    - margin
+    - performanceIndicator
+    properties:
+      clickCount:
+        type: integer
+        description: The click count for this channel
+        example: 101
+      cost:
+        type: number
+        description: The cost for this channel
+        example: 10.42
+      orderCount:
+        type: integer
+        description: The order count for this channel
+        example: 42
+      turnOver:
+        type: number
+        description: The Turnover for this channel 
+        example: 23.11
+      margin:
+        type: number
+        description: The margin for this channel 
+        example: 42.42
+      performanceIndicator:
+        type: number
+        description: The performance indicator based on the performance indicator formula indicated in the request for this channel
+        example: 23.09
+
+                
+                
+  reportByDayByChannel:
+    type: object
+    required:
+    - channel
+    - clickCount
+    - cost
+    - orderCount
+    - turnOver
+    - margin
+    - performanceIndicator
+    properties:
+      channel:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelBasicInfo'
+        
+      clickCount:
+        type: integer
+        description: The click count for this channel
+        example: 101
+      cost:
+        type: number
+        description: The cost for this channel
+        example: 10.42
+      orderCount:
+        type: integer
+        description: The order count for this channel
+        example: 42
+      turnOver:
+        type: number
+        description: The Turnover for this channel 
+        example: 23.11
+      margin:
+        type: number
+        description: The margin for this channel 
+        example: 42.42
+      performanceIndicator:
+        type: number
+        description: The performance indicator based on the performance indicator formula indicated in the request for this channel
+        example: 23.09
+
+  
+  performanceIndicatorFormulaOperatorName:
+        type: string
+        enum:
+        - Multiply
+        - Divide
+        example: Multiply      
+  
+  performanceIndicatorFormula:
+    type: object
+    description: The KPI formula
+    example:
+      firstParameter: Cost
+      operatorName: Multiply
+      secondParamter: Turnover
+      thirdParameter: 100
+    properties:
+      firstParameter:
+       $ref: '#/definitions/performanceIndicatorFormulaParameterType'
+      operatorName:
+        $ref: '#/definitions/performanceIndicatorFormulaOperatorName'
+      secondParameter:
+       $ref: '#/definitions/performanceIndicatorFormulaParameterType'
+      thirdParameter:
+        type: integer
+        description: Indicate the value of the third parameter of your formula
+        example: 100
+        
+      
+  
+  performanceIndicatorFormulaParameterType:
+    type: string
+    description: Indicate on which indicator or value you want to make your formula
+    enum:
+    - Cost
+    - Turnover
+    - Margin
+    - OrderCount
+    - ClickCount
+    - TotalSales
+    - One
+    example: Cost
+  
+  
+
+  
+  trackedClicks:
+    type: object
+    required:
+    - clicks
+    properties:
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      clicks:
+        type: array
+        items:
+          $ref: '#/definitions/trackedClick'
+  
+  
+  trackedClick:
+    type: object
+    required:
+    - utcDate
+    - product
+    - ipAddress
+    - channel
+    properties:
+      utcDate:
+        format: date-time
+        type: string
+        description: The utc date of the click
+        example: '2016-08-29T09:12:33.001Z'
+      product:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductBasicInfo'
+      ipAddress:
+        type: string
+        description: The user's IP address related to this click
+        example: '127.0.0.1'
+      channel:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelBasicInfo'
+  
+  trackedOrders:
+    type: object
+    required:
+    - orders
+    properties:
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      orders:
+        type: array
+        items:
+          $ref: '#/definitions/trackedOrder'
+  
+  trackedOrder:
+    type: object
+    required:
+    - utcDate
+    - channel
+    - merchantOrderId
+    - totalAmount
+    - currencyCode
+    - paymentValidated
+    - products
+    properties:
+      utcDate:
+        format: date-time
+        type: string
+        description: The utc date of the order.
+        example: '2016-08-29T09:12:33.001Z'
+      channel:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelBasicInfo'
+      merchantOrderId:
+        type: string
+        description: The merchant order identifier
+        example: My_Merchant_Order_Id
+      totalAmount:
+        type: number
+        description: The total amount related to the order.
+        example: 101.42
+      currencyCode:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CurrencyCode
+      paymentValidated:
+        type: boolean
+        description: Indicate if the payment of this order has been validated or not.
+        example: false
+      products:
+        description: the product list related to this order.
+        type: array
+        items:
+          $ref: '#/definitions/trackedOrderProduct'
+        example:
+          - productId: 00000000-0000-0000-0000-000000000000
+            productSku: SKU123345
+            productTitle: My super product title
+            productImageUrl: http://i2.cdscdn.com/pdt2/3/9/0/1/550x550/hai6901018043390/rw/haier-b20fwrss-refrigerateur-americain.jpg
+            productActive: true
+            unitPrice: 101.42
+            quantity: 1.00
+            margin: 9.66
+
+  trackedOrderProduct:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductBasicInfo'
+    - type: object
+      required:
+      - productId
+      - productSku
+      - productTitle
+      - productImageUrl
+      - productActive
+      - unitPrice
+      - quantity
+      - margin
+      properties:
+        unitPrice:
+          type: number
+          description: The product's unit price related to this order
+          example: 101.42
+        quantity:
+          type: number
+          description: Indicate the product's quantity ordered.
+          example: 1.00
+        margin:
+          type: number
+          description: Indicate the product's margin related to this order.
+          example: 9.66
+
+  trackedExternalOrders:
+    type: object
+    required:
+    - externalOrders
+    properties:
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      externalOrders:
+        type: array
+        items:
+         $ref: '#/definitions/trackedExternalOrder'
+    
+
+  trackedExternalOrder:
+    type: object
+    required:
+    - utcDate
+    - merchantOrderId
+    - totalAmount
+    - currencyCode
+    - paymentValidated
+    properties:
+      utcDate:
+        format: date-time
+        type: string
+        description: The utc date of the external order.
+        example: '2016-08-29T09:12:33.001Z'
+      merchantOrderId:
+        type: string
+        description: The merchant order identifier
+        example: My_Order_Merchant_Id
+      visitorId:
+        type: string
+        description: Can be null. The visitor identifier related to this external order
+        example: A_VISITOR_ID
+      totalAmount:
+        type: number
+        description: The total amount related to the external order.
+        example: 101.42
+      currencyCode:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CurrencyCode
+      paymentValidated:
+        type: boolean
+        description: Indicate if the payment of this external order has been validated or not.
+        example: false
+      products:
+        description: Can be null. the product list related to this external order.
+        type: array
+        items:
+          $ref: '#/definitions/trackedExternalOrderProduct'
+        example:
+          - productSku: something
+            productTitle: Something great
+            productImageUrl: http://cdn3.sarenza.net/static/_img/productsV4/0000010744/MD_0000010744_29411_09.jpg?201308142051
+            productActive: true
+            merchantOrderId: My_Merchant_Order_Id
+            unitPrice: '101.42'
+            quantity: '1.00'
+            margin: '9.66'
+
+  trackedExternalOrderProduct:
+    type: object
+    required:
+    - productSku
+    properties:
+      productSku:
+        type: string
+        description: The product sku received related to the external order.
+        example: 'something'
+      productTitle:
+        type: string
+        description: We tried to get the catalog product title based on the product SKU. This property can be null, if we cannot found the product. This is possible if the product is not referenced in the imported catalog.
+        example: Something great
+      productImageUrl:
+        type: string
+        format: uri
+        description: We tried to get the catalog product image Url based on the product SKU. This property can be null, if we cannot found the product. This is possible if the product is not referenced in the imported catalog.
+        example: http://cdn3.sarenza.net/static/_img/productsV4/0000010744/MD_0000010744_29411_09.jpg?201308142051
+      productActive:
+        type: boolean
+        description: We tried to get the catalog product if it's still active based on the product SKU. This property can be null, if we cannot found the product. This is possible if the product is not referenced in the imported catalog.
+        example: true
+      productId:
+        type: string
+        format: guid
+        description: We tried to get the catalog product identifier based on the product SKU. This property can be null, if we cannot found the product. This is possible if the product is not referenced in the imported catalog.
+        example: '6d469a54-8426-4855-abc2-9e062e2056b9'
+
+      unitPrice:
+        type: string
+        description: "The product's unit price related to this external order. This property is voluntarily a string because the value could be an invalid one."
+        example: '101.42'
+      quantity:
+        type: string
+        description: Indicate the product's quantity ordered. This property is voluntarily a string because the value could be an invalid one
+        example: '1.00'
+      margin:
+        type: string
+        description: Indicate the product's margin related to this order. This property is voluntarily a string because the value could be an invalid one
+        example: '9.66'
+        
+        
+  trackingStatus:
+    type: object
+    required:
+    - clickSynchronizationUtcDate
+    - orderSynchonizationUtcDate
+    - marketplaceOrderSynchonizationUtcDate
+    properties:
+      clickSynchronizationUtcDate:
+        description: The utc date of the latest click synchronized
+        type: string
+        format: date-time
+        example: '2016-08-29T09:12:33.001Z'
+      orderSynchonizationUtcDate:
+        description: The utc date of the latest order synchronized
+        type: string
+        format:  date-time
+        example: '2016-08-29T09:12:33.001Z'
+      marketplaceOrderSynchonizationUtcDate:
+        description: The utc date of the latest marketplace order synchronized
+        type: string
+        format:  date-time
+        example: '2016-08-29T09:12:33.001Z'
+          
+  storeTrackingStatus:
+    type: object
+    properties:
+      clickSynchronizationUtcDate:
+        description: The utc date of the latest click synchronized
+        type: string
+        format: date-time
+        example: '2016-08-29T09:12:33.001Z'
+      orderSynchonizationUtcDate:
+        description: The utc date of the latest order synchronized
+        type: string
+        format:  date-time
+        example: '2016-08-29T09:12:33.001Z'
+      marketplaceOrderSynchonizationUtcDate:
+        description: The utc date of the latest marketplace order synchronized
+        type: string
+        format:  date-time
+        example: '2016-08-29T09:12:33.001Z'
+
+  reportFilters:
+    type: object
+    properties:
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      reportFilters:
+        type: array
+        items:
+          $ref: '#/definitions/reportFilterHeader'
+      links:
+        type: array
+        items: 
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+        example:
+          - href: /v2/user/analytics/{storeId}/reports/filters
+            rel: self
+            operationId: GetReportFilters
+            method: GET
+            parameters:
+              - name: storeId
+                type: string
+                in: path
+                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+              - name: reportFilterId
+                type: string
+                in: path
+          - href: /v2/user/analytics/{storeId}/reports/filters/{reportFilterId}
+            rel: SaveReportFilter
+            operationId: SaveReportFilter
+            method: PUT
+            parameters:
+              - name: storeId
+                type: string
+                in: path
+                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+              - name: reportFilterId
+                type: string
+                in: path
+              
+          
+  
+  reportFilterHeader:
+    type: object
+    required:
+    - reportFilterName
+    - reportFilterId
+    - links
+    properties:
+      reportFilterId:
+        description: Report filter identifier
+        type: string
+        format: guid
+        example: fb19c53c-2f63-4262-9d94-2d7faa500acd
+      reportFilterName:
+        description: Report filter name
+        type: string
+        example: 'My report filter'
+      links:
+        description: The list of action you can do on the filter subject
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+        example:
+          - href: /v2/user/analytics/{storeId}/reports/filters/{reportFilterId}
+            rel: self
+            operationId: GetReportFilter
+            method: GET
+            parameters:
+              - name: storeId
+                type: string
+                in: path
+                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+              - name: reportFilterId
+                type: string
+                in: path
+                value: fb19c53c-2f63-4262-9d94-2d7faa500acd
+  
+
+  saveReportFilterRequest:
+    type: object
+    required:
+    - reportFilterName
+    - parameters
+    properties:
+      reportFilterName:
+        description: Report filter name
+        type: string
+        example: My report filter
+      parameters:
+        $ref: '#/definitions/reportFilterParameters'
+
+
+  reportFilter:
+    type: object
+    required:
+    - reportFilterId
+    - reportFilterName
+    - parameters
+    properties:
+      reportFilterId:
+        description: Report filter identifier
+        type: string
+        format: guid
+        example: fb19c53c-2f63-4262-9d94-2d7faa500acd
+      reportFilterName:
+        description: Report filter name
+        type: string
+        example: My report filter
+      parameters:
+        $ref: '#/definitions/reportFilterParameters'
+      links:
+        description: Indicates the actions you can do on this report filter
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+        example:
+          - href: /v2/user/analytics/{storeId}/reports/filters/{reportFilterId}
+            rel: self
+            operationId: GetReportFilter
+            method: GET
+            parameters:
+              - name: storeId
+                type: string
+                in: path
+                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+              - name: reportFilterId
+                type: string
+                in: path
+                value: fb19c53c-2f63-4262-9d94-2d7faa500acd
+          - href: /v2/user/analytics/{storeId}/reports/filters/{reportFilterId}
+            rel: DeleteReportFilter
+            operationId: DeleteReportFilter
+            method: DELETE
+            parameters:
+              - name: storeId
+                type: string
+                in: path
+                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+              - name: reportFilterId
+                type: string
+                in: path
+                value: fb19c53c-2f63-4262-9d94-2d7faa500acd
+          - href: /v2/user/analytics/{storeId}/reports/filters/{reportFilterId}
+            rel: SaveReportFilter
+            operationId: SaveReportFilter
+            method: PUT
+            parameters:
+              - name: storeId
+                type: string
+                in: path
+                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+              - name: reportFilterId
+                type: string
+                in: path
+                value: fb19c53c-2f63-4262-9d94-2d7faa500acd
+      
+
+  reportFilterParameters:
+    allOf:
+    - $ref: '#/definitions/reportFilterCommonParameters'
+    - type: object
+      required:
+      - beginPeriodUtcDate
+      - endPeriodUtcDate
+      - advancedFilters
+      - reportType
+      properties:
+        reportType:
+         $ref: '#/definitions/reportType'
+        productState:
+         $ref: '#/definitions/productStateFilter'
+        productFilters:
+          $ref: '#/definitions/productFilters'
+
+  reportType:
+    type: string
+    description: The report type 
+    enum:
+    - ByChannel
+    - ByCategory
+    - ByProduct
+    example: ByProduct
+  
+  rules:
+    type: object
+    required:
+    - rules
+    - links
+    properties:
+# [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      rules:
+        description: Rule list
+        type: array
+        items:
+          $ref: '#/definitions/rule'
+
+      links:
+        description: Links to know if the user can create a rule or run all rules
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+        example:
+        - href: /v2/user/analytics/{storeId}/rules
+          rel: self
+          operationId: GetRules
+          method: GET
+          parameters:
+            - name: storeId
+              type: string
+              in: path
+              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+        - href: /v2/user/analytics/{storeId}/rules
+          rel: CreateRule
+          operationId: CreateRule
+          method: POST
+          parameters:
+            - name: storeId
+              type: string
+              in: path
+              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+        - href: /v2/user/analytics/{storeId}/rules/executions
+          rel: GetRulesExecutions
+          operationId: GetRulesExecutions
+          method: GET
+          parameters:
+            - name: storeId
+              type: string
+              in: path
+              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+        - href: /v2/user/analytics/{storeId}/rules/run
+          rel: RunRules
+          operationId: RunRules
+          method: POST
+          parameters:
+            - name: storeId
+              type: string
+              in: path
+              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+
+  
+  optimisationActionName:
+    description: The optimisation action
+    type: string
+    enum:
+      - reenable
+      - disable
+    example: reenable
+    
+  ruleLastExecutionStatus:
+    description: The status of the last execution
+    enum:
+      - InProgress
+      - Succeeded
+      - Failed
+      - Unknown
+    type: string
+    example: Succeeded  
+
+  rule:
+    type: object
+    required:
+    - ruleId
+    - ruleName
+    - actionName
+    - reportFilterId
+    - position
+    - enabled
+    - links
+    properties:
+      ruleId:
+        format: guid
+        description: The identifier of the rule
+        type: string
+        example: c38006b4-29d0-4b8a-978b-701a0b12d5a8
+      ruleName:
+        description: The name of the rule
+        type: string
+        example: My Rule
+      lastExecutionStatus:
+        $ref: '#/definitions/ruleLastExecutionStatus'
+      lastExecutionUtcDate:
+        format: date-time
+        description: The utc date of the last execution
+        type: string
+        example: '2016-08-29T09:12:33.001Z'
+      actionName:
+        $ref: '#/definitions/optimisationActionName'
+      reportFilterId:
+        description: Report filter identifier linked to the rule
+        type: string
+        format: guid
+        example: fb19c53c-2f63-4262-9d94-2d7faa500acd
+      position:
+        description: Rule execution position
+        type: integer
+        example: 1
+      enabled:
+        description: Is the rule enabled
+        type: boolean
+        example: true
+      validityStartUtcDate:
+        format: date-time
+        description: Rule validity start utc date
+        type: string
+        example: '2016-08-29T09:12:33.001Z'
+      validityEndUtcDate:
+        format: date-time
+        description: Rule validity end utc date
+        type: string
+        example: '3016-08-29T09:12:33.001Z'
+      links:
+        description: Links to retrieve/action on other entities
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+        example: 
+        - href: /v2/user/analytics/{storeId}/rules/{ruleId}
+          rel: self
+          operationId: GetRule
+          method: GET
+          parameters:
+           - name: storeId
+             type: string
+             in: path
+             value: '10af9486-e28e-47ab-b045-e13e4acd55c3'
+           - name: ruleId
+             type: string
+             in: path
+             value: 'c38006b4-29d0-4b8a-978b-701a0b12d5a8'
+        - href: /v2/user/analytics/{storeId}/rules/{ruleId}
+          rel: UpdateRule
+          operationId: UpdateRule
+          method: PATCH
+          parameters:
+            - name: storeId
+              type: string
+              in: path
+              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+            - name: ruleId
+              type: string
+              in: path
+              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
+        - href: /v2/user/analytics/{storeId}/rules/{ruleId}
+          rel: DeleteRule
+          operationId: DeleteRule
+          method: DELETE
+          parameters:
+            - name: storeId
+              type: string
+              in: path
+              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+            - name: ruleId
+              type: string
+              in: path
+              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
+        - href: /v2/user/analytics/{storeId}/rules/{ruleId}/run
+          rel: RunRule
+          operationId: RunRule
+          method: POST
+          parameters:
+            - name: storeId
+              type: string
+              in: path
+              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+            - name: ruleId
+              type: string
+              in: path
+              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
+        - href: /v2/user/analytics/{storeId}/rules/{ruleId}/moveup
+          rel: MoveUpRule
+          operationId: MoveUpRule
+          method: POST
+          parameters:
+            - name: storeId
+              type: string
+              in: path
+              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+            - name: ruleId
+              type: string
+              in: path
+              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
+        - href: /v2/user/analytics/{storeId}/rules/{ruleId}/movedown
+          rel: MoveDownRule
+          operationId: MoveDownRule
+          method: POST
+          parameters:
+            - name: storeId
+              type: string
+              in: path
+              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+            - name: ruleId
+              type: string
+              in: path
+              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
+        - href: /v2/user/analytics/{storeId}/rules/{ruleId}/enable
+          rel: EnableRule
+          operationId: EnableRule
+          method: POST
+          parameters:
+            - name: storeId
+              type: string
+              in: path
+              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+            - name: ruleId
+              type: string
+              in: path
+              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
+        - href: /v2/user/analytics/{storeId}/rules/{ruleId}/disable
+          rel: DisableRule
+          operationId: DisableRule
+          method: POST
+          parameters:
+            - name: storeId
+              type: string
+              in: path
+              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+            - name: ruleId
+              type: string
+              in: path
+              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
+        - href: /v2/user/analytics/{storeId}/reports/filters/{reportFilterId}
+          rel: GetReportFilter
+          operationId: GetReportFilter
+          method: GET
+          parameters:
+            - name: storeId
+              type: string
+              in: path
+              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+            - name: reportFilterId
+              type: string
+              in: path
+              value: fb19c53c-2f63-4262-9d94-2d7faa500acd
+
+  createRuleRequest:
+    required:
+      - optimisationActionName
+      - ruleName
+      - reportFilterId
+    type: object
+    properties:
+      optimisationActionName:
+       $ref: '#/definitions/optimisationActionName'
+      ruleName:
+        description: The name of the rule
+        type: string
+        example: My rule
+      reportFilterId:
+        format: guid
+        description: The report filter to use for the rule
+        type: string
+        example: fb19c53c-2f63-4262-9d94-2d7faa500acd
+      startUtcDate:
+        format: date-time
+        description: The start validity utc date of the rule
+        type: string
+        example: 2016-08-29T09:12:33.001Z
+      endUtcDate:
+        format: date-time
+        description: The end validity utc date of the rule
+        type: string
+        example: 2017-09-30T10:42:40.001Z
+        
+  updateRuleRequest:
+    description: This update will replace the following values.
+    type: object
+    required:
+    - ruleName
+    properties:
+      ruleName:
+        description: The name of the rule
+        type: string
+        example: My Rule
+      startUtcDate:
+        format: date-time
+        description: Not required. The start validity utc date of the rule.
+        type: string
+        example: 2016-08-29T09:12:33.001Z
+      endUtcDate:
+        format: date-time
+        description: Not required. The end validity utc date of the rule
+        type: string
+        example: 2016-08-29T09:12:33.001Z
+
+  ruleExecutionReportings:
+    type: object
+    properties:
+# [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      executions:
+        description: The rules executions history
+        type: array
+        items:
+          $ref: '#/definitions/ruleExecutionReporting'
+      paginationResult:
+       $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
+       
+       
+  ruleExecutionReportingStatus:
+        description: The status of the execution of the rule
+        enum:
+          - InProgress
+          - Succeeded
+          - Failed
+          - Unknown
+        type: string
+        example: Succeeded
+        
+  ruleExecutionReportingErrorType:
+        description: The error type for this execution if any
+        enum:
+          - ChannelNotPresent
+          - StoreIsInSystemBlockState
+        type: string
+        example: ChannelNotPresent       
+        
+  ruleExecutionReportingExecutionSource:
+        description: The requestor type for the execution of the rule
+        enum:
+          - Scheduler
+          - User
+        type: string
+        example: User
+       
+  ruleExecutionReporting:
+    type: object
+    required:
+    - ruleId
+    - ruleName
+    - status
+    - executionSource
+    properties:
+      ruleId:
+        description: The rule identifier
+        type: string
+        format: guid
+        example: fd9a23a1-569b-40af-af91-f7275a57bf89
+      ruleName:
+        description: The name of the rule
+        type: string
+        example: toto
+      startedUtcDate:
+        format: date-time
+        description: The start utc date of the execution of the rule
+        type: string
+        example: 2016-08-29T09:12:33.001Z
+      completedUtcDate:
+        format: date-time
+        description: The completed utc date of the execution of the rule
+        type: string
+        example: 2016-08-29T09:12:33.001Z
+      status:
+        $ref: '#/definitions/ruleExecutionReportingStatus'
+      errorType:
+        $ref: '#/definitions/ruleExecutionReportingErrorType'
+      affectedProductCount:
+        description: The count of affected products, active or not
+        type: integer
+        example: 1
+      activeAffectedProductCount:
+        description: The count of affected active products
+        type: integer
+        example: 1
+      affectedChannelCount:
+        description: The count of affected Channels across all products
+        type: integer
+        example: 1
+      optimisationActionName:
+       $ref: '#/definitions/optimisationActionName'
+      userId:
+        format: guid
+        description: The userId that executed the rule if any
+        type: string
+        example: e8289350-69f8-45a6-b0ca-b641c83e0422
+      executionSource:
+        $ref: '#/definitions/ruleExecutionReportingExecutionSource'
+      reportUrl:
+        description: The url for the excel report for this execution
+        type: string
+        example: http://www.google.com
+      links:
+        description: Links to retrieve/action on this rule execution
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+        example:
+          - href: /v2/user/analytics/{storeId}/rules/{ruleId}
+            rel: GetRule
+            operationId: GetRule
+            method: GET
+            parameters:
+              - name: storeId
+                type: string
+                in: path
+                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+              - name: ruleId
+                type: string
+                in: path
+                value: fd9a23a1-569b-40af-af91-f7275a57bf89
+# Added by API Auto Mocking Plugin
+x-host: api.beezup.com
+x-basePath: /v2/user/analytics
+# basePath: /v2/user/analytics
+# host: api.beezup.com
+schemes:
+ - https
+x-azure-api-id: 'V2UserAnalytics'
+# host: api.beezup.com
+# basePath: /v2/user/analytics
+# Added by API Auto Mocking Plugin
+#host: virtserver.swaggerhub.com
+#basePath: /BeezUP/user_analytics/2.0
