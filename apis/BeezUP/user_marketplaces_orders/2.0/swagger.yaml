@@ -22,6 +22,7 @@ info:
     name: BeezUP 
     url: http://www.beezup.com  
   
+  
 externalDocs: 
   description: BeezUP API documentation
   url: https://beezup.github.io/api-docs/
