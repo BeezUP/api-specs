@@ -1,0 +1,743 @@
+### Domains, a place to put your reuseable components
+
+### Examples...
+
+parameters:
+  storeIdOnlyGeneralParameters:
+    name: storeId
+    in: path
+    required: true
+    type: string
+    format: guid
+    description: Your store identifier
+    
+  
+
+    
+    
+responses:
+  GeneralError:
+    description: Occurs when something goes wrong
+    schema:
+      $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage
+  
+
+definitions:
+
+
+
+  BeezUP.Common.ProductBasicInfo:
+    description: The basic information related to a product
+    type: object
+    required:
+    - productId
+    - productSku
+    - productTitle
+    - productImageUrl
+    - productActiv ae
+    properties:
+      productId:
+        format: guid
+        type: string
+        description: The product identifier
+        example: '00000000-0000-0000-0000-000000000000'
+      productSku:
+        type: string
+        description: The product SKU
+        example: SKU1234
+      productTitle:
+        type: string
+        description: The product tile
+        example: My supert product
+      productImageUrl:
+        type: string
+        format: uri
+        description: The product image Url
+        example: http://i2.cdscdn.com/pdt2/3/9/0/1/550x550/hai6901018043390/rw/haier-b20fwrss-refrigerateur-americain.jpg
+      productActive:
+        type: boolean
+        description: Indicates if the product still exists in your catalog
+        example: true
+
+
+  BeezUP.Common.ChannelBasicInfo:
+    description: The basic info related to a channel
+    type: object
+    required:
+    - channelId
+    - channelName
+    - channelImageUrl
+    properties:
+      channelId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
+      channelName:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelName'
+      channelImageUrl:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
+
+
+
+  BeezUP.Common.CatalogColumnId:
+    type: string
+    format: guid
+    description: The catalog column identifier (catalog or custom column) 
+    example: 'bea7c21e-948b-4ac3-9ffd-4396e62c4163'
+
+
+  BeezUP.Common.CatalogColumnUserName:
+    type: string
+    description: The catalog column named by the user (catalog or custom column)
+    example: 'My title'
+
+
+  BeezUP.Common.ChannelColumnName:
+    type: string
+    description: The channel column name
+    example: 'NAME'
+
+
+
+  BeezUP.Common.ColumnImportance:
+    type: string
+    description: >-
+      Importance of the column
+    enum:
+      - Required
+      - Recommended
+      - Optional
+    example: Required
+    default: Optional
+
+  BeezUP.Common.ColumnDataType:
+    description: Data type of the column, will be used for parsing and for consolidation proces
+    enum:
+      - String
+      - Url
+      - Text
+      - Decimal
+      - DateTime
+      - Int
+      - SpecialInt
+      - InStock
+      - Unknown
+      - ImageUrl
+    type: string
+    default: String
+    example: String
+
+
+
+  BeezUP.Common.BeezUPColumnName:
+    type: string
+    description: The BeezUP column name
+    example: CategoryFirstLevel
+
+
+
+  BeezUP.Common.MarketplaceTechnicalCode:
+    description: The technical code of the marketplace.
+    type: string
+    example: Amazon
+    x-lov: OMMarketplaceTechnicalCode
+
+  BeezUP.Common.MarketplaceAccountId:
+    description: The marketplace account identifier in BeezUP. This account identifier is based on your api settings.
+    type: integer
+    format: int32
+    example: 1234
+
+  BeezUP.Common.MarketplaceBusinessCode:
+    description: In an marketplace technical code like CDiscount you can have several marketplaces like GO SPORT, etc. We identify them by a business code.
+    type: string
+    example: GOSPORT
+    x-lov: MarketplaceBusinessCode
+
+  BeezUP.Common.CountryIsoCodeAlpha3:
+    description: The country iso code alpha 3 <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3">(ISO 3166-1_alpha-3)</a>
+    type: string
+    x-lov: Country
+    example: FRA
+
+
+  BeezUP.Common.CurrencyCode:
+    description: |
+      The currency code <a href="https://en.wikipedia.org/wiki/ISO_4217">(ISO 4217)</a>
+    type: string
+    example: EUR
+
+  BeezUP.Common.Email:
+    description: The email
+    type: string
+    format: email
+    pattern: ^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$
+    example: paulsimon@mysupercompany.com
+
+  BeezUP.Common.UserId:
+    format: guid
+    description: The user identifier
+    type: string
+    example: 8a7fbdec-9e71-472e-9974-27d5c1d57cf8
+
+  BeezUP.Common.StoreId:
+    format: guid
+    description: The store identifier
+    type: string
+    example: 64f43358-63a1-47f7-97ec-0301fc39956b
+    
+  BeezUP.Common.ChannelCatalogId:
+    type: string
+    format: guid
+    description: The channel catalog identifier
+    example: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
+
+
+  BeezUP.Common.ChannelCategoryId:
+    type: string
+    format: guid
+    example: '24f508da-a069-4467-b9d3-15baebe9bac7'
+        
+  BeezUP.Common.ChannelCategoryPath:
+    description: The channel category path
+    type: array
+    items:
+      type: string
+    example:
+    - Clothing
+    - Women
+    - Shoes
+
+  BeezUP.Common.CatalogCategoryPath:
+    description: The catalog category path
+    type: array
+    items:
+      type: string
+    example:
+    - Vêtements
+    - Femmes
+    - Chaussures
+
+
+  BeezUP.Common.CatalogCategoryId:
+    description: The catalog category identifier
+    type: string
+    format: guid
+    example: '81a058a6-0451-4b79-84ef-94c58d0ed4ac'
+
+
+  BeezUP.Common.ChannelId:
+    type: string
+    format: guid
+    description: The channel identifier
+    example: '2dc136a7-0d3d-4cc9-a825-a28a42c53e28'
+
+  BeezUP.Common.ChannelName:
+    type: string
+    description: The channel name
+    example: Amazon FRA
+
+
+  BeezUP.Common.ProductId:
+    type: string
+    format: guid
+    description: The product identifier
+    example: '578419df-1bbf-41a6-96fa-862e42182b67'
+
+
+  BeezUP.Common.ChannelColumnId:
+    type: string
+    format: guid
+    description: The channel column identifier
+    example: '8a76f06a-fefc-4c0d-bcfe-b210f1482977'    
+
+
+  BeezUP.Common.ListOfValueItem:
+    description: This object is used by LOV apis
+    type: object
+    required:
+    - codeIdentifier
+    - intIdentifier
+    properties:
+      position:
+        format: int32
+        type: integer
+        example: 1
+      codeIdentifier:
+        type: string
+        example: FRA
+      translationText:
+        type: string
+        example: France
+      intIdentifier:
+        format: int32
+        type: integer
+        example: 1
+  
+  BeezUP.Common.PaginationResult:
+    type: object
+    example:
+      entryCount: 25
+      links:
+        - rel: first
+          method: GET
+          hRef: /v2/user/marketplaces/orders
+          parameters:
+          - name: beginPeriodUtcDate
+            value: 2014-08-25T07:32:31.584Z
+            in: query
+          - name: endPeriodUtcDate
+            value: 2014-09-24T07:32:31.584Z
+            in: query
+          - name: pageSize
+            value: 25
+            in: query
+          - name: pageNumber
+            value: 1
+            in: query
+        - rel: last
+          method: GET
+          hRef: /v2/user/marketplaces/orders
+          parameters:
+          - name: beginPeriodUtcDate
+            value: 2014-08-25T07:32:31.584Z
+            in: query
+          - name: endPeriodUtcDate
+            value: 2014-09-24T07:32:31.584Z
+            in: query
+          - name: pageSize
+            value: 25
+            in: query
+          - name: pageNumber
+            value: 38
+            in: query
+        - rel: next
+          method: GET
+          href: /v2/user/marketplaces/orders
+          parameters:
+          - name: beginPeriodUtcDate
+            value: 2014-08-25T07:32:31.584Z
+            in: query
+          - name: endPeriodUtcDate
+            value: 2014-09-24T07:32:31.584Z
+            in: query
+          - name: pageSize
+            value: 25
+            in: query
+          - name: pageNumber
+            value: 2
+            in: query
+      pageCount: 38
+      totalEntryCount: 943
+    properties:
+      entryCount: 
+        type: integer
+        description: The entry count currently returned
+        example: 25
+        minimum: 0
+      links:
+        description: The navigation links 'first', 'last', 'next', 'previous'
+        type: array
+        uniqueItems: true
+        minItems: 0
+        items: 
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+      pageCount: 
+        type: integer
+        description: The page count
+        example: 38
+        minimum: 0
+      totalEntryCount: 
+        type: integer
+        description: The total entry count
+        example: 943
+        minimum: 0
+
+
+
+  BeezUP.Common.Href:
+    type: string
+    example: /v2/marketplaces/orders/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}
+    description: Indicate the relative uri for this link
+    
+    
+  BeezUP.Common.OperationId:
+    type: string
+    description: The operationId to call.
+    example: GetOrder
+  BeezUP.Common.HttpMethod:
+    type: string
+    enum:
+    - GET
+    - POST
+    - PATCH
+    - DELETE
+    - PUT
+    - HEAD
+    default: GET
+    example: GET
+    description: Indicate the http method to use on this link
+  
+
+  BeezUP.Common.Link3:
+    type: object
+    properties:
+      description:
+        type: string
+        description: The description of the link
+      href:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Href
+        type: string
+        format: uri
+      operationId:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.OperationId
+        type: string
+      method:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpMethod
+        type: string
+      parameters:
+        properties:
+          default: 
+            $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameter3
+        additionalProperties:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameter3
+      templated:
+        type: boolean
+        description: indicates whether the href is templated or not
+      info:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
+
+
+  BeezUP.Common.Link2:
+    type: object
+    required:
+    - rel
+    properties:
+      rel:
+        type: string
+        description: Indicate the relation name related to the link
+        example: self
+      href:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Href
+      operationId:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.OperationId
+      method:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpMethod
+      parameters:
+        type: array
+        uniqueItems: true
+        minItems: 0
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameter2
+      info:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
+
+  BeezUP.Common.LinkParameter3:
+    type: object
+    properties:
+
+      value:
+        type: string
+        description: The value of the parameter
+        example: '1234'
+      required:
+        type: boolean
+        example: true
+      in:
+        type: string
+        description: |
+          * path: if the parameter must be pass in the path uri
+          * header: if the parameter must be passed in http header
+          * query: if the parameter must be passed in querystring
+          * body: if the paramter must be passed in the body
+        example: path
+        enum: 
+          - path
+          - header
+          - query
+          - body
+      type:
+        description: The value type of the parameter
+        type: string
+        enum:
+          - string
+          - integer
+          - number
+          - boolean
+          - object
+          - array
+          - date
+          - date-time
+        example: string
+      lovLink:
+        description: This parameter expect the values indicated in this list of values.
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2
+      lovRequired:
+        type: boolean
+        description: If true, you MUST use indicate a value from the list of values otherwise it's a freetext
+        example: true
+      description:
+        type: string
+        description: description of the parameter
+        example: the store identifier
+      schema:
+        type: string
+        description: schema of the parameter
+
+        
+  BeezUP.Common.LinkParameter2:
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        type: string
+        description: The name of the parameter
+        example: marketplaceTechnicalCode
+      value:
+        type: string
+        description: The value of the parameter
+        example: '1234'
+      required:
+        type: boolean
+        example: true
+      in:
+        type: string
+        description: |
+          * path: if the parameter must be pass in the path uri
+          * header: if the parameter must be passed in http header
+          * query: if the parameter must be passed in querystring
+          * body: if the paramter must be passed in the body
+        example: path
+        enum: 
+          - path
+          - header
+          - query
+          - body
+      type:
+        description: The value type of the parameter
+        type: string
+        enum:
+          - string
+          - integer
+          - number
+          - boolean
+          - object
+          - array
+          - date
+          - date-time
+        example: string
+      lovLink:
+        description: This parameter expect the values indicated in this list of values.
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2
+      lovRequired:
+        type: boolean
+        description: If true, you MUST use indicate a value from the list of values otherwise it's a freetext
+        example: true
+        
+  BeezUP.Common.LOVLink2:
+    description: Describe the way you have to follow to get access to the LOV
+    type: object
+    required:
+    - listName
+    properties:
+      rel:
+        type: string
+        description: Indicate the relation name related to the link
+        example: LOV_Go2CultureName
+      href:
+        type: string
+        default: /v2/user/{listName}
+        example: /v2/public/{listName}
+        description: Indicate the relative uri pattern to the list of value
+      listName:
+        type: string
+        description: The name of the list of value
+        example: Go2CultureName
+        
+  BeezUP.Common.LOVLink3:
+    description: Describe the way you have to follow to get access to the LOV
+    type: object
+    required:
+    - listName
+    properties:
+      href:
+        type: string
+        format: uri
+        example: /v2/public/Go2CultureName
+        description: Indicate the uri to the list of value
+
+  BeezUP.Common.HttpUrl:
+    description: The URL <a href="https://en.wikipedia.org/wiki/URL">https://en.wikipedia.org/wiki/URL</a>
+    type: string
+    #format: uri
+    pattern: ^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$
+    example: http://www.mydomain.com
+   
+  BeezUP.Common.ErrorResponseMessage:
+    type: object
+    required:
+    - errors
+    properties:
+      errors:
+        type: array
+        uniqueItems: false
+        items: 
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage
+  
+  
+
+  BeezUP.Common.UserErrorMessage:
+    type: object
+    required:
+    - code
+    - message
+    properties:
+      docUrl:
+        type: string
+        format: uri
+        description: The documentation related to this error or this operation.
+        example: https://beezup.github.io/api-docs/#operation/EnableChannelCatalog
+      code:
+        type: string
+        description: the error code. The error code can be a pattern containing the argument's name
+        example: CatalogImportationAlreadyInProgress(ExecutionId currentCatalogImportationId)
+      message:
+        type: string
+        description: The error message
+        example: |
+            There is already an importation in progress: b24d0dd8-a561-478a-9b26-34f573f03527
+      cultureName:
+        type: string
+        description: If the error is translated, the culture name will be indicated
+        example: en
+        x-lov: Go2CultureName
+      arguments:
+        type: array
+        description: a dictionary string/object
+        items:
+          type: object
+          required:
+          - name
+          - value
+          properties:
+            name:
+              type: string
+              description: The key of the parameter
+              example: currentCatalogImportationId
+            value:
+              type: object
+              description: The value of the parameter. Depending to the type.
+              example: b24d0dd8-a561-478a-9b26-34f573f03527
+          
+  BeezUP.Common.InfoSummaries:
+    type: object
+    properties:
+      successes:
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.SuccessSummary
+      errors:
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorSummary
+      warnings:
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.WarningSummary
+      informations:
+        type: array
+        items:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummary
+          
+  BeezUP.Common.SuccessSummary:
+    type: object
+    properties:
+      successCode:
+        type: string
+      successMessage:
+        type: string
+      successArguments:
+        type: object
+        additionalProperties:
+          type: string
+      propertyName:
+        type: string
+      propertyValue:
+        type: string
+      objectName:
+        type: string
+        
+  BeezUP.Common.ErrorSummary:
+    type: object
+    properties:
+      utcDate:
+        format: date-time
+        type: string
+      errorGuid:
+        format: uuid
+        type: string
+      errorCode:
+        type: string
+      errorMessage:
+        type: string
+      technicalErrorMessage:
+        type: string
+      exceptionDetail:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ExceptionDetail
+      errorArguments:
+        type: object
+        additionalProperties:
+          type: string
+      propertyName:
+        type: string
+      propertyValue:
+        type: string
+      objectName:
+        type: string
+      source:
+        type: string
+        
+  BeezUP.Common.WarningSummary:
+    type: object
+    properties:
+      technicalErrorMessage:
+        type: string
+      warningMessage:
+        type: string
+      warningCode:
+        type: string
+      warningArguments:
+        type: object
+        additionalProperties:
+          type: string
+          
+  BeezUP.Common.InfoSummary:
+    type: object
+    properties:
+      informationCode:
+        type: string
+      informationMessage:
+        type: string
+      informationArguments:
+        type: object
+        additionalProperties:
+          type: string
+      propertyName:
+        type: string
+      propertyValue:
+        type: string
+      objectName:
+        type: string
+        
+  BeezUP.Common.ExceptionDetail:
+    type: object
+    properties:
+      helpLink:
+        type: string
+      #innerException:
+      #  $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ExceptionDetail
+      message:
+        type: string
+      stackTrace:
+        type: string
+      type:
+        type: string
