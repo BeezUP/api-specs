@@ -264,13 +264,11 @@ paths:
               type: string
               x-example: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Days.xslx
           schema:
-            type: array
-            items:
-              $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-            example:
-              - href: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Days.xslx
-                rel: document
-                method: GET 
+            $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+          examples:
+            application/json:
+              href: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Days.xslx
+              method: GET 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
         
@@ -1436,7 +1434,77 @@ definitions:
         items:
           $ref: '#/definitions/reportByDayByChannel'
 
+        
+  links.GetChannelCatalogProductInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/channelCatalogs/8f95eb1a-3691-4750-950d-a13c4a8a9bcc/products/6d469a54-8426-4855-abc2-9e062e2056b9
+        method: GET
 
+
+
+  links.OptimiseByProductLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/analytics/8f95eb1a-3691-4750-950d-a13c4a8a9bcc/optimisations/byProduct/6d469a54-8426-4855-abc2-9e062e2056b9/enable
+        method: POST
+        parameters:
+        - name: request
+          in: body
+          type: array
+          value: 
+            - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
+  
+  links.OptimiseByCategoryLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/analytics/8f95eb1a-3691-4750-950d-a13c4a8a9bcc/optimisations/byCategory/4c376178-25b4-4656-a86e-e3bd3a25b139/enable
+        method: POST
+        parameters:
+        - name: request
+          in: body
+          type: array
+          value: 
+            - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
+
+  links.OptimiseByChannelLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/analytics/8f95eb1a-3691-4750-950d-a13c4a8a9bcc/optimisations/byChannel/a2d38563-50f0-43f1-be2b-b16e7ec4f007/enable
+        method: POST
+
+  
+    
+  
+  reportByProductLinks:
+    type: object
+    properties:
+      editProduct:
+        $ref: '#/definitions/links.GetChannelCatalogProductInfoLink'
+      enableProduct:
+        $ref: '#/definitions/links.OptimiseByProductLink'
+      disableProduct:
+        $ref: '#/definitions/links.OptimiseByProductLink'
+      
+  reportByCategoryLinks:
+    type: object
+    properties:
+      enableProducts:
+        $ref: '#/definitions/links.OptimiseByCategoryLink'
+      disableProducts:
+        $ref: '#/definitions/links.OptimiseByCategoryLink'
+        
+  reportByChannelLinks:
+    type: object
+    properties:
+      enableProducts:
+        $ref: '#/definitions/links.OptimiseByChannelLink'
+      disableProducts:
+        $ref: '#/definitions/links.OptimiseByChannelLink'
 
   reportByProduct:
     type: object
@@ -1487,66 +1555,7 @@ definitions:
         description: The performance indicator based on the performance indicator formula indicated in the request for this product
         example: 10.12
       links:
-        description: The action list on this product
-        type: array
-        items:
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-        example:
-          - href: /{channelCatalogId}/products/{productId}/overrides
-            operationId: OptimiseByProduct
-            rel: EditProduct
-            parameters:
-              - name: channelCatalogId
-                in: path
-                type: string
-                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
-              - name: productId
-                in: path
-                type: string
-                value: 6d469a54-8426-4855-abc2-9e062e2056b9
-          - href: /v2/user/analytics/{storeId}/optimisations/byproduct/{productId}/{actionName}
-            operationId: OptimiseByProduct
-            rel: EnableProduct
-            parameters:
-              - name: storeId
-                in: path
-                type: string
-                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
-              - name: productId
-                in: path
-                type: string
-                value: 6d469a54-8426-4855-abc2-9e062e2056b9
-              - name: actionName
-                in: path
-                type: string
-                value: reenable
-              - name: request
-                in: body
-                type: array
-                value: 
-                  - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
-                  
-          - href: /v2/user/analytics/{storeId}/optimisations/byproduct/{productId}/{actionName}
-            operationId: OptimiseByProduct
-            rel: DisableProduct
-            parameters:
-              - name: storeId
-                in: path
-                type: string
-                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
-              - name: productId
-                in: path
-                type: string
-                value: 6d469a54-8426-4855-abc2-9e062e2056b9
-              - name: actionName
-                in: path
-                type: string
-                value: disable
-              - name: request
-                in: body
-                type: array
-                value: 
-                  - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
+        $ref: '#/definitions/reportByProductLinks'
 
   reportByCategory:
     type: object
@@ -1600,54 +1609,7 @@ definitions:
         example: 25.33
 
       links:
-        description: The action list on this catagory
-        type: array
-        items:
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-        example:
-          - href: /v2/user/analytics/{storeId}/optimisations/bycategory/{catalogCategoryId}/{actionName}
-            operationId: OptimiseByCategory
-            rel: EnableProducts
-            parameters:
-              - name: storeId
-                in: path
-                type: string
-                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
-              - name: catalogCategoryId
-                in: path
-                type: string
-                value: 4c376178-25b4-4656-a86e-e3bd3a25b139
-              - name: actionName
-                in: path
-                type: string
-                value: reenable
-              - name: request
-                in: body
-                type: array
-                value: 
-                  - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
-                  
-          - href: /v2/user/analytics/{storeId}/optimisations/bycategory/{catalogCategoryId}/{actionName}
-            operationId: OptimiseByCategory
-            rel: DisableProducts
-            parameters:
-              - name: storeId
-                in: path
-                type: string
-                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
-              - name: catalogCategoryId
-                in: path
-                type: string
-                value: 4c376178-25b4-4656-a86e-e3bd3a25b139
-              - name: actionName
-                in: path
-                type: string
-                value: disable
-              - name: request
-                in: body
-                type: array
-                value: 
-                  - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
+        $ref: '#/definitions/reportByCategoryLinks'
 
 
 
@@ -1702,45 +1664,9 @@ definitions:
         description: The performance indicator based on the performance indicator formula indicated in the request for this channel
         example: 12.21
       links:
-        description: The action list on this channel
-        type: array
-        items:
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2        
-        example:
-          - href: /v2/user/analytics/{storeId}/optimisations/bychannel/{channelId}/{actionName}
-            operationId: OptimiseByChannel
-            rel: EnableProducts
-            parameters:
-              - name: storeId
-                in: path
-                type: string
-                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
-              - name: channelId
-                in: path
-                type: string
-                value: a2d38563-50f0-43f1-be2b-b16e7ec4f007
-              - name: actionName
-                in: path
-                type: string
-                value: reenable
-
-          - href: /v2/user/analytics/{storeId}/optimisations/bychannel/{channelId}/{actionName}
-            operationId: OptimiseByChannel
-            rel: DisableProducts
-            parameters:
-              - name: storeId
-                in: path
-                type: string
-                value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
-              - name: channelId
-                in: path
-                type: string
-                value: a2d38563-50f0-43f1-be2b-b16e7ec4f007
-              - name: actionName
-                in: path
-                type: string
-                value: disable
-
+        $ref: '#/definitions/reportByChannelLinks'
+        
+        
                 
 
 
