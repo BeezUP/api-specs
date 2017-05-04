@@ -751,7 +751,7 @@ definitions:
     - warning
     - success
     - failed
-    example: Success
+    example: success
     
   categoryMappingState:
     description: The category mapping state of the channel catalog
@@ -777,7 +777,7 @@ definitions:
     - warning
     - success
     - failed
-    example: Success
+    example: success
     
   apiSettingStatus:
     type: string
@@ -785,7 +785,7 @@ definitions:
     - warning
     - success
     - failed
-    example: Success
+    example: success
       
 
   channelCatalog:
@@ -805,6 +805,7 @@ definitions:
       - generalSettings
       - costSettings
       - isMarketplace
+      - productCount
       properties:
 # [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
         productCount:
