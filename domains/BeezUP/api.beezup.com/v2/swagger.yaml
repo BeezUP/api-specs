@@ -391,6 +391,8 @@ definitions:
   BeezUP.Common.Link3:
     type: object
     properties:
+      docUrl:
+        
       description:
         type: string
         description: The description of the link
@@ -591,7 +593,13 @@ definitions:
         items: 
           $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage
   
-  
+
+  BeezUP.Common.DocUrl:
+    type: string
+    format: uri
+    description: The documentation related to this operation.
+    example: https://beezup.github.io/api-docs/#operation/EnableChannelCatalog
+
 
   BeezUP.Common.UserErrorMessage:
     type: object
@@ -602,7 +610,7 @@ definitions:
       docUrl:
         type: string
         format: uri
-        description: The documentation related to this error or this operation.
+        description: The documentation related to this operation.
         example: https://beezup.github.io/api-docs/#operation/EnableChannelCatalog
       code:
         type: string
