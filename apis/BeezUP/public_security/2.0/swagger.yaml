@@ -47,6 +47,7 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/loginRequest'
+          required: true
       responses:
         '200':
           description: Your tokens
@@ -74,6 +75,7 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/registerRequest'
+          required: true
       responses:
         '204':
           description: Customer registered
@@ -98,8 +100,9 @@ paths:
         - name: email
           in: body
           schema:
-            $ref: '#/definitions/email'
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Email'
           description: Your email
+          required: true
       responses:
         '204':
           description: New password sent
@@ -120,13 +123,6 @@ paths:
 
 definitions:
 
-  email:
-    description: Your email
-    type: string
-    format: email
-    example: myemail@mycompany.com
-    
-  
   loginRequest:
     required:
       - login
@@ -134,7 +130,7 @@ definitions:
     type: object
     properties:
       login:
-        $ref: '#/definitions/email'
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Email'
       password:
         description: Your password
         type: string
