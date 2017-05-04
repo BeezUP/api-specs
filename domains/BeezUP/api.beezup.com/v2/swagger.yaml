@@ -351,6 +351,23 @@ definitions:
         example: 943
         minimum: 0
 
+  BeezUP.Common.PaginationResultLinks:
+    description: The navigation links 'first', 'last', 'next', 'previous'
+    type: object
+    required:
+    - first
+    - last
+    properties:
+      first:
+        $ref: '#/definitions/BeezUP.Common.Link3'
+      last:
+        $ref: '#/definitions/BeezUP.Common.Link3'
+      previous:
+        $ref: '#/definitions/BeezUP.Common.Link3'
+      next:
+        $ref: '#/definitions/BeezUP.Common.Link3'
+      
+
 
 
   BeezUP.Common.Href:
