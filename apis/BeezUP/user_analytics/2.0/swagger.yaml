@@ -11,6 +11,9 @@ info:
   
   contact:
     email: support@beezup.com
+    
+  x-changeComments: |
+    Add pagination parameters
   
     
   
@@ -1316,7 +1319,7 @@ definitions:
         $ref: '#/definitions/pageNumber'
 
   pageSize:
-    description: Indicate the order count per page
+    description: Indicate the item count per page
     type: integer
     format: int32
     default: 100
