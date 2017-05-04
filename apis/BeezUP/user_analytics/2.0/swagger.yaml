@@ -322,13 +322,11 @@ paths:
               type: string
 
           schema:
-            type: array
-            items:
-              $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-            example:
-              - href: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Channels.xslx
-                rel: document
-                method: GET 
+            $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+          examples:
+            application/json:
+              href: 'https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Channels.xslx'
+              method: 'GET'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
             
@@ -382,13 +380,12 @@ paths:
               type: string
 
           schema:
-            type: array
-            items:
-              $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-            example:
-              - href: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Categories.xslx
-                rel: document
-                method: GET
+            $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+          examples:
+            application/json:
+              href: 'https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Channels.xslx'
+              method: 'GET'
+
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -443,13 +440,11 @@ paths:
               type: string
 
           schema:
-            type: array
-            items:
-              $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-            example:
-              - href: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Products.xslx
-                rel: document
-                method: GET
+            $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+          examples:
+            application/json:
+              href: 'https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Channels.xslx'
+              method: 'GET'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -717,7 +712,7 @@ paths:
         200:
           description: Rule list
           schema:
-            $ref: '#/definitions/rules'
+            $ref: '#/definitions/rulelist'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -2121,6 +2116,15 @@ definitions:
             in: path
         
   
+  links.DeleteReportFilterLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/analytics/8f95eb1a-3691-4750-950d-a13c4a8a9bcc/reports/filters/fb19c53c-2f63-4262-9d94-2d7faa500acd
+        method: DELETE
+
+  
+  
   reportFiltersLinks:
     type: object
     properties:
@@ -2140,7 +2144,19 @@ definitions:
       links:
         $ref: '#/definitions/reportFiltersLinks'
               
-          
+  
+  links.GetReportFilterLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/reports/filters/fb19c53c-2f63-4262-9d94-2d7faa500acd
+        method: GET
+  
+  reportFilterHeaderLinks:
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.GetReportFilterLink'
   
   reportFilterHeader:
     type: object
@@ -2159,24 +2175,7 @@ definitions:
         type: string
         example: 'My report filter'
       links:
-        description: The list of action you can do on the filter subject
-        type: array
-        items:
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-        example:
-          - href: /v2/user/analytics/{storeId}/reports/filters/{reportFilterId}
-            rel: self
-            operationId: GetReportFilter
-            method: GET
-            parameters:
-              - name: storeId
-                type: string
-                in: path
-                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-              - name: reportFilterId
-                type: string
-                in: path
-                value: fb19c53c-2f63-4262-9d94-2d7faa500acd
+        $ref: '#/definitions/reportFilterHeaderLinks'
   
 
   saveReportFilterRequest:
@@ -2192,7 +2191,17 @@ definitions:
       parameters:
         $ref: '#/definitions/reportFilterParameters'
 
-
+  reportFilterLinks:
+    type: object
+    description: Indicates the actions you can do on this report filter
+    properties:
+      self:
+        $ref: '#/definitions/links.GetReportFilterLink'
+      save:
+        $ref: '#/definitions/links.SaveReportFilterLink'
+      delete:
+        $ref: '#/definitions/links.DeleteReportFilterLink'
+  
   reportFilter:
     type: object
     required:
@@ -2212,51 +2221,8 @@ definitions:
       parameters:
         $ref: '#/definitions/reportFilterParameters'
       links:
-        description: Indicates the actions you can do on this report filter
-        type: array
-        items:
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-        example:
-          - href: /v2/user/analytics/{storeId}/reports/filters/{reportFilterId}
-            rel: self
-            operationId: GetReportFilter
-            method: GET
-            parameters:
-              - name: storeId
-                type: string
-                in: path
-                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-              - name: reportFilterId
-                type: string
-                in: path
-                value: fb19c53c-2f63-4262-9d94-2d7faa500acd
-          - href: /v2/user/analytics/{storeId}/reports/filters/{reportFilterId}
-            rel: DeleteReportFilter
-            operationId: DeleteReportFilter
-            method: DELETE
-            parameters:
-              - name: storeId
-                type: string
-                in: path
-                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-              - name: reportFilterId
-                type: string
-                in: path
-                value: fb19c53c-2f63-4262-9d94-2d7faa500acd
-          - href: /v2/user/analytics/{storeId}/reports/filters/{reportFilterId}
-            rel: SaveReportFilter
-            operationId: SaveReportFilter
-            method: PUT
-            parameters:
-              - name: storeId
-                type: string
-                in: path
-                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-              - name: reportFilterId
-                type: string
-                in: path
-                value: fb19c53c-2f63-4262-9d94-2d7faa500acd
-      
+        $ref: '#/definitions/reportFilterLinks'
+
 
   reportFilterParameters:
     allOf:
@@ -2284,7 +2250,64 @@ definitions:
     - ByProduct
     example: ByProduct
   
-  rules:
+  
+  ruleListLinks:
+    description: Links to know if the user can create a rule or run all rules
+    type: object
+    properties:
+      self:
+        $ref: '#definitions/links.GetRulesLink'
+      create:
+        $ref: '#definitions/links.CreateRuleLink'
+      history:
+        $ref: '#definitions/links.GetRulesExecutionsLink'
+      run:
+        $ref: '#definitions/links.RunRulesLink'
+
+
+  links.CreateRuleLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/rules
+        method: POST
+        parameters:
+          request:
+            in: body
+            type: object
+            schema: createRuleRequest
+            value:
+              optimisationActionName: reenable
+              ruleName: My rule
+              reportFilterId: fb19c53c-2f63-4262-9d94-2d7faa500acd
+              startUtcDate: '2016-08-29T09:12:33.001Z'
+              endUtcDate: '2017-09-30T10:42:40.001Z'
+        
+
+
+  links.GetRulesExecutionsLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/rules/executions
+        method: GET
+
+
+  links.RunRulesLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/rules/run
+        method: POST
+  
+  links.GetRulesLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/rules
+        method: GET
+  
+  ruleList:
     type: object
     required:
     - rules
@@ -2299,47 +2322,8 @@ definitions:
           $ref: '#/definitions/rule'
 
       links:
-        description: Links to know if the user can create a rule or run all rules
-        type: array
-        items:
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-        example:
-        - href: /v2/user/analytics/{storeId}/rules
-          rel: self
-          operationId: GetRules
-          method: GET
-          parameters:
-            - name: storeId
-              type: string
-              in: path
-              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-        - href: /v2/user/analytics/{storeId}/rules
-          rel: CreateRule
-          operationId: CreateRule
-          method: POST
-          parameters:
-            - name: storeId
-              type: string
-              in: path
-              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-        - href: /v2/user/analytics/{storeId}/rules/executions
-          rel: GetRulesExecutions
-          operationId: GetRulesExecutions
-          method: GET
-          parameters:
-            - name: storeId
-              type: string
-              in: path
-              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-        - href: /v2/user/analytics/{storeId}/rules/run
-          rel: RunRules
-          operationId: RunRules
-          method: POST
-          parameters:
-            - name: storeId
-              type: string
-              in: path
-              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
+        $ref: '#/definitions/ruleListLinks'
+
 
   
   optimisationActionName:
@@ -2359,6 +2343,100 @@ definitions:
       - Unknown
     type: string
     example: Succeeded  
+
+
+  links.RunRuleLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/rules/c38006b4-29d0-4b8a-978b-701a0b12d5a8/run
+        method: POST
+  
+  links.GetRuleLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/rules/c38006b4-29d0-4b8a-978b-701a0b12d5a8
+        method: GET
+
+
+  links.DeleteRuleLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/rules/c38006b4-29d0-4b8a-978b-701a0b12d5a8
+        method: DELETE
+
+  links.MoveUpRuleLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/rules/c38006b4-29d0-4b8a-978b-701a0b12d5a8/moveup
+        method: POST
+
+  links.MoveDownRuleLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/rules/c38006b4-29d0-4b8a-978b-701a0b12d5a8/movedown
+        method: POST
+
+  links.EnableRuleLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/rules/c38006b4-29d0-4b8a-978b-701a0b12d5a8/enable
+        method: POST
+
+  links.DisableRuleLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/rules/c38006b4-29d0-4b8a-978b-701a0b12d5a8/disable
+        method: POST
+
+  links.UpdateRuleLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/analytics/10af9486-e28e-47ab-b045-e13e4acd55c3/rules/c38006b4-29d0-4b8a-978b-701a0b12d5a8
+        method: PATCH
+        parameters:
+          request:
+            in: body
+            type: object
+            schema: updateRuleRequest
+            value:
+              ruleName: My Rule Renamed
+              startUtcDate: '2016-08-29T09:12:33.001Z'
+              endUtcDate": '2016-08-29T09:12:33.001Z'
+
+
+
+  ruleLinks:
+    description: Links to retrieve/action on other entities
+    type: object
+    properties:
+      self:
+        $ref: '#definitions/links.GetRuleLink'
+      run:
+        $ref: '#definitions/links.RunRuleLink'
+      delete:
+        $ref: '#definitions/links.DeleteRuleLink'
+      moveup:
+        $ref: '#definitions/links.MoveUpRuleLink'
+      movedown:
+        $ref: '#definitions/links.MoveDownRuleLink'
+      enable:
+        $ref: '#definitions/links.EnableRuleLink'
+      disable:
+        $ref: '#definitions/links.DisableRuleLink'
+      update:
+        $ref: '#definitions/links.UpdateRuleLink'
+      reportFilter:
+        $ref: '#definitions/links.GetReportFilterLink'
+
+      
 
   rule:
     type: object
@@ -2413,128 +2491,7 @@ definitions:
         type: string
         example: '3016-08-29T09:12:33.001Z'
       links:
-        description: Links to retrieve/action on other entities
-        type: array
-        items:
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-        example: 
-        - href: /v2/user/analytics/{storeId}/rules/{ruleId}
-          rel: self
-          operationId: GetRule
-          method: GET
-          parameters:
-           - name: storeId
-             type: string
-             in: path
-             value: '10af9486-e28e-47ab-b045-e13e4acd55c3'
-           - name: ruleId
-             type: string
-             in: path
-             value: 'c38006b4-29d0-4b8a-978b-701a0b12d5a8'
-        - href: /v2/user/analytics/{storeId}/rules/{ruleId}
-          rel: UpdateRule
-          operationId: UpdateRule
-          method: PATCH
-          parameters:
-            - name: storeId
-              type: string
-              in: path
-              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-            - name: ruleId
-              type: string
-              in: path
-              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
-        - href: /v2/user/analytics/{storeId}/rules/{ruleId}
-          rel: DeleteRule
-          operationId: DeleteRule
-          method: DELETE
-          parameters:
-            - name: storeId
-              type: string
-              in: path
-              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-            - name: ruleId
-              type: string
-              in: path
-              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
-        - href: /v2/user/analytics/{storeId}/rules/{ruleId}/run
-          rel: RunRule
-          operationId: RunRule
-          method: POST
-          parameters:
-            - name: storeId
-              type: string
-              in: path
-              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-            - name: ruleId
-              type: string
-              in: path
-              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
-        - href: /v2/user/analytics/{storeId}/rules/{ruleId}/moveup
-          rel: MoveUpRule
-          operationId: MoveUpRule
-          method: POST
-          parameters:
-            - name: storeId
-              type: string
-              in: path
-              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-            - name: ruleId
-              type: string
-              in: path
-              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
-        - href: /v2/user/analytics/{storeId}/rules/{ruleId}/movedown
-          rel: MoveDownRule
-          operationId: MoveDownRule
-          method: POST
-          parameters:
-            - name: storeId
-              type: string
-              in: path
-              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-            - name: ruleId
-              type: string
-              in: path
-              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
-        - href: /v2/user/analytics/{storeId}/rules/{ruleId}/enable
-          rel: EnableRule
-          operationId: EnableRule
-          method: POST
-          parameters:
-            - name: storeId
-              type: string
-              in: path
-              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-            - name: ruleId
-              type: string
-              in: path
-              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
-        - href: /v2/user/analytics/{storeId}/rules/{ruleId}/disable
-          rel: DisableRule
-          operationId: DisableRule
-          method: POST
-          parameters:
-            - name: storeId
-              type: string
-              in: path
-              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-            - name: ruleId
-              type: string
-              in: path
-              value: c38006b4-29d0-4b8a-978b-701a0b12d5a8
-        - href: /v2/user/analytics/{storeId}/reports/filters/{reportFilterId}
-          rel: GetReportFilter
-          operationId: GetReportFilter
-          method: GET
-          parameters:
-            - name: storeId
-              type: string
-              in: path
-              value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-            - name: reportFilterId
-              type: string
-              in: path
-              value: fb19c53c-2f63-4262-9d94-2d7faa500acd
+        $ref: '#definitions/ruleLinks'
 
   createRuleRequest:
     required:
@@ -2558,12 +2515,12 @@ definitions:
         format: date-time
         description: The start validity utc date of the rule
         type: string
-        example: 2016-08-29T09:12:33.001Z
+        example: '2016-08-29T09:12:33.001Z'
       endUtcDate:
         format: date-time
         description: The end validity utc date of the rule
         type: string
-        example: 2017-09-30T10:42:40.001Z
+        example: '2017-09-30T10:42:40.001Z'
         
   updateRuleRequest:
     description: This update will replace the following values.
@@ -2574,17 +2531,17 @@ definitions:
       ruleName:
         description: The name of the rule
         type: string
-        example: My Rule
+        example: My Rule Renamed
       startUtcDate:
         format: date-time
         description: Not required. The start validity utc date of the rule.
         type: string
-        example: 2016-08-29T09:12:33.001Z
+        example: '2016-08-29T09:12:33.001Z'
       endUtcDate:
         format: date-time
         description: Not required. The end validity utc date of the rule
         type: string
-        example: 2016-08-29T09:12:33.001Z
+        example: '2016-08-29T09:12:33.001Z'
 
   ruleExecutionReportings:
     type: object
@@ -2625,7 +2582,16 @@ definitions:
           - User
         type: string
         example: User
-       
+  
+
+
+  ruleExecutionReportingLinks:
+    description: Links to retrieve/action on this rule execution
+    type: object
+    properties:
+      rule:
+        $ref: '#definitions/links.GetRuleLink'
+
   ruleExecutionReporting:
     type: object
     required:
@@ -2647,12 +2613,12 @@ definitions:
         format: date-time
         description: The start utc date of the execution of the rule
         type: string
-        example: 2016-08-29T09:12:33.001Z
+        example: '2016-08-29T09:12:33.001Z'
       completedUtcDate:
         format: date-time
         description: The completed utc date of the execution of the rule
         type: string
-        example: 2016-08-29T09:12:33.001Z
+        example: '2016-08-29T09:12:33.001Z'
       status:
         $ref: '#/definitions/ruleExecutionReportingStatus'
       errorType:
@@ -2683,24 +2649,9 @@ definitions:
         type: string
         example: http://www.google.com
       links:
-        description: Links to retrieve/action on this rule execution
-        type: array
-        items:
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-        example:
-          - href: /v2/user/analytics/{storeId}/rules/{ruleId}
-            rel: GetRule
-            operationId: GetRule
-            method: GET
-            parameters:
-              - name: storeId
-                type: string
-                in: path
-                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-              - name: ruleId
-                type: string
-                in: path
-                value: fd9a23a1-569b-40af-af91-f7275a57bf89
+        $ref: '#definitions/ruleExecutionReportingLinks'
+        
+
 # Added by API Auto Mocking Plugin
 x-host: api.beezup.com
 x-basePath: /v2/user/analytics
