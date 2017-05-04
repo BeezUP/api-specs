@@ -768,77 +768,77 @@ definitions:
       
 
   channelCatalog:
-    description: The channel catalog
-    type: object
-    required:
-    - channelCatalogId
-    - channelId
-    - storeId
-    properties:
-      enabled:
-        type: boolean
-        description: Indicates if the channel catalog is active
-        example: true
-      isMarketplace:
-        type: boolean
-        description: Indicates if this channel catalog is related to a marketplace
-        example: true
-      channelCatalogId:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelCatalogId'
-      channelId:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
-      channelName:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelName'
-      storeId:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
-      generalSettings:
-        $ref: '#/definitions/generalSettings'
-      costSettings:
-        $ref: '#/definitions/costSettings'
-      columnMappings:
-        $ref: '#/definitions/columnMappingWithNameList'
-      exclusionFilters:
-        $ref: '#/definitions/exclusionFilters'
-      
-      exportUrl:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
-      
-      status:
-        $ref: '#/definitions/channelCatalogStatus'
-      
-      links:
-        description: Indicates the actions you can do on a channel catalog
-        type: array
-        items:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
-        example:
-        - rel: categoryMappings
-          operationId: GetChannelCatalogCategoyMappings
-          href: /v2/user/channelCatalogs/{channelCatalogId}/categoryMappings
-          parameters:
-          - name: channelCatalogId
-            type: string
-            required: true
-            in: path
-            value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
-        - rel: delete
-          operationId: DeleteChannelCatalog
-          href: /v2/user/channelCatalogs/{channelCatalogId}
-          parameters:
-          - name: channelCatalogId
-            type: string
-            required: true
-            in: path
-            value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
-        - rel: disable
-          operationId: DisableChannelCatalog
-          href: /v2/user/channelCatalogs/{channelCatalogId}/disable
-          parameters:
-          - name: channelCatalogId
-            type: string
-            required: true
-            in: path
-            value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelBasicInfo'
+    - type: object
+      description: The channel catalog
+      required:
+      - channelCatalogId
+      - channelId
+      - channelName
+      - channelImageUrl
+      - storeId
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates if the channel catalog is active
+          example: true
+        isMarketplace:
+          type: boolean
+          description: Indicates if this channel catalog is related to a marketplace
+          example: true
+        channelCatalogId:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelCatalogId'
+        storeId:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
+        generalSettings:
+          $ref: '#/definitions/generalSettings'
+        costSettings:
+          $ref: '#/definitions/costSettings'
+        columnMappings:
+          $ref: '#/definitions/columnMappingWithNameList'
+        exclusionFilters:
+          $ref: '#/definitions/exclusionFilters'
+        
+        exportUrl:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
+        
+        status:
+          $ref: '#/definitions/channelCatalogStatus'
+        
+        links:
+          description: Indicates the actions you can do on a channel catalog
+          type: array
+          items:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
+          example:
+          - rel: categoryMappings
+            operationId: GetChannelCatalogCategoyMappings
+            href: /v2/user/channelCatalogs/{channelCatalogId}/categoryMappings
+            parameters:
+            - name: channelCatalogId
+              type: string
+              required: true
+              in: path
+              value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
+          - rel: delete
+            operationId: DeleteChannelCatalog
+            href: /v2/user/channelCatalogs/{channelCatalogId}
+            parameters:
+            - name: channelCatalogId
+              type: string
+              required: true
+              in: path
+              value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
+          - rel: disable
+            operationId: DisableChannelCatalog
+            href: /v2/user/channelCatalogs/{channelCatalogId}/disable
+            parameters:
+            - name: channelCatalogId
+              type: string
+              required: true
+              in: path
+              value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
             
     
 
