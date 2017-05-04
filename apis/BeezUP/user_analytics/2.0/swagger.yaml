@@ -1104,6 +1104,15 @@ definitions:
     - IsNull
     - IsNotNull
  
+
+  #links.
+ 
+  #reportByChannelResponseLinks:
+  #  type: object
+  #  properties:
+  #    enableAllProducts:
+        
+ 
   reportByChannelResponse:
     type: object
     required:
