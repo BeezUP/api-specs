@@ -277,9 +277,9 @@ definitions:
     example:
       entryCount: 25
       links:
-        - rel: first
+        first:
           method: GET
-          hRef: /v2/user/marketplaces/orders
+          href: /v2/user/marketplaces/orders
           parameters:
           - name: beginPeriodUtcDate
             value: 2014-08-25T07:32:31.584Z
@@ -293,9 +293,9 @@ definitions:
           - name: pageNumber
             value: 1
             in: query
-        - rel: last
+        last:
           method: GET
-          hRef: /v2/user/marketplaces/orders
+          href: /v2/user/marketplaces/orders
           parameters:
           - name: beginPeriodUtcDate
             value: 2014-08-25T07:32:31.584Z
