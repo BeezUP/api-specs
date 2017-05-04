@@ -285,7 +285,8 @@ definitions:
           parameters:
           - name: request
             in: body
-            type: orderListRequest
+            type: object
+            schema: orderListRequest
             value:
               beginPeriodUtcDate: '2014-08-25T07:32:31.584Z'
               endPeriodUtcDate: '2014-09-24T07:32:31.584Z'
@@ -297,7 +298,8 @@ definitions:
           parameters:
           - name: request
             in: body
-            type: orderListRequest
+            type: object
+            schema: orderListRequest
             value:
               beginPeriodUtcDate: '2014-08-25T07:32:31.584Z'
               endPeriodUtcDate: '2014-09-24T07:32:31.584Z'
@@ -309,7 +311,8 @@ definitions:
           parameters:
           - name: request
             in: body
-            type: orderListRequest
+            type: object
+            schema: orderListRequest
             value:
               beginPeriodUtcDate: '2014-08-25T07:32:31.584Z'
               endPeriodUtcDate: '2014-09-24T07:32:31.584Z'
@@ -480,6 +483,7 @@ definitions:
       schema:
         type: string
         description: schema of the parameter
+        example: orderListRequest
 
         
   BeezUP.Common.LinkParameter2:
