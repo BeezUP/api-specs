@@ -21,7 +21,9 @@ info:
   x-logo:
     url: "https://avatars0.githubusercontent.com/u/25665430"
     backgroundColor: "#FFFFFF"
-
+  
+  x-changeComment: |
+    channelCatalogList now return the channelCatalog instead of channelCatalogHeader
   
   license:
     name: BeezUP 
