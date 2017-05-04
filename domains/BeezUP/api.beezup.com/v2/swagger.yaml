@@ -285,7 +285,7 @@ definitions:
           parameters:
           - name: request
             in: body
-            type: GetOrders
+            type: orderListRequest
             value:
               beginPeriodUtcDate: '2014-08-25T07:32:31.584Z'
               endPeriodUtcDate: '2014-09-24T07:32:31.584Z'
@@ -297,7 +297,7 @@ definitions:
           parameters:
           - name: request
             in: body
-            type: GetOrders
+            type: orderListRequest
             value:
               beginPeriodUtcDate: '2014-08-25T07:32:31.584Z'
               endPeriodUtcDate: '2014-09-24T07:32:31.584Z'
@@ -309,7 +309,7 @@ definitions:
           parameters:
           - name: request
             in: body
-            type: GetOrders
+            type: orderListRequest
             value:
               beginPeriodUtcDate: '2014-08-25T07:32:31.584Z'
               endPeriodUtcDate: '2014-09-24T07:32:31.584Z'
