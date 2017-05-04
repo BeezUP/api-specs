@@ -2376,20 +2376,22 @@ definitions:
         $ref: '#/definitions/expirationYear'
   
   creditCardInfoWithCardType:
-    allOf:
-    - $ref: '#/definitions/creditCardInfo'
-    - type: object
-      required:
-      - cardNumber
-      - cardVerificationCode
-      - expirationMonth
-      - expirationYear
-      - cardType
-      properties:
-        cardType:
-          description: 'Your credit card type. Example: VISA, MasterCard, etc...'
-          type: string
-          example: VISA
+    required:
+    - cardNumber
+    - expirationMonth
+    - expirationYear
+    - cardType
+    properties:
+      cardNumber:
+        $ref: '#/definitions/cardNumber'
+      expirationMonth:
+        $ref: '#/definitions/expirationMonth'
+      expirationYear:
+        $ref: '#/definitions/expirationYear'
+      cardType:
+        description: 'Your credit card type. Example: VISA, MasterCard, etc...'
+        type: string
+        example: VISA
 
 
         
