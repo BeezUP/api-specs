@@ -276,64 +276,51 @@ definitions:
     type: object
     example:
       entryCount: 25
-      links:
-        first:
-          method: GET
-          href: /v2/user/marketplaces/orders
-          parameters:
-          - name: beginPeriodUtcDate
-            value: 2014-08-25T07:32:31.584Z
-            in: body
-          - name: endPeriodUtcDate
-            value: 2014-09-24T07:32:31.584Z
-            in: body
-          - name: pageSize
-            value: 25
-            in: body
-          - name: pageNumber
-            value: 1
-            in: query
-        last:
-          method: GET
-          href: /v2/user/marketplaces/orders
-          parameters:
-          - name: beginPeriodUtcDate
-            value: 2014-08-25T07:32:31.584Z
-            in: body
-          - name: endPeriodUtcDate
-            value: 2014-09-24T07:32:31.584Z
-            in: body
-          - name: pageSize
-            value: 25
-            in: body
-          - name: pageNumber
-            value: 38
-            in: query
-        next:
-          href: /v2/user/marketplaces/orders
-          parameters:
-          - name: beginPeriodUtcDate
-            value: 2014-08-25T07:32:31.584Z
-            in: query
-          - name: endPeriodUtcDate
-            value: 2014-09-24T07:32:31.584Z
-            in: query
-          - name: pageSize
-            value: 25
-            in: query
-          - name: pageNumber
-            value: 2
-            in: query
       pageCount: 38
       totalEntryCount: 943
+      links:
+        first:
+          href: /v2/user/marketplaces/orders/list/full
+          method: POST
+          parameters:
+          - name: request
+            in: body
+            type: GetOrders
+            value:
+              beginPeriodUtcDate: '2014-08-25T07:32:31.584Z'
+              endPeriodUtcDate: '2014-09-24T07:32:31.584Z'
+              pageSize: 25
+              pageNumber: 1
+        last:
+          href: /v2/user/marketplaces/orders/list/full
+          method: POST
+          parameters:
+          - name: request
+            in: body
+            type: GetOrders
+            value:
+              beginPeriodUtcDate: '2014-08-25T07:32:31.584Z'
+              endPeriodUtcDate: '2014-09-24T07:32:31.584Z'
+              pageSize: 25
+              pageNumber: 38
+        next:
+          href: /v2/user/marketplaces/orders/list/full
+          method: POST
+          parameters:
+          - name: request
+            in: body
+            type: GetOrders
+            value:
+              beginPeriodUtcDate: '2014-08-25T07:32:31.584Z'
+              endPeriodUtcDate: '2014-09-24T07:32:31.584Z'
+              pageSize: 25
+              pageNumber: 2
     properties:
       entryCount: 
         type: integer
         description: The entry count currently returned
         example: 25
         minimum: 0
-      links:
-        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResultLinks
       pageCount: 
         type: integer
         description: The page count
@@ -344,6 +331,8 @@ definitions:
         description: The total entry count
         example: 943
         minimum: 0
+      links:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResultLinks
 
   BeezUP.Common.PaginationResultLinks:
     description: The navigation links 'first', 'last', 'next', 'previous'
