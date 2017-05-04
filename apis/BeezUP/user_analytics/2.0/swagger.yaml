@@ -2103,12 +2103,31 @@ definitions:
   links.GetReportFiltersLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/analytics/8f95eb1a-3691-4750-950d-a13c4a8a9bcc/reports/filters
+        method: GET
+
     
+  links.SaveReportFilterLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/analytics/8f95eb1a-3691-4750-950d-a13c4a8a9bcc/reports/filters/{reportFilterId}
+        method: PUT
+        templated: true
+        parameters:
+          - name: reportFilterId
+            type: string
+            in: path
+        
+  
   reportFiltersLinks:
     type: object
     properties:
       self:
         $ref: '#/definitions/links.GetReportFiltersLink'
+      save:
+        $ref: '#/definitions/links.SaveReportFilterLink'
         
   reportFilters:
     type: object
@@ -2119,34 +2138,7 @@ definitions:
         items:
           $ref: '#/definitions/reportFilterHeader'
       links:
-        type: array
-        items: 
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-        example:
-          - href: /v2/user/analytics/{storeId}/reports/filters
-            rel: self
-            operationId: GetReportFilters
-            method: GET
-            parameters:
-              - name: storeId
-                type: string
-                in: path
-                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-              - name: reportFilterId
-                type: string
-                in: path
-          - href: /v2/user/analytics/{storeId}/reports/filters/{reportFilterId}
-            rel: SaveReportFilter
-            operationId: SaveReportFilter
-            method: PUT
-            parameters:
-              - name: storeId
-                type: string
-                in: path
-                value: 10af9486-e28e-47ab-b045-e13e4acd55c3
-              - name: reportFilterId
-                type: string
-                in: path
+        $ref: '#/definitions/reportFiltersLinks'
               
           
   
