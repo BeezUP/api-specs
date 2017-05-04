@@ -283,13 +283,13 @@ definitions:
           parameters:
           - name: beginPeriodUtcDate
             value: 2014-08-25T07:32:31.584Z
-            in: query
+            in: body
           - name: endPeriodUtcDate
             value: 2014-09-24T07:32:31.584Z
-            in: query
+            in: body
           - name: pageSize
             value: 25
-            in: query
+            in: body
           - name: pageNumber
             value: 1
             in: query
@@ -299,13 +299,13 @@ definitions:
           parameters:
           - name: beginPeriodUtcDate
             value: 2014-08-25T07:32:31.584Z
-            in: query
+            in: body
           - name: endPeriodUtcDate
             value: 2014-09-24T07:32:31.584Z
-            in: query
+            in: body
           - name: pageSize
             value: 25
-            in: query
+            in: body
           - name: pageNumber
             value: 38
             in: query
@@ -323,7 +323,7 @@ definitions:
             in: body
           - name: pageNumber
             value: 2
-            in: query
+            in: body
       pageCount: 38
       totalEntryCount: 943
     properties:
