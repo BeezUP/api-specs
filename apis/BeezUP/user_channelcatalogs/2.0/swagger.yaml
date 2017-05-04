@@ -475,30 +475,9 @@ definitions:
       channelCatalogs:
         type: array
         items:
-          $ref: '#/definitions/channelCatalogHeader'
+          $ref: '#/definitions/channelCatalog'
   
-  channelCatalogHeader:
-    type: object
-    properties:
-      channelCatalogId:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelCatalogId'
-      channelId:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
-      channelName:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelName'
-      isMarketplace:
-        type: boolean
-        description: Indicates if this channel catalog is related to a marketplace
-        example: true
-      storeId:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
-# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
-      links:
-        type: object
-        properties:
-          self:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-  
+
 
   createChannelCatalogRequest:
     type: object
