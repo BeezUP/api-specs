@@ -334,12 +334,7 @@ definitions:
         example: 25
         minimum: 0
       links:
-        description: The navigation links 'first', 'last', 'next', 'previous'
-        type: array
-        uniqueItems: true
-        minItems: 0
-        items: 
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResultLinks
       pageCount: 
         type: integer
         description: The page count
