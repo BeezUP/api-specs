@@ -309,19 +309,18 @@ definitions:
           - name: pageNumber
             value: 38
             in: query
-        - rel: next
-          method: GET
+        next:
           href: /v2/user/marketplaces/orders
           parameters:
           - name: beginPeriodUtcDate
             value: 2014-08-25T07:32:31.584Z
-            in: query
+            in: body
           - name: endPeriodUtcDate
             value: 2014-09-24T07:32:31.584Z
-            in: query
+            in: body
           - name: pageSize
             value: 25
-            in: query
+            in: body
           - name: pageNumber
             value: 2
             in: query
@@ -395,16 +394,13 @@ definitions:
       description:
         type: string
         description: The description of the link
+        example: This is a description link
       href:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Href
-        type: string
-        format: uri
       operationId:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.OperationId
-        type: string
       method:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpMethod
-        type: string
       parameters:
         properties:
           default: 
