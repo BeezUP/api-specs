@@ -778,7 +778,18 @@ definitions:
       - channelName
       - channelImageUrl
       - storeId
+      - enabled
+      - status
+      - links
+      - generalSettings
+      - costSettings
+      - isMarketplace
       properties:
+# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
+        productCount:
+          type: integer
+          format: int32
+          description: The product count exported considering category mapping. Not all filters have been applied.
         enabled:
           type: boolean
           description: Indicates if the channel catalog is active
