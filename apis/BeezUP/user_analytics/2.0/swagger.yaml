@@ -712,7 +712,7 @@ paths:
         200:
           description: Rule list
           schema:
-            $ref: '#/definitions/rulelist'
+            $ref: '#/definitions/ruleList'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
