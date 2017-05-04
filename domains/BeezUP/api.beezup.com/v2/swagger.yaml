@@ -314,16 +314,16 @@ definitions:
           parameters:
           - name: beginPeriodUtcDate
             value: 2014-08-25T07:32:31.584Z
-            in: body
+            in: query
           - name: endPeriodUtcDate
             value: 2014-09-24T07:32:31.584Z
-            in: body
+            in: query
           - name: pageSize
             value: 25
-            in: body
+            in: query
           - name: pageNumber
             value: 2
-            in: body
+            in: query
       pageCount: 38
       totalEntryCount: 943
     properties:
@@ -445,8 +445,8 @@ definitions:
     properties:
 
       value:
-        type: string
-        description: The value of the parameter
+        type: object
+        description: The value of the parameter. It can be an integer a string or an object.
         example: '1234'
       required:
         type: boolean
