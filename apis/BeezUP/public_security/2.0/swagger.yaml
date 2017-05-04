@@ -19,6 +19,9 @@ info:
     name: BeezUP 
     url: http://www.beezup.com
     
+  x-changeComment: |
+    Change the product name from BeezUP API to UserApi to correspond to the reality
+    
 host: api.beezup.com
 basePath: /v2/public/security
 x-api-name: V2PublicSecurity
@@ -146,7 +149,7 @@ definitions:
         items:
           $ref: '#/definitions/apiCredential'
         example:
-        - productName: BeezUP API
+        - productName: UserApi
           primaryToken: 3b22980d8d1143c6ba7adf4e55b9a153
           secondaryToken: 162ae17fd52044c38cce3388ea5b0c91
   
@@ -157,7 +160,7 @@ definitions:
       productName:
         description: The product name related to this credential
         type: string
-        example: BeezUP API
+        example: UserAPI
       primaryToken:
         description: The primary token to be used in the next call in the user scope API
         type: string
