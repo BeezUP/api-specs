@@ -1017,7 +1017,6 @@ definitions:
       - advancedFilters
       - productState
       properties:
-        
         productColumnsToDisplay:
           type: array
           minItems: 0
@@ -1057,11 +1056,14 @@ definitions:
   optimiseRequest:
     allOf:
     - $ref: '#/definitions/reportFilterCommonParameters'
+    - $ref: '#/definitions/paginationRequestParameters'
     - type: object
       required:
       - beginPeriodUtcDate
       - endPeriodUtcDate
       - advancedFilters
+      - pageSize
+      - pageNumber
       properties:
         productState:
          $ref: '#/definitions/productStateFilter'
@@ -1105,13 +1107,18 @@ definitions:
     - IsNotNull
  
 
-  #links.
- 
-  #reportByChannelResponseLinks:
-  #  type: object
-  #  properties:
-  #    enableAllProducts:
-        
+  links.OptimiseLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    
+  reportByCommonResponseLinks:
+    type: object
+    properties:
+      enableAllProducts:
+        $ref: '#/definitions/links.OptimiseLink'
+      disableAllProducts:
+        $ref: '#/definitions/links.OptimiseLink'
+      
  
   reportByChannelResponse:
     type: object
@@ -1132,45 +1139,8 @@ definitions:
         items:
           $ref: '#/definitions/reportByChannel'
       links:
-        type: array
-        items:
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-        example:
-        - href: /v2/user/analytics/{storeId}/optimisations/{actionName}
-          operationId: Optimise
-          rel: EnableAllProducts
-          parameters:
-            - name: storeId
-              in: path
-              type: string
-              value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
-            - name: storeId
-              in: path
-              type: string
-              value: reenable
-            - name: request
-              in: body
-              type: object
-              value: 
-                $request.body
-        - href: /v2/user/analytics/{storeId}/optimisations/{actionName}
-          operationId: Optimise
-          rel: DisableAllProducts
-          parameters:
-            - name: storeId
-              in: path
-              type: string
-              value: 8f95eb1a-3691-4750-950d-a13c4a8a9bcc
-            - name: storeId
-              in: path
-              type: string
-              value: disable
-            - name: request
-              in: body
-              type: object
-              value: 
-                $request.body
-
+        $ref: '#/definitions/reportByCommonResponseLinks'
+  
   reportByCategoryResponse:
     type: object
     properties:
