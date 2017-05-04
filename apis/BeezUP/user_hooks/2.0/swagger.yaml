@@ -52,9 +52,9 @@ schemes:
   - https
 
 x-api-name: V2UserHooks
-x-api-namespace: BeezUP2.Framework.Hooks.WebService
-x-api-repo: tbd
-x-api-repo-folder: tbd
+x-api-namespace: BeezUP2.Framework.Hooks.Service
+x-api-repo: Hooks
+x-api-repo-folder: BeezUP2.Framework.Hooks.Service
 
 consumes:
   - application/json
@@ -109,14 +109,20 @@ definitions:
   subscription:
     type: object
     properties:
+      targetUrl:
+        type: string
+        format: uri
+        description: The target url to call
       subscriptionId:
         description: The subscription identifier
         type: string
         format: guid
-      eventName:
-        description: The event name
-        type: string
-        x-lov: Events
+      events:
+        description: The event name list
+        type: array
+        items:
+          type: string
+          x-lov: Events
       status:
         type: string
         enum:
@@ -127,6 +133,16 @@ definitions:
         type: string
         description: An error message to explain why the subscription failed
       retryCount:
+        description: Correspond to the current retry count to send th mesage to your endpoint
         type: integer
         format: int32
-        description: The retry count to make if your back end server is unavailable
+        example: 0
+      maxRetryCount:
+        type: integer
+        format: int32
+        example: 10
+      minInterval:
+        description: The minimum interval duration between each retry
+        type: string
+        format: timespan
+        example: '00:01:00'
