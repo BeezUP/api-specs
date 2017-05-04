@@ -2361,6 +2361,7 @@ definitions:
   creditCardInfo:
     required:
     - cardNumber
+    - cardVerificationCode
     - expirationMonth
     - expirationYear
     type: object
