@@ -23,7 +23,9 @@ info:
     backgroundColor: "#FFFFFF"
   
   x-changeComment: |
-    channelCatalogList now returns the channelCatalog instead of channelCatalogHeader
+    add product count in channel catalog
+    add required properties in channel catalog
+    channelCatalogList now returns the channelCatalog instead of channelCatalogHeader.
   
   license:
     name: BeezUP 
