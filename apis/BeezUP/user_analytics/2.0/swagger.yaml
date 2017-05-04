@@ -267,8 +267,8 @@ paths:
             $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
           examples:
             application/json:
-              href: https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Days.xslx
-              method: GET 
+              href: 'https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Report_Days.xslx'
+              method: 'GET'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
         
