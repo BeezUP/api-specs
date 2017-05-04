@@ -1006,6 +1006,7 @@ definitions:
   reportByProductRequest:
     allOf:
     - $ref: '#/definitions/reportFilterCommonParameters'
+    - $ref: '#/definitions/paginationRequestParameters'
     - type: object
       required:
       - beginPeriodUtcDate
@@ -1304,11 +1305,39 @@ definitions:
   reportByCategoryRequest:
     allOf:
     - $ref: '#/definitions/reportFilterCommonParameters'
+    - $ref: '#/definitions/paginationRequestParameters'
     
+  paginationRequestParameters:
+    type: object
+    properties:
+      pageSize:
+        $ref: '#/definitions/pageSize'
+      pageNumber:
+        $ref: '#/definitions/pageNumber'
+
+  pageSize:
+    description: Indicate the order count per page
+    type: integer
+    format: int32
+    default: 100
+    minimum: 25
+    maximum: 100
+    example: 100
+
+  pageNumber:
+    description: Indicates the page number
+    format: int32
+    type: integer
+    example: 1
+    minimum: 1
+    default: 1
+
+  
   reportByChannelRequest:
     allOf:
     - $ref: '#/definitions/reportFilterCommonParameters'
-    
+    - $ref: '#/definitions/paginationRequestParameters'
+
   reportIndicatorFilterOperatorName:
     type: string
     description: Indicates the operator you want to apply on this indicator
