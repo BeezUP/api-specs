@@ -724,13 +724,13 @@ definitions:
       $ref: '#/definitions/columnMapping'
 
 
-  channelCatalogStatus:
+  channelCatalogState:
     type: object
-    description: Channel Catalog Status
+    description: Channel Catalog State
     required:
     - exportedProductCount
     - columnMappingStatus
-    - categoryMappingStatus
+    - categoryMappingState
     - apiSettingStatus
     properties:
       exportedProductCount:
@@ -800,7 +800,7 @@ definitions:
       - channelImageUrl
       - storeId
       - enabled
-      - status
+      - state
       - links
       - generalSettings
       - costSettings
@@ -835,8 +835,8 @@ definitions:
         exportUrl:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
         
-        status:
-          $ref: '#/definitions/channelCatalogStatus'
+        state:
+          $ref: '#/definitions/channelCatalogState'
         
         links:
           description: Indicates the actions you can do on a channel catalog
