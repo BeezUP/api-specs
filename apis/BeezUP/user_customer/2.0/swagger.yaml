@@ -1116,6 +1116,8 @@ definitions:
               $ref: '#/definitions/links.updateStoreLink'
             getShares:
               $ref: '#/definitions/links.getSharesLink'
+            share:
+              $ref: '#/definitions/links.shareLink'
           additionalProperties: false
           #example:
           #- href: /v2/user/stores/{storeId}
