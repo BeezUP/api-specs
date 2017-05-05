@@ -10,15 +10,30 @@ info:
   contact:
     email: support@beezup.com
     
-  
+   
   license:
     name: BeezUP 
     url: http://www.beezup.com
-
+    
+    
+  x-changeComment: |
+    add descriptionAvailable to channelHeader
 schemes:
  - https
 host: api.beezup.com
 basePath: /v2/user/channels
+
+externalDocs: 
+  description: BeezUP API documentation
+  url: https://beezup.github.io/api-docs/
+
+x-servers:
+- url: https://virtserver.swaggerhub.com/BeezUP/user_channels/v2
+  description: Mock Server
+- url: https://api.beezup.com/v2/user/channels
+  description: Production Server
+
+
 
 x-api-name: V2UserChannels
 x-api-namespace: BeezUP2.Channel.ApiService 
@@ -51,12 +66,15 @@ parameters:
     x-example: '2dc136a7-0d3d-4cc9-a825-a28a42c53e28'
     
 
+tags:
+- name: Channels Global
+  description: All global operations
 
 paths:
   '/':
     get:
       tags:
-      - Global
+      - Channels Global
       summary: List all available channel for this store 
       operationId: GetAvailableChannels
       parameters:
@@ -79,7 +97,7 @@ paths:
   '/{channelId}':
     get:
       tags:
-      - Global
+      - Channels Global
       summary: Get channel information 
       operationId: GetChannelInfo
       parameters:
@@ -94,7 +112,7 @@ paths:
   '/{channelId}/categories':
     get:
       tags:
-      - Global
+      - Channels Global
       summary: Get channel categories 
       operationId: GetChannelCategories
       parameters:
@@ -125,7 +143,7 @@ paths:
   '/{channelId}/columns':
     post:
       tags:
-      - Global
+      - Channels Global
       summary: Get channel columns
       operationId: GetChannelColumns
       parameters:
@@ -167,7 +185,7 @@ paths:
 #  '/{channelId}/categories/{channelCategoryId}':
 #    get:
 #      tags:
-#      - Global
+#      - Channels Global
 #      summary: Get first level channel category
 #      operationId: GetChannelFirstLevelCategory
 #      parameters:
@@ -211,6 +229,7 @@ definitions:
     - channelId
     - channelName
     - channelLogoUrl
+    - descriptionAvailable
     - links
     properties:
       channelId:
@@ -219,11 +238,16 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelName'
       channelLogoUrl:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
+      descriptionAvailable:
+        type: boolean
+        description: Indicates if we have more detailed information about this channel
+        default: false
+        example: true
       links:
-        $ref: '#/definitions/availableChannelLink'
+        $ref: '#/definitions/channelHeaderLinks'
 
 
-  availableChannelLink:
+  channelHeaderLinks:
     description: The links related to an available channel
     type: object
     required:
@@ -288,7 +312,7 @@ definitions:
           category:
             description: The channel category
             type: string
-            example: NULL
+            example: 'NULL'
           homeUrl:
             description: The home url of the channel
             example: http://www.achetezfacile.com
@@ -466,7 +490,7 @@ definitions:
       channelColumnId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelColumnId'
       channelColumnName:
-        $ref: '#/definitions/channelColumnName'
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelColumnName'
       channelColumnDescription:
         $ref: '#/definitions/channelColumnDescription'
       showInMapping:
@@ -478,11 +502,6 @@ definitions:
 
 
 
-  channelColumnName:
-    type: string
-    description: The channel column name
-    example: 'NAME'
-    
   channelColumnDescription:
     type: string
     description: The channel column description
@@ -508,7 +527,7 @@ definitions:
       channelColumnId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelColumnId'
       channelColumnName:
-        $ref: '#/definitions/channelColumnName'
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelColumnName'
       channelColumnDescription:
         $ref: '#/definitions/channelColumnDescription'
       showInMapping:
@@ -521,21 +540,6 @@ definitions:
         $ref: '#/definitions/channelColumnConfiguration'
       restrictedValues:
         $ref: '#/definitions/channelColumnRestrictedValues' 
-    example:
-      channelColumnId: 8a76f06a-fefc-4c0d-bcfe-b210f1482977
-      channelColumnName: NAME
-      channelColumnDescription: 'Please enter the base prices (price per unit) according to <a href="http://www.gesetze-im-internet.de/pangv/__2.html">Article PAngV</a>'
-      showInMapping: true
-      position: 1
-      configuration:
-        columnImportance: Required
-        columnDataType: String
-        beezUPColumnName: CategoryFirstLevel
-      restrictedValues:
-        additionalProp1: string
-        additionalProp2: string
-        additionalProp3: string
-      
 
   channelColumnRestrictedValues:
     type: object
