@@ -179,6 +179,19 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
   
   '/account/profilePictureInfo':
+    get:
+      tags:
+      - Account
+      summary: Get profile picture information
+      operationId: GetProfilePictureInfo
+      responses:
+        200:
+          description: Profile picture information
+          schema:
+            $ref: '#/definitions/profilePictureInfoResponse'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+    
     put:
       tags:
       - Account
@@ -2209,6 +2222,8 @@ definitions:
         $ref: '#/definitions/links.changePasswordLink'
       saveCompanyInfo:
         $ref: '#/definitions/links.saveCompanyInfoLink'
+      getProfilePictureInfo:
+        $ref: '#/definitions/links.getProfilePictureInfoLink'
       saveProfilePictureInfo:
         $ref: '#/definitions/links.saveProfilePictureInfoLink'
       getCreditCardInfo:
@@ -2216,6 +2231,14 @@ definitions:
       saveUserCreditCardLink:
         $ref: '#/definitions/links.saveCreditCardInfoLink'
     additionalProperties: false
+    
+    
+  links.getProfilePictureInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/account/profilePictureInfo
+        method: GET
     
   accountInfo:
     type: object
@@ -2318,6 +2341,21 @@ definitions:
       accountingEmails:
         $ref: '#/definitions/accountingEmails'
 
+  profilePictureInfoResponseLinks:
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.getProfilePictureInfoLink'
+      save:
+        $ref: '#/definitions/links.saveProfilePictureInfoLink'
+
+  profilePictureInfoResponse:
+    type: object
+    properties:
+      links:
+        $ref: '#/definitions/profilePictureInfoResponseLinks'
+      profilePictureInfo:
+        $ref: '#/definitions/profilePictureInfo'
 
   profilePictureInfo:
     required:
