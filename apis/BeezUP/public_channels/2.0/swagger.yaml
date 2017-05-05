@@ -25,7 +25,7 @@ consumes:
 produces:
   - application/json 
   
-x-api-name: PublicChannels
+x-api-name: V2PublicChannels
 x-api-namespace: BeezUP.Channel.WebService
 
 tags:
@@ -86,6 +86,16 @@ paths:
           description: The channel list for one country
           schema:
             $ref: '#/definitions/channelInfoList'
+          examples:
+            application/json:
+             channels:
+             -  name: Amazon Direct FRA
+                homeUrl: 'http://www.amazon.fr'
+                logoUrl: 'http://beezupcdn.blob.core.windows.net/comparators/Amazon%2520Direct%2520FRA.png'
+                tags:
+                - Marketplace"
+              
+    
         404:
           description: Channel country not found
           schema:
