@@ -14,6 +14,10 @@ info:
   license:
     name: BeezUP 
     url: http://www.beezup.com
+    
+    
+  x-changeComment: |
+    add descriptionAvailable to channelHeader
 
 schemes:
  - https
