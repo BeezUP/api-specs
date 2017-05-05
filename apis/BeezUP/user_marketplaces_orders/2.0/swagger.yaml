@@ -1095,7 +1095,7 @@ definitions:
     - self
     properties:
       self:
-        $ref: '#definitions/links.GetOrderLink'
+        $ref: '#/definitions/links.GetOrderLink'
 
   
   orderHeader:
@@ -1178,7 +1178,7 @@ definitions:
       etag:
        $ref: '#/definitions/etag'
       links:
-       $ref: '#definitions/orderHeaderLinks' 
+       $ref: '#/definitions/orderHeaderLinks' 
 
   etag:
     description: |
@@ -1289,7 +1289,7 @@ definitions:
       - self
       properties:
         history:
-          $ref: '#definitions/links.GetOrderHistoryLink'
+          $ref: '#/definitions/links.GetOrderHistoryLink'
 
   links.GetOrderHistoryLink:
     allOf:
@@ -1423,7 +1423,7 @@ definitions:
           example: France
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_AddressCountryIsoCodeAlpha2' does not comply with the rule
         order_Shipping_AddressCountryIsoCodeAlpha2:
-          description: The shipping address country iso code alpha 2 (see http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Decoding_table for more details)
+          description: The shipping address country iso code alpha 2 (see http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#/decoding_table for more details)
           type: string
           example: FR
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Phone' does not comply with the rule
@@ -1522,7 +1522,7 @@ definitions:
           example: France
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_AddressCountryIsoCodeAlpha2' does not comply with the rule
         order_Buyer_AddressCountryIsoCodeAlpha2:
-          description: The Buyer address country iso code alpha 2 (see http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Decoding_table for more details)
+          description: The Buyer address country iso code alpha 2 (see http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#/decoding_table for more details)
           type: string
           example: FR
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_Phone' does not comply with the rule
