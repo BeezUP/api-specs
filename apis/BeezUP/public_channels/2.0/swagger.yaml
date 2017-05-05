@@ -113,7 +113,7 @@ basePath: /BeezUP/public_channels/2.0
 
 
 definitions:
-
+ 
 
   channelInfoList:
     type: object
