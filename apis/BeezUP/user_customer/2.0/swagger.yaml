@@ -2185,10 +2185,12 @@ definitions:
     - initials
     - uploaded
     example: initials
+    
   whatIDo:
     description: Your role in your company
     type: string
     example: I'm the Manager on this company
+    
   beezUPTimeZoneId:
     format: int32
     description: The time zone identifier based on the list of values /v2/user/lov/BeezUPTimeZone
