@@ -25,6 +25,12 @@ consumes:
 produces:
   - application/json 
   
+x-servers:
+- url: https://virtserver.swaggerhub.com/BeezUP/public_channels/v2
+  description: Mock Server
+- url: https://api.beezup.com/v2/public/channels
+  description: Production Server
+
 
 x-api-name: V2PublicChannels
 x-api-namespace: BeezUP.Channel.WebService
@@ -113,7 +119,6 @@ basePath: /BeezUP/public_channels/2.0
 
 
 definitions:
- 
 
   channelInfoList:
     type: object
