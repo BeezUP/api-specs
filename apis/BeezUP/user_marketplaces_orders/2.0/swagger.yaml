@@ -1062,6 +1062,25 @@ definitions:
     type: boolean
     example: false
 
+
+
+  links.GetOrderLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000
+        method: GET
+
+
+  orderHeaderLinks:
+    type: object
+    required:
+    - self
+    properties:
+      self:
+        $ref: '#definitions/links.GetOrderLink'
+
+  
   orderHeader:
     description: Describe the basic information related to an order. All properties with the prefix order_ are translated in the list of values /user/lov/OrderMetaInfoOrderDetails
     type: object
@@ -1142,113 +1161,7 @@ definitions:
       etag:
        $ref: '#/definitions/etag'
       links:
-        type: array
-        items:
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2
-        example:
-        - rel: self
-          href: /v2/user/marketplaces/orders/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}
-          method: GET
-          parameters:
-          - name: marketplaceTechnicalCode
-            in: path
-            required: true
-            value: Amazon
-          - name: accountId
-            type: integer
-            in: path
-            required: true
-            value: 1001
-          - name: beezUPOrderId
-            in: path
-            required: true
-            value: '00000000000000000000000000000000000000000000000'
-        - rel: history
-          href: /v2/user/marketplaces/orders/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}/history
-          method: GET
-          parameters:
-          - name: marketplaceTechnicalCode
-            type: string
-            in: path
-            required: true
-            value: Amazon
-          - name: accountId
-            type: integer
-            in: path
-            required: true
-            value: 1001
-          - name: beezUPOrderId
-            type: string
-            in: path
-            required: true
-            value: '00000000000000000000000000000000000000000000000'
-        - rel: setMerchantOrderId
-          href: /v2/user/marketplaces/orders/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}/SetMerchantOrderId
-          method: POST
-          parameters:
-          - name: marketplaceTechnicalCode
-            in: path
-            required: true
-            type: string
-            value: Amazon
-          - name: accountId
-            type: integer
-            in: path
-            required: true
-            value: 1001
-          - name: beezUPOrderId
-            type: string
-            in: path
-            required: true
-            value: '00000000000000000000000000000000000000000000000'
-          - name: order_MerchantOrderId
-            in: body
-            type: string
-            required: true
-          - name: order_MerchantECommerceSoftwareName
-            type: string
-            in: body
-          - name: order_MerchantECommerceSoftwareVersion
-            type: string
-            in: body
-        - rel: clearMerchantOrderId
-          href: /v2/user/marketplaces/orders/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}/clearmerchandorderid
-          method: POST
-          parameters:
-          - name: marketplaceTechnicalCode
-            type: string
-            in: path
-            required: true
-            value: Amazon
-          - name: accountId
-            type: integer
-            in: path
-            required: true
-            value: 1001
-          - name: beezUPOrderId
-            type: string
-            in: path
-            required: true
-            value: '00000000000000000000000000000000000000000000000'
-        - rel: harvest
-          href: /v2/user/marketplaces/orders/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}/harvest
-          method: POST
-          parameters:
-          - name: marketplaceTechnicalCode
-            type: string
-            in: path
-            required: true
-            value: Amazon
-          - name: accountId
-            type: integer
-            in: path
-            required: true
-            value: 1001
-          - name: beezUPOrderId
-            type: string
-            in: path
-            required: true
-            value: '00000000000000000000000000000000000000000000000'
+       $ref: '#definitions/orderHeaderLinks' 
 
   etag:
     description: |
@@ -1692,6 +1605,149 @@ definitions:
               - name: order_Shipping_Price
                 in: body
                 type: number
+
+
+  links.ChangeOrderLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/shipOrder
+        method: POST
+        templated: true
+        parameters:
+          'If-Match':
+            in: header
+            value: '"ca071a4580129f932a03971968ffef69"'
+            required: true
+          testMode:
+            in: query
+            type: boolean
+            required: false
+            value: false
+          userName:
+            in: query
+            type: string
+            required: true
+          request:
+            in: body
+            type: object
+            schema: changeOrderRequest
+            properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_FulfillmentDate' does not comply with the rule
+              order_Shipping_FulfillmentDate:
+                required: true
+                type: date-time
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_ShipperTrackingNumber' does not comply with the rule
+              order_Shipping_ShipperTrackingNumber: 
+                required: true
+                type: string
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_CarrierName' does not comply with the rule
+              order_Shipping_CarrierName: 
+                required: true
+                type: string
+                lovRequired: true
+                lovLink:
+                  href: /v2/user/PriceMinisterCarrierName
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Method' does not comply with the rule
+              order_Shipping_Method: 
+                required: true
+                type: string
+                lovRequired: false
+                lovLink:
+                  href: /v2/user/ShippingMethod_PriceMinister
+                
+
+
+  orderTransitionLinks:
+    description: Contains the authorized change actions for an order
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/links.ChangeOrderLink'
+    example:
+      shipOrder:
+        href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/shipOrder
+        method: POST
+        templated: true
+        parameters:
+          'If-Match':
+            in: header
+            value: '"ca071a4580129f932a03971968ffef69"'
+            required: true
+          testMode:
+            in: query
+            type: boolean
+            required: false
+            value: false
+          userName:
+            in: query
+            type: string
+            required: true
+          request:
+            in: body
+            type: object
+            schema: changeOrderRequest
+            properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_FulfillmentDate' does not comply with the rule
+              order_Shipping_FulfillmentDate:
+                required: true
+                type: date-time
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_ShipperTrackingNumber' does not comply with the rule
+              order_Shipping_ShipperTrackingNumber: 
+                required: true
+                type: string
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_CarrierName' does not comply with the rule
+              order_Shipping_CarrierName: 
+                required: true
+                type: string
+                lovRequired: true
+                lovLink:
+                  href: /v2/user/PriceMinisterCarrierName
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Method' does not comply with the rule
+              order_Shipping_Method: 
+                required: true
+                type: string
+                lovRequired: false
+                lovLink:
+                  href: /v2/user/ShippingMethod_PriceMinister
+
+      cancelOrder:
+        href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/cancelOrder
+        method: POST
+        templated: true
+        parameters:
+          'If-Match':
+            in: header
+            value: '"ca071a4580129f932a03971968ffef69"'
+            required: true
+          testMode:
+            in: query
+            type: boolean
+            required: false
+            value: false
+          userName:
+            in: query
+            type: string
+            required: true
+          request:
+            in: body
+            type: object
+            schema: changeOrderRequest
+            properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Cancel_Reason' does not comply with the rule
+              order_Cancel_Reason:
+                required: true
+                type: string
+
+
 
 #  orderPropertyInfos:
 #    type: object
