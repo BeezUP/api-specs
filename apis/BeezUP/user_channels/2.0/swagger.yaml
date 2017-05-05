@@ -231,6 +231,7 @@ definitions:
     - channelLogoUrl
     - descriptionAvailable
     - links
+    - isMarketplace
     properties:
       channelId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
@@ -241,6 +242,11 @@ definitions:
       descriptionAvailable:
         type: boolean
         description: Indicates if we have more detailed information about this channel
+        default: false
+        example: true
+      isMarketplace:
+        type: boolean
+        description: Indicates if the channel is a marketplace
         default: false
         example: true
       links:
