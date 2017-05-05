@@ -1,0 +1,144 @@
+swagger: '2.0'
+info:
+  version: '2.0'
+  title: 'Public - Channels'
+  description: 'This api allows you to get access to the channels. The main use case is our public commercial web site.'
+  contact:
+    email: support@beezup.com
+    
+ 
+  license:
+    name: BeezUP 
+    url: http://www.beezup.com
+
+# host: api.beezup.com
+# basePath: /v2/public/channels
+
+x-host: api.beezup.com
+x-basePath: /v2/public/channels
+
+schemes:
+  - https 
+
+consumes:
+  - application/json
+produces:
+  - application/json 
+  
+x-api-name: PublicChannels
+x-api-namespace: BeezUP.Channel.WebService
+
+tags:
+- name: Public Channels
+  description: All our public channels operations
+
+paths: 
+
+
+  '/':
+    get:
+      tags:
+      - Public Channels
+      summary: The channel list regrouped by country
+      operationId: GetChannelsByCountry
+      responses:
+        200:
+          description: Channel list regrouped by country
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+            example:
+              'FRA': '/v2/public/FRA'
+              'DEU': '/v2/public/DEU'    
+              'ESP': '/v2/public/ESP'
+              'ITA': '/v2/public/ITA'
+              'GBR': '/v2/public/GBR'
+
+  '/{countryIsoCode}':
+    get:
+      tags:
+      - Public Channels
+      summary: The channel list for one country
+      operationId: GetChannels
+      parameters:
+      - name: countryIsoCode
+        in: path
+        required: true
+        type: string
+        description: |
+          The country iso code alpha 3 based on this: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3#Decoding_table \
+          To know which country are available you have to use the operation: GetChannelsByCountry
+      - name: 'Accept-Encoding'
+        description: Allows the client to indicate wether it accepts a compressed encoding to reduce traffic size. 
+        in: header
+        required: true
+        type: array
+        items:
+          type: string
+          collectionFormat: csv
+        x-example: 
+        - gzip
+        - deflate
+
+      responses:
+        200:
+          description: The channel list for one country
+          schema:
+            $ref: '#/definitions/channelInfoList'
+        404:
+          description: Channel country not found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+    
+  
+# Added by API Auto Mocking Plugin
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /BeezUP/public_channels/2.0
+
+
+
+definitions:
+
+
+  channelInfoList:
+    type: object
+    properties:
+      
+      channels:
+        type: array
+        items:
+          $ref: '#/definitions/channelInfo'
+
+  channelInfo:
+    type: object
+    required:
+    - name
+    - homeUrl
+    - logoUrl
+    - tags
+    properties:
+      name:
+        type: string
+        description: The channel name
+        example: Amazon Direct FRA
+      homeUrl:
+        type: string
+        format: uri
+        description: The channel home url
+        example: 'http://www.amazon.fr'
+      logoUrl:
+        type: string
+        format: uri
+        description: The channel logo url
+        example: 'http://beezupcdn.blob.core.windows.net/comparators/Amazon%2520Direct%2520FRA.png'
+      tags:
+        description: The tag list related to a channel
+        type: array
+        items:
+          type: string
+        example:
+        - Marketplace
