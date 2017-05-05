@@ -226,6 +226,7 @@ definitions:
     - channelId
     - channelName
     - channelLogoUrl
+    - descriptionAvailable
     - links
     properties:
       channelId:
@@ -234,11 +235,16 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelName'
       channelLogoUrl:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
+      descriptionAvailable:
+        type: boolean
+        description: Indicates if we have more detailed information about this channel
+        default: false
+        example: true
       links:
-        $ref: '#/definitions/availableChannelLink'
+        $ref: '#/definitions/channelHeaderLinks'
 
 
-  availableChannelLink:
+  channelHeaderLinks:
     description: The links related to an available channel
     type: object
     required:
