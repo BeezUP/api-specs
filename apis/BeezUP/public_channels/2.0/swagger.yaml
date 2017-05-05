@@ -131,26 +131,31 @@ definitions:
             href: /v2/public/channels/FRA
             method: GET
           DEU: 
-            href: '/v2/public/channels/DEU'    
+            href: /v2/public/channels/DEU    
             method: GET
           ESP: 
-            href: '/v2/public/channels/ESP'
+            href: /v2/public/channels/ESP'
             method: GET
           ITA: 
-            href: '/v2/public/channels/ITA'
+            href: /v2/public/channels/ITA
             method: GET
           GBR: 
-            href: '/v2/public/channels/GBR'
+            href: /v2/public/channels/GBR
             method: GET
 
       links:
         type: object
         properties:
+          self:
+            $ref: '#/definitions/links.GetChannelsIndexLink'
           channelCountryLov:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+            $ref: '#/definitions/links.GetPublicListOfValuesLink'
           channelTypeLov:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+            $ref: '#/definitions/links.GetPublicListOfValuesLink'
         example:
+          self:
+            href: /v2/public/channels
+            method: GET
           channelCountryLov:
             href: /v2/public/lov/www_ChannelCountry
             method: GET
@@ -158,7 +163,13 @@ definitions:
             href: /v2/public/lov/ChannelType
             method: GET
             
-  
+  links.GetPublicListOfValuesLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/public/lov/ChannelType
+        method: GET
+
 
   links.GetChannelsLink:
     allOf:
@@ -167,12 +178,23 @@ definitions:
         href: /v2/public/channels/FRA
         method: GET
 
+  links.GetChannelsIndexLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/public/channels
+        method: GET
 
 
 
   channelInfoList:
     type: object
     properties:
+      links:
+        type: object
+        properties:
+          self:
+            $ref: '#/definitions/links.GetChannelsLink'
       channels:
         type: array
         items:
