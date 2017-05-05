@@ -46,21 +46,16 @@ paths:
     get:
       tags:
       - Public Channels
-      summary: The channel list regrouped by country
-      operationId: GetChannelsByCountry
+      summary: Get public channel index
+      description: Use this operation to get the correct link to the channels and to the list of values
+      operationId: GetChannelsIndex
       responses:
         200:
-          description: Channel list regrouped by country
+          description: Channel list regrouped by country and links to list of values
           schema:
-            type: object
-            additionalProperties:
-              type: string
-            example:
-              'FRA': '/v2/public/FRA'
-              'DEU': '/v2/public/DEU'    
-              'ESP': '/v2/public/ESP'
-              'ITA': '/v2/public/ITA'
-              'GBR': '/v2/public/GBR'
+            $ref: '#/definitions/publicChannelIndex'
+
+
 
   '/{countryIsoCode}':
     get:
@@ -120,22 +115,77 @@ basePath: /BeezUP/public_channels/2.0
 
 definitions:
 
+  # TODO: Add country display name
+  
+
+  publicChannelIndex:
+    type: object
+    properties:
+      channels:
+        type: object
+        description: The key is the country iso code
+        additionalProperties:
+          $ref: '#/definitions/links.GetChannelsLink'
+        example:
+          FRA: 
+            href: /v2/public/channels/FRA
+            method: GET
+          DEU: 
+            href: '/v2/public/channels/DEU'    
+            method: GET
+          ESP: 
+            href: '/v2/public/channels/ESP'
+            method: GET
+          ITA: 
+            href: '/v2/public/channels/ITA'
+            method: GET
+          GBR: 
+            href: '/v2/public/channels/GBR'
+            method: GET
+
+      links:
+        type: object
+        properties:
+          channelCountryLov:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+          channelTypeLov:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+        example:
+          channelCountryLov:
+            href: /v2/public/lov/www_ChannelCountry
+            method: GET
+          channelTypeLov:
+            href: /v2/public/lov/ChannelType
+            method: GET
+            
+  
+
+  links.GetChannelsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/public/channels/FRA
+        method: GET
+
+
+
+
   channelInfoList:
     type: object
     properties:
-      
       channels:
         type: array
         items:
           $ref: '#/definitions/channelInfo'
-
+          
+          
   channelInfo:
     type: object
     required:
     - name
     - homeUrl
     - logoUrl
-    - tags
+    - types
     properties:
       name:
         type: string
@@ -151,8 +201,8 @@ definitions:
         format: uri
         description: The channel logo url
         example: 'http://beezupcdn.blob.core.windows.net/comparators/Amazon%2520Direct%2520FRA.png'
-      tags:
-        description: The tag list related to a channel
+      types:
+        description: The type list related to a channel
         type: array
         items:
           type: string
