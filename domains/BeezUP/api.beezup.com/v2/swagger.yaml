@@ -53,7 +53,7 @@ definitions:
         type: string
         format: uri
         description: The product image Url
-        example: http://i2.cdscdn.com/pdt2/3/9/0/1/550x550/hai6901018043390/rw/haier-b20fwrss-refrigerateur-americain.jpg
+        example: 'http://i2.cdscdn.com/pdt2/3/9/0/1/550x550/hai6901018043390/rw/haier-b20fwrss-refrigerateur-americain.jpg'
       productActive:
         type: boolean
         description: Indicates if the product still exists in your catalog
@@ -573,7 +573,7 @@ definitions:
     type: string
     #format: uri
     pattern: ^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$
-    example: http://www.mydomain.com
+    example: 'http://www.mydomain.com'
    
   BeezUP.Common.ErrorResponseMessage:
     type: object
@@ -591,7 +591,7 @@ definitions:
     type: string
     format: uri
     description: The documentation related to this operation.
-    example: https://beezup.github.io/api-docs/#operation/EnableChannelCatalog
+    example: 'https://beezup.github.io/api-docs/#operation/EnableChannelCatalog'
 
 
   BeezUP.Common.UserErrorMessage:
