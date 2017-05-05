@@ -1331,7 +1331,6 @@ definitions:
     - lastName
     - firstName
     - email
-    - profilePictureUrl
     - countryIsoCodeAlpha3
     - company
     - whatIDo
