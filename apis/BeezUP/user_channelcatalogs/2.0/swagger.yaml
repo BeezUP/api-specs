@@ -183,6 +183,8 @@ paths:
       - Channel Catalogs Global
       summary: Delete the channel catalog
       operationId: DeleteChannelCatalog
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
       responses:
         204:
           description: Channel catalog deleted
