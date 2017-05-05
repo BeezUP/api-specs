@@ -130,7 +130,7 @@ definitions:
     - name
     - homeUrl
     - logoUrl
-    - tags
+    - tags2
     properties:
       name:
         type: string
@@ -146,7 +146,7 @@ definitions:
         format: uri
         description: The channel logo url
         example: 'http://beezupcdn.blob.core.windows.net/comparators/Amazon%2520Direct%2520FRA.png'
-      tags:
+      tags2:
         description: The tag list related to a channel
         type: array
         items:
