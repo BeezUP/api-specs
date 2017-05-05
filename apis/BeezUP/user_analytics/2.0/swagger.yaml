@@ -2256,13 +2256,13 @@ definitions:
     type: object
     properties:
       self:
-        $ref: '#definitions/links.GetRulesLink'
+        $ref: '#/definitions/links.GetRulesLink'
       create:
-        $ref: '#definitions/links.CreateRuleLink'
+        $ref: '#/definitions/links.CreateRuleLink'
       history:
-        $ref: '#definitions/links.GetRulesExecutionsLink'
+        $ref: '#/definitions/links.GetRulesExecutionsLink'
       run:
-        $ref: '#definitions/links.RunRulesLink'
+        $ref: '#/definitions/links.RunRulesLink'
 
 
   links.CreateRuleLink:
@@ -2418,23 +2418,23 @@ definitions:
     type: object
     properties:
       self:
-        $ref: '#definitions/links.GetRuleLink'
+        $ref: '#/definitions/links.GetRuleLink'
       run:
-        $ref: '#definitions/links.RunRuleLink'
+        $ref: '#/definitions/links.RunRuleLink'
       delete:
-        $ref: '#definitions/links.DeleteRuleLink'
+        $ref: '#/definitions/links.DeleteRuleLink'
       moveup:
-        $ref: '#definitions/links.MoveUpRuleLink'
+        $ref: '#/definitions/links.MoveUpRuleLink'
       movedown:
-        $ref: '#definitions/links.MoveDownRuleLink'
+        $ref: '#/definitions/links.MoveDownRuleLink'
       enable:
-        $ref: '#definitions/links.EnableRuleLink'
+        $ref: '#/definitions/links.EnableRuleLink'
       disable:
-        $ref: '#definitions/links.DisableRuleLink'
+        $ref: '#/definitions/links.DisableRuleLink'
       update:
-        $ref: '#definitions/links.UpdateRuleLink'
+        $ref: '#/definitions/links.UpdateRuleLink'
       reportFilter:
-        $ref: '#definitions/links.GetReportFilterLink'
+        $ref: '#/definitions/links.GetReportFilterLink'
 
       
 
@@ -2491,7 +2491,7 @@ definitions:
         type: string
         example: '3016-08-29T09:12:33.001Z'
       links:
-        $ref: '#definitions/ruleLinks'
+        $ref: '#/definitions/ruleLinks'
 
   createRuleRequest:
     required:
@@ -2590,7 +2590,7 @@ definitions:
     type: object
     properties:
       rule:
-        $ref: '#definitions/links.GetRuleLink'
+        $ref: '#/definitions/links.GetRuleLink'
 
   ruleExecutionReporting:
     type: object
@@ -2649,7 +2649,7 @@ definitions:
         type: string
         example: http://www.google.com
       links:
-        $ref: '#definitions/ruleExecutionReportingLinks'
+        $ref: '#/definitions/ruleExecutionReportingLinks'
         
 
 # Added by API Auto Mocking Plugin
