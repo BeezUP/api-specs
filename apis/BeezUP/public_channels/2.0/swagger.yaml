@@ -78,9 +78,9 @@ paths:
         items:
           type: string
           collectionFormat: csv
-        x-example: 
-        - gzip
-        - deflate
+#        x-example: 
+#        - gzip
+#        - deflate
 
       responses:
         200:
