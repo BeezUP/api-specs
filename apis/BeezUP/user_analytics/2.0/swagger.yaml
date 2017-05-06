@@ -1464,7 +1464,7 @@ definitions:
       day:
         type: string
         format: date
-        example: '2017-02-22'
+        example: '2017-04-23T18:25:43.511Z'
       allChannels:
         $ref: '#/definitions/reportByDayAllChannels'
 # [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
