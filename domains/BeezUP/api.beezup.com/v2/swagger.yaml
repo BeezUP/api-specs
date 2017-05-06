@@ -470,8 +470,7 @@ definitions:
           - date-time
         example: string
       lovLink:
-        description: This parameter expect the values indicated in this list of values.
-        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
       lovRequired:
         type: boolean
         description: If true, you MUST use indicate a value from the list of values otherwise it's a freetext
@@ -520,8 +519,7 @@ definitions:
           - date-time
         example: string
       lovLink:
-        description: This parameter expect the values indicated in this list of values.
-        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
       lovRequired:
         type: boolean
         description: If true, you MUST use indicate a value from the list of values otherwise it's a freetext
