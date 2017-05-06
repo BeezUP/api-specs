@@ -484,6 +484,9 @@ definitions:
         type: string
         description: schema of the parameter
         example: orderListRequest
+      properties:
+        additionalProperties:
+          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameter3
 
         
   BeezUP.Common.LinkParameter2:
