@@ -677,6 +677,7 @@ definitions:
         href: /v2/user/marketplaces/orders/exportations
         method: POST
         properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
           request:
             in: body
             required: true
@@ -690,6 +691,7 @@ definitions:
     properties:
       paginationResult:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       exportations:
         type: array
         items:
@@ -911,6 +913,7 @@ definitions:
       links:
         $ref: '#/definitions/automaticTransitionInfosLinks'
 
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       automaticTransitionInfos:
         type: array
         items:
@@ -956,6 +959,7 @@ definitions:
     required:
     - automaticTransitions
     properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       automaticTransitions:
         type: array
         items:
@@ -1084,6 +1088,7 @@ definitions:
   accountSynchronizations:
     type: object
     properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       accountSynchronizations:
         type: array
         items:
@@ -1094,6 +1099,7 @@ definitions:
     properties:
       accountId:
         $ref: '#/definitions/accountId'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       completedHarvestSynchroUtcDate:
         format: date-time
         type: string
@@ -1602,6 +1608,7 @@ definitions:
           type: string
           format: uri
           example: http://beezupblob.com/orderItems.xml
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
         orderItems:
           type: array
           items:
@@ -1644,14 +1651,17 @@ definitions:
             type: object
             schema: changeOrderRequest
             properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_FulfillmentDate' does not comply with the rule
               order_Shipping_FulfillmentDate:
                 required: true
                 type: date-time
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_ShipperTrackingNumber' does not comply with the rule
               order_Shipping_ShipperTrackingNumber: 
                 required: true
                 type: string
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_CarrierName' does not comply with the rule
               order_Shipping_CarrierName: 
                 required: true
@@ -1659,6 +1669,7 @@ definitions:
                 lovRequired: true
                 lovLink:
                   href: /v2/user/PriceMinisterCarrierName
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Method' does not comply with the rule
               order_Shipping_Method: 
                 required: true
@@ -1698,14 +1709,17 @@ definitions:
             type: object
             schema: changeOrderRequest
             properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_FulfillmentDate' does not comply with the rule
               order_Shipping_FulfillmentDate:
                 required: true
                 type: date-time
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_ShipperTrackingNumber' does not comply with the rule
               order_Shipping_ShipperTrackingNumber: 
                 required: true
                 type: string
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_CarrierName' does not comply with the rule
               order_Shipping_CarrierName: 
                 required: true
@@ -1713,6 +1727,7 @@ definitions:
                 lovRequired: true
                 lovLink:
                   href: /v2/user/PriceMinisterCarrierName
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Method' does not comply with the rule
               order_Shipping_Method: 
                 required: true
@@ -1744,6 +1759,7 @@ definitions:
             type: object
             schema: changeOrderRequest
             properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Cancel_Reason' does not comply with the rule
               order_Cancel_Reason:
                 required: true
@@ -1816,6 +1832,7 @@ definitions:
     type: object
     properties:
       links:
+        $ref: '#/definitions/orderIndexLinks'
         
   orderIndexLinks:
     type: object
@@ -1849,12 +1866,14 @@ definitions:
         href: /v2/user/marketplaces/orders/list/full
         method: POST
         properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'Accept-Encoding' does not comply with the rule
           'Accept-Encoding':
             in: header
             required: true
             type: array
             schema: string
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
           request:
             in: body
             required: false
@@ -1869,6 +1888,7 @@ definitions:
         href: /v2/user/marketplaces/orders/list/light
         method: POST
         properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
           request:
             in: body
             required: false
@@ -1966,6 +1986,7 @@ definitions:
       paginationResult:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
   
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       orders:
         type: array
         items:
@@ -1985,6 +2006,7 @@ definitions:
       paginationResult:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
   
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       orders:
         type: array
         items:
@@ -2023,15 +2045,18 @@ definitions:
     description: Describe the history related to an order
     type: object
     properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       changeOrderReportings:
         description: The list of change order operation
         type: array
         items:
           $ref: '#/definitions/changeOrderReporting'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       harvestOrderReportings:
         type: array
         items:
           $ref: '#/definitions/harvestOrderReporting'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       lastModificationUtcDate:
         format: date-time
         type: string
@@ -2093,6 +2118,7 @@ definitions:
         description: This operation was a test
         type: boolean
         example: false
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       details:
         type: object
         additionalProperties:
@@ -2143,6 +2169,7 @@ definitions:
     required:
     - changeOrders
     properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       changeOrders:
         type: array
         description: The change order operations
@@ -2191,6 +2218,7 @@ definitions:
     description: The response given by the batch operation 
     type: object
     properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       operations:
         type: array
         items:
@@ -2214,6 +2242,7 @@ definitions:
         type: integer
         description: Indicates the http status corresponding to the individual operation
         example: 204
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       errors:
         description: The error list
         type: array
