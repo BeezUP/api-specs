@@ -489,6 +489,54 @@ definitions:
         type: object
         additionalProperties:
           $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameter3
+        example:
+          shipOrder:
+            type: string
+          
+          
+          
+  BeezUP.Common.LinkParameterProperty3:
+    type: object
+    properties:
+
+      value:
+        type: object
+        description: The value of the parameter. It can be an integer a string or an object.
+        example: '1234'
+      required:
+        type: boolean
+        example: true
+      type:
+        description: The value type of the parameter
+        type: string
+        enum:
+          - string
+          - integer
+          - number
+          - boolean
+          - object
+          - array
+          - date
+          - date-time
+        example: string
+      lovLink:
+        description: This parameter expect the values indicated in this list of values.
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2
+      lovRequired:
+        type: boolean
+        description: If true, you MUST use indicate a value from the list of values otherwise it's a freetext
+        example: true
+      description:
+        type: string
+        description: description of the parameter
+        example: the store identifier
+      schema:
+        type: string
+        description: schema of the parameter
+        example: orderListRequest
+  
+
+
 
         
   BeezUP.Common.LinkParameter2:
