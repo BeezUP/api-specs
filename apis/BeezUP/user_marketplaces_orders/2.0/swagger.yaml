@@ -1777,7 +1777,52 @@ definitions:
   #
 
 
-  #orderList
+  orderListLinks:
+    type: object
+    properties:
+      harvest:
+        $ref: '#/definitions/links.HarvestAllLink'
+      setMerchantInfos:
+        $ref: '#/definitions/links.SetMerchantOrderInfoList'
+      clearMerchantInfos:
+        $ref: '#/definitions/links.ClearMerchantOrderInfoList'
+
+
+  orderListLightLinks:
+    allOf:
+    - $ref: '#/definitions/orderListLinks'
+
+  orderListFullLinks:
+    allOf:
+    - $ref: '#/definitions/orderListLinks'
+
+  links.SetMerchantOrderInfoList:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/marketplaces/orders/setMerchantOrderInfos
+        method: POST
+        parameters:
+          request:
+            in: body
+            required: true
+            type: object
+            schema: setMerchantOrderInfoRequest
+        
+  links.ClearMerchantOrderInfoList:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/marketplaces/orders/clearMerchantOrderInfos
+        method: POST
+
+
+  links.HarvestAllLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - example:
+        href: /v2/user/marketplaces/orders/harvest
+        method: POST
 
   orderListLight:
     type: object
@@ -1793,6 +1838,9 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/orderHeader'
+      links:
+        $ref: '#/definitions/orderListLightLinks'
+
 #      info:
 #        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
 
@@ -1810,6 +1858,9 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/order'
+      links:
+        $ref: '#/definitions/orderListFullLinks'
+
 #      info:
 #        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
 
