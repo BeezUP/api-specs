@@ -128,6 +128,25 @@ parameters:
   
   
 paths:
+
+
+  '/':
+    get:
+      tags:
+      - Global
+      x-tagGroups: Martketplaces Orders
+      operationId: GetOrderIndex
+      summary: Get all actions you can do on the order API
+      responses:
+        200:
+          description: Order index
+          schema:
+            $ref: '#/definitions/orderIndex'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+      deprecated: false
+
+
   '/status':
     get:
       tags:
