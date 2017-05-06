@@ -23,9 +23,6 @@ info:
     url: http://www.beezup.com  
   
   
-  x-changeComment: |
-    Add storeId on exportations to regroup them 
-   
 externalDocs: 
   description: BeezUP API documentation
   url: https://beezup.github.io/api-docs/
@@ -103,7 +100,6 @@ parameters:
     in: path
     required: true
     type: string
-    format: uuid
     x-example: '00000000000000000000000000000000000000000000000'
 
   changeOrderTypeParameter:
@@ -306,12 +302,6 @@ paths:
         minimum: 25
         maximum: 100
         x-example: 25
-      - name: storeId
-        in: query
-        required: true
-        type: string
-        format: guid
-        description: The store identifier to regroup the order exportations
       responses:
         200:
           description: Successfully fetched the list of Order report exportations
@@ -669,9 +659,6 @@ definitions:
   orderExportations:
     description: The list of Order report exportations
     type: object
-    required:
-    - paginationResult
-    - exportations
     properties:
       paginationResult:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult'
@@ -863,14 +850,10 @@ definitions:
         $ref: '#/definitions/pageNumber'
     
   exportOrderListRequest:
-    description: The message request to export order list. The store identifier is requested to regroup the exportations.
     type: object
     required:
-    - storeId
     - orderListRequest
     properties:
-      storeId:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
       orderListRequest:
         $ref: '#/definitions/orderListRequest'
 
@@ -1290,6 +1273,13 @@ definitions:
       properties:
         history:
           $ref: '#/definitions/links.GetOrderHistoryLink'
+        harvest:
+          $ref: '#/definitions/links.HarvestOrderLink'
+        setMerchantInfo:
+          $ref: '#/definitions/links.SetMerchantOrderInfoLink'
+        clearMerchantInfo:
+          $ref: '#/definitions/links.ClearMerchantOrderInfoLink'
+
 
   links.GetOrderHistoryLink:
     allOf:
@@ -1305,8 +1295,26 @@ definitions:
     - example:
         href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/setMerchantOrderInfo
         method: POST
+        parameters:
+          request:
+            in: body
+            type: object
+            schema: setMerchantOrderInfoRequest
 
 
+  links.ClearMerchantOrderInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/clearMerchantOrderInfo
+        method: POST
+
+  links.HarvestOrderLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/harvest
+        method: POST
 
 
   order:
@@ -1767,6 +1775,10 @@ definitions:
   #        $ref: '#/definitions/orderProperty'
 #
   #
+
+
+  #orderList
+
   orderListLight:
     type: object
     required:
