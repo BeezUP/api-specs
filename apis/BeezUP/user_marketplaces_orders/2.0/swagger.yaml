@@ -707,6 +707,10 @@ definitions:
   orderExportations:
     description: The list of Order report exportations
     type: object
+    required:
+    - paginationResult
+    - links
+    - exportations
     properties:
       paginationResult:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult'
