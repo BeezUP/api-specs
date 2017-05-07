@@ -1851,6 +1851,8 @@ definitions:
     properties:
       links:
         $ref: '#/definitions/orderIndexLinks'
+      lovLinks:
+        $ref: '#/definitions/orderIndexLovLinks'
         
   orderIndexLinks:
     type: object
@@ -1873,6 +1875,38 @@ definitions:
         $ref: '#/definitions/links.GetOrderListFullLink'
       lightOrders:
         $ref: '#/definitions/links.GetOrderListLightLink'
+
+
+
+
+  orderIndexLovLinks:
+    type: object
+    properties:
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+      orderChangeBusinessOperationType:
+        allOf:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
+        - example:
+            href: /v2/user/lov/OrderChangeBusinessOperationType
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+      orderState:
+        allOf:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
+        - example:
+            href: /v2/user/lov/BeezUPOrderState
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+      orderProperty:
+        allOf:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
+        - example:
+            href: /v2/user/lov/OrderMetaInfoOrderDetails
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+      orderPropertyPosted:
+        allOf:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
+        - example:
+            href: /v2/user/lov/OrderMetaInfoPosted
+
 
 
 
