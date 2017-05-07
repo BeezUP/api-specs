@@ -1891,41 +1891,41 @@ definitions:
     type: object
     properties:
       orderChangeBusinessOperationType:
-        $ref: '#/definitions/lovLinks.OrderChangeBusinessOperationTypeLink'
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
       orderState:
-        $ref: '#/definitions/lovLinks.OrderStateLink'
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
       orderProperty:
-        $ref: '#/definitions/lovLinks.OrderPropertyLink'
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
       orderPropertyPosted:
-        $ref: '#/definitions/lovLinks.OrderPropertyPostedLink'
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
 
-
-  lovLinks.OrderChangeBusinessOperationTypeLink:
-    allOf:
-    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-    - example:
-        href: /v2/user/lov/OrderChangeBusinessOperationType
-
-
-
-  lovLinks.OrderStateLink:
-    allOf:
-    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-    - example:
-        href: /v2/user/lov/BeezUPOrderState
-
-
-  lovLinks.OrderPropertyPostedLink:
-    allOf:
-    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-    - example:
-        href: /v2/user/lov/OrderMetaInfoPosted
-
-  lovLinks.OrderPropertyLink:
-    allOf:
-    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-    - example:
-        href: /v2/user/lov/OrderMetaInfoOrderDetails
+#
+#  lovLinks.OrderChangeBusinessOperationTypeLink:
+#    allOf:
+#    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
+#    - example:
+#        href: /v2/user/lov/OrderChangeBusinessOperationType
+#
+#
+#
+#  lovLinks.OrderStateLink:
+#    allOf:
+#    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
+#    - example:
+#        href: /v2/user/lov/BeezUPOrderState
+#
+#
+#  lovLinks.OrderPropertyPostedLink:
+#    allOf:
+#    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
+#    - example:
+#        href: /v2/user/lov/OrderMetaInfoPosted
+#
+#  lovLinks.OrderPropertyLink:
+#    allOf:
+#    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
+#    - example:
+#        href: /v2/user/lov/OrderMetaInfoOrderDetails
 
 
 
