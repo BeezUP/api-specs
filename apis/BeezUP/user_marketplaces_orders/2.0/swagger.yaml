@@ -715,6 +715,9 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/orderExportationReporting'
+      links:
+        $ref: '#/definitions/orderExportationsLinks'
+
 
   orderExportationReporting:
     description: Represent the reporting of the Order report exportations
