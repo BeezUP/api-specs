@@ -1883,32 +1883,42 @@ definitions:
   orderIndexLovLinks:
     type: object
     properties:
-# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       orderChangeBusinessOperationType:
-        allOf:
-        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-        - example:
-            href: /v2/user/lov/OrderChangeBusinessOperationType
-# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+        $ref: '#/definitions/lovLinks.OrderChangeBusinessOperationTypeLink'
       orderState:
-        allOf:
-        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-        - example:
-            href: /v2/user/lov/BeezUPOrderState
-# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+        $ref: '#/definitions/lovLinks.OrderStateLink'
       orderProperty:
-        allOf:
-        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-        - example:
-            href: /v2/user/lov/OrderMetaInfoOrderDetails
-# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+        $ref: '#/definitions/lovLinks.OrderPropertyLink'
       orderPropertyPosted:
-        allOf:
-        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-        - example:
-            href: /v2/user/lov/OrderMetaInfoPosted
+        $ref: '#/definitions/lovLinks.OrderPropertyPostedLink'
 
 
+  lovLinks.OrderChangeBusinessOperationTypeLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
+    - example:
+        href: /v2/user/lov/OrderChangeBusinessOperationType
+
+
+
+  lovLinks.OrderStateLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
+    - example:
+        href: /v2/user/lov/BeezUPOrderState
+
+
+  lovLinks.OrderPropertyPostedLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
+    - example:
+        href: /v2/user/lov/OrderMetaInfoPosted
+
+  lovLinks.OrderPropertyLink:
+    allOf:
+    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
+    - example:
+        href: /v2/user/lov/OrderMetaInfoOrderDetails
 
 
 
