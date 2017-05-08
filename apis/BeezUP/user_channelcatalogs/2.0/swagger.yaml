@@ -957,6 +957,7 @@ definitions:
     - positionInGroup
     - channelColumnId
     - operatorName
+    - enabled
     properties:
       name:
         $ref: '#/definitions/exclusionFilterName'
@@ -985,6 +986,10 @@ definitions:
         description: The value indicate by the user when the filter operation requires it.
         type: string        
         example: 'sony'
+      enabled:
+        description: indicates if the filter is currently active.
+        type: boolean        
+        example: true
         
   exclusionFilterOperatorName:
     description: The exclusion filter operator name 
