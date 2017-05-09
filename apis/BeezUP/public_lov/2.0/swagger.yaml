@@ -72,7 +72,7 @@ paths:
 
       responses:
         '200':
-          description: Get the list of values
+          description: The list of values
           headers:
             Content-Language:
               description: Indicates the language use in the response
@@ -83,7 +83,7 @@ paths:
           schema:
             $ref: '#/definitions/publicListOfValuesResponse'
         '404':
-          description: The list not found
+          description: List not found
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
@@ -104,11 +104,11 @@ paths:
           type: string 
       responses:
         '200':
-          description: Get the list of group names
+          description: The list group
           schema:
             $ref: '#/definitions/publicListGroupResponse'
         '404':
-          description: The list group is not found
+          description: List group is not found
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
@@ -192,15 +192,16 @@ definitions:
   publicListGroupResponse:
     type: object
     properties:
-# [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
-        type: object
-        properties:
-          self:
-            $ref: '#/definitions/links.GetPublicListOfValuesLink'
+        $ref: '#/definitions/publicListGroupResponseLinks'
       lovLinks:
         $ref: '#/definitions/lovLinks'
         
+  publicListGroupResponseLinks:
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.GetPublicListOfValuesLink'
     
 
 x-azure-api-id: 'v2publiclov'
