@@ -164,6 +164,10 @@ paths:
               $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
   
   
+  
+  
+  
+  
   '/{channelCatalogId}':
     get:
       tags:
@@ -373,6 +377,28 @@ paths:
           schema:
             $ref: '#/definitions/channelCatalogProductInfoList'
 
+
+
+  '/products/{productId}':
+    post:
+      tags:
+      - Channel Catalogs Products
+      summary: Get channel catalog products related to these channel catalogs 
+      operationId: GetChannelCatalogProductByChannelCatalog
+      parameters:
+        - $ref: '#/parameters/productIdParameter'
+        - name: request
+          in: body
+          schema:
+            $ref: '#/definitions/channelCatalogProductByChannelCatalogRequest'
+              
+      responses:
+        200:
+          description: The channel catalog product by channel catalog
+          schema:
+            $ref: '#/definitions/channelCatalogProductByChannelCatalogResponse'
+  
+  
 
   '/{channelCatalogId}/products/{productId}':
     get:
@@ -1151,7 +1177,27 @@ definitions:
 
 
         
+        
+  channelCatalogProductByChannelCatalogRequest:
+    type: object
+    properties:
+# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
+      channelCatalogIds:
+        description: The list of channel catalog identifier
+        type: array
+        items:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelCatalogId'
       
+  
+  channelCatalogProductByChannelCatalogResponse:
+    type: object
+    properties:
+# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
+      channelCatalogs:
+        description: The channel catalog product by channel catalog. The key is the channel catalog identifier 
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/channelCatalogProductInfo'
 
       
 x-azure-api-id: 'V2UserChannelCatalogs'
