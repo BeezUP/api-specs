@@ -610,12 +610,16 @@ definitions:
   BeezUP.Common.LOVLink3:
     description: Describe the way you have to follow to get access to the LOV
     type: object
+    required:
+    - href
     properties:
       href:
         type: string
         format: uri
         example: /v2/public/Go2CultureName
         description: Indicate the uri to the list of value
+      method:
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpMethod
 
   BeezUP.Common.HttpUrl:
     description: The URL <a href="https://en.wikipedia.org/wiki/URL">https://en.wikipedia.org/wiki/URL</a>
