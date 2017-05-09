@@ -1828,6 +1828,7 @@ definitions:
         type: integer
         description: Indicate the value of the third parameter of your formula
         example: 100
+        default: 100
         
       
   
