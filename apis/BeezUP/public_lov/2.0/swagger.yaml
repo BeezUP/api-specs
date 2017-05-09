@@ -35,34 +35,18 @@ paths:
   /:
     get:
       summary: Get all list names
-      operationId: GetPublicListNames
+      operationId: GetPublicLLovIndex
       tags:
       - LOV
       responses:
         '200':
           description: Get the list names
           schema:
-            type: array
-            items:
-              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
+            $ref: '#/definitions/lovIndex'
             
-      produces:
-        - application/json
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-  /groups:
-    get:
-      tags: 
-        - Groups
-      summary: Get list of group of list name
-      operationId: GetPublicListGroupNames
-
-      responses:
-        '200':
-          description: Get the list of group names
-          schema:
-            type: array
-            items:
-              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
             
   '/{listName}':
     get:
@@ -97,11 +81,13 @@ paths:
                 type: string
                 collectionFormat: csv
           schema:
-            type: array
-            items:
-              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ListOfValueItem'
+            $ref: '#/definitions/publicListOfValuesResponse'
         '404':
-          description: The list is unreachable or not found
+          description: The list not found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
 
   '/groups/{listGroupName}':
@@ -120,11 +106,101 @@ paths:
         '200':
           description: Get the list of group names
           schema:
-            type: array
-            items:
-              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
-        '403':
-          description: The list is unreachable or not found
+            $ref: '#/definitions/publicListGroupResponse'
+        '404':
+          description: The list group is not found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
           
+
+definitions:
+
+
+
+
+  lovIndex:
+    type: object
+    properties:
+      links:
+        $ref: '#/definitions/lovIndexLinks'
+        
+  lovIndexLinks:
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.GetPublicLLovIndexLink'
+# [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : All model properties must have examples]: Field 'example' required in 'properties'
+      groups:
+        description: Get all lov groups links. The key is the list group name.
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/links.GetPublicListGroupLink'
+      lists:
+        $ref: '#/definitions/lovLinks'
+
+  
+
+  lovLinks:
+    description: List of lov link. The key is the list name.
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/links.GetPublicListOfValuesLink'
+
+
+  links.GetPublicListOfValuesLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/public/lov/Go2CultureName
+        method: GET
+
+  
+  links.GetPublicLLovIndexLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/public/lov
+        method: GET
+        
+  links.GetPublicListGroupLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/public/lov/groups/LG_ShippingMethod
+        method: GET
+
+
+
+  publicListOfValuesResponse:
+    type: object
+    properties:
+# [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : All model properties must have examples]: Field 'example' required in 'properties'
+      links:
+        type: object
+        properties:
+          self:
+            $ref: '#/definitions/links.GetPublicListOfValuesLink'
+# [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : All model properties must have examples]: Field 'example' required in 'properties'
+      items:
+        type: array
+        items:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ListOfValueItem'
+        
+            
+  publicListGroupResponse:
+    type: object
+    properties:
+# [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : All model properties must have examples]: Field 'example' required in 'properties'
+      links:
+        type: object
+        properties:
+          self:
+            $ref: '#/definitions/links.GetPublicListOfValuesLink'
+      lovLinks:
+        $ref: '#/definitions/lovLinks'
+        
+    
 
 x-azure-api-id: 'v2publiclov'
