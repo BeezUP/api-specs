@@ -16,9 +16,8 @@ basePath: /v2/public/lov
 schemes:
   - https
 
-x-azure-api-id: 'v2userlov'
 
-x-api-name: UserLOV
+x-api-name: PublicLOV
 x-api-namespace: BeezUP.Framework.LOV.WebService
 
 consumes:
@@ -141,7 +140,7 @@ definitions:
       $ref: '#/definitions/links.GetPublicListGroupLink'
     
 
-  lovLinks:
+  publicLovLinks:
     description: List of lov link. The key is the list name.
     type: object
     additionalProperties:
