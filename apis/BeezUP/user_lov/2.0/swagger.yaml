@@ -17,8 +17,6 @@ basePath: /v2/user/lov
 schemes:
   - https
 
-x-azure-api-id: 'v2userlov'
-
 x-api-name: UserLOV
 x-api-namespace: BeezUP.Framework.LOV.WebService
 
@@ -47,16 +45,17 @@ paths:
   /:
     get:
       summary: Get all list names
-      operationId: GetUserListNames
+      operationId: GetUserLovIndex
       tags:
       - LOV
       responses:
         '200':
           description: Get the list names
           schema:
-            type: array
-            items:
-              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
+            $ref: '#/definitions/userLovIndex'
+            
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
             
 
   '/{listName}':
@@ -83,7 +82,7 @@ paths:
 
       responses:
         '200':
-          description: Get the list of values
+          description: The list of values
           headers:
             Content-Language:
               description: Indicates the language use in the response
@@ -94,28 +93,13 @@ paths:
               
               
           schema:
-            type: array
-            items:
-              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ListOfValueItem'
+            $ref: '#/definitions/userListOfValuesResponse'
         '404':
-          description: The list is unreachable or not found
-            
-
-  /groups:
-    get:
-      tags: 
-        - Groups
-      summary: Get list of group of list name
-      operationId: GetUserListGroupNames
-
-      responses:
-        '200':
-          description: Get the list of group names
+          description: List not found
           schema:
-            type: array
-            items:
-              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
-            
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
   '/groups/{listGroupName}':
     get:
       tags: 
@@ -130,10 +114,114 @@ paths:
           type: string 
       responses:
         '200':
-          description: Get the list of group names
+          description: The list group
           schema:
-            type: array
-            items:
-              $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2' 
-        '403':
-          description: The list is unreachable or not found
+            $ref: '#/definitions/userListGroupResponse'
+        '404':
+          description: List group not found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+definitions:
+
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : API must not have local definitions (i.e. only $refs are allowed)]: 'definitions.*' not allowed
+  userLovIndex:
+    type: object
+    properties:
+      links:
+        $ref: '#/definitions/userLovIndexLinks'
+        
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : API must not have local definitions (i.e. only $refs are allowed)]: 'definitions.*' not allowed
+  userLovIndexLinks:
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.GetUserLovIndexLink'
+      groups:
+        $ref: '#/definitions/userLovGroupsLinks'
+      lists:
+        $ref: '#/definitions/userLovLinks'
+
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : API must not have local definitions (i.e. only $refs are allowed)]: 'definitions.*' not allowed
+  userLovGroupsLinks:
+    description: Get all lov groups links. The key is the list group name.
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/links.GetUserListGroupLink'
+    
+
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : API must not have local definitions (i.e. only $refs are allowed)]: 'definitions.*' not allowed
+  userLovLinks:
+    description: List of lov link. The key is the list name.
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/links.GetUserListOfValuesLink'
+
+
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : API must not have local definitions (i.e. only $refs are allowed)]: 'definitions.*' not allowed
+  links.GetUserListOfValuesLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/lov/Go2CultureName
+        method: GET
+
+  
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : API must not have local definitions (i.e. only $refs are allowed)]: 'definitions.*' not allowed
+  links.GetUserLovIndexLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/lov
+        method: GET
+        
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : API must not have local definitions (i.e. only $refs are allowed)]: 'definitions.*' not allowed
+  links.GetUserListGroupLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/lov/groups/LG_ShippingMethod
+        method: GET
+
+
+
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : API must not have local definitions (i.e. only $refs are allowed)]: 'definitions.*' not allowed
+  userListOfValuesResponse:
+    type: object
+    properties:
+      links:
+        $ref: '#/definitions/userListOfValuesResponseLinks'
+# [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : All model properties must have examples]: Field 'example' required in 'properties'
+      items:
+        type: array
+        items:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ListOfValueItem'
+        
+            
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : API must not have local definitions (i.e. only $refs are allowed)]: 'definitions.*' not allowed
+  userListGroupResponse:
+    type: object
+    properties:
+      links:
+        $ref: '#/definitions/userListGroupResponseLinks'
+      lovLinks:
+        $ref: '#/definitions/userLovLinks'
+        
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : API must not have local definitions (i.e. only $refs are allowed)]: 'definitions.*' not allowed
+  userListGroupResponseLinks:
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.GetUserListGroupLink'
+  
+# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : API must not have local definitions (i.e. only $refs are allowed)]: 'definitions.*' not allowed
+  userListOfValuesResponseLinks:
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.GetUserListOfValuesLink'
+    
+
+x-azure-api-id: 'v2userlov'
