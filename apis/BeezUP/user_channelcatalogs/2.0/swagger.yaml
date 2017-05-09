@@ -682,6 +682,8 @@ definitions:
       properties:
         channelColumnName:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelColumnName'
+        channelBeezUPColumnName:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.BeezUPColumnName'
         catalogColumnName:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogColumnUserName'
           
