@@ -904,6 +904,16 @@ definitions:
         $ref: '#/definitions/pageSize'
       pageNumber:
         $ref: '#/definitions/pageNumber'
+  
+  
+  exportOrderListFormat:
+    description: The type of the file to export
+    type: string
+    enum:
+    - csv
+    default: csv
+    example: csv
+    
     
   exportOrderListRequest:
     description: The message request to export order list. The store identifier is requested to regroup the exportations.
@@ -914,12 +924,7 @@ definitions:
     properties:
     
       format:
-        description: The type of the file to export
-        type: string
-        enum:
-        - csv
-        default: csv
-        example: csv
+        $ref: '#/definitions/exportOrderListFormat'
 
     
       storeId:
