@@ -14,8 +14,6 @@ info:
     url: "https://avatars0.githubusercontent.com/u/25665430"
     backgroundColor: "#FFFFFF"
 
-
-
   contact:
     email: support@beezup.com
   
@@ -25,9 +23,8 @@ info:
   
   x-changeComment: |
     Add storeId on exportations to regroup them 
-
   
-externalDocs: 
+externalDocs:
   description: BeezUP API documentation
   url: https://beezup.github.io/api-docs/
 
@@ -688,7 +685,6 @@ definitions:
     type: string
     example: 123.0.1
 
-
   orderExportationsLinks:
     type: object
     properties:
@@ -715,7 +711,6 @@ definitions:
             required: true
             type: object
             schema: exportOrderListRequest
-
 
   orderExportations:
     description: The list of Order report exportations
