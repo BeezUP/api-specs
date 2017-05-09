@@ -346,15 +346,6 @@ paths:
       summary: Request a new Order report exportation to be generated
       description: A new file will be generated containing a summary of all the Orders matching the requested filter settings.
       parameters:
-      - name: format
-        description: The type of the file to export
-        in: query
-        required: true
-        type: string
-        enum:
-        - csv
-        default: csv
-        x-example: csv
       - name: request
         in: body
         required: true
@@ -921,6 +912,16 @@ definitions:
     - storeId
     - orderListRequest
     properties:
+    
+      format:
+        description: The type of the file to export
+        type: string
+        enum:
+        - csv
+        default: csv
+        example: csv
+
+    
       storeId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
       orderListRequest:
