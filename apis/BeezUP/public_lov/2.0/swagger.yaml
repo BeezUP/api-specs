@@ -117,9 +117,6 @@ paths:
 
 definitions:
 
-
-
-
   lovIndex:
     type: object
     properties:
@@ -131,16 +128,17 @@ definitions:
     properties:
       self:
         $ref: '#/definitions/links.GetPublicLLovIndexLink'
-# [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : All model properties must have examples]: Field 'example' required in 'properties'
       groups:
-        description: Get all lov groups links. The key is the list group name.
-        type: object
-        additionalProperties:
-          $ref: '#/definitions/links.GetPublicListGroupLink'
+        $ref: '#/definitions/lovGroupsLinks'
       lists:
         $ref: '#/definitions/lovLinks'
 
-  
+  lovGroupsLinks:
+    description: Get all lov groups links. The key is the list group name.
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/links.GetPublicListGroupLink'
+    
 
   lovLinks:
     description: List of lov link. The key is the list name.
