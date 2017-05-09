@@ -1388,9 +1388,9 @@ definitions:
   linkClickToOrderType:
     type: string
     enum:
-    - OnPurcharseDate
+    - OnPurchaseDate
     - OnClickDate
-    default: OnPurcharseDate
+    default: OnPurchaseDate
     example: OnClickDate
         
   reportAdvancedFilters:
@@ -1407,13 +1407,17 @@ definitions:
       globalMarginPercent:
         type: integer
         description: If the margin type is 'Global', indicate the percentage of sale price.
-        
+        minimum: 0
+        maximum: 100
         example: 10
       linkClickToOrderType:
         $ref: '#/definitions/linkClickToOrderType'
       linkClickToOrderMaxDay:
         type: integer
         description: If the linkOrderType is OnClickDate, indicate the max day to search the click from the order
+        minimum: 0
+        maximum: 180
+        default: 30
         example: 5
       onlyPaymentValidatedOrders:
         type: boolean
@@ -1423,7 +1427,7 @@ definitions:
       onlyDirectSales:
         type: boolean
         description: If true, you will get only direct sales. Otherwise the indirect sales will be included. 
-        default: true
+        default: false
         example: true
       performanceIndicatorFormula:
         $ref: '#/definitions/performanceIndicatorFormula'
