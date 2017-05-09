@@ -14,16 +14,17 @@ info:
 host: api.beezup.com
 basePath: /v2/public/lov
 schemes:
-  - https 
+  - https
+
+x-azure-api-id: 'v2userlov'
+
+x-api-name: UserLOV
+x-api-namespace: BeezUP.Framework.LOV.WebService
 
 consumes:
   - application/json
 produces:
-  - application/json 
-  
-x-api-name: PublicLOV
-x-api-namespace: BeezUP.Framework.LOV.WebService
-
+  - application/json
 tags:
 - name: LOV
   description: All LOV operations
@@ -35,14 +36,14 @@ paths:
   /:
     get:
       summary: Get all list names
-      operationId: GetPublicLLovIndex
+      operationId: GetPublicLovIndex
       tags:
       - LOV
       responses:
         '200':
           description: Get the list names
           schema:
-            $ref: '#/definitions/lovIndex'
+            $ref: '#/definitions/publicLovIndex'
             
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -108,7 +109,7 @@ paths:
           schema:
             $ref: '#/definitions/publicListGroupResponse'
         '404':
-          description: List group is not found
+          description: List group not found
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
@@ -117,23 +118,23 @@ paths:
 
 definitions:
 
-  lovIndex:
+  publicLovIndex:
     type: object
     properties:
       links:
-        $ref: '#/definitions/lovIndexLinks'
+        $ref: '#/definitions/publicLovIndexLinks'
         
-  lovIndexLinks:
+  publicLovIndexLinks:
     type: object
     properties:
       self:
-        $ref: '#/definitions/links.GetPublicLLovIndexLink'
+        $ref: '#/definitions/links.GetPublicLovIndexLink'
       groups:
-        $ref: '#/definitions/lovGroupsLinks'
+        $ref: '#/definitions/publicLovGroupsLinks'
       lists:
-        $ref: '#/definitions/lovLinks'
+        $ref: '#/definitions/publicLovLinks'
 
-  lovGroupsLinks:
+  publicLovGroupsLinks:
     description: Get all lov groups links. The key is the list group name.
     type: object
     additionalProperties:
@@ -155,7 +156,7 @@ definitions:
         method: GET
 
   
-  links.GetPublicLLovIndexLink:
+  links.GetPublicLovIndexLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
@@ -189,7 +190,7 @@ definitions:
       links:
         $ref: '#/definitions/publicListGroupResponseLinks'
       lovLinks:
-        $ref: '#/definitions/lovLinks'
+        $ref: '#/definitions/publicLovLinks'
         
   publicListGroupResponseLinks:
     type: object
