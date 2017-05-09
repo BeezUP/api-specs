@@ -336,6 +336,14 @@ paths:
           description: Successfully fetched the list of Order report exportations
           schema:
             $ref: '#/definitions/orderExportations'
+        400:
+          description: Could not process request for given parameters values (pageNumber or pageSize). Please check error message for more details.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        404:
+          description: Resources metting request parameters where not found. Please check error message for more details.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -354,6 +362,10 @@ paths:
       responses:
         202:
           description: Successfully requested new Order report exportation generation
+        400:
+          description: Could not process request for given parameters values (storeId). Please check error message for more details.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -905,7 +917,6 @@ definitions:
       pageNumber:
         $ref: '#/definitions/pageNumber'
   
-  
   exportOrderListFormat:
     description: The type of the file to export
     type: string
@@ -914,7 +925,6 @@ definitions:
     default: csv
     example: csv
     
-    
   exportOrderListRequest:
     description: The message request to export order list. The store identifier is requested to regroup the exportations.
     type: object
@@ -922,11 +932,8 @@ definitions:
     - storeId
     - orderListRequest
     properties:
-    
       format:
         $ref: '#/definitions/exportOrderListFormat'
-
-    
       storeId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
       orderListRequest:
