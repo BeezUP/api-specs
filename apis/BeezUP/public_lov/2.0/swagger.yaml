@@ -174,12 +174,8 @@ definitions:
   publicListOfValuesResponse:
     type: object
     properties:
-# [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
-        type: object
-        properties:
-          self:
-            $ref: '#/definitions/links.GetPublicListOfValuesLink'
+        $ref: '#/definitions/publicListOfValuesResponseLinks'
 # [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : All model properties must have examples]: Field 'example' required in 'properties'
       items:
         type: array
@@ -196,6 +192,12 @@ definitions:
         $ref: '#/definitions/lovLinks'
         
   publicListGroupResponseLinks:
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.GetPublicListGroupLink'
+  
+  publicListOfValuesResponseLinks:
     type: object
     properties:
       self:
