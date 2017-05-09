@@ -14,8 +14,10 @@ info:
     
 host: api.beezup.com
 basePath: /v2/user/catalogs
-x-api-name: V2UserCatalogs
+x-basePath: /v2/user/catalogs
 
+x-api-name: V2UserCatalogs
+x-api-namespace: BeezUP2.Catalog.ApiService
 schemes:
   - https
 
