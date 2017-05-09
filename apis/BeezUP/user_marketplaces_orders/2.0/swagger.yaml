@@ -22,6 +22,9 @@ info:
     name: BeezUP 
     url: http://www.beezup.com  
   
+  x-changeComment: |
+    Add storeId on exportations to regroup them 
+
   
 externalDocs: 
   description: BeezUP API documentation
@@ -321,6 +324,12 @@ paths:
         minimum: 25
         maximum: 100
         x-example: 25
+      - name: storeId
+        in: query
+        required: true
+        type: string
+        format: guid
+        description: The store identifier to regroup the order exportations
       responses:
         200:
           description: Successfully fetched the list of Order report exportations
@@ -689,7 +698,7 @@ definitions:
         href: /v2/user/marketplaces/orders/exportations
         method: GET
 
-  links.ExportOrdersLink:
+  links.ExportOrdersLinks:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
     - example:
@@ -905,10 +914,14 @@ definitions:
         $ref: '#/definitions/pageNumber'
     
   exportOrderListRequest:
+    description: The message request to export order list. The store identifier is requested to regroup the exportations.
     type: object
     required:
+    - storeId
     - orderListRequest
     properties:
+      storeId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
       orderListRequest:
         $ref: '#/definitions/orderListRequest'
 
@@ -1870,11 +1883,11 @@ definitions:
       harvest:
         $ref: '#/definitions/links.HarvestAllLink'
       setMerchantInfos:
-        $ref: '#/definitions/links.SetMerchantOrderInfoListLink'
+        $ref: '#/definitions/links.SetMerchantOrderInfoList'
       clearMerchantInfos:
-        $ref: '#/definitions/links.ClearMerchantOrderInfoListLink'
+        $ref: '#/definitions/links.ClearMerchantOrderInfoList'
       export:
-        $ref: '#/definitions/links.ExportOrdersLink'
+        $ref: '#/definitions/links.ExportOrdersLinks'
       autoTransitions:
         $ref: '#/definitions/links.GetAutomaticTransitionsLink'
       exportations:
@@ -1994,11 +2007,11 @@ definitions:
       harvest:
         $ref: '#/definitions/links.HarvestAllLink'
       setMerchantInfos:
-        $ref: '#/definitions/links.SetMerchantOrderInfoListLink'
+        $ref: '#/definitions/links.SetMerchantOrderInfoList'
       clearMerchantInfos:
-        $ref: '#/definitions/links.ClearMerchantOrderInfoListLink'
+        $ref: '#/definitions/links.ClearMerchantOrderInfoList'
       export:
-        $ref: '#/definitions/links.ExportOrdersLink'
+        $ref: '#/definitions/links.ExportOrdersLinks'
       status:
         $ref: '#/definitions/links.GetMarketplaceAccountsSynchronizationLink'
 
@@ -2019,7 +2032,7 @@ definitions:
     allOf:
     - $ref: '#/definitions/orderListLinks'
 
-  links.SetMerchantOrderInfoListLink:
+  links.SetMerchantOrderInfoList:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
     - example:
@@ -2032,7 +2045,7 @@ definitions:
             type: object
             schema: setMerchantOrderInfoRequest
         
-  links.ClearMerchantOrderInfoListLink:
+  links.ClearMerchantOrderInfoList:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
     - example:
