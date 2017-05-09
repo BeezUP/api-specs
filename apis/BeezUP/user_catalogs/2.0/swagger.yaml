@@ -67,12 +67,7 @@ responses:
         default: 5
         x-example: 5
     schema:
-      x-links:
-        - self:
-            operationId: Importation_GetImportationMonitoring
-      type: array
-      items:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
+      $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
       example:
       - rel: self
         href: /v2/user/catalogs/{storeId}/importations/{executionId}
@@ -98,10 +93,12 @@ responses:
           items:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage'
         links:
-          description: contains the link to the current importation. rel=currentImportation
-          type: array
-          items:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
+          description: The action links
+          type: object
+          properties:
+            getImportationMonitoring:
+              $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
+          additionalProperties: false
           example:
           - rel: currentImportation
             href: /v2/user/catalogs/{storeId}/importations/{executionId}
@@ -1520,6 +1517,11 @@ paths:
 
     
 definitions:
+
+  links.Importation_GetImportationMonitoringLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+
 
   schedulingType:
     description: >-
