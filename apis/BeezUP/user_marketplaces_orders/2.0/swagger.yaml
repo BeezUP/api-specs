@@ -689,7 +689,7 @@ definitions:
         href: /v2/user/marketplaces/orders/exportations
         method: GET
 
-  links.ExportOrdersLinks:
+  links.ExportOrdersLink:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
     - example:
@@ -1870,11 +1870,11 @@ definitions:
       harvest:
         $ref: '#/definitions/links.HarvestAllLink'
       setMerchantInfos:
-        $ref: '#/definitions/links.SetMerchantOrderInfoList'
+        $ref: '#/definitions/links.SetMerchantOrderInfoListLink'
       clearMerchantInfos:
-        $ref: '#/definitions/links.ClearMerchantOrderInfoList'
+        $ref: '#/definitions/links.ClearMerchantOrderInfoListLink'
       export:
-        $ref: '#/definitions/links.ExportOrdersLinks'
+        $ref: '#/definitions/links.ExportOrdersLink'
       autoTransitions:
         $ref: '#/definitions/links.GetAutomaticTransitionsLink'
       exportations:
@@ -1994,11 +1994,11 @@ definitions:
       harvest:
         $ref: '#/definitions/links.HarvestAllLink'
       setMerchantInfos:
-        $ref: '#/definitions/links.SetMerchantOrderInfoList'
+        $ref: '#/definitions/links.SetMerchantOrderInfoListLink'
       clearMerchantInfos:
-        $ref: '#/definitions/links.ClearMerchantOrderInfoList'
+        $ref: '#/definitions/links.ClearMerchantOrderInfoListLink'
       export:
-        $ref: '#/definitions/links.ExportOrdersLinks'
+        $ref: '#/definitions/links.ExportOrdersLink'
       status:
         $ref: '#/definitions/links.GetMarketplaceAccountsSynchronizationLink'
 
@@ -2019,7 +2019,7 @@ definitions:
     allOf:
     - $ref: '#/definitions/orderListLinks'
 
-  links.SetMerchantOrderInfoList:
+  links.SetMerchantOrderInfoListLink:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
     - example:
@@ -2032,7 +2032,7 @@ definitions:
             type: object
             schema: setMerchantOrderInfoRequest
         
-  links.ClearMerchantOrderInfoList:
+  links.ClearMerchantOrderInfoListLink:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
     - example:
