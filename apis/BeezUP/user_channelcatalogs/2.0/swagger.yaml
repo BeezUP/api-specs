@@ -800,6 +800,7 @@ definitions:
       - channelId
       - channelName
       - channelImageUrl
+      - types
       - storeId
       - enabled
       - state
@@ -840,6 +841,15 @@ definitions:
         
         state:
           $ref: '#/definitions/channelCatalogState'
+          
+        types:
+          description: The channel type list related to the channel
+          type: array
+          items:
+            type: string
+          example:
+          - Marketplace
+
         
         links:
           description: Indicates the actions you can do on a channel catalog
