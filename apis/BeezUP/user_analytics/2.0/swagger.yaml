@@ -1351,7 +1351,6 @@ definitions:
     required:
     - beginPeriodUtcDate
     - endPeriodUtcDate
-    - advancedFilters
     type: object
     properties:
       channelIds:
