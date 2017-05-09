@@ -184,7 +184,6 @@ definitions:
     properties:
       links:
         $ref: '#/definitions/userListOfValuesResponseLinks'
-# [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : All model properties must have examples]: Field 'example' required in 'properties'
       items:
         type: array
