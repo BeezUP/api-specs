@@ -1345,6 +1345,8 @@ definitions:
     - TotalSales
     example: Cost
   
+  
+  
   reportByDayRequest:
     required:
     - beginPeriodUtcDate
@@ -1352,8 +1354,13 @@ definitions:
     - advancedFilters
     type: object
     properties:
-      channelId:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
+      channelIds:
+        description: Indicate the channel identifier list 
+        type: array
+        items:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
+        example:
+        - '2dc136a7-0d3d-4cc9-a825-a28a42c53e28'
       productId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductId'
       catalogCategoryId:
@@ -1376,6 +1383,7 @@ definitions:
     enum:
     - Tracker
     - Global
+    default: Tracker
     example: Global
     
   linkClickToOrderType:
@@ -1383,6 +1391,7 @@ definitions:
     enum:
     - OnPurcharseDate
     - OnClickDate
+    default: OnPurcharseDate
     example: OnClickDate
         
   reportAdvancedFilters:
@@ -1399,6 +1408,7 @@ definitions:
       globalMarginPercent:
         type: integer
         description: If the margin type is 'Global', indicate the percentage of sale price.
+        
         example: 10
       linkClickToOrderType:
         $ref: '#/definitions/linkClickToOrderType'
@@ -1409,10 +1419,12 @@ definitions:
       onlyPaymentValidatedOrders:
         type: boolean
         description: If true, you will get the only the orders with payment validated. Otherwise, you will get all orders validated or not.
+        default: false
         example: true
       onlyDirectSales:
         type: boolean
         description: If true, you will get only direct sales. Otherwise the indirect sales will be included. 
+        default: true
         example: true
       performanceIndicatorFormula:
         $ref: '#/definitions/performanceIndicatorFormula'
