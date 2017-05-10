@@ -34,7 +34,7 @@ definitions:
     - productSku
     - productTitle
     - productImageUrl
-    - productActiv ae
+    - productActive
     properties:
       productId:
         format: guid
