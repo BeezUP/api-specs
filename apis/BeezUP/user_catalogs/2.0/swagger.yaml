@@ -71,19 +71,9 @@ responses:
     schema:
       $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
       example:
-      - rel: self
-        href: /v2/user/catalogs/{storeId}/importations/{executionId}
-        method: GET
-        parameters:
-          - name: storeId
-            value: a42b780d-4585-4566-800e-4d77a4d6f8a3
-            int: path
-            type: string
-          - name: executionId
-            value: 222ef571-bdb7-436d-a01a-e5a0e9161c0c
-            int: path
-            type: string
-
+        self:
+          href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c
+          method: GET
 
   importAlreadyInProgress:
     description: When a catalog importation is already in progress!
