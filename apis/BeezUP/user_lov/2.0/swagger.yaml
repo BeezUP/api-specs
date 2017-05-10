@@ -10,6 +10,10 @@ info:
   license:
     name: BeezUP 
     url: http://www.beezup.com
+  
+  x-changeComment: |
+    Remove the groups opreations
+
 
  
 host: api.beezup.com
@@ -38,8 +42,7 @@ security:
 tags:
 - name: LOV
   description: All LOV operations
-- name: Groups
-  description: All LOV groups operations
+
 
 paths:
   /:
@@ -100,29 +103,10 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-  '/groups/{listGroupName}':
-    get:
-      tags: 
-        - Groups
-      summary: Get list of values related to this group name
-      operationId: GetUserListGroup
-      parameters:
-        - name: listGroupName
-          in: path
-          required: true
-          description: The list group name your want to get
-          type: string 
-      responses:
-        '200':
-          description: The list group
-          schema:
-            $ref: '#/definitions/userListGroupResponse'
-        '404':
-          description: List group not found
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+
+
 definitions:
 
   userLovIndex:
@@ -136,16 +120,11 @@ definitions:
     properties:
       self:
         $ref: '#/definitions/links.GetUserLovIndexLink'
-      groups:
-        $ref: '#/definitions/userLovGroupsLinks'
+
       lists:
         $ref: '#/definitions/userLovLinks'
 
-  userLovGroupsLinks:
-    description: Get all lov groups links. The key is the list group name.
-    type: object
-    additionalProperties:
-      $ref: '#/definitions/links.GetUserListGroupLink'
+
     
 
   userLovLinks:
@@ -170,12 +149,7 @@ definitions:
         href: /v2/user/lov
         method: GET
         
-  links.GetUserListGroupLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    - example:
-        href: /v2/user/lov/groups/LG_ShippingMethod
-        method: GET
+
 
 
 
@@ -191,19 +165,7 @@ definitions:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ListOfValueItem'
         
             
-  userListGroupResponse:
-    type: object
-    properties:
-      links:
-        $ref: '#/definitions/userListGroupResponseLinks'
-      lovLinks:
-        $ref: '#/definitions/userLovLinks'
         
-  userListGroupResponseLinks:
-    type: object
-    properties:
-      self:
-        $ref: '#/definitions/links.GetUserListGroupLink'
   
   userListOfValuesResponseLinks:
     type: object
