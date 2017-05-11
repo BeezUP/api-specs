@@ -52,6 +52,14 @@ parameters:
 #        type: string
 #        collectionFormat: csv
 #
+#    Cache-Control:
+#      description: |
+#        Indicates the directive around the caching mechanisms.\
+#        For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+#      type: array
+#      items:
+#        type: string
+#        collectionFormat: csv
 
 
     
