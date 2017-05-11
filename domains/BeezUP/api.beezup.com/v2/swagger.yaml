@@ -11,6 +11,17 @@ parameters:
     format: guid
     description: Your store identifier
     
+  ifNoneMatchParameter:
+    name: If-None-Match
+    type: string
+    in: header
+    required: false
+    description: |
+      To avoid useless exchange, we recommend you to indicate the ETag you previously get from this operation.\
+      If the ETag does not match the response will be 200 to give you a new content, otherwise the response will be 304 Not Modified without any content.\
+      For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+
+    
   
 
     
