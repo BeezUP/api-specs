@@ -636,12 +636,6 @@ definitions:
     format: uuid
     example: '00000000000000000000000000000000000000000000000'
 
-  marketplaceTechnicalCode:
-    description: The technical code of the marketplace
-    type: string
-    example: Amazon
-    x-lov: OMMarketplaceTechnicalCode
-
   accountId:
     description: The marketplace account identifier in BeezUP. This account identifier is based on your api settings.
     type: integer
@@ -834,13 +828,13 @@ definitions:
       marketplaceTechnicalCodes:
         type: array
         items:
-          $ref: '#/definitions/marketplaceTechnicalCode'
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceTechnicalCode'
         example:
         - PriceMinister
       marketplaceBusinessCodes:
         type: array
         items:
-          $ref: '#/definitions/marketplaceBusinessCode'
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceBusinessCode'
         example:
         - PRICEMINISTER
       accountIds:
@@ -971,7 +965,7 @@ definitions:
       - enabled
       properties:
         marketplaceBusinessCode:
-          $ref: '#/definitions/marketplaceBusinessCode'
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceBusinessCode'
         beezUPOrderStatus:
           $ref: '#/definitions/beezUPOrderStatus'
         businessOperationType:
@@ -1001,7 +995,7 @@ definitions:
       - enabled
     properties:
       marketplaceTechnicalCode:
-        $ref: '#/definitions/marketplaceTechnicalCode'
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceTechnicalCode'
       accountId:
         $ref: '#/definitions/accountId'
       orderStatusTransitionId:
@@ -1020,7 +1014,7 @@ definitions:
     - beezUPOrderId
     properties:
       marketplaceTechnicalCode:
-        $ref: '#/definitions/marketplaceTechnicalCode'
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceTechnicalCode'
       accountId:
         $ref: '#/definitions/accountId'
       beezUPOrderId:
@@ -1130,9 +1124,9 @@ definitions:
         format: date-time
         type: string
       marketplaceBusinessCode:
-        $ref: '#/definitions/marketplaceBusinessCode'
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceBusinessCode'
       marketplaceTechnicalCode:
-        $ref: '#/definitions/marketplaceTechnicalCode'
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceTechnicalCode'
 
   processing:
     description: If true, there is currently a harvest or an order change in progress. Otherwise false.
@@ -1176,7 +1170,7 @@ definitions:
     - links
     properties:
       marketplaceTechnicalCode:
-        $ref: '#/definitions/marketplaceTechnicalCode'
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceTechnicalCode'
       accountId:
         $ref: '#/definitions/accountId'
       beezUPOrderId:
@@ -1184,7 +1178,7 @@ definitions:
       beezUPOrderUrl:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
       marketplaceBusinessCode:
-        $ref: '#/definitions/marketplaceBusinessCode'
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceBusinessCode'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MarketplaceOrderId' does not comply with the rule
       order_MarketplaceOrderId:
         $ref: '#/definitions/marketplaceOrderId'
@@ -2083,17 +2077,8 @@ definitions:
           $ref: '#/definitions/order'
       links:
         $ref: '#/definitions/orderListFullLinks'
-
 #      info:
 #        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
-
-
-
-  marketplaceBusinessCode:
-    description: In an marketplace technical code like CDiscount you can have several marketplaces like GO SPORT, etc. We identify them by a business code.
-    type: string
-    example: GOSPORT
-    x-lov: MarketplaceBusinessCode
 
   beezUPOrderStatus:
     type: string
