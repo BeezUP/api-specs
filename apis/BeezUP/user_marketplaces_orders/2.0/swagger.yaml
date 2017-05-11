@@ -466,12 +466,12 @@ paths:
           schema:
             $ref: '#/definitions/order'
         304:
-          description: Order and Order Item(s) have not changed since last known version
+          description: The ETag sent in the http header If-None-Match did not change
           headers:
             ETag:
               type: string
               description: |
-                ETag value to identify the current version of requested Order\
+                ETag value to identify the current version of the resource\
                 For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
         404:
           description: Requested Order could not be found
@@ -616,10 +616,10 @@ paths:
           ETag value to identify the last known version of requested Order, to ensure that you are making a change on the lastest version of the order.\
           For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
       responses:
-        204:
-          description: Successfully sent Order change request
+        202:
+          description: Order change request accepted
         400:
-          description: Could not send Order change request to marketplace. Please see body for more information.
+          description: Invalid order change request, could not be send to the marketplace. Please check the body of this request.
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         404:
@@ -627,7 +627,9 @@ paths:
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         409:
-          description: Already processing a change request for this Order. Please refresh your clients Order information and retry later. 
+          description: |
+            Already processing a change request for this Order.\
+            Please refresh your clients Order information and retry later. 
           headers:
             Retry-After:
               type: integer
