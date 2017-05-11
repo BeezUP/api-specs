@@ -70,7 +70,7 @@ paths:
           description: The list of value name your want to get
           type: string 
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/acceptLanguageParameter'
-
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         '200':
           description: The list of values
@@ -86,7 +86,9 @@ paths:
                 collectionFormat: csv
           schema:
             $ref: '#/definitions/publicListOfValuesResponse'
-        '404':
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
+        404:
           description: List not found
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
