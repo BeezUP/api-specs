@@ -459,7 +459,13 @@ paths:
           schema:
             $ref: '#/definitions/order'
         304:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
+          description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
+          headers:
+            ETag:
+              type: string
+              description: |
+                ETag value to identify the current version of requested Order\
+                For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
         404:
           description: Requested Order could not be found
           schema:
