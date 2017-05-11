@@ -48,6 +48,15 @@ paths:
             ETag:
               description: The ETag corresponding to the LOV Index
               type: string
+            Cache-Control:
+              description: |
+                Indicates the directive around the caching mechanisms.\
+                For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+              type: array
+              items:
+                type: string
+                collectionFormat: csv
+
           schema:
             $ref: '#/definitions/publicLovIndex'
         304:
@@ -78,12 +87,24 @@ paths:
             ETag:
               description: The ETag corresponding to the LOV Index
               type: string
+              
+            Cache-Control:
+              description: |
+                Indicates the directive around the caching mechanisms.\
+                For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+              type: array
+              items:
+                type: string
+                collectionFormat: csv
+
             Content-Language:
               description: Indicates the language use in the response
               type: array
               items:
                 type: string
                 collectionFormat: csv
+                
+              
           schema:
             $ref: '#/definitions/publicListOfValuesResponse'
         304:
