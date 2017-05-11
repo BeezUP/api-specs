@@ -31,7 +31,7 @@ responses:
     description: Occurs when something goes wrong
     schema:
       $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage
-  NotModified:
+  304_NotModified:
     description: The ETag sent in the http header If-None-Match did not change
     headers:
       ETag:
@@ -39,6 +39,15 @@ responses:
         description: |
           ETag value to identify the current version of the resource\
           For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+  412_PreConditionFailed:
+    description: The ETag sent in the http header If-Match did not match with the current version. Please refresh the information related to this resource.
+    headers:
+      ETag:
+        type: string
+        description: |
+          The ETag value to identify the resource.\
+          For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+
 
 definitions:
 
