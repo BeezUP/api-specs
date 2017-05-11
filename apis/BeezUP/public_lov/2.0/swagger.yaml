@@ -108,7 +108,21 @@ paths:
           schema:
             $ref: '#/definitions/publicListOfValuesResponse'
         304:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
+          description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
+          headers:
+            ETag:
+              description: The ETag corresponding to the LOV Index
+              type: string
+              
+            Cache-Control:
+              description: |
+                Indicates the directive around the caching mechanisms.\
+                For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+              type: array
+              items:
+                type: string
+                collectionFormat: csv
+
         404:
           description: List not found
           schema:
