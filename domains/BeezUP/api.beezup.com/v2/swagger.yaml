@@ -33,6 +33,15 @@ parameters:
       To ensure that you are making a change on the lastest version of the resource.\
       For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
 
+  acceptLanguageParameter:
+    name: Accept-Language
+    description: Indicates that the client accepts the following languages.
+    in: header
+    required: false
+    type: array
+    items:
+      type: string
+      collectionFormat: csv
 
     
     
