@@ -446,14 +446,7 @@ paths:
       - $ref: '#/parameters/marketplaceTechnicalCodeParameter'
       - $ref: '#/parameters/accountIdParameter'
       - $ref: '#/parameters/beezUPOrderIdParameter'
-# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'If-None-Match' does not comply with the rule
-      - name: 'If-None-Match'
-        in: header
-        required: false
-        type: string
-        description: |
-          ETag value to identify the last known version of this resource\
-          For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Successfully fetched Order and Order Item(s) properties
@@ -466,13 +459,7 @@ paths:
           schema:
             $ref: '#/definitions/order'
         304:
-          description: The ETag sent in the http header If-None-Match did not change
-          headers:
-            ETag:
-              type: string
-              description: |
-                ETag value to identify the current version of the resource\
-                For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         404:
           description: Requested Order could not be found
           schema:
