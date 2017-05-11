@@ -37,14 +37,36 @@ paths:
     get:
       summary: Get all list names
       operationId: GetPublicLovIndex
+      parameters:
+# [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : camelCase]: 'If-None-Match' does not comply with the rule
+      - name: If-None-Match
+        type: string
+        in: header
+        required: false
+        description: |
+          To avoid useless exchange, we recommend you to indicate the ETag you previously get from this operation.\
+          If the ETag does not match the response will be 200 to give you a new content, otherwise the response will be 304 Not Modified without any content.\
+          For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+
+          
       tags:
       - LOV
       responses:
         '200':
           description: Get the list names
+          headers:
+            ETag:
+              description: The ETag corresponding to the LOV Index
+              type: string
           schema:
             $ref: '#/definitions/publicLovIndex'
-            
+        304:
+          description: Not modified
+          headers:
+            ETag:
+              description: The ETag corresponding to the LOV Index
+              type: string
+          
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -75,6 +97,9 @@ paths:
         '200':
           description: The list of values
           headers:
+            ETag:
+              description: The ETag corresponding to the LOV Index
+              type: string
             Content-Language:
               description: Indicates the language use in the response
               type: array
