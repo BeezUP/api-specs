@@ -11,6 +11,9 @@ parameters:
     format: guid
     description: Your store identifier
     
+    
+    
+  
   ifNoneMatchParameter:
     name: If-None-Match
     type: string
@@ -69,8 +72,8 @@ responses:
     description: Occurs when something goes wrong
     schema:
       $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage
-  304_NotModified:
-    description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
+#  304_NotModified:
+#    description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
 #    headers:
 #      ETag:
 #        type: string
