@@ -594,14 +594,7 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/changeOrderRequest'
-# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'If-Match' does not comply with the rule
-      - name: 'If-Match'
-        in: header
-        type: string
-        required: true
-        description: |
-          ETag value to identify the last known version of requested Order, to ensure that you are making a change on the lastest version of the order.\
-          For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifMatchParameter'
       responses:
         202:
           description: Order change request accepted
@@ -624,15 +617,7 @@ paths:
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         412:
-          description: Last known version of Order does not match current version. Please refresh your client's Order information.
-          headers:
-            ETag:
-              type: string
-              description: |
-                The ETag value to identify the order.\
-                For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/412_PreConditionFailed'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
