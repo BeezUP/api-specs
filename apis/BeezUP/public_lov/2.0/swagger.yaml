@@ -69,15 +69,7 @@ paths:
           required: true
           description: The list of value name your want to get
           type: string 
-# [Style Validator (82c24f10-f19e-4e3a-b997-49d420985351) : camelCase]: 'Accept-Language' does not comply with the rule
-        - name: 'Accept-Language'
-          description: Indicates that the client accepts the following languages.
-          in: header
-          required: false
-          type: array
-          items:
-            type: string
-            collectionFormat: csv
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/acceptLanguageParameter'
 
       responses:
         '200':
