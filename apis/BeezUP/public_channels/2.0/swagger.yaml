@@ -17,6 +17,16 @@ info:
 x-host: api.beezup.com
 x-basePath: /v2/public/channels
 
+  
+# Added by API Auto Mocking Plugin
+# Added by API Auto Mocking Plugin
+#host: virtserver.swaggerhub.com
+#basePath: /BeezUP/public_channels/2.0
+
+host: api.beezup.com
+basePath: /v2/public/channels
+
+
 schemes:
   - https 
 
@@ -105,11 +115,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
     
-  
-# Added by API Auto Mocking Plugin
-# Added by API Auto Mocking Plugin
-host: virtserver.swaggerhub.com
-basePath: /BeezUP/public_channels/2.0
 
 
 
