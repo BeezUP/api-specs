@@ -452,7 +452,7 @@ paths:
         required: false
         type: string
         description: |
-          ETag value to identify the last known version of requested Order\
+          ETag value to identify the last known version of this resource\
           For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
       responses:
         200:
@@ -473,8 +473,6 @@ paths:
               description: |
                 ETag value to identify the current version of requested Order\
                 For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         404:
           description: Requested Order could not be found
           schema:
