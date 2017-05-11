@@ -54,9 +54,36 @@ paths:
       responses:
         '200':
           description: Get the list names
+          headers:
+            ETag:
+              description: The ETag corresponding to the LOV Index
+              type: string
+            Cache-Control:
+              description: |
+                Indicates the directive around the caching mechanisms.\
+                For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+              type: array
+              items:
+                type: string
+                collectionFormat: csv
           schema:
             $ref: '#/definitions/userLovIndex'
-            
+        304:
+          description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
+          headers:
+            ETag:
+              description: The ETag corresponding to the LOV Index
+              type: string
+              
+            Cache-Control:
+              description: |
+                Indicates the directive around the caching mechanisms.\
+                For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+              type: array
+              items:
+                type: string
+                collectionFormat: csv
+          
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
             
@@ -73,20 +100,24 @@ paths:
           required: true
           description: The list of value name your want to get
           type: string 
-# [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : camelCase]: 'Accept-Language' does not comply with the rule
-        - name: 'Accept-Language'
-          description: Indicates that the client accepts the following languages.
-          in: header
-          required: false
-          type: array
-          items:
-            type: string
-            collectionFormat: csv
-
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/acceptLanguageParameter'
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         '200':
           description: The list of values
           headers:
+            ETag:
+              description: The ETag corresponding to the LOV Index
+              type: string
+              
+            Cache-Control:
+              description: |
+                Indicates the directive around the caching mechanisms.\
+                For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+              type: array
+              items:
+                type: string
+                collectionFormat: csv
             Content-Language:
               description: Indicates the language use in the response
               type: array
@@ -97,7 +128,23 @@ paths:
               
           schema:
             $ref: '#/definitions/userListOfValuesResponse'
-        '404':
+        304:
+          description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
+          headers:
+            ETag:
+              description: The ETag corresponding to the LOV Index
+              type: string
+              
+            Cache-Control:
+              description: |
+                Indicates the directive around the caching mechanisms.\
+                For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+              type: array
+              items:
+                type: string
+                collectionFormat: csv
+
+        404:
           description: List not found
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
