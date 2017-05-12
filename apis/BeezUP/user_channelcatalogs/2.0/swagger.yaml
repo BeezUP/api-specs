@@ -570,6 +570,7 @@ paths:
       operationId: GetChannelCatalogExportationHistory
       parameters:
         - $ref: '#/parameters/channelCatalogIdParameter'
+#        - $ref: 
       responses:
         200:
           description: Channel catalog exportation history
@@ -634,13 +635,14 @@ definitions:
   channelCatalogExportCacheInfo:
     type: object
     required:
-    - status
+    - cacheStatus
     properties:
-      status:
+      cacheStatus:
         type: string
         enum:
         - ReadyForGeneration
         example: ReadyForGeneration
+      
         
 
 
@@ -656,6 +658,8 @@ definitions:
     - links
     - exportations
     properties:
+      paginationResult:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult'
 # [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
       exportations:
         type: array
