@@ -510,7 +510,7 @@ definitions:
       info:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
 
-  BeezUP.Common.In:
+  BeezUP.Common.ParameterIn:
     type: string
     description: |
       * path: if the parameter must be pass in the path uri
@@ -524,7 +524,7 @@ definitions:
       - query
       - body
       
-  BeezUP.Common.TypeEnum:
+  BeezUP.Common.ParameterType:
         description: The value type of the parameter
         type: string
         enum:
@@ -555,7 +555,7 @@ definitions:
       in:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.In
       type:
-        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Type
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.TypeEnum
       lovLink:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
       lovRequired:
@@ -593,7 +593,7 @@ definitions:
         type: boolean
         example: true
       type:
-        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Type
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.TypeEnum
       lovLink:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
       lovRequired:
@@ -633,7 +633,7 @@ definitions:
       in:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.In
       type:
-        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Type
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.TypeEnum
       lovLink:
         description: This parameter expect the values indicated in this list of values.
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2
