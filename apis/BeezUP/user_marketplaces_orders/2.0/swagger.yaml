@@ -1937,7 +1937,13 @@ definitions:
 
 
   orderIndexLovLinks:
+    description: Gives you all the LOV to get the translations realated to operation name, codes, property names and statuses.
     type: object
+    required:
+    - orderChangeBusinessOperationType
+    - orderState
+    - orderProperty
+    - orderPropertyPosted
     properties:
       orderChangeBusinessOperationType:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
