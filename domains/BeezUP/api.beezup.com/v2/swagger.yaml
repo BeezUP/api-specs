@@ -510,6 +510,35 @@ definitions:
       info:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
 
+  BeezUP.Common.In:
+    type: string
+    description: |
+      * path: if the parameter must be pass in the path uri
+      * header: if the parameter must be passed in http header
+      * query: if the parameter must be passed in querystring
+      * body: if the paramter must be passed in the body
+    example: path
+    enum: 
+      - path
+      - header
+      - query
+      - body
+      
+  BeezUP.Commin.Type:
+        description: The value type of the parameter
+        type: string
+        enum:
+          - string
+          - integer
+          - number
+          - boolean
+          - object
+          - array
+          - date
+          - date-time
+        default: string
+        example: string
+
   BeezUP.Common.LinkParameter3:
     type: object
     required:
@@ -524,32 +553,9 @@ definitions:
         default: false
         example: true
       in:
-        type: string
-        description: |
-          * path: if the parameter must be pass in the path uri
-          * header: if the parameter must be passed in http header
-          * query: if the parameter must be passed in querystring
-          * body: if the paramter must be passed in the body
-        example: path
-        enum: 
-          - path
-          - header
-          - query
-          - body
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.In
       type:
-        description: The value type of the parameter
-        type: string
-        enum:
-          - string
-          - integer
-          - number
-          - boolean
-          - object
-          - array
-          - date
-          - date-time
-        default: string
-        example: string
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Type
       lovLink:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
       lovRequired:
