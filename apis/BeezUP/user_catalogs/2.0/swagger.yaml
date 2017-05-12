@@ -429,7 +429,7 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : camelCase]: 'Accept-Encoding' does not comply with the rule
-        - name: 'Accept-Encoding'
+        - name: Accept-Encoding
           description: Indicates that the client accepts that the response will be compressed to reduce traffic size.
           in: header
           required: true
