@@ -454,7 +454,7 @@ definitions:
       htmlReportGenerationErrorMessage:
         description: The error message if the Html Report generation failed
         type: string
-        example: null
+        example: 'Example error message'
       completed:
         description: Indicates if the publication is completed or not
         type: boolean
