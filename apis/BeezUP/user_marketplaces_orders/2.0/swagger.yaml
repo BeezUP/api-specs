@@ -314,23 +314,8 @@ paths:
       operationId: GetOrderExportations
       summary: Get a paginated list of Order report exportations
       parameters:
-      - name: pageNumber
-        description: The page number you want to get
-        in: query
-        required: true
-        type: integer
-        format: int32
-        minimum: 1
-        x-example: 1
-      - name: pageSize
-        description: The count of Order report exportations you want to get
-        in: query
-        required: true
-        type: integer
-        format: int32
-        minimum: 25
-        maximum: 100
-        x-example: 25
+      - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/pageNumberQueryStrngParameter
+      - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/pageSizeQueryStrngParameter
       - name: storeId
         in: query
         required: true
