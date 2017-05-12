@@ -67,21 +67,21 @@ security:
 
 # tags are used for organizing operations
 tags:
-- name: Channel Catalogs Global
+- name: Global
   description: All global operations
-- name: Channel Catalogs Settings
+- name: Settings
   description: All settings operations
-- name: Channel Catalogs Column Mappings
+- name: Column Mappings
   description: All column mapping operations
-- name: Channel Catalogs Category Mappings
+- name: Category Mappings
   description: All category mapping operations
-- name: Channel Catalogs Exclusion Filters
+- name: Exclusion Filters
   description: All exclusion filters operations
-- name: Channel Catalogs Products
+- name: Products
   description: All products operations
-- name: Channel Catalogs Products Overrides
+- name: Products Overrides
   description: All products overrides operations
-- name: Channel Catalogs Products Optimisation
+- name: Products Optimisation
   description: All products optimisation operations
 
 schemes:
@@ -116,7 +116,7 @@ paths:
   '/':
     get:
       tags:
-      - Channel Catalogs Global
+      - Global
       summary: List all your current channel catalogs 
       operationId: GetChannelCatalogs
       parameters:
@@ -134,7 +134,7 @@ paths:
             $ref: '#/definitions/channelCatalogList'
     post:
       tags:
-      - Channel Catalogs Global
+      - Global
       summary: Create a new channel catalog
       operationId: CreateChannelCatalog
       parameters:
@@ -171,7 +171,7 @@ paths:
   '/{channelCatalogId}':
     get:
       tags:
-      - Channel Catalogs Global
+      - Global
       summary: Get the channel catalog information
       operationId: GetChannelCatalog
       parameters:
@@ -184,7 +184,7 @@ paths:
             $ref: '#/definitions/channelCatalog'
     delete:
       tags:
-      - Channel Catalogs Global
+      - Global
       summary: Delete the channel catalog
       operationId: DeleteChannelCatalog
       parameters:
@@ -197,7 +197,7 @@ paths:
   '/{channelCatalogId}/enable':
     post:
       tags:
-      - Channel Catalogs Settings
+      - Settings
       summary: Enable a channel catalog
       operationId: EnableChannelCatalog
       parameters:
@@ -213,7 +213,7 @@ paths:
   '/{channelCatalogId}/disable':
     post:
       tags:
-      - Channel Catalogs Settings
+      - Settings
       summary: Disable a channel catalog
       operationId: DisableChannelCatalog
       parameters:
@@ -226,7 +226,7 @@ paths:
   '/{channelCatalogId}/settings/general':
     post:
       tags:
-      - Channel Catalogs Settings
+      - Settings
       summary: Disable a channel catalog
       operationId: ConfigureChannelCatalogGeneralSettings
       parameters:
@@ -243,7 +243,7 @@ paths:
   '/{channelCatalogId}/settings/cost':
     post:
       tags:
-      - Channel Catalogs Settings
+      - Settings
       summary: Disable a channel catalog
       operationId: ConfigureChannelCatalogCostSettings
       parameters:
@@ -261,7 +261,7 @@ paths:
   '/{channelCatalogId}/columnMappings':
     put:
       tags:
-      - Channel Catalogs Column Mappings
+      - Column Mappings
       summary: Configure channel catalog column mappings
       operationId: MapChannelCatalogColumns
       parameters:
@@ -279,7 +279,7 @@ paths:
   '/{channelCatalogId}/categoryMappings':
     get:
       tags:
-      - Channel Catalogs Category Mappings
+      - Category Mappings
       summary: Get channel catalog categories
       operationId: GetChannelCatalogCategories
       parameters:
@@ -294,7 +294,7 @@ paths:
   '/{channelCatalogId}/categoryMappings/map':
     post:
       tags:
-      - Channel Catalogs Category Mappings
+      - Category Mappings
       summary: Map channel catalog category
       operationId: MapChannelCatalogCategory
       parameters:
@@ -311,7 +311,7 @@ paths:
   '/{channelCatalogId}/categoryMappings/unmap':
     post:
       tags:
-      - Channel Catalogs Category Mappings
+      - Category Mappings
       summary: Unmap channel catalog category
       operationId: UnmapChannelCatalogCategory
       parameters:
@@ -328,7 +328,7 @@ paths:
   '/exclusionFilterOperators':
     get:
       tags:
-      - Channel Catalogs Exclusion Filters
+      - Exclusion Filters
       summary: Get channel catalog exclusion filter operators
       operationId: GetChannelCatalogExclusionFilterOperators
       responses:
@@ -342,7 +342,7 @@ paths:
   '/{channelCatalogId}/exclusionFilters':
     put:
       tags:
-      - Channel Catalogs Exclusion Filters
+      - Exclusion Filters
       summary: Configure channel catalog exclusion filters
       operationId: ConfigureChannelCatalogExclusionFilters
       parameters:
@@ -361,7 +361,7 @@ paths:
   '/{channelCatalogId}/products':
     post:
       tags:
-      - Channel Catalogs Products
+      - Products
       summary: Get channel catalog product information list
       operationId: GetChannelCatalogProductInfoList
       parameters:
@@ -382,7 +382,7 @@ paths:
   '/products/{productId}':
     post:
       tags:
-      - Channel Catalogs Products
+      - Products
       summary: Get channel catalog products related to these channel catalogs 
       operationId: GetChannelCatalogProductByChannelCatalog
       parameters:
@@ -403,7 +403,7 @@ paths:
   '/{channelCatalogId}/products/{productId}':
     get:
       tags:
-      - Channel Catalogs Products
+      - Products
       summary: Get channel catalog product information
       operationId: GetChannelCatalogProductInfo
       parameters:
@@ -419,7 +419,7 @@ paths:
   '/{channelCatalogId}/products/{productId}/overrides':
     put:
       tags:
-      - Channel Catalogs Products Overrides
+      - Products Overrides
       summary: Override channel catalog product values
       operationId: OverrideChannelCatalogProductOverrides
       parameters:
@@ -437,7 +437,7 @@ paths:
   '/{channelCatalogId}/products/{productId}/overrides/{channelColumnId}':
     delete:
       tags:
-      - Channel Catalogs Products Overrides
+      - Products Overrides
       summary: Delete a specific channel catalog product value override
       operationId: DeleteChannelCatalogProductValueOverride
       parameters:
@@ -458,7 +458,7 @@ paths:
   '/{channelCatalogId}/products/{productId}/disable':
     post:
       tags:
-      - Channel Catalogs Products Optimisation
+      - Products Optimisation
       summary: Disable channel catalog product
       operationId: DisableChannelCatalogProduct
       description: |
@@ -475,7 +475,7 @@ paths:
   '/{channelCatalogId}/products/{productId}/reenable':
     post:
       tags:
-      - Channel Catalogs Products Optimisation
+      - Products Optimisation
       summary: Reenable channel catalog product
       description: |
         By default a all your catalog products are exposed to the channel.
