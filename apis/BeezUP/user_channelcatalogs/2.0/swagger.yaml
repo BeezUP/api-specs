@@ -648,11 +648,21 @@ definitions:
         #- Building
         example: ReadyForGeneration
         x-lov: ChannelCatalogExportCacheStatus
-# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
       lastUpdateUtcDate:
         type: string
         format: date-time
         description: The last update UTC date of the cache
+        example: '2014-08-25T07:32:31.584Z'
+      lastContentChangeUtcDate:
+        type: string
+        format: date-time
+        description: The last content change UTC date
+        example: '2014-08-25T07:30:31.584Z'
+      expirationUtcDate:
+        type: string
+        format: date-time
+        description: The expiration UTC date of the cache
+        example: '2014-08-25T08:02:31.584Z'
       
 
 
