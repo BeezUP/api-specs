@@ -641,13 +641,19 @@ definitions:
     - cacheStatus
     properties:
       cacheStatus:
+        description: The cache status
         type: string
         #enum:
         #- ReadyForGeneration
         #- Building
         example: ReadyForGeneration
         x-lov: ChannelCatalogExportCacheStatus
-        
+# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
+      lastUpdateUtcDate:
+        type: string
+        format: date-time
+        description: The last update UTC date of the cache
+      
 
 
   channelCatalogExportationHistoryLinks:
