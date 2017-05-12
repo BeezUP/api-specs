@@ -11,6 +11,28 @@ parameters:
     format: guid
     description: Your store identifier
     
+
+  pageNumberQueryStrngParameter:
+    name: pageNumber
+    description: The page number you want to get
+    in: query
+    required: true
+    type: integer
+    format: int32
+    minimum: 1
+    x-example: 1
+    
+  pageSizeQueryStrngParameter:
+    name: pageSize
+    description: The entry count you want to get
+    in: query
+    required: true
+    type: integer
+    format: int32
+    minimum: 25
+    maximum: 100
+    x-example: 25
+
     
     
   
