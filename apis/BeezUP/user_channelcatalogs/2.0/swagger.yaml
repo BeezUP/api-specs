@@ -627,7 +627,6 @@ definitions:
     type: object
     required:
     - self
-    - delete
     properties:
       self:
         $ref: '#/definitions/links.GetChannelCatalogExportationCacheInfoLink'
