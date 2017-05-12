@@ -132,6 +132,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/channelCatalogList'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
     post:
       tags:
       - Global
@@ -163,6 +165,8 @@ paths:
             items:
               $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
   
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
   
   
   
@@ -182,6 +186,8 @@ paths:
           description: Channel catalog
           schema:
             $ref: '#/definitions/channelCatalog'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
     delete:
       tags:
       - Global
@@ -192,6 +198,8 @@ paths:
       responses:
         204:
           description: Channel catalog deleted
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
 
   '/{channelCatalogId}/enable':
@@ -209,6 +217,8 @@ paths:
           description: You have to upgrade your offer to activate this channel catalog
           schema:
             $ref: '#/definitions/upgradeOfferRequired'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
     
   '/{channelCatalogId}/disable':
     post:
@@ -221,6 +231,8 @@ paths:
       responses:
         204:
           description: Channel catalog disabled
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
 
   '/{channelCatalogId}/settings/general':
@@ -239,6 +251,8 @@ paths:
       responses:
         204:
           description: Channel catalog general settings configured
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
   '/{channelCatalogId}/settings/cost':
     post:
@@ -257,6 +271,8 @@ paths:
         204:
           description: Channel catalog cost settings configured
           
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       
   '/{channelCatalogId}/columnMappings':
     put:
@@ -275,6 +291,8 @@ paths:
         204:
           description: Channel catalog column mappings configured
 
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
   '/{channelCatalogId}/categoryMappings':
     get:
@@ -289,6 +307,8 @@ paths:
           description: Channel catalog category mappings
           schema:
             $ref: '#/definitions/channelCatalogCategoryMappings'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
 
   '/{channelCatalogId}/categoryMappings/map':
@@ -307,6 +327,8 @@ paths:
       responses:
         204:
           description: Channel catalog category mapped
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
           
   '/{channelCatalogId}/categoryMappings/unmap':
     post:
@@ -324,6 +346,8 @@ paths:
       responses:
         204:
           description: Channel catalog category unmapped
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
   '/exclusionFilterOperators':
     get:
@@ -338,6 +362,8 @@ paths:
             type: array
             items:
               $ref: '#/definitions/exclusionFilterOperator'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
   '/{channelCatalogId}/exclusionFilters':
     put:
@@ -356,6 +382,8 @@ paths:
         204:
           description: Channel catalog exclusion filter list configured
 
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
 
   '/{channelCatalogId}/products':
@@ -376,6 +404,8 @@ paths:
           description: Channel catalog product information
           schema:
             $ref: '#/definitions/channelCatalogProductInfoList'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
 
 
@@ -397,6 +427,8 @@ paths:
           description: The channel catalog product by channel catalog
           schema:
             $ref: '#/definitions/channelCatalogProductByChannelCatalogResponse'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
   
   
 
@@ -414,6 +446,8 @@ paths:
           description: Channel catalog product information
           schema:
             $ref: '#/definitions/channelCatalogProductInfo'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
 
   '/{channelCatalogId}/products/{productId}/overrides':
@@ -433,6 +467,8 @@ paths:
       responses:
         204:
           description: Channel catalog product overriden
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
   '/{channelCatalogId}/products/{productId}/overrides/{channelColumnId}':
     delete:
@@ -453,6 +489,8 @@ paths:
       responses:
         204:
           description: Channel catalog product value override deleted
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
 
   '/{channelCatalogId}/products/{productId}/disable':
@@ -471,6 +509,8 @@ paths:
       responses:
         204:
           description: Channel catalog product disabled
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
   '/{channelCatalogId}/products/{productId}/reenable':
     post:
@@ -489,10 +529,158 @@ paths:
       responses:
         204:
           description: Channel catalog product reenabled
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+  '/{channelCatalogId}/exportations/cache':
+    get:
+      tags:
+      - Exportations
+      summary: Get the exportation cache information
+      operationId: GetChannelCatalogExportationCacheInfo
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+      responses:
+        200:
+          description: Channel catalog exportation cache information
+          schema:
+            $ref: '#/definitions/channelCatalogExportCacheInfoResponse'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+    delete:
+      tags:
+      - Exportations
+      summary: Delete the exportation cache 
+      operationId: DeleteChannelCatalogExportationCache
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+      responses:
+        204:
+          description: Channel catalog exportation cache deleted
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+  '/{channelCatalogId}/exportations/history':
+    get:
+      tags:
+      - Exportations
+      summary: Get the exportation history
+      operationId: GetChannelCatalogExportationHistory
+      parameters:
+        - $ref: '#/parameters/channelCatalogIdParameter'
+      responses:
+        200:
+          description: Channel catalog exportation history
+          schema:
+            $ref: '#/definitions/channelCatalogExportationHistory'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+            
+
 
 
 
 definitions:
+
+  links.GetChannelCatalogExportationCacheInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/channelCatalogs/6d6b04de-406b-4539-8e7e-bf3e8da5dfb0/exportations/cache
+        method: GET
+
+  links.GetChannelCatalogExportationHistoryLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/channelCatalogs/6d6b04de-406b-4539-8e7e-bf3e8da5dfb0/exportations/history
+        method: GET
+
+
+  links.DeleteChannelCatalogExportationCacheLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/channelCatalogs/6d6b04de-406b-4539-8e7e-bf3e8da5dfb0/exportations/cache
+        method: DELETE
+
+  channelCatalogExportCacheInfoResponse:
+    type: object
+    required:
+    - cacheInfo
+    - links
+    properties:
+      cacheInfo:
+        $ref: '#/definitions/channelCatalogExportCacheInfo'
+      links:
+        $ref: '#/definitions/channelCatalogExportCacheInfoResponseLinks'
+    
+    
+    
+  channelCatalogExportCacheInfoResponseLinks:
+    type: object
+    required:
+    - self
+    - delete
+    properties:
+      self:
+        $ref: '#/definitions/links.GetChannelCatalogExportationCacheInfoLink'
+      delete:
+        $ref: '#/definitions/links.DeleteChannelCatalogExportationCacheLink'
+        
+    
+  channelCatalogExportCacheInfo:
+    type: object
+    properties:
+# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
+      status:
+        type: string
+        enum:
+        - ReadyForGeneration
+        
+
+
+  channelCatalogExportationHistoryLinks:
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.GetChannelCatalogExportationHistoryLink'
+      
+  channelCatalogExportationHistory:
+    type: object
+    required:
+    - links
+    - exportations
+    properties:
+# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
+      exportations:
+        type: array
+        items:
+          $ref: '#/definitions/channelCatalogExportationReporting'
+      links:
+        $ref: '#/definitions/channelCatalogExportationHistoryLinks'
+
+
+  channelCatalogExportationReporting:
+    type: object
+    properties:
+      exportationUtcDate:
+        description: The exportation UTC date
+        type: string
+        format: date-time
+        example: '2014-08-25T07:32:31.584Z'
+      exportationDuration:
+        description: |
+          The exportation duration. \
+          '00:01:00' measn 1 minute.
+        type: string
+        pattern: (00:1[5-9])|(00:[2-5][0-9])|(0[1-9]:[0-5][0-9])|(1[0-9]:[0-5][0-9])|(2[0-3]:[0-5][0-9])
+        example: '00:01:00'
+        
+    
+
 
   channelCatalogList:
     type: object
@@ -890,6 +1078,7 @@ definitions:
           - rel: categoryMappings
             operationId: GetChannelCatalogCategoyMappings
             href: /v2/user/channelCatalogs/{channelCatalogId}/categoryMappings
+            method: GET
             parameters:
             - name: channelCatalogId
               type: string
@@ -899,6 +1088,7 @@ definitions:
           - rel: delete
             operationId: DeleteChannelCatalog
             href: /v2/user/channelCatalogs/{channelCatalogId}
+            method: DELETE
             parameters:
             - name: channelCatalogId
               type: string
@@ -908,6 +1098,7 @@ definitions:
           - rel: disable
             operationId: DisableChannelCatalog
             href: /v2/user/channelCatalogs/{channelCatalogId}/disable
+            method: POST
             parameters:
             - name: channelCatalogId
               type: string
@@ -915,7 +1106,27 @@ definitions:
               in: path
               value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
             
+          - rel: exportation
+            operationId: GetChannelCatalogExportationCacheInfo
+            href: /v2/user/channelCatalogs/{channelCatalogId}/exportations/cache
+            method: GET
+            parameters:
+            - name: channelCatalogId
+              type: string
+              required: true
+              in: path
+              value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
     
+          - rel: exportationHistory
+            operationId: GetChannelCatalogExportationHistory
+            href: /v2/user/channelCatalogs/{channelCatalogId}/exportations/history
+            method: GET
+            parameters:
+            - name: channelCatalogId
+              type: string
+              required: true
+              in: path
+              value: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
 
             
 
@@ -1098,7 +1309,7 @@ definitions:
         example: true
   
         
-  links.GetChannelCatalogProductInfo:
+  links.GetChannelCatalogProductInfoLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
   
@@ -1114,7 +1325,7 @@ definitions:
         type: object
         properties:
           self:
-            $ref: '#/definitions/links.GetChannelCatalogProductInfo'
+            $ref: '#/definitions/links.GetChannelCatalogProductInfoLink'
           
 # [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
       productInfos:
