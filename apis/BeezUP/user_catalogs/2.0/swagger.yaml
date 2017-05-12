@@ -1682,7 +1682,7 @@ definitions:
       compressedRelativePath:
         description: Indicate the relative path in the compressed file
         type: string
-        example: null
+        example: 'folder/file.xxx'
       downloadTimeout:
         description: >-
           Indicate the download time out in second
