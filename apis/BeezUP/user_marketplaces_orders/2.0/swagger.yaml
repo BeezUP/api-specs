@@ -273,6 +273,10 @@ paths:
           description: Successfully fetched the full list of Orders
           schema:
             $ref: '#/definitions/orderListFull'
+        400:
+          description: Could not process request for given parameters values (pageNumber or pageSize). Please check error message for more details.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -294,6 +298,11 @@ paths:
           description: Successfully fetched the list of Orders
           schema:
             $ref: '#/definitions/orderListLight'
+        400:
+          description: Could not process request for given parameters values (pageNumber or pageSize). Please check error message for more details.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -335,10 +344,6 @@ paths:
             $ref: '#/definitions/orderExportations'
         400:
           description: Could not process request for given parameters values (pageNumber or pageSize). Please check error message for more details.
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-        404:
-          description: Resources metting request parameters where not found. Please check error message for more details.
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
