@@ -570,6 +570,7 @@ paths:
       operationId: GetChannelCatalogExportationHistory
       parameters:
         - $ref: '#/parameters/channelCatalogIdParameter'
+        #- $ref: page
 #        - $ref: 
       responses:
         200:
