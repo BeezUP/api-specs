@@ -824,6 +824,12 @@ definitions:
 
   orderListRequest:
     type: object
+    required:
+    - dateSearchType
+    - beginPeriodUtcDate
+    - endPeriodUtcDate
+    - pageSize
+    - pageNumber
     properties:
       marketplaceTechnicalCodes:
         type: array
@@ -853,12 +859,19 @@ definitions:
       dateSearchType:
         $ref: '#/definitions/dateSearchType'
       beginPeriodUtcDate:
-        description: The begin period you want to make the search. The period MUST not be greater than 30 days. If null, the current date minus 30 days will be used.
+        description: | 
+          The begin period you want to make the search. \
+          The period MUST not be greater than 30 days.
+          The begin period MUST be lower than the end period. 
         format: date-time
         type: string
         example: '2017-03-01T13:10:01Z'
       endPeriodUtcDate:
-        description: The end period of you search. The period MUST not be greater than 30 days. If null the current date will be used.
+        description: |
+          The end period of you search. \
+          The period MUST not be greater than 30 days. \
+          The end period MUST be greater than the begin period. 
+          The end period MUST be lower to the current date.
         format: date-time
         type: string
         example: '2017-04-01T13:10:01Z'
