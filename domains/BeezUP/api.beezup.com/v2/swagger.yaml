@@ -420,13 +420,13 @@ definitions:
     - last
     properties:
       first:
-        $ref: '#/definitions/BeezUP.Common.Link3'
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
       last:
-        $ref: '#/definitions/BeezUP.Common.Link3'
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
       previous:
-        $ref: '#/definitions/BeezUP.Common.Link3'
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
       next:
-        $ref: '#/definitions/BeezUP.Common.Link3'
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
       
 
 
