@@ -265,7 +265,7 @@ paths:
         #- deflate
       - name: request
         in: body
-        required: false
+        required: true
         schema:
           $ref: '#/definitions/orderListRequest'
       responses:
