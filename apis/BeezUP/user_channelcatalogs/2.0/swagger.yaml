@@ -633,12 +633,15 @@ definitions:
     
   channelCatalogExportCacheInfo:
     type: object
+    required:
+    - status
     properties:
       status:
         type: string
         enum:
         - ReadyForGeneration
         example: ReadyForGeneration
+        
 
 
   channelCatalogExportationHistoryLinks:
@@ -664,6 +667,10 @@ definitions:
 
   channelCatalogExportationReporting:
     type: object
+    required:
+    - exportationUtcDate
+    - clientIpAddress
+    - clientUserAgent
     properties:
       exportationUtcDate:
         description: The exportation UTC date
@@ -694,10 +701,10 @@ definitions:
         type: string
         description: The IP address of the client who requests this exportation
         example: 42.101.42.101
-# [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
       clientUserAgent:
         type: string
         description: The http header User-Agent sent by the client who requests this operation
+        example: 'Wget/1.13.4 (linux-gnu)'
     
 
 
