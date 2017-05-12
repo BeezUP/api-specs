@@ -274,7 +274,7 @@ paths:
           schema:
             $ref: '#/definitions/orderListFull'
         400:
-          description: Could not process request for given parameters values (pageNumber or pageSize). Please check error message for more details.
+          description: Could not process request for given parameters values. Please check error message for more details.
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
@@ -299,7 +299,7 @@ paths:
           schema:
             $ref: '#/definitions/orderListLight'
         400:
-          description: Could not process request for given parameters values (pageNumber or pageSize). Please check error message for more details.
+          description: Could not process request for given parameters values. Please check error message for more details.
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
@@ -343,7 +343,7 @@ paths:
           schema:
             $ref: '#/definitions/orderExportations'
         400:
-          description: Could not process request for given parameters values (pageNumber or pageSize). Please check error message for more details.
+          description: Could not process request for given parameters values. Please check error message for more details.
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
@@ -365,7 +365,7 @@ paths:
         202:
           description: Successfully requested new Order report exportation generation
         400:
-          description: Could not process request for given parameters values (storeId). Please check error message for more details.
+          description: Could not process request for given parameters values. Please check error message for more details.
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
