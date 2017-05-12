@@ -524,7 +524,7 @@ definitions:
       - query
       - body
       
-  BeezUP.Common.Type:
+  BeezUP.Common.TypeEnum:
         description: The value type of the parameter
         type: string
         enum:
