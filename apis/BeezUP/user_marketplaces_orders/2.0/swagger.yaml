@@ -2351,6 +2351,7 @@ definitions:
          $ref: '#/definitions/etag'
 
   changeOrderRequest:
+    type: object
     description: All properties with the prefix order_ are translated in the list of values /user/lov#OrderMetaInfoPosted
     additionalProperties:
       type: string
