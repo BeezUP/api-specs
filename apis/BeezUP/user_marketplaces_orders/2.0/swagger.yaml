@@ -2008,11 +2008,19 @@ definitions:
   orderListLightLinks:
     allOf:
     - $ref: '#/definitions/orderListLinks'
+    - type: object
+      properties:
+        self:
+          $ref: '#/definitions/links.GetOrderListLightLink'
 
   orderListFullLinks:
     allOf:
     - $ref: '#/definitions/orderListLinks'
-
+    - type: object
+      properties:
+        self:
+          $ref: '#/definitions/links.GetOrderListFullLink'
+          
   links.SetMerchantOrderInfoListLink:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
@@ -2046,6 +2054,7 @@ definitions:
     required:
     - paginationResult
     - orders
+    - links
     properties:
       paginationResult:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
@@ -2066,6 +2075,7 @@ definitions:
     required:
     - paginationResult
     - orders
+    - links
     properties:
       paginationResult:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
