@@ -40,11 +40,11 @@ x-api-namespace: BeezUP.MarketPlace2.Publication.BackOffice.WebService
 x-api-repo: tbd
 x-api-repo-folder: tbd
 tags:
-- name: Marketplaces - Channel catalogs - Global
+- name: Global
   description: Operations to fetch your marketplace account related to your channel catalogs
-- name: Marketplaces - Channel catalogs - Publications
+- name: Publications
   description: Operations to fetch your marketplace account's catalog publication history
-- name: Marketplaces - Channel catalogs - Settings
+- name: Settings
   description: Operations to manage your channel catalogs' marketplace settings
 consumes:
   - application/json
@@ -77,7 +77,7 @@ paths:
   '/':
     get:
       tags:
-      - Marketplaces - Channel catalogs - Global
+      - Global
       summary: Get  you marketplace channel catalog list
       operationId: GetMarketplaceAccountStores
       responses:
@@ -89,7 +89,7 @@ paths:
   '/publications/{marketplaceTechnicalCode}/{accountId}/history':
     get:
       tags:
-        - Marketplaces - Channel catalogs - Publications
+        - Publications
       summary: Fetch the publication history for an account, sorted by descending start date
       operationId: GetPublications
       parameters:
@@ -156,7 +156,7 @@ paths:
   '/{channelCatalogId}/properties':
     get:
       tags:
-        - Marketplaces - Channel catalogs - Settings
+        - Settings
       summary: Get the marketplace properties for a channel catalog
       operationId: GetChannelCatalogMarketplaceProperties
       parameters:
@@ -182,7 +182,7 @@ paths:
   '/{channelCatalogId}/settings':
     get:
       tags:
-        - Marketplaces - Channel catalogs - Settings
+        - Settings
       summary: Get the marketplace settings for a channel catalog
       operationId: GetChannelCatalogMarketplaceSettings
       parameters:
@@ -207,7 +207,7 @@ paths:
       
     post:
       tags:
-        - Marketplaces - Channel catalogs - Settings
+        - Settings
       summary: Save new marketplace settings for a channel catalog
       description: |
         Allow you to configure your marketplace settings. 
