@@ -83,6 +83,8 @@ tags:
   description: All products overrides operations
 - name: Products Optimisation
   description: All products optimisation operations
+- name: Exportations
+  description: All channel catalog exportation operations
 
 schemes:
  - https
@@ -569,9 +571,9 @@ paths:
       summary: Get the exportation history
       operationId: GetChannelCatalogExportationHistory
       parameters:
-        - $ref: '#/parameters/channelCatalogIdParameter'
-        #- $ref: page
-#        - $ref: 
+      - $ref: '#/parameters/channelCatalogIdParameter'
+      - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/pageNumberQueryStrngParameter
+      - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/pageSizeQueryStrngParameter
       responses:
         200:
           description: Channel catalog exportation history
@@ -640,10 +642,11 @@ definitions:
     properties:
       cacheStatus:
         type: string
-        enum:
-        - ReadyForGeneration
+        #enum:
+        #- ReadyForGeneration
+        #- Building
         example: ReadyForGeneration
-      
+        x-lov: ChannelCatalogExportCacheStatus
         
 
 
