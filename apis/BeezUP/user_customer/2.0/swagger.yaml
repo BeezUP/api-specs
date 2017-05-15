@@ -2237,7 +2237,7 @@ definitions:
     - saveCompanyInfo
     - saveProfilePictureInfo
     - getCreditCardInfo
-    - saveUserCreditCardLink
+    - saveCreditCardInfo
     properties:
       savePersonalInfo:
         $ref: '#/definitions/links.savePersonalInfoLink'
@@ -2251,7 +2251,7 @@ definitions:
         $ref: '#/definitions/links.saveProfilePictureInfoLink'
       getCreditCardInfo:
         $ref: '#/definitions/links.getCreditCardInfoLink'
-      saveUserCreditCardLink:
+      saveCreditCardInfo:
         $ref: '#/definitions/links.saveCreditCardInfoLink'
     additionalProperties: false
     
