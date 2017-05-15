@@ -677,10 +677,11 @@ definitions:
             schema: exportOrderListRequest
 
   orderExportations:
-    description: The list of Order report exportations
+    description: |
+      The list of Order report exportations.\
+      The paginationResult properties can be null if the list is empty.
     type: object
     required:
-    - paginationResult
     - links
     - exportations
     properties:
@@ -2117,9 +2118,11 @@ definitions:
         method: POST
 
   orderListLight:
+    description: |
+      The order list with minimum information we have from the orders.\
+      The paginationResult properties can be null if the list is empty. 
     type: object
     required:
-    - paginationResult
     - orders
     - links
     properties:
@@ -2138,9 +2141,11 @@ definitions:
 #        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
 
   orderListFull:
+    description: |
+      The order list with all information we have from the orders and its items.\
+      The paginationResult properties can be null if the list is empty. 
     type: object
     required:
-    - paginationResult
     - orders
     - links
     properties:
