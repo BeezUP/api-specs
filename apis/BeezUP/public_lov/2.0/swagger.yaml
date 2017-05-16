@@ -21,11 +21,13 @@ schemes:
 x-beezup-api-ops:
   repo: LOVWebService
   apiName: PublicLOV
+  codeGenVersion: 1
   appRoot: BeezUP.Framework.LOV.WebService
   namespace: BeezUP.Framework.LOV.WebService
   comment: |
     Put in place dev branch
-    
+
+
 
 x-api-name: PublicLOV
 x-api-namespace: BeezUP.Framework.LOV.WebService
