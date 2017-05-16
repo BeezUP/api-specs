@@ -2387,7 +2387,7 @@ definitions:
         items:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage'
 
-x-azure-api-id: 'a2dbab9d-5143-4a7e-9fb5-d77fa4a451e7'
+x-azure-api-id: 'v2usermarketplacesorders'
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
 #basePath: /BeezUP/user_marketplaces_orders/2.0
