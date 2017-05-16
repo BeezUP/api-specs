@@ -22,7 +22,7 @@ info:
     url: http://www.beezup.com  
   
   x-changeComment: |
-    Pass paginationResult property nullable in case of empty list
+    Test FORK
   
 externalDocs:
   description: BeezUP API documentation
