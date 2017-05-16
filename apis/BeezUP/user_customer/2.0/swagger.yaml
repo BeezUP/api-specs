@@ -2433,7 +2433,6 @@ definitions:
     type: object
     required:
     - links
-    - currentPaymentMethod
     properties:
       links:
         description: The different actions you can make on this offer
