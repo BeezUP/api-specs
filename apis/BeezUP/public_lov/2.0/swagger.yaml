@@ -11,14 +11,21 @@ info:
     name: BeezUP 
     url: http://www.beezup.com
   
-  x-changeComment: |
-    Remove the groups opreations
 
 host: api.beezup.com
 basePath: /v2/public/lov
 schemes:
   - https
 
+
+x-beezup-api-ops:
+  repo: LOVWebService
+  apiName: PublicLOV
+  appRoot: BeezUP.Framework.LOV.WebService
+  namespace: BeezUP.Framework.LOV.WebService
+  comment: |
+    Put in place dev branch
+    
 
 x-api-name: PublicLOV
 x-api-namespace: BeezUP.Framework.LOV.WebService
