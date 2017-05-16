@@ -28,10 +28,6 @@ x-beezup-api-ops:
     Put in place dev branch
 
 
-
-x-api-name: PublicLOV
-x-api-namespace: BeezUP.Framework.LOV.WebService
-
 consumes:
   - application/json
 produces:
