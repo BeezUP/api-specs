@@ -662,7 +662,7 @@ definitions:
         format: date-time
         description: The expiration UTC date of the cache
         example: '2014-08-25T08:02:31.584Z'
-      feddUrl:
+      feedUrl:
         description: The feed url
         type: string
         example: 'https://www.scootmotoshop.com/feed.xml'
