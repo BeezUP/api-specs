@@ -482,6 +482,10 @@ definitions:
     required:
     - href
     properties:
+      label:
+        type: string
+        description: The label corresponding to the link. This label is automatically translated based on the Accept-Language http header.
+        example: The translated label
       docUrl:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.DocUrl
       description:
@@ -566,6 +570,10 @@ definitions:
     required:
     - in
     properties:
+      label:
+        type: string
+        description: The label corresponding to the link parameter. This label is automatically translated based on the Accept-Language http header.
+        example: The translated label
       value:
         type: object
         description: The value of the parameter. It can be an integer a string or an object.
@@ -606,7 +614,10 @@ definitions:
   BeezUP.Common.LinkParameterProperty3:
     type: object
     properties:
-
+      label:
+        type: string
+        description: The label corresponding to the link parameter property. This label is automatically translated based on the Accept-Language http header.
+        example: The translated label
       value:
         type: object
         description: The value of the parameter. It can be an integer a string or an object.
