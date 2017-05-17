@@ -613,6 +613,8 @@ definitions:
           
   BeezUP.Common.LinkParameterProperty3:
     type: object
+    required:
+    - type
     properties:
       label:
         type: string
