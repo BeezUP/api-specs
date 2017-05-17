@@ -26,7 +26,7 @@ x-beezup-api-ops:
   appRoot: BeezUP.Framework.LOV.WebService
   namespace: BeezUP.Framework.LOV.WebService
   comment: |
-    Put in place dev branch.
+    Put in place dev branch.    
     
 x-api-name: PublicLOV
 x-api-namespace: BeezUP.Framework.LOV.WebService    
