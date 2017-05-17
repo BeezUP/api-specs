@@ -27,6 +27,9 @@ x-beezup-api-ops:
   namespace: BeezUP.Framework.LOV.WebService
   comment: |
     Put in place dev branch
+    
+x-api-name: PublicLOV
+x-api-namespace: BeezUP.Framework.LOV.WebService    
 
 
 consumes:
