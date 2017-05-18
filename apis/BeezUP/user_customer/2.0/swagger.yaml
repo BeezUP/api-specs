@@ -18,20 +18,25 @@ info:
     name: BeezUP 
     url: http://www.beezup.com  
     
-    
-  x-changeComment: |
+
+x-beezup-api-ops:
+  repo: Customer
+  apiName: V2UserCustomer
+  serverSideBeezUPFrameworkVersion: 1
+  appRoot: BeezUP.Customer.WebService
+  namespace: BeezUP.Customer.WebService
+  host: api.beezup.com
+  basePath: /v2/user/customer
+  comment: |
+    Remove required of whatIDo on friendInfo
+    Regroup all beezup keys in a object x-beezup-api-ops
     Change usegravatar to profilePictureSelected enum
     Add profilePictureInfo
-   
 
 host: api.beezup.com
-x-host: api.beezup.com
 
 basePath: /v2/user/customer
-x-basePath: /v2/user/customer
 
-x-api-name: V2UserCustomer
-x-api-namespace: BeezUP.Customer.WebService
 
 schemes:
   - https
@@ -1355,8 +1360,6 @@ definitions:
     - email
     - countryIsoCodeAlpha3
     - company
-    - whatIDo
-    
     type: object
     properties:
       userId:
