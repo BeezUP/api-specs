@@ -21,7 +21,7 @@ schemes:
 
 x-beezup-api-ops:
   repo: LOVWebService
-  apiName: PublicLOV
+  apiName: V2PublicLOV
   serverSideBeezUPFrameworkVersion: 1
   appRoot: BeezUP.Framework.LOV.WebService
   namespace: BeezUP.Framework.LOV.WebService
