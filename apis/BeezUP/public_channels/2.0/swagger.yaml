@@ -19,7 +19,7 @@ x-beezup-apnfo-ops:
   apiName: V2PublicChannels
   serverSideBeezUPFrameworkVersion: 1
   appRoot: BeezUP.WebService.Commercial
-  namespace: BeezUP.Channel.WebService
+  namespace: BeezUP.WebService.Commercial
   host: api.beezup.com
   basePath: /v2/public/channels
   comment: |
@@ -56,7 +56,7 @@ x-servers:
 
 
 x-api-name: V2PublicChannels
-x-api-namespace: BeezUP.Channel.WebService
+x-api-namespace: BeezUP.WebService.Commercial
 
 tags:
 - name: Public Channels
