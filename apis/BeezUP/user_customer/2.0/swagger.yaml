@@ -35,8 +35,12 @@ x-beezup-api-ops:
 
 host: api.beezup.com
 basePath: /v2/user/customer
+
 x-host: api.beezup.com
 x-basePath: /v2/user/customer
+x-api-name: V2UserCustomer
+x-api-namespace: BeezUP.Customer.WebService
+
 
 
 schemes:
