@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '2.0'
+  version: "2.0"
   title: 'Public - Channels'
   description: 'This api allows you to get access to the channels. The main use case is our public commercial web site.'
   contact:
@@ -14,6 +14,18 @@ info:
 # host: api.beezup.com
 # basePath: /v2/public/channels
 
+x-beezup-apnfo-ops:
+  repo: Commercial
+  apiName: V2PublicChannels
+  serverSideBeezUPFrameworkVersion: 1
+  appRoot: BeezUP.WebService.Commercial
+  namespace: BeezUP.Channel.WebService
+  host: api.beezup.com
+  basePath: /v2/public/channels
+  comment: |
+    Add sectors
+    Add If-None-Match and 304
+
 x-host: api.beezup.com
 x-basePath: /v2/public/channels
 
@@ -25,6 +37,7 @@ x-basePath: /v2/public/channels
 
 host: api.beezup.com
 basePath: /v2/public/channels
+
 
 
 schemes:
@@ -59,11 +72,15 @@ paths:
       summary: Get public channel index
       description: Use this operation to get the correct link to the channels and to the list of values
       operationId: GetChannelsIndex
+      parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Channel list regrouped by country and links to list of values
           schema:
             $ref: '#/definitions/publicChannelIndex'
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -95,6 +112,7 @@ paths:
 #        - gzip
 #        - deflate
 
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: The channel list for one country
@@ -109,6 +127,8 @@ paths:
                 types:
                 - Marketplace
               
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
     
         404:
           description: Channel country not found
@@ -159,6 +179,8 @@ definitions:
             $ref: '#/definitions/links.GetPublicListOfValuesLink'
           channelTypeLov:
             $ref: '#/definitions/links.GetPublicListOfValuesLink'
+          sectorLov:
+            $ref: '#/definitions/links.GetPublicListOfValuesLink'
         example:
           self:
             href: /v2/public/channels
@@ -168,6 +190,9 @@ definitions:
             method: GET
           channelTypeLov:
             href: /v2/public/lov/ChannelType
+            method: GET
+          sectorLov:
+            href: /v2/public/lov/ParamSector
             method: GET
             
   links.GetPublicListOfValuesLink:
@@ -237,6 +262,15 @@ definitions:
           type: string
         example:
         - Marketplace
+      sectors:
+        description: The sector list related to a channel
+        type: array
+        items:
+          type: string
+        example:
+        - BRICOLAGE
+        - INFO
+        - GENERALIST
         
         
         
