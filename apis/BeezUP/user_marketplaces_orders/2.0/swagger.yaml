@@ -31,10 +31,7 @@ x-beezup-api-ops:
   host: api.beezup.com
   basePath: /v2/user/marketplaces/orders
   comment: |
-    Remove required of whatIDo on friendInfo
     Regroup all beezup keys in a object x-beezup-api-ops
-    Change usegravatar to profilePictureSelected enum
-    Add profilePictureInfo
 
   
 externalDocs:
@@ -440,6 +437,47 @@ paths:
       deprecated: false
 
   '/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}':
+    head:
+      tags:
+      - Order
+      operationId: HeadOrder
+      summary: Get the meta information about the order (ETag, Last-Modified)
+      parameters:
+      - $ref: '#/parameters/marketplaceTechnicalCodeParameter'
+      - $ref: '#/parameters/accountIdParameter'
+      - $ref: '#/parameters/beezUPOrderIdParameter'
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
+      responses:
+        200:
+          description: Successfully fetched Order and Order Item(s) properties
+          headers:
+            'Last-Modified':
+              type: string
+              format: date-time
+              description: |
+                Last modification UTC date of the order\
+                For more details go to this link: https://tools.ietf.org/html/rfc7232#section-2.2
+
+            ETag:
+              type: string
+              description: |
+                ETag value to identify the current version of requested Order\
+                For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+        304:
+          description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
+          headers:
+            ETag:
+              type: string
+              description: |
+                ETag value to identify the current version of requested Order\
+                For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+        404:
+          description: Requested Order could not be found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+      deprecated: false
     get:
       tags:
       - Order
