@@ -510,9 +510,15 @@ definitions:
             $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameter3
         additionalProperties:
           $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameter3
-      templated:
+      urlTemplated:
         type: boolean
         description: indicates whether the href is templated or not
+      allRequiredParamsProvided:
+        type: boolean
+        description: indicates whether all required params have been provided
+      allOptionalParamsProvided:
+        type: boolean
+        description: indicates whether all optionals params have been provided
       info:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
 
