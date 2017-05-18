@@ -452,7 +452,7 @@ paths:
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
-          description: Successfully fetched Order and Order Item(s) properties
+          description: Successfully fetched meta information about the order (ETag, Last-Modified)
           headers:
             'Last-Modified':
               type: string
