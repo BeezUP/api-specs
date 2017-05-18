@@ -60,6 +60,8 @@ security:
 
 # tags are used for organizing operations
 tags:
+- name: Global
+  description: All global operations 
 - name: Account
   description: All user account operations 
 - name: Stores
@@ -88,6 +90,21 @@ produces:
 
   
 paths:
+
+  '/':
+# [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : OperationId must be present and non-empty string]: Field 'operationId' required in operation 'get' of path '/'
+    get:
+      tags:
+      - Global
+      summary: The index of all operations and LOV
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/customerIndex'
+
+    
+
 
   '/account':
     get:
@@ -833,6 +850,23 @@ paths:
 
 definitions:
 
+
+  customerIndex:
+    type: object
+    required:
+    - links
+    - lovLinks
+    properties:
+      links:
+        $ref: '#/definitions/customerIndexLinks'
+      lovLinks:
+        $ref: '#/definitions/customerIndexLovLinks'
+    
+  customerIndexLinks:
+    type: object
+
+  customerIndexLovLinks:
+    type: object
 
   links.shareLink:
     allOf:
