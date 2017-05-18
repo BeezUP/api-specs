@@ -22,7 +22,7 @@ info:
     url: http://www.beezup.com  
   
 
-x-beezup-api-ops:
+x-beezup-apnfo-ops:
   repo: MP2-OM-API
   apiName: V2UserMarketplacesOrders
   serverSideBeezUPFrameworkVersion: 1
@@ -594,6 +594,10 @@ paths:
             Retry-After:
               type: integer
               description: Indicates the duration in seconds to wait to be able to make this request again
+        404:
+          description: Requested Order could not be found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         409:
           description: Failed to send harvest request because allowed rate limits have been exceeded
           headers:
@@ -2287,8 +2291,8 @@ definitions:
       lastModificationUtcDate:
         format: date-time
         type: string
-      info:
-        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
+#      info:
+#        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
 
   sourceType:
     description: Indicates the origin of the operation
