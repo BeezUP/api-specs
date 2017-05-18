@@ -155,6 +155,8 @@ paths:
           description: Order index
           schema:
             $ref: '#/definitions/orderIndex'
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -174,6 +176,8 @@ paths:
           description: Successfully fetched current synchronization status
           schema:
             $ref: '#/definitions/accountSynchronizations'
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -216,6 +220,8 @@ paths:
           description: Successfully fetched list of configured automatic Order status transitions
           schema:
             $ref: '#/definitions/automaticTransitionInfos'
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -344,6 +350,8 @@ paths:
           description: Successfully fetched the list of Order report exportations
           schema:
             $ref: '#/definitions/orderExportations'
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         400:
           description: Could not process request for given parameters values. Please check error message for more details.
           schema:
@@ -560,19 +568,7 @@ paths:
           schema:
             $ref: '#/definitions/orderHistory'
         304:
-          description: The ETag sent in the http header If-None-Match did not change. So you are up to date !
-          headers:
-            'Last-Modified':
-              type: string
-              format: date-time
-              description: |
-                Last modification UTC date of the order\
-                For more details go to this link: https://tools.ietf.org/html/rfc7232#section-2.2
-            ETag:
-              type: string
-              description: |
-                ETag value to identify the current version of requested Order\
-                For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         404:
           description: Requested Order could not be found
           schema:
