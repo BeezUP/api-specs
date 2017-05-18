@@ -33,13 +33,14 @@ x-beezup-api-ops:
     Change usegravatar to profilePictureSelected enum
     Add profilePictureInfo
 
-host: api.beezup.com
-basePath: /v2/user/customer
-
 x-host: api.beezup.com
 x-basePath: /v2/user/customer
 x-api-name: V2UserCustomer
 x-api-namespace: BeezUP.Customer.WebService
+
+
+host: api.beezup.com
+basePath: /v2/user/customer
 
 
 
