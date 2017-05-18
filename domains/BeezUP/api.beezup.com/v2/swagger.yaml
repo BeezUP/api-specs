@@ -94,14 +94,20 @@ responses:
     description: Occurs when something goes wrong
     schema:
       $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage
-#  304_NotModified:
-#    description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
-#    headers:
-#      ETag:
-#        type: string
-#        description: |
-#          ETag value to identify the current version of the resource\
-#          For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+  304_NotModified:
+    description: The ETag sent in the http header If-None-Match did not change. So you are up to date !
+    headers:
+      'Last-Modified':
+        type: string
+        format: date-time
+        description: |
+          Last modification UTC date of the resource\
+          For more details go to this link: https://tools.ietf.org/html/rfc7232#section-2.2
+      ETag:
+        type: string
+        description: |
+          ETag value to identify the current version of the resource\
+          For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
   412_PreConditionFailed:
     description: The ETag sent in the http header If-Match did not match with the current version. Please refresh the information related to this resource.
     headers:
