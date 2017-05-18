@@ -466,6 +466,12 @@ paths:
         304:
           description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
           headers:
+            'Last-Modified':
+              type: string
+              format: date-time
+              description: |
+                Last modification UTC date of the order\
+                For more details go to this link: https://tools.ietf.org/html/rfc7232#section-2.2
             ETag:
               type: string
               description: |
@@ -492,6 +498,12 @@ paths:
         200:
           description: Successfully fetched Order and Order Item(s) properties
           headers:
+            'Last-Modified':
+              type: string
+              format: date-time
+              description: |
+                Last modification UTC date of the order\
+                For more details go to this link: https://tools.ietf.org/html/rfc7232#section-2.2
             ETag:
               type: string
               description: |
@@ -502,6 +514,12 @@ paths:
         304:
           description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
           headers:
+            'Last-Modified':
+              type: string
+              format: date-time
+              description: |
+                Last modification UTC date of the order\
+                For more details go to this link: https://tools.ietf.org/html/rfc7232#section-2.2
             ETag:
               type: string
               description: |
