@@ -14,7 +14,7 @@ info:
 # host: api.beezup.com
 # basePath: /v2/public/channels
 
-x-beezup-apnfo-ops:
+x-beezup-api-ops:
   repo: Commercial
   apiName: V2PublicChannels
   serverSideBeezUPFrameworkVersion: 1
