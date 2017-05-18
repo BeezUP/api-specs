@@ -68,6 +68,27 @@ parameters:
       type: string
       collectionFormat: csv
 
+  acceptEncodingRequiredParameter:
+    name: Accept-Encoding
+    description: Allows the client to indicate wether it accepts a compressed encoding to reduce traffic size. 
+    in: header
+    required: true
+    type: array
+    items:
+      type: string
+      collectionFormat: csv
+
+  acceptEncodingOptionalParameter:
+    name: Accept-Encoding
+    description: Allows the client to indicate wether it accepts a compressed encoding to reduce traffic size. 
+    in: header
+    required: false
+    type: array
+    items:
+      type: string
+      collectionFormat: csv
+
+
 # To remind the http header
 # responseHeaders:
 #    Content-Language:
