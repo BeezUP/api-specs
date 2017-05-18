@@ -21,8 +21,21 @@ info:
     name: BeezUP 
     url: http://www.beezup.com  
   
-  x-changeComment: |
-    Test FORK
+
+x-beezup-api-ops:
+  repo: MP2-OM-API
+  apiName: V2UserMarketplacesOrders
+  serverSideBeezUPFrameworkVersion: 1
+  appRoot: BeezUP.MarketPlace2.OM2.Api.WebService2
+  namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
+  host: api.beezup.com
+  basePath: /v2/user/marketplaces/orders
+  comment: |
+    Remove required of whatIDo on friendInfo
+    Regroup all beezup keys in a object x-beezup-api-ops
+    Change usegravatar to profilePictureSelected enum
+    Add profilePictureInfo
+
   
 externalDocs:
   description: BeezUP API documentation
@@ -37,7 +50,7 @@ x-servers:
 x-host: api.beezup.com
 x-basePath: /v2/user/marketplaces/orders
 x-api-name: V2UserMarketplacesOrders
-x-api-namespace: BeezUP.MarketPlace2.Orders
+x-api-namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
 
 schemes:
   - https
