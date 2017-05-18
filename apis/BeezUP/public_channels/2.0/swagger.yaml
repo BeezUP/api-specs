@@ -100,18 +100,7 @@ paths:
         description: |
           The country iso code alpha 3 based on this: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3#Decoding_table \
           To know which country are available you have to use the operation: GetChannelsByCountry
-      - name: 'Accept-Encoding'
-        description: Allows the client to indicate wether it accepts a compressed encoding to reduce traffic size. 
-        in: header
-        required: true
-        type: array
-        items:
-          type: string
-          collectionFormat: csv
-#        x-example: 
-#        - gzip
-#        - deflate
-
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/acceptEncodingRequiredParameter'
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
