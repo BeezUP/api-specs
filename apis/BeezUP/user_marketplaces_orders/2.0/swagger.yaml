@@ -22,7 +22,7 @@ info:
     url: http://www.beezup.com  
   
 
-x-beezup-apnfo-ops:
+x-beezup-api-ops:
   repo: MP2-OM-API
   apiName: V2UserMarketplacesOrders
   serverSideBeezUPFrameworkVersion: 1
