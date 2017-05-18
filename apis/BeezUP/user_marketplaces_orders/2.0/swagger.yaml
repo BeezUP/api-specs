@@ -442,6 +442,9 @@ paths:
       - Order
       operationId: HeadOrder
       summary: Get the meta information about the order (ETag, Last-Modified)
+      description: |
+        The purpose of this operation is to reduce the bandwith usage by getting just the meta information about the order (ETag, Last-Modified) with the body.
+        This could be useful 
       parameters:
       - $ref: '#/parameters/marketplaceTechnicalCodeParameter'
       - $ref: '#/parameters/accountIdParameter'
@@ -464,7 +467,7 @@ paths:
                 ETag value to identify the current version of requested Order\
                 For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
         304:
-          description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
+          description: The ETag sent in the http header If-None-Match did not change. So you are up to date!
           headers:
             'Last-Modified':
               type: string
@@ -512,7 +515,7 @@ paths:
           schema:
             $ref: '#/definitions/order'
         304:
-          description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
+          description: The ETag sent in the http header If-None-Match did not change. So you are up to date !
           headers:
             'Last-Modified':
               type: string
