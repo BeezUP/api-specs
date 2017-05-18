@@ -852,6 +852,7 @@ definitions:
 
 
   customerIndex:
+    description: The index of the customer API
     type: object
     required:
     - links
