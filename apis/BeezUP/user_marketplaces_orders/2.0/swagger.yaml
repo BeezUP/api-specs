@@ -148,6 +148,8 @@ paths:
       x-tagGroups: Martketplaces Orders
       operationId: GetOrderIndex
       summary: Get all actions you can do on the order API
+      parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Order index
@@ -165,6 +167,8 @@ paths:
       x-tagGroups: Martketplaces Orders
       operationId: GetMarketplaceAccountsSynchronization
       summary: Get current synchronization status between your marketplaces and BeezUP accounts
+      parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Successfully fetched current synchronization status
@@ -205,6 +209,8 @@ paths:
       - AutoTransitions
       operationId: GetAutomaticTransitions
       summary: Get list of configured automatic Order status transitions
+      parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Successfully fetched list of configured automatic Order status transitions
@@ -332,6 +338,7 @@ paths:
         type: string
         format: guid
         description: The store identifier to regroup the order exportations
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Successfully fetched the list of Order report exportations
@@ -452,7 +459,7 @@ paths:
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
-          description: Successfully fetched meta information about the order (ETag, Last-Modified)
+          description: Successfully fetched Order and Order Item(s) properties
           headers:
             'Last-Modified':
               type: string
@@ -546,11 +553,26 @@ paths:
       - $ref: '#/parameters/marketplaceTechnicalCodeParameter'
       - $ref: '#/parameters/accountIdParameter'
       - $ref: '#/parameters/beezUPOrderIdParameter'
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Successfully fetched Order history
           schema:
             $ref: '#/definitions/orderHistory'
+        304:
+          description: The ETag sent in the http header If-None-Match did not change. So you are up to date !
+          headers:
+            'Last-Modified':
+              type: string
+              format: date-time
+              description: |
+                Last modification UTC date of the order\
+                For more details go to this link: https://tools.ietf.org/html/rfc7232#section-2.2
+            ETag:
+              type: string
+              description: |
+                ETag value to identify the current version of requested Order\
+                For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
         404:
           description: Requested Order could not be found
           schema:
