@@ -2179,6 +2179,7 @@ definitions:
     required:
     - reportFilterName
     - reportFilterId
+    - reportType
     - links
     properties:
       reportFilterId:
