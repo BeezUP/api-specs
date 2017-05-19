@@ -2190,6 +2190,8 @@ definitions:
         description: Report filter name
         type: string
         example: 'My report filter'
+      reportType:
+        $ref: '#/definitions/reportType'
       links:
         $ref: '#/definitions/reportFilterHeaderLinks'
   
