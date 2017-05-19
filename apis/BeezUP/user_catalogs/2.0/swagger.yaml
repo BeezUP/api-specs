@@ -14,10 +14,20 @@ info:
     
 host: api.beezup.com
 basePath: /v2/user/catalogs
-x-basePath: /v2/user/catalogs
 
-x-api-name: V2UserCatalogs
-x-api-namespace: BeezUP2.Catalog.ApiService
+x-beezup-api-ops:
+  #repo: LOVWebService
+  apiName: V2UserCatalogs
+  serverSideBeezUPFrameworkVersion: 2
+  appRoot: BeezUP2.Catalog.ApiService
+  namespace: BeezUP2.Catalog.ApiService
+  comment: |
+    Put in place dev branch.
+
+#x-basePath: /v2/user/catalogs
+#x-api-name: V2UserCatalogs
+#x-api-namespace: BeezUP2.Catalog.ApiService
+
 schemes:
   - https
 
