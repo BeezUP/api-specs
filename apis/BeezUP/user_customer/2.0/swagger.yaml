@@ -918,6 +918,9 @@ definitions:
   links.customerIndexLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer
+        method: GET
 
   customerIndexLinks:
     description: Gives you want you can do on this API
@@ -939,7 +942,7 @@ definitions:
         $ref: '#/definitions/links.getStandardOffersLink'
       friendInfo:
         $ref: '#/definitions/links.getFriendInfoLink'
-        
+
       logout:
         $ref: '#/definitions/links.logoutLink'
 
@@ -978,32 +981,61 @@ definitions:
   links.logoutLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/security/logout
+        method: POST
 
 
   links.getFriendInfoLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/friends/{userId}
+        method: GET
+        parameters:
+          userId:
+            in: path
+            type: string
+            required: true
+
+
+
 
   links.getStandardOffersLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/offers
+        method: GET
 
   
   links.getBillingPeriodsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/billingPeriods
+        method: GET
+
+
 
   links.getInvoicesLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/invoices
+        method: GET
     
   links.getUserAccountInfoLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    
+    - example:
+        href: /v2/user/customer/account
+        method: GET
+
   links.shareLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+
 
   links.deleteShareLink:
     allOf:
@@ -1012,6 +1044,9 @@ definitions:
   links.getStoresLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'  
+    - example:
+        href: /v2/user/customer/stores
+        method: GET
     
   links.createStoreLink:
     allOf:
@@ -1064,11 +1099,17 @@ definitions:
   links.getCreditCardInfoLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/account/creditCardinfo
+        method: GET
     
   links.getContractsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    
+    - example:
+        href: /v2/user/customer/contracts
+        method: GET
+
   links.reactivateCurrentContractLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
