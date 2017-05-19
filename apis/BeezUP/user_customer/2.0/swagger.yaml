@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '2.0'
+  version: "2.0"
   title: Customer
   description: |
     This API will gives you the ability to :
@@ -18,20 +18,31 @@ info:
     name: BeezUP 
     url: http://www.beezup.com  
     
-    
-  x-changeComment: |
+
+x-beezup-api-ops:
+  repo: Customer
+  apiName: V2UserCustomer
+  serverSideBeezUPFrameworkVersion: 1
+  appRoot: BeezUP.Customer.WebService
+  namespace: BeezUP.Customer.WebService
+  host: api.beezup.com
+  basePath: /v2/user/customer
+  comment: |
+    Remove required of whatIDo on friendInfo
+    Regroup all beezup keys in a object x-beezup-api-ops
     Change usegravatar to profilePictureSelected enum
     Add profilePictureInfo
-   
 
-host: api.beezup.com
 x-host: api.beezup.com
-
-basePath: /v2/user/customer
 x-basePath: /v2/user/customer
-
 x-api-name: V2UserCustomer
 x-api-namespace: BeezUP.Customer.WebService
+
+
+host: api.beezup.com
+basePath: /v2/user/customer
+
+
 
 schemes:
   - https
@@ -49,6 +60,8 @@ security:
 
 # tags are used for organizing operations
 tags:
+- name: Global
+  description: All global operations 
 - name: Account
   description: All user account operations 
 - name: Stores
@@ -77,6 +90,22 @@ produces:
 
   
 paths:
+
+  '/':
+# [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : OperationId must be present and non-empty string]: Field 'operationId' required in operation 'get' of path '/'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : OperationId must be present and non-empty string]: Field 'operationId' required in operation 'get' of path '/'
+    get:
+      tags:
+      - Global
+      summary: The index of all operations and LOV
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/customerIndex'
+
+    
+
 
   '/account':
     get:
@@ -823,6 +852,29 @@ paths:
 definitions:
 
 
+  customerIndex:
+    description: The index of the customer API
+    type: object
+    required:
+    - links
+    - lovLinks
+    properties:
+      links:
+        $ref: '#/definitions/customerIndexLinks'
+      lovLinks:
+        $ref: '#/definitions/customerIndexLovLinks'
+    
+  customerIndexLinks:
+    type: object
+    ## properties  ### TODO
+
+  customerIndexLovLinks:
+    type: object
+    ## properties  ### TODO
+    
+    
+    
+    
   links.shareLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -911,6 +963,7 @@ definitions:
     - shares
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
         type: object
         required:
@@ -949,6 +1002,7 @@ definitions:
       userRole:
         $ref: '#/definitions/storeUserRole'
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
         description: The different actions you can make on this share
         type: object
@@ -966,6 +1020,7 @@ definitions:
     - storeList
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
         description: The action links
         type: object
@@ -1105,6 +1160,7 @@ definitions:
           type: string
           example: '2017-04-01T22:30:00Z'
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
         links:
           description: The action links for this store
           type: object
@@ -1355,8 +1411,6 @@ definitions:
     - email
     - countryIsoCodeAlpha3
     - company
-    - whatIDo
-    
     type: object
     properties:
       userId:
@@ -1463,21 +1517,25 @@ definitions:
     properties:
      
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       trialPeriodInMonth:
         format: int32
         description: The trial period in month
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       billingPeriodPercentDiscount:
         format: double
         description: The percent discount related to the billing period
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       discountDurationInMonth:
         format: int32
         description: The discount duration in month
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       percentDiscount:
         format: double
         description: The percent of the discount
@@ -1487,26 +1545,31 @@ definitions:
       storeCount:
         $ref: '#/definitions/storeCount'
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       startUtcDate:
         format: date-time
         description: The start date of your contract
         type: string
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       commitmentCalculatedFinishUtcDate:
         format: date-time
         description: The calculated end date of commitment
         type: string
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       billingPeriodInMonth:
         format: int32
         description: The billing period in month
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       fixedPrice:
         format: double
         description: The fixed price of your contract
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       offerName:
         description: The offer name based on /offers
         type: string
@@ -1515,25 +1578,30 @@ definitions:
       contractId:
         $ref: '#/definitions/contractId'
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       commitmentPeriodInMonth:
         format: int32
         description: The commitment period in month
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       clickIncluded:
         format: int32
         description: The click included
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       additionalClickPrice:
         format: double
         description: Additional click price
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       ipUserCreation:
         description: The IP of the user who creates the contract
         type: string
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       ipUserModification:
         description: The IP of the user who modified the contract
         type: string
@@ -1542,15 +1610,18 @@ definitions:
       variableModelInfo:
         $ref: '#/definitions/variableModelInfo'
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       isCommitmentRenewalAutomatically:
         description: Is commitment is automatically renewed
         type: boolean
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       discountEndUtcDate:
         format: date-time
         description: The end of your discount
         type: string
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       isModifiableContract:
         description: Is the contract is modifiable ?
         type: boolean
@@ -1566,11 +1637,13 @@ definitions:
     type: object
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       clickIncluded:
         format: int32
         description: The click included
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       additionalClickPrice:
         format: double
         description: The additional click price
@@ -1580,11 +1653,13 @@ definitions:
     type: object
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       clickIncluded:
         format: int32
         description: Click included
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       variablePrice:
         format: double
         description: The pricing applied for this range
@@ -1764,6 +1839,7 @@ definitions:
     type: object
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       computedProrataToBeDeducted:
         format: double
         description: The prorata amount
@@ -1789,11 +1865,13 @@ definitions:
         example: 8a7fbdec-9e71-472e-9974-27d5c1d57cf8
 
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       fixedPeriodEndDate:
         format: date-time
         description: The fixed end period of the previous invoice
         type: string
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       fixedPeriodStartDate:
         format: date-time
         description: The fixed start period of the previous invoice
@@ -1806,11 +1884,13 @@ definitions:
     type: object
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       amountBillingPeriodDiscount:
         format: double
         description: The amount discounted related to the billing period
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       billingPeriodPercentDiscount:
         format: double
         description: The discount percent related to the billing period
@@ -1822,16 +1902,19 @@ definitions:
     type: object
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       additionalClickPrice:
         format: double
         description: The addition click price in the offer
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       clickIncluded:
         format: int32
         description: The click included in the offer
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       initialOfferClickIncluded:
         format: int32
         description: The click included in your current contract
@@ -1841,31 +1924,37 @@ definitions:
     type: object
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       commitmentCalculatedFinishDate:
         format: date-time
         description: The commitment end date related to the offer
         type: string
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       newContractStartDate:
         format: date-time
         description: The start date related to the offer
         type: string
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       commitmentPeriodInMonth:
         format: int32
         description: The commitment period in month related to the offer
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       trialPeriodInMonth:
         format: int32
         description: The trial period in month related to the offer
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       trialPeriodFinishDate:
         format: date-time
         description: The trial period end date related to the offer
         type: string
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       paymentDelayInDays:
         format: int32
         description: The payment delay in days related to the offer
@@ -1873,24 +1962,29 @@ definitions:
       offerId:
         $ref: '#/definitions/offerId'
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       offerName:
         description: The offer Name
         type: string
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       currentContractId:
         format: guid
         description: Your current contract id
         type: string
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       commercialUserId:
         format: guid
         description: Your current commercial user id
         type: string
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       model:
         description: 'Interal usage: Old offer type. The model description'
         type: string
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       currentContractTerminationDate:
         format: date
         description: The current contract termination date
@@ -1905,6 +1999,7 @@ definitions:
         type: integer
         example: 1234
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       isModelMustBeTransmittedInNewContract:
         description: 'Internal usage: Old offer type. Is the current contract model
           needs to be converted into a new contract type'
@@ -1920,6 +2015,7 @@ definitions:
       couponOfferCode:
         $ref: '#/definitions/couponOfferCode'
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       commercialCreatorUserId:
         format: guid
         description: The commercial that is responsible of the creation of your account
@@ -1981,22 +2077,26 @@ definitions:
     type: object
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       amountExcludingTaxesAndExcludingCodePromoDiscountIncludingBillingPeriodDiscount:
         format: double
         description: The amount excluding taxes and excluding code promo discount
           including billing period discount.
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       amountExcludingTaxesIncludingDiscounts:
         format: double
         description: The amount excluding taxes including discounts.
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       amountTaxesExcludingDiscountIncludingBillingPeriodDiscount:
         format: double
         description: The taxes excluding discount including billing period discount.
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       amountIncludingTaxesExcludingDiscountIncludingBillingPeriodDiscount:
         format: double
         description: The amount including taxes excluding discount including billing
@@ -2005,31 +2105,37 @@ definitions:
       currencyCode:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CurrencyCode'
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       vatPercent:
         format: double
         description: The VAT percent.
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       amountExcludingTaxesIncludingDiscountsPerMonth:
         format: double
         description: The amount excluding taxes including discounts per month.
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       amountExcludingTaxesAndExcludingDiscounts:
         format: double
         description: The amount excluding taxes and excluding discounts.
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       amountTaxesIncludingDiscounts:
         format: double
         description: Taxes including discounts.
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       amountIncludingTaxesIncludingDiscounts:
         format: double
         description: The amount including taxes including discounts.
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       initialOfferFixedPrice:
         format: double
         description: The initial offer fixed price.
@@ -2041,26 +2147,31 @@ definitions:
       storeCount:
         $ref: '#/definitions/storeCount'
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       maxStoreCount:
         format: int32
         description: The maximum store count related to the offer.
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       minStoreCount:
         format: int32
         description: The minimum store count related to the offer.
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       ownedStoreCount:
         format: int32
         description: The owned store count.
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       additionalStorePrice:
         format: double
         description: The additional store price.
         type: number
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       storeIncluded:
         format: int32
         description: The store count included in the offer.
@@ -2070,6 +2181,7 @@ definitions:
     type: object
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       bonuses:
         type: array
         items:
@@ -2081,6 +2193,7 @@ definitions:
     type: object
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       clickIncludedAndAdditionalClickPrices:
         type: array
         items:
@@ -2093,17 +2206,20 @@ definitions:
     type: object
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       clickIncludedAndVariablePrices:
         description: Click included with variable pricing information
         type: array
         items:
           $ref: '#/definitions/clickIncludedAndVariablePrice'
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       overflowClickCount:
         format: int32
         description: The overflow click count
         type: integer
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       overflowClickPrice:
         format: double
         description: The overflow click price
@@ -2330,11 +2446,13 @@ definitions:
     type: object
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       oldPassword:
         description: Your current password
         type: string
         format: password
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       newPassword:
         description: Your new password. Which must respect the same constraints as the user registeration
         type: string
@@ -2433,7 +2551,6 @@ definitions:
     type: object
     required:
     - links
-    - currentPaymentMethod
     properties:
       links:
         description: The different actions you can make on this offer
