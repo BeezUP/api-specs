@@ -64,9 +64,9 @@ parameters:
     in: header
     required: false
     type: array
+    collectionFormat: csv
     items:
       type: string
-      collectionFormat: csv
 
   acceptEncodingRequiredParameter:
     name: Accept-Encoding
@@ -74,9 +74,9 @@ parameters:
     in: header
     required: true
     type: array
+    collectionFormat: csv
     items:
       type: string
-      collectionFormat: csv
 
   acceptEncodingOptionalParameter:
     name: Accept-Encoding
@@ -84,9 +84,9 @@ parameters:
     in: header
     required: false
     type: array
+    collectionFormat: csv
     items:
       type: string
-      collectionFormat: csv
 
 
 # To remind the http header
