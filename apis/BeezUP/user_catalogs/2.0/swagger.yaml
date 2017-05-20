@@ -444,9 +444,9 @@ paths:
           in: header
           required: true
           type: array
+          collectionFormat: csv
           items:
             type: string
-            collectionFormat: csv
       responses:
         '200':
           description: Categories
@@ -454,9 +454,9 @@ paths:
             Content-Encoding:
               description: Indicates the compression use in the response
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
           schema:
             $ref: '#/definitions/categories'
         '404':
