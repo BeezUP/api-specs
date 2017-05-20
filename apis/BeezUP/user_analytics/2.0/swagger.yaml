@@ -2267,6 +2267,7 @@ definitions:
     - ByChannel
     - ByCategory
     - ByProduct
+    - ByDate
     example: ByProduct
   
   
