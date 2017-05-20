@@ -134,9 +134,9 @@ paths:
             Content-Encoding:
               description: Indicates the compression use in the response
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
           schema:
             $ref: '#/definitions/channelRootCategory'
 
@@ -153,9 +153,9 @@ paths:
         in: header
         required: true
         type: array
+        collectionFormat: csv
         items:
           type: string
-          collectionFormat: csv
 #        x-example: 
 #        - gzip
       - name: request
@@ -173,9 +173,9 @@ paths:
             Content-Encoding:
               description: Indicates the compression use in the response
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
           schema:
             type: array
             items:
