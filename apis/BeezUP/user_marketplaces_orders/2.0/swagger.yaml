@@ -279,9 +279,9 @@ paths:
         in: header
         required: true
         type: array
+        collectionFormat: csv
         items:
           type: string
-          collectionFormat: csv
         #x-example: 
         #- gzip
         #- deflate
