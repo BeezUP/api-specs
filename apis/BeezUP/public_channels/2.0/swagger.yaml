@@ -50,7 +50,7 @@ tags:
   description: All our public channels operations
 
 paths: 
-
+ 
 
   '/':
     get:
