@@ -28,6 +28,8 @@ x-beezup-api-ops:
 
 x-host: api.beezup.com
 x-basePath: /v2/public/channels
+x-api-name: V2PublicChannels
+x-api-namespace: BeezUP.WebService.Commercial   
 
   
 # Added by API Auto Mocking Plugin
