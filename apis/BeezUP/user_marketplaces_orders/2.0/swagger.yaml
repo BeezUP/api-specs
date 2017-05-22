@@ -400,6 +400,10 @@ paths:
           description: Succesfully received and processed batched operations. Please check response to see the status per operation.
           schema:
             $ref: '#/definitions/batchOrderOperationResponse'
+        400:
+          description: Requested too many batch operations 
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -422,6 +426,10 @@ paths:
           description: Succesfully received and processed batched operations. Please check response to see the status per operation.
           schema:
             $ref: '#/definitions/batchOrderOperationResponse'
+        400:
+          description: Requested too many batch operations 
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -447,6 +455,10 @@ paths:
           description: Succesfully received and processed batched operations. Please check response to see the status per operation.
           schema:
             $ref: '#/definitions/batchOrderOperationResponse'
+        400:
+          description: Requested too many batch operations 
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
