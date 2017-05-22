@@ -33,7 +33,7 @@ x-beezup-api-ops:
 x-basePath: /v2/user/lov
 x-apiName: V2UserLOV
 x-namespace: BeezUP.Framework.LOV.WebService
-x-serverSideBeezUPFrameworkVersion: 2
+x-serverSideBeezUPFrameworkVersion: 1
 
 consumes:
   - application/json
