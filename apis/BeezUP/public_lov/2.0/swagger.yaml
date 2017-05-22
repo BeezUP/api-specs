@@ -60,9 +60,9 @@ paths:
                 Indicates the directive around the caching mechanisms.\
                 For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
 
           schema:
             $ref: '#/definitions/publicLovIndex'
@@ -78,9 +78,9 @@ paths:
                 Indicates the directive around the caching mechanisms.\
                 For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
           
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -113,16 +113,16 @@ paths:
                 Indicates the directive around the caching mechanisms.\
                 For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
 
             Content-Language:
               description: Indicates the language use in the response
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
                 
               
           schema:
@@ -139,9 +139,9 @@ paths:
                 Indicates the directive around the caching mechanisms.\
                 For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
 
         404:
           description: List not found
