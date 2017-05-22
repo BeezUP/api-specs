@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: Public - List of Values
+  title: Public - List of Values -
   description: This API gives you public list of values.
   version: "2.0"
   contact:
