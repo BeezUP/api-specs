@@ -25,9 +25,12 @@ x-beezup-api-ops:
   namespace: BeezUP.Framework.LOV.WebService
   comment: |
     Put in place dev branch.
-    
-x-api-name: V2PublicLOV
-x-api-namespace: BeezUP.Framework.LOV.WebService
+
+x-basePath: /v2/public/lov
+x-apiName: V2PublicLOV
+x-namespace: BeezUP.Framework.LOV.WebService
+x-serverSideBeezUPFrameworkVersion: 1
+
 
 consumes:
   - application/json
