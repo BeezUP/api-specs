@@ -21,8 +21,18 @@ info:
     name: BeezUP 
     url: http://www.beezup.com  
   
-  x-changeComment: |
-    Test FORK
+
+x-beezup-api-ops:
+  repo: MP2-OM-API
+  apiName: V2UserMarketplacesOrders
+  serverSideBeezUPFrameworkVersion: 1
+  appRoot: BeezUP.MarketPlace2.OM2.Api.WebService2
+  namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
+  host: api.beezup.com
+  basePath: /v2/user/marketplaces/orders
+  comment: |
+    Regroup all beezup keys in a object x-beezup-api-ops
+
   
 externalDocs:
   description: BeezUP API documentation
@@ -37,7 +47,7 @@ x-servers:
 x-host: api.beezup.com
 x-basePath: /v2/user/marketplaces/orders
 x-api-name: V2UserMarketplacesOrders
-x-api-namespace: BeezUP.MarketPlace2.Orders
+x-api-namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
 
 schemes:
   - https
@@ -138,11 +148,15 @@ paths:
       x-tagGroups: Martketplaces Orders
       operationId: GetOrderIndex
       summary: Get all actions you can do on the order API
+      parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Order index
           schema:
             $ref: '#/definitions/orderIndex'
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -155,11 +169,15 @@ paths:
       x-tagGroups: Martketplaces Orders
       operationId: GetMarketplaceAccountsSynchronization
       summary: Get current synchronization status between your marketplaces and BeezUP accounts
+      parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Successfully fetched current synchronization status
           schema:
             $ref: '#/definitions/accountSynchronizations'
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -195,11 +213,15 @@ paths:
       - AutoTransitions
       operationId: GetAutomaticTransitions
       summary: Get list of configured automatic Order status transitions
+      parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Successfully fetched list of configured automatic Order status transitions
           schema:
             $ref: '#/definitions/automaticTransitionInfos'
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -257,9 +279,9 @@ paths:
         in: header
         required: true
         type: array
+        collectionFormat: csv
         items:
           type: string
-          collectionFormat: csv
         #x-example: 
         #- gzip
         #- deflate
@@ -322,11 +344,14 @@ paths:
         type: string
         format: guid
         description: The store identifier to regroup the order exportations
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Successfully fetched the list of Order report exportations
           schema:
             $ref: '#/definitions/orderExportations'
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         400:
           description: Could not process request for given parameters values. Please check error message for more details.
           schema:
@@ -375,6 +400,10 @@ paths:
           description: Succesfully received and processed batched operations. Please check response to see the status per operation.
           schema:
             $ref: '#/definitions/batchOrderOperationResponse'
+        400:
+          description: Requested too many batch operations 
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -397,6 +426,10 @@ paths:
           description: Succesfully received and processed batched operations. Please check response to see the status per operation.
           schema:
             $ref: '#/definitions/batchOrderOperationResponse'
+        400:
+          description: Requested too many batch operations 
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -422,11 +455,53 @@ paths:
           description: Succesfully received and processed batched operations. Please check response to see the status per operation.
           schema:
             $ref: '#/definitions/batchOrderOperationResponse'
+        400:
+          description: Requested too many batch operations 
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
 
   '/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}':
+    head:
+      tags:
+      - Order
+      operationId: HeadOrder
+      summary: Get the meta information about the order (ETag, Last-Modified)
+      description: |
+        The purpose of this operation is to reduce the bandwith usage by getting just the meta information about the order (ETag, Last-Modified) with the body.
+        This could be useful 
+      parameters:
+      - $ref: '#/parameters/marketplaceTechnicalCodeParameter'
+      - $ref: '#/parameters/accountIdParameter'
+      - $ref: '#/parameters/beezUPOrderIdParameter'
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
+      responses:
+        200:
+          description: Successfully fetched Order and Order Item(s) properties
+          headers:
+            'Last-Modified':
+              type: string
+              format: date-time
+              description: |
+                Last modification UTC date of the order\
+                For more details go to this link: https://tools.ietf.org/html/rfc7232#section-2.2
+
+            ETag:
+              type: string
+              description: |
+                ETag value to identify the current version of requested Order\
+                For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
+        404:
+          description: Requested Order could not be found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+      deprecated: false
     get:
       tags:
       - Order
@@ -441,6 +516,12 @@ paths:
         200:
           description: Successfully fetched Order and Order Item(s) properties
           headers:
+            'Last-Modified':
+              type: string
+              format: date-time
+              description: |
+                Last modification UTC date of the order\
+                For more details go to this link: https://tools.ietf.org/html/rfc7232#section-2.2
             ETag:
               type: string
               description: |
@@ -449,13 +530,7 @@ paths:
           schema:
             $ref: '#/definitions/order'
         304:
-          description: The ETag sent in the http header If-None-Match did not change. So you can keep your version.
-          headers:
-            ETag:
-              type: string
-              description: |
-                ETag value to identify the current version of requested Order\
-                For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         404:
           description: Requested Order could not be found
           schema:
@@ -474,11 +549,14 @@ paths:
       - $ref: '#/parameters/marketplaceTechnicalCodeParameter'
       - $ref: '#/parameters/accountIdParameter'
       - $ref: '#/parameters/beezUPOrderIdParameter'
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Successfully fetched Order history
           schema:
             $ref: '#/definitions/orderHistory'
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         404:
           description: Requested Order could not be found
           schema:
@@ -504,6 +582,10 @@ paths:
             Retry-After:
               type: integer
               description: Indicates the duration in seconds to wait to be able to make this request again
+        404:
+          description: Requested Order could not be found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         409:
           description: Failed to send harvest request because allowed rate limits have been exceeded
           headers:
@@ -2197,8 +2279,8 @@ definitions:
       lastModificationUtcDate:
         format: date-time
         type: string
-      info:
-        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
+#      info:
+#        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
 
   sourceType:
     description: Indicates the origin of the operation
