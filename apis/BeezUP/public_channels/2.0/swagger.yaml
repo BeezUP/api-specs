@@ -56,10 +56,6 @@ x-servers:
 - url: https://api.beezup.com/v2/public/channels
   description: Production Server
 
-
-x-api-name: V2PublicChannels
-x-api-namespace: BeezUP.WebService.Commercial
-
 tags:
 - name: Public Channels
   description: All our public channels operations
