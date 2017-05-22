@@ -21,7 +21,16 @@ basePath: /v2/user/lov
 schemes:
   - https
 
-x-api-name: UserLOV
+x-beezup-api-ops:
+  repo: LOVWebService
+  apiName: V2UserLOV
+  serverSideBeezUPFrameworkVersion: 1
+  appRoot: BeezUP.Framework.LOV.WebService
+  namespace: BeezUP.Framework.LOV.WebService
+  comment: |
+    Put in place dev branch.
+    
+x-api-name: V2UserLOV
 x-api-namespace: BeezUP.Framework.LOV.WebService
 
 consumes:
