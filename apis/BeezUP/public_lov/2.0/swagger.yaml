@@ -23,12 +23,12 @@ x-beezup-api-ops:
   repo: LOVWebService
   appRoot: BeezUP.Framework.LOV.WebService
   namespace: BeezUP.Framework.LOV.WebService
+  apiname: V2PublicLOV
   comment: |
     Put in place dev branch.
 
     
 x-basePath: /v2/public/lov
-x-api-name: V2PublicLOV
 
 consumes:
   - application/json
