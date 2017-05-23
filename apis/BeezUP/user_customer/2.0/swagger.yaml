@@ -23,6 +23,7 @@ x-beezup-api-ops:
   repo: Customer
   appRoot: BeezUP.Customer.WebService
   namespace: BeezUP.Customer.WebService
+  apiName: V2UserCustomer
   comment: |
     Remove required of whatIDo on friendInfo
     Regroup all beezup keys in a object x-beezup-api-ops
@@ -31,8 +32,6 @@ x-beezup-api-ops:
 
 x-host: api.beezup.com
 x-basePath: /v2/user/customer
-x-api-name: V2UserCustomer
-
 
 host: api.beezup.com
 basePath: /v2/user/customer
