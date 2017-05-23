@@ -34,11 +34,11 @@ x-beezup-api-ops:
   appRoot: BeezUP2.Catalog.ApiService
   namespace: BeezUP2.Catalog.ApiService
   useBeezUPFrameworkVersion2: true
+  apiname: V2UserCatalogs
   comment: |
     Put in place dev branch.
 
 x-basePath: /v2/user/catalogs
-x-api-name: V2UserCatalogs
 
 schemes:
   - https
