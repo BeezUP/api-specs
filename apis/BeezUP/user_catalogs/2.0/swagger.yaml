@@ -16,7 +16,7 @@ host: api.beezup.com
 basePath: /v2/user/catalogs
 
 x-beezup-api-ops:
-  repo: V2UserCatalogs
+  #repo: V2UserCatalogs
   apiName: V2UserCatalogs
   serverSideBeezUPFrameworkVersion: 2
   namespace: BeezUP2.Catalog.ApiService
