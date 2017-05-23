@@ -11,9 +11,7 @@ info:
   
   contact:
     email: support@beezup.com
-    
-  x-changeComments: |
-    Add pagination parameters
+  
   
     
   
@@ -25,8 +23,22 @@ info:
 host: api.beezup.com
 basePath: /v2/user/analytics
 
+
+schemes:
+ - https
+
+
+x-beezup-api-ops:
+  repo: Channel
+  appRoot: BeezUP.Channel.WebService
+  namespace: BeezUP.Channel.WebService
+  comment: |
+    Add pagination parameters
+
+
+x-basePath: /v2/user/analytics
 x-api-name: V2UserAnalytics
-x-api-namespace: BeezUP.Channel.WebService 
+
 
 externalDocs: 
   description: BeezUP API documentation
@@ -2672,13 +2684,6 @@ definitions:
         $ref: '#/definitions/ruleExecutionReportingLinks'
         
 
-# Added by API Auto Mocking Plugin
-x-host: api.beezup.com
-x-basePath: /v2/user/analytics
-# basePath: /v2/user/analytics
-# host: api.beezup.com
-schemes:
- - https
 x-azure-api-id: 'V2UserAnalytics'
 # host: api.beezup.com
 # basePath: /v2/user/analytics
