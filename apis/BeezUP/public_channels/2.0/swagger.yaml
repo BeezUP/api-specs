@@ -16,12 +16,8 @@ info:
 
 x-beezup-api-ops:
   repo: Commercial
-  apiName: V2PublicChannels
-  serverSideBeezUPFrameworkVersion: 1
   appRoot: BeezUP.WebService.Commercial
   namespace: BeezUP.WebService.Commercial
-  host: api.beezup.com
-  basePath: /v2/public/channels
   comment: |
     Add sectors
     Add If-None-Match and 304
@@ -29,7 +25,6 @@ x-beezup-api-ops:
 x-host: api.beezup.com
 x-basePath: /v2/public/channels
 x-api-name: V2PublicChannels
-x-api-namespace: BeezUP.WebService.Commercial   
 
   
 # Added by API Auto Mocking Plugin
@@ -209,11 +204,13 @@ definitions:
   channelInfoList:
     type: object
     properties:
+# [Style Validator (c1827d27-6b49-421b-a552-3a24e3940191) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
         type: object
         properties:
           self:
             $ref: '#/definitions/links.GetChannelsLink'
+# [Style Validator (c1827d27-6b49-421b-a552-3a24e3940191) : All model properties must have examples]: Field 'example' required in 'properties'
       channels:
         type: array
         items:
