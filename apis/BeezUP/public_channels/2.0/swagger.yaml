@@ -18,7 +18,7 @@ x-beezup-api-ops:
   repo: Commercial
   appRoot: BeezUP.WebService.Commercial
   namespace: BeezUP.WebService.Commercial
-  apiname: V2PublicChannels
+  apiName: V2PublicChannels
   comment: |
     Add sectors
     Add If-None-Match and 304
