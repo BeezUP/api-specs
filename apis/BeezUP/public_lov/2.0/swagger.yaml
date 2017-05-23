@@ -23,7 +23,7 @@ x-beezup-api-ops:
   repo: LOVWebService
   appRoot: BeezUP.Framework.LOV.WebService
   namespace: BeezUP.Framework.LOV.WebService
-  apiname: V2PublicLOV
+  apiName: V2PublicLOV
   comment: |
     Put in place dev branch.
 
