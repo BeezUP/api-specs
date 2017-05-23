@@ -18,15 +18,14 @@ x-beezup-api-ops:
   repo: Commercial
   appRoot: BeezUP.WebService.Commercial
   namespace: BeezUP.WebService.Commercial
+  apiname: V2PublicChannels
   comment: |
     Add sectors
     Add If-None-Match and 304
 
 x-host: api.beezup.com
 x-basePath: /v2/public/channels
-x-api-name: V2PublicChannels
 
-  
 # Added by API Auto Mocking Plugin
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
