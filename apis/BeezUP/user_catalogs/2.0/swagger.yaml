@@ -96,23 +96,24 @@ responses:
   importAlreadyInProgress:
     description: When a catalog importation is already in progress!
     schema:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage'
-        links:
-          description: The action links
-          type: object
-          properties:
-            currentImportation:
-              $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
-          additionalProperties: false
-          example:
-            currentImportation:
-              href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c
-              method: GET
+      $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+      #type: object
+      #properties:
+      #  errors:
+      #    type: array
+      #    items:
+      #      $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage'
+      #  links:
+      #    description: The action links
+      #    type: object
+      #    properties:
+      #      currentImportation:
+      #        $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
+      #    additionalProperties: false
+      #    example:
+      #      currentImportation:
+      #        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c
+      #        method: GET
 
 
 
