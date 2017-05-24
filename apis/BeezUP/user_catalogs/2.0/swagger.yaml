@@ -561,7 +561,7 @@ paths:
 
 
 ##################################################################################################
-  '/{storeId}/importations':
+  '/{storeId}/importations/start':
     post:
       tags:
         - Importation Process
@@ -596,14 +596,13 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
+  '/{storeId}/importations':
     get:
       tags:
         - Importation Process
       summary: Get the latest catalog importation reporting
       operationId: Importation_GetReportings
       
-
-
       parameters:
 
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
