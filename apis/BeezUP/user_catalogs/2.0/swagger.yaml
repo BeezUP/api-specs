@@ -561,6 +561,27 @@ paths:
 
 
 ##################################################################################################
+  '/{storeId}/importations':
+    get:
+      tags:
+        - Importation Process
+      summary: Get the latest catalog importation reporting
+      operationId: Importation_GetReportings
+      
+      parameters:
+
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
+      responses:
+        '200':
+          description: The last importation reportings
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/importationReporting'
+
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
   '/{storeId}/importations/start':
     post:
       tags:
@@ -593,27 +614,6 @@ paths:
           description: Occurs when a user tries to work on the wrong store.
         '409':
           $ref: '#/responses/importAlreadyInProgress'
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
-  '/{storeId}/importations':
-    get:
-      tags:
-        - Importation Process
-      summary: Get the latest catalog importation reporting
-      operationId: Importation_GetReportings
-      
-      parameters:
-
-        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
-      responses:
-        '200':
-          description: The last importation reportings
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/importationReporting'
-
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
