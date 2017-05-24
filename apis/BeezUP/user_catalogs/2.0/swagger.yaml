@@ -478,7 +478,7 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
 
-  '/{storeId}/products':
+  '/{storeId}/products/list':
     post:
       tags:
         - Catalog
