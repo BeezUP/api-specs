@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '2.0'
+  version: "2.0"
   title: 'Public - Channels'
   description: 'This api allows you to get access to the channels. The main use case is our public commercial web site.'
   contact:
@@ -14,10 +14,18 @@ info:
 # host: api.beezup.com
 # basePath: /v2/public/channels
 
+x-beezup-api-ops:
+  repo: Commercial
+  appRoot: BeezUP.WebService.Commercial
+  namespace: BeezUP.WebService.Commercial
+  apiName: V2PublicChannels
+  comment: |
+    Add sectors
+    Add If-None-Match and 304
+
 x-host: api.beezup.com
 x-basePath: /v2/public/channels
 
-  
 # Added by API Auto Mocking Plugin
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
@@ -25,6 +33,7 @@ x-basePath: /v2/public/channels
 
 host: api.beezup.com
 basePath: /v2/public/channels
+
 
 
 schemes:
@@ -41,16 +50,12 @@ x-servers:
 - url: https://api.beezup.com/v2/public/channels
   description: Production Server
 
-
-x-api-name: V2PublicChannels
-x-api-namespace: BeezUP.Channel.WebService
-
 tags:
 - name: Public Channels
   description: All our public channels operations
 
 paths: 
- 
+
 
   '/':
     get:
@@ -59,11 +64,15 @@ paths:
       summary: Get public channel index
       description: Use this operation to get the correct link to the channels and to the list of values
       operationId: GetChannelsIndex
+      parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: Channel list regrouped by country and links to list of values
           schema:
             $ref: '#/definitions/publicChannelIndex'
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -83,18 +92,8 @@ paths:
         description: |
           The country iso code alpha 3 based on this: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3#Decoding_table \
           To know which country are available you have to use the operation: GetChannelsByCountry
-      - name: 'Accept-Encoding'
-        description: Allows the client to indicate wether it accepts a compressed encoding to reduce traffic size. 
-        in: header
-        required: true
-        type: array
-        collectionFormat: csv
-        items:
-          type: string
-#        x-example: 
-#        - gzip
-#        - deflate
-
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/acceptEncodingRequiredParameter'
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
           description: The channel list for one country
@@ -109,6 +108,8 @@ paths:
                 types:
                 - Marketplace
               
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
     
         404:
           description: Channel country not found
@@ -159,6 +160,8 @@ definitions:
             $ref: '#/definitions/links.GetPublicListOfValuesLink'
           channelTypeLov:
             $ref: '#/definitions/links.GetPublicListOfValuesLink'
+          sectorLov:
+            $ref: '#/definitions/links.GetPublicListOfValuesLink'
         example:
           self:
             href: /v2/public/channels
@@ -168,6 +171,9 @@ definitions:
             method: GET
           channelTypeLov:
             href: /v2/public/lov/ChannelType
+            method: GET
+          sectorLov:
+            href: /v2/public/lov/ParamSector
             method: GET
             
   links.GetPublicListOfValuesLink:
@@ -197,11 +203,13 @@ definitions:
   channelInfoList:
     type: object
     properties:
+# [Style Validator (c1827d27-6b49-421b-a552-3a24e3940191) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
         type: object
         properties:
           self:
             $ref: '#/definitions/links.GetChannelsLink'
+# [Style Validator (c1827d27-6b49-421b-a552-3a24e3940191) : All model properties must have examples]: Field 'example' required in 'properties'
       channels:
         type: array
         items:
@@ -237,6 +245,15 @@ definitions:
           type: string
         example:
         - Marketplace
+      sectors:
+        description: The sector list related to a channel
+        type: array
+        items:
+          type: string
+        example:
+        - BRICOLAGE
+        - INFO
+        - GENERALIST
         
         
         
