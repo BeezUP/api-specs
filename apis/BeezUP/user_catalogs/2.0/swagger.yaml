@@ -652,7 +652,8 @@ paths:
           
 
     
-    delete:
+  '/{storeId}/importations/{executionId}/cancel':
+    post:
       tags:
         - Importation Process
       summary: Cancel importation
