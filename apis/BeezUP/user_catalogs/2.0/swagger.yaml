@@ -1307,26 +1307,7 @@ paths:
 ###################################################################################################################
 
 
-  '/{storeId}/autoImport':
-    get:
-      tags:
-        - Auto
-      operationId: Auto_GetAutoImportConfiguration
-      summary: Get the auto import configuration
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
-      responses:
-        '200':
-          description: Auto import configuration
-          schema:
-            $ref: '#/definitions/autoImportConfiguration'
-        '404':
-          description: StoreId or Auto Import configuration not found
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
-
-    
+  '/{storeId}/autoImport/activate':
     post:
       tags:
         - Auto
@@ -1351,6 +1332,28 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
+
+
+  '/{storeId}/autoImport':
+    get:
+      tags:
+        - Auto
+      operationId: Auto_GetAutoImportConfiguration
+      summary: Get the auto import configuration
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
+      responses:
+        '200':
+          description: Auto import configuration
+          schema:
+            $ref: '#/definitions/autoImportConfiguration'
+        '404':
+          description: StoreId or Auto Import configuration not found
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+
     delete:
       tags:
         - Auto
@@ -1367,6 +1370,9 @@ paths:
           description: Occurs when a user tries to work on the wrong store.
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+    
+
 
   '/{storeId}/autoImport/start':
     post:
