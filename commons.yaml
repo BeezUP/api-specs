@@ -1,0 +1,50 @@
+defaultMediatypes:
+  - application/json
+
+schemes:
+  - https
+
+securityDefinitions:
+  api_key:
+    description: API subscription key
+    type: apiKey
+    name: Ocp-Apim-Subscription-Key
+    in: header
+
+security:
+- api_key: []
+
+
+externalDocs:
+  description: BeezUP API documentation
+  url: https://api-docs.beezup.com/
+	
+x-logo:
+	url: "https://avatars0.githubusercontent.com/u/25665430"
+	backgroundColor: "#FFFFFF"
+	
+consumes:
+  - application/json
+produces:
+  - application/json
+	
+defaultHeaders:
+	Retry-After:
+		type: integer
+		description: Indicates the duration in seconds to wait to be able to make this request again
+
+	Last-Modified:
+		type: string
+		format: date-time
+		description: |
+			Last modification UTC date of the order\
+			For more details go to this link: https://tools.ietf.org/html/rfc7232#section-2.2
+
+
+
+contact:
+	email: support@beezup.com
+
+license:
+	name: BeezUP 
+	url: http://www.beezup.com  
