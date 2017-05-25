@@ -94,26 +94,9 @@ responses:
       $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
 
   importAlreadyInProgress:
-    description: When a catalog importation is already in progress!
+    description: A catalog importation is already in progress!
     schema:
-      $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-      #type: object
-      #properties:
-      #  errors:
-      #    type: array
-      #    items:
-      #      $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage'
-      #  links:
-      #    description: The action links
-      #    type: object
-      #    properties:
-      #      currentImportation:
-      #        $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
-      #    additionalProperties: false
-      #    example:
-      #      currentImportation:
-      #        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c
-      #        method: GET
+      $ref: '#/definitions/importAlreadyInProgressResponse'
 
 
 
@@ -647,6 +630,8 @@ paths:
             ExecutionId not found or not yet synchronized. If not synchronized
             within 30 sec after the import has been started, please contact our
             support
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
           
@@ -671,8 +656,12 @@ paths:
           description: |-
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -698,9 +687,13 @@ paths:
           description: |-
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -748,6 +741,8 @@ paths:
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
             Occurs when a catalog column is not found.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: Occurs when this importation is already finished.
         default:
@@ -789,6 +784,8 @@ paths:
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
             Occurs when a catalog column is not found.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -816,9 +813,13 @@ paths:
           description: |-
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -853,10 +854,14 @@ paths:
           description: >-
             ExecutionId not found or not yet synchronized. If not synchronized
             within 30 sec, please contact our support
+                  schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: >-
             Catalog preparation read step is not completed. Please refer to the
             reporting of this execution for more details.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -1528,6 +1533,49 @@ definitions:
   links.Importation_GetImportationMonitoringLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c
+        method: GET
+
+  links.Importation_CancelLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/cancel
+        method: POST
+
+
+
+
+  importAlreadyInProgressResponse:
+    type: object
+    required:
+    - errors
+    - links
+    properties:
+# [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+      errors:
+        description: The error message list
+        type: array
+        items:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage'
+      links:
+        $ref: '#/definitions/importAlreadyInProgressResponseLinks'
+      
+
+
+  importAlreadyInProgressResponseLinks:
+    description: The action links
+    type: object
+    required:
+    - currentImportation
+    - cancelCurrentImportation
+    properties:
+      currentImportation:
+        $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
+      cancelCurrentImportation:
+        $ref: '#/definitions/links.Importation_CancelLink'
+
 
 
   schedulingType:
@@ -1995,6 +2043,7 @@ definitions:
     - lastUpdateUtcDate
     - beginUtcDate
     - steps
+    
     properties:
       userId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserId'
@@ -2031,7 +2080,26 @@ definitions:
           isCatalogImportComputeDiffCompleted: false
           isCatalogUpdateCompleted: false
           isSavedInDb: false
+      links:
+        $ref: '#/definitions/importationMonitoringLinks'
           
+          
+  importationMonitoringLinks:
+    type: object
+    required:
+    - self
+    
+    properties:
+      self:
+        $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
+      #technicalProgression:
+      
+      cancel:
+        $ref: '#/definitions/links.Importation_CancelLink'
+  
+  
+  
+
   catalogColumnName:
     description: The catalog column name
     type: string
