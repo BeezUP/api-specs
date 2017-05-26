@@ -19,13 +19,23 @@ info:
     name: BeezUP 
     url: http://www.beezup.com
     
-  x-changeComment: |
-    Change the product name from BeezUP API to UserApi to correspond to the reality
     
 host: api.beezup.com
 basePath: /v2/public/security
-x-api-name: V2PublicSecurity
-x-api-namespace: BeezUP.Customer.WebService
+    
+    
+    
+x-beezup-api-ops:
+  repo: Customer
+  apiName: V2PublicSecurity
+  appRoot: BeezUP.Customer.WebService
+  namespace: BeezUP.Customer.WebService
+  comment: |
+    Change the product name from BeezUP API to UserApi to correspond to the reality
+
+x-basePath: /v2/public/security
+
+
 schemes:
   - https
 
