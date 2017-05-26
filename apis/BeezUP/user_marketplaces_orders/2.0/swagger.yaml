@@ -24,14 +24,13 @@ info:
 
 x-beezup-api-ops:
   repo: MP2-OM-API
-  apiName: V2UserMarketplacesOrders
-  serverSideBeezUPFrameworkVersion: 1
   appRoot: BeezUP.MarketPlace2.OM2.Api.WebService2
   namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
-  host: api.beezup.com
-  basePath: /v2/user/marketplaces/orders
+  apiName: V2UserMarketplacesOrders
   comment: |
     Regroup all beezup keys in a object x-beezup-api-ops
+x-host: api.beezup.com
+x-basePath: /v2/user/marketplaces/orders
 
   
 externalDocs:
@@ -44,10 +43,7 @@ x-servers:
 - url: https://api.beezup.com/v2/user/marketplaces/orders
   description: Production Server
 
-x-host: api.beezup.com
-x-basePath: /v2/user/marketplaces/orders
-x-api-name: V2UserMarketplacesOrders
-x-api-namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
+
 
 schemes:
   - https
