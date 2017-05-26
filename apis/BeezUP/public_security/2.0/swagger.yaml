@@ -20,21 +20,20 @@ info:
     url: http://www.beezup.com
     
     
+host: api.beezup.com
+basePath: /v2/public/security
     
     
     
 x-beezup-api-ops:
   repo: Customer
+  apiName: V2PublicSecurity
   appRoot: BeezUP.Customer.WebService
   namespace: BeezUP.Customer.WebService
   comment: |
     Change the product name from BeezUP API to UserApi to correspond to the reality
-  
-host: api.beezup.com
-basePath: /v2/public/security
 
 x-basePath: /v2/public/security
-x-api-name: V2PublicSecurity
 
 schemes:
   - https
