@@ -550,16 +550,18 @@ paths:
             $ref: '#/definitions/channelCatalogExportCacheInfoResponse'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-    delete:
+  
+  '/{channelCatalogId}/exportations/cache/clear':
+    post:
       tags:
       - Exportations
-      summary: Delete the exportation cache 
-      operationId: DeleteChannelCatalogExportationCache
+      summary: Clear the exportation cache 
+      operationId: ClearChannelCatalogExportationCache
       parameters:
         - $ref: '#/parameters/channelCatalogIdParameter'
       responses:
         204:
-          description: Channel catalog exportation cache deleted
+          description: Channel catalog exportation cache cleared
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -603,12 +605,12 @@ definitions:
         method: GET
 
 
-  links.DeleteChannelCatalogExportationCacheLink:
+  links.ClearChannelCatalogExportationCacheLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
-        href: /v2/user/channelCatalogs/6d6b04de-406b-4539-8e7e-bf3e8da5dfb0/exportations/cache
-        method: DELETE
+        href: /v2/user/channelCatalogs/6d6b04de-406b-4539-8e7e-bf3e8da5dfb0/exportations/cache/clear
+        method: POST
 
   channelCatalogExportCacheInfoResponse:
     type: object
@@ -630,8 +632,8 @@ definitions:
     properties:
       self:
         $ref: '#/definitions/links.GetChannelCatalogExportationCacheInfoLink'
-      delete:
-        $ref: '#/definitions/links.DeleteChannelCatalogExportationCacheLink'
+      clear:
+        $ref: '#/definitions/links.ClearChannelCatalogExportationCacheLink'
         
     
   channelCatalogExportCacheInfo:
