@@ -15,9 +15,7 @@ info:
     name: BeezUP 
     url: http://www.beezup.com
     
-    
-  x-changeComment: |
-    add descriptionAvailable to channelHeader
+
 schemes:
  - https
 host: api.beezup.com
@@ -35,8 +33,17 @@ x-servers:
 
 
 
-x-api-name: V2UserChannels
-x-api-namespace: BeezUP2.Channel.ApiService 
+x-beezup-api-ops:
+  repo: Channel
+  appRoot: BeezUP2.Channel.ApiService
+  apiName: V2UserChannels
+  namespace: BeezUP2.Channel.ApiService
+  comment: |
+    add descriptionAvailable to channelHeader
+
+
+x-basePath: /v2/user/channels
+
 
 consumes:
   - application/json
