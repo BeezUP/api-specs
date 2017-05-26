@@ -23,17 +23,13 @@ schemes:
 
 x-beezup-api-ops:
   repo: LOVWebService
-  apiName: V2UserLOV
-  serverSideBeezUPFrameworkVersion: 1
   appRoot: BeezUP.Framework.LOV.WebService
   namespace: BeezUP.Framework.LOV.WebService
+  apiName: V2UserLOV
   comment: |
     Put in place dev branch.
     
 x-basePath: /v2/user/lov
-x-apiName: V2UserLOV
-x-namespace: BeezUP.Framework.LOV.WebService
-x-serverSideBeezUPFrameworkVersion: 1
 
 consumes:
   - application/json
@@ -216,6 +212,7 @@ definitions:
     properties:
       links:
         $ref: '#/definitions/userListOfValuesResponseLinks'
+# [Style Validator (d34d4816-d4b3-41fd-92a9-4ce2f969f3c5) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : All model properties must have examples]: Field 'example' required in 'properties'
       items:
         type: array
