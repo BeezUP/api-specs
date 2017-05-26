@@ -1544,7 +1544,42 @@ definitions:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/cancel
         method: POST
 
+  links.Importation_ConfigureRemainingCatalogColumnsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/configureRemainingCatalogColumns
+        method: POST
+        
+  links.Importation_CommitColumnsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/commitColumns
+        method: POST
 
+  links.Importation_CommitLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/commit
+        method: POST
+
+
+  links.Importation_TechnicalProgressionLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/technicalProgression
+        method: GET
+
+
+  links.Importation_ActivateAutoImportLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/autoImport/activate
+        method: POST
 
 
   importAlreadyInProgressResponse:
@@ -2085,17 +2120,26 @@ definitions:
           
           
   importationMonitoringLinks:
+    description: Applicable operations considering the state of the importation
     type: object
     required:
     - self
-    
+    - technicalProgression
     properties:
       self:
         $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
-      #technicalProgression:
-      
+      technicalProgression:
+        $ref: '#/definitions/links.Importation_TechnicalProgressionLink'
       cancel:
         $ref: '#/definitions/links.Importation_CancelLink'
+      configureRemainingCatalogColumns:
+        $ref: '#/definitions/links.Importation_ConfigureRemainingCatalogColumnsLink'
+      commitColumns:
+        $ref: '#/definitions/links.Importation_CommitColumnsLink'
+      commit:
+        $ref: '#/definitions/links.Importation_CommitLink'
+      activateAutoImport:
+        $ref: '#/definitions/links.Importation_ActivateAutoImportLink'
   
   
   
