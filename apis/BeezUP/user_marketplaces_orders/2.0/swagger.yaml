@@ -16,7 +16,7 @@ info:
 
   contact:
     email: support@beezup.com
-  
+    
   license:
     name: BeezUP 
     url: http://www.beezup.com  
@@ -28,9 +28,11 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
   apiName: V2UserMarketplacesOrders
   comment: |
-    Regroup all beezup keys in a object x-beezup-api-ops
+    Manage the no orders found for list and exportations
+
 x-host: api.beezup.com
 x-basePath: /v2/user/marketplaces/orders
+
 
   
 externalDocs:
@@ -56,7 +58,7 @@ securityDefinitions:
     in: header
 
 security:
-- api_key: []
+  - api_key: []
 
 # tags are used for organizing operations
 tags:
@@ -171,7 +173,7 @@ paths:
         200:
           description: Successfully fetched current synchronization status
           schema:
-            $ref: '#/definitions/accountSynchronizations'
+            $ref: '#/definitions/accountSynchronizationList'
         304:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         default:
@@ -269,6 +271,7 @@ paths:
         \
         Previous implmentation of this feature only returned a partial (light) version of the Orders. The purpose of this API is to reduce the number of incoming requests by returning the complete (full) Order and Order Item(s) properties.
       parameters:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'Accept-Encoding' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'Accept-Encoding' does not comply with the rule
       - name: 'Accept-Encoding'
         description: Allows the client to indicate wether it accepts a compressed encoding to reduce traffic size
@@ -295,6 +298,10 @@ paths:
           description: Could not process request for given parameters values. Please check error message for more details.
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        404:
+          description: No orders have been found for this request.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -318,6 +325,10 @@ paths:
             $ref: '#/definitions/orderListLight'
         400:
           description: Could not process request for given parameters values. Please check error message for more details.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        404:
+          description: No orders have been found for this request.
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
@@ -372,6 +383,10 @@ paths:
           description: Successfully requested new Order report exportation generation
         400:
           description: Could not process request for given parameters values. Please check error message for more details.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        404:
+          description: No orders have been found for this request.
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
@@ -747,6 +762,7 @@ definitions:
         href: /v2/user/marketplaces/orders/exportations
         method: POST
         properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
           request:
             in: body
@@ -765,6 +781,7 @@ definitions:
     properties:
       paginationResult:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       exportations:
         type: array
@@ -893,14 +910,13 @@ definitions:
     type: string
     example: Monroe
 
-  orderListRequest:
+
+  orderListRequestWithoutPagination:
     type: object
     required:
     - dateSearchType
     - beginPeriodUtcDate
     - endPeriodUtcDate
-    - pageSize
-    - pageNumber
     properties:
       marketplaceTechnicalCodes:
         type: array
@@ -946,6 +962,7 @@ definitions:
         format: date-time
         type: string
         example: '2017-04-01T13:10:01Z'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_Name' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_Name' does not comply with the rule
       order_Buyer_Name:
         $ref: '#/definitions/order_Buyer_Name'
@@ -955,6 +972,7 @@ definitions:
           $ref: '#/definitions/marketplaceOrderId'
         example:
         - AmazonOrderId1234
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MerchantOrderIds' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantOrderIds' does not comply with the rule
       order_MerchantOrderIds:
         description: Merchant order id list
@@ -963,10 +981,23 @@ definitions:
           $ref: '#/definitions/order_MerchantOrderId'
         example:
         - MyOrderId1234
-      pageSize:
-        $ref: '#/definitions/pageSize'
-      pageNumber:
-        $ref: '#/definitions/pageNumber'
+        
+        
+  orderListRequest:
+    allOf:
+    - $ref: '#/definitions/orderListRequestWithoutPagination'
+    - type: object
+      required:
+      - dateSearchType
+      - beginPeriodUtcDate
+      - endPeriodUtcDate
+      - pageSize
+      - pageNumber
+      properties:
+        pageSize:
+          $ref: '#/definitions/pageSize'
+        pageNumber:
+          $ref: '#/definitions/pageNumber'
   
   exportOrderListFormat:
     description: The type of the file to export
@@ -981,14 +1012,14 @@ definitions:
     type: object
     required:
     - storeId
-    - orderListRequest
+    - orderListRequestWithoutPagination
     properties:
       format:
         $ref: '#/definitions/exportOrderListFormat'
       storeId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
-      orderListRequest:
-        $ref: '#/definitions/orderListRequest'
+      orderListRequestWithoutPagination:
+        $ref: '#/definitions/orderListRequestWithoutPagination'
 
   orderExportationReportingProcessingStatus:
     type: string
@@ -1022,6 +1053,7 @@ definitions:
       links:
         $ref: '#/definitions/automaticTransitionInfosLinks'
 
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       automaticTransitionInfos:
         type: array
@@ -1070,6 +1102,7 @@ definitions:
     required:
     - automaticTransitions
     properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       automaticTransitions:
         type: array
@@ -1137,11 +1170,15 @@ definitions:
   setMerchantOrderInfoListRequest:
     type: object
     required:
+    - order_MerchantECommerceSoftwareName
+    - order_MerchantECommerceSoftwareVersion
     - orders
     properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MerchantECommerceSoftwareName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantECommerceSoftwareName' does not comply with the rule
       order_MerchantECommerceSoftwareName:
         $ref: '#/definitions/order_MerchantECommerceSoftwareName'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MerchantECommerceSoftwareVersion' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantECommerceSoftwareVersion' does not comply with the rule
       order_MerchantECommerceSoftwareVersion: 
         $ref: '#/definitions/order_MerchantECommerceSoftwareVersion'
@@ -1176,6 +1213,7 @@ definitions:
       - beezUPOrderId
       - order_MerchantOrderId
       properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MerchantOrderId' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantOrderId' does not comply with the rule
         order_MerchantOrderId:
           $ref: '#/definitions/order_MerchantOrderId'
@@ -1185,20 +1223,26 @@ definitions:
     type: object
     required:
     - order_MerchantOrderId
+    - order_MerchantECommerceSoftwareName
+    - order_MerchantECommerceSoftwareVersion
     properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MerchantOrderId' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantOrderId' does not comply with the rule
       order_MerchantOrderId:
         $ref: '#/definitions/order_MerchantOrderId'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MerchantECommerceSoftwareName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantECommerceSoftwareName' does not comply with the rule
       order_MerchantECommerceSoftwareName:
         $ref: '#/definitions/order_MerchantECommerceSoftwareName'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MerchantECommerceSoftwareVersion' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantECommerceSoftwareVersion' does not comply with the rule
       order_MerchantECommerceSoftwareVersion:
         $ref: '#/definitions/order_MerchantECommerceSoftwareVersion'
   
-  accountSynchronizations:
+  accountSynchronizationList:
     type: object
     properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       accountSynchronizations:
         type: array
@@ -1207,9 +1251,14 @@ definitions:
 
   accountSynchronization:
     type: object
+    required:
+    - accountId
+    - marketplaceTechnicalCode
+    - marketplaceBusinessCode
     properties:
       accountId:
         $ref: '#/definitions/accountId'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       completedHarvestSynchroUtcDate:
         format: date-time
@@ -1270,51 +1319,63 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
       marketplaceBusinessCode:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceBusinessCode'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MarketplaceOrderId' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MarketplaceOrderId' does not comply with the rule
       order_MarketplaceOrderId:
         $ref: '#/definitions/marketplaceOrderId'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Status_BeezUPOrderStatus' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Status_BeezUPOrderStatus' does not comply with the rule
       order_Status_BeezUPOrderStatus:
         $ref: '#/definitions/beezUPOrderStatus'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Status_MarketplaceOrderStatus' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Status_MarketplaceOrderStatus' does not comply with the rule
       order_Status_MarketplaceOrderStatus:
         $ref: '#/definitions/marketplaceOrderStatus'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MerchantOrderId' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantOrderId' does not comply with the rule
       order_MerchantOrderId:
         $ref: '#/definitions/order_MerchantOrderId'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MerchantECommerceSoftwareName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantECommerceSoftwareName' does not comply with the rule
       order_MerchantECommerceSoftwareName:
         $ref: '#/definitions/order_MerchantECommerceSoftwareName'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MerchantECommerceSoftwareVersion' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantECommerceSoftwareVersion' does not comply with the rule
       order_MerchantECommerceSoftwareVersion:
         $ref: '#/definitions/order_MerchantECommerceSoftwareVersion'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_PurchaseUtcDate' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_PurchaseUtcDate' does not comply with the rule
       order_PurchaseUtcDate:
         description: The purchase date of this order
         format: date-time
         type: string
         example: '2017-03-31T21:30:23Z'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_LastModificationUtcDate' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_LastModificationUtcDate' does not comply with the rule
       order_LastModificationUtcDate:
         description: The last modification UTC date done by BeezUP of this order
         format: date-time
         type: string
         example: '2017-04-16T10:30:23Z'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MarketplaceLastModificationUtcDate' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MarketplaceLastModificationUtcDate' does not comply with the rule
       order_MarketplaceLastModificationUtcDate:
         description: The last modification UTC date done by the marketplace on this order
         format: date-time
         type: string
         example: '2017-04-16T10:25:23Z'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_Name' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_Name' does not comply with the rule
       order_Buyer_Name:
         $ref: '#/definitions/order_Buyer_Name'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_TotalPrice' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_TotalPrice' does not comply with the rule
       order_TotalPrice:
         description: The total price of this order (corresponding to the amount paid by the customer)
         format: decimal
         type: number
         example: 101.42
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_CurrencyCode' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_CurrencyCode' does not comply with the rule
       order_CurrencyCode:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CurrencyCode'
@@ -1344,80 +1405,95 @@ definitions:
         description: The BeezUP identifier of the order Item
         type: string
         example: '1'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_OrderItemType' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_OrderItemType' does not comply with the rule
       orderItem_OrderItemType:
         description: The order item type of the order item
         type: string
         example: Product
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_MerchantImportedProductId' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_MerchantImportedProductId' does not comply with the rule
       orderItem_MerchantImportedProductId: 
         description: The product id indicated in the catalog importation in BeezUP system for this order item. This property will help you to match the order to the inventory system.
         type: string
         example: '73267'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_MerchantImportedProductIdColumnName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_MerchantImportedProductIdColumnName' does not comply with the rule
       orderItem_MerchantImportedProductIdColumnName: 
         description: The column name for the product id indicated in the catalog importation in BeezUP system related to this order item. This property will help you to match the order to the inventory system.
         example: reference
         type: string
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_MerchantImportedProductUrl' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_MerchantImportedProductUrl' does not comply with the rule
       orderItem_MerchantImportedProductUrl: 
         description: The product url indicated in the catalog importation in BeezUP system related to this order item
         example: 'http://blabla.com/my-folder/73267.html'
         type: string
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_MerchantProductIdColumnName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_MerchantProductIdColumnName' does not comply with the rule
       orderItem_MerchantProductIdColumnName: 
         description: The column name indicate in the mapping for the product id related to the order item
         example: reference_produit
         type: string
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_BeezUPStoreId' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_BeezUPStoreId' does not comply with the rule
       orderItem_BeezUPStoreId: 
         description: The store id in the beezup system related to the order item. This property will help you to match the order to the inventory system.
         example: '00000000-cceb-4c20-b2c9-000000000000'
         type: string
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_ItemTax' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_ItemTax' does not comply with the rule
       orderItem_ItemTax:
         description: The tax of the order item
         type: number
         format: decimal
         example: 0.0
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_Title' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_Title' does not comply with the rule
       orderItem_Title: 
         description: The title of the order item
         example: 'bLA acide-plomb 6v-4.5ah 70x48x106mm'
         type: string
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_ImageUrl' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_ImageUrl' does not comply with the rule
       orderItem_ImageUrl: 
         description: The URL of the image of the order item
         example: 'http://blabla.com//das6-45.jpg'
         type: string
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_MerchantProductId' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_MerchantProductId' does not comply with the rule
       orderItem_MerchantProductId:
         description: The merchant product id of the order item
         example: 'BlaLdas6-4.5'
         type: string
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_MarketPlaceProductId' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_MarketPlaceProductId' does not comply with the rule
       orderItem_MarketPlaceProductId: 
         description: The marketplace product identifier of the order item
         example: ''
         type: string
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_ItemPrice' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_ItemPrice' does not comply with the rule
       orderItem_ItemPrice: 
         description: The price of the order item
         example: 6.86
         type: number
         format: decimal
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_Quantity' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_Quantity' does not comply with the rule
       orderItem_Quantity: 
         description: The quantity of the order item
         example: 1
         type: number
         format: decimal
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_TotalPrice' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_TotalPrice' does not comply with the rule
       orderItem_TotalPrice: 
         description: The total price of the order item
         example: 6.86
         type: number
         format: decimal
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_Shipping_Price' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_Shipping_Price' does not comply with the rule
       orderItem_Shipping_Price:
         description: The shipping price of the order item
@@ -1506,28 +1582,33 @@ definitions:
       properties:
         links:
           $ref: '#/definitions/orderLinks'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MarketPlaceChannel' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MarketPlaceChannel' does not comply with the rule
         order_MarketPlaceChannel:
           description: Useful to identify the origin of the order. For example in Amazon.  
           type: string
           example: Amazon France
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_TotalTax' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_TotalTax' does not comply with the rule
         order_TotalTax:
           description: The total tax of this order
           type: number
           format: decimal
           example: 0.0
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_TotalCommission' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_TotalCommission' does not comply with the rule
         order_TotalCommission:
           description: The total commission of this order
           type: number
           format: decimal
           example: 0.0
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_PaymentMethod' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_PaymentMethod' does not comply with the rule
         order_PaymentMethod: 
           description: The payment method of this order
           type: string
           example: '1 / 1X'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_PayingUtcDate' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_PayingUtcDate' does not comply with the rule
         order_PayingUtcDate: 
           description: The UTC date of the payment of this order
@@ -1535,180 +1616,215 @@ definitions:
           format: date-time
           example: '2017-04-01T13:22:01Z'
 
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Comment' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Comment' does not comply with the rule
         order_Comment: 
           description: The comment associated to this order
           type: string
           example: 'This is a comment'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_Civility' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Civility' does not comply with the rule
         order_Shipping_Civility: 
           description: The civility of the person in the shipping address for this order
           type: string
           example: MRS
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_CompanyName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_CompanyName' does not comply with the rule
         order_Shipping_CompanyName: 
           description: The company name of the shipping address for this order
           type: string
           example: My Company
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_AddressName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_AddressName' does not comply with the rule
         order_Shipping_AddressName:
           description: The name of the person in the shipping address for this order
           type: string
           example: Jacques BAUREGARD
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_Email' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Email' does not comply with the rule
         order_Shipping_Email: 
           description: The email of the person in the shipping address for this order
           type: string
           example: client_000000@manomano.fr
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_AddressLine1' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_AddressLine1' does not comply with the rule
         order_Shipping_AddressLine1: 
           description: The shipping address line 1 of this order
           type: string
           example: '5 rue amélie'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_AddressLine2' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_AddressLine2' does not comply with the rule
         order_Shipping_AddressLine2:
           description: The shipping address line 2 of this order
           type: string
           example: 'BDR'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_AddressLine3' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_AddressLine3' does not comply with the rule
         order_Shipping_AddressLine3:
           description: The shipping address line 3 of this order
           type: string
           example: 'RDC'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_AddressPostalCode' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_AddressPostalCode' does not comply with the rule
         order_Shipping_AddressPostalCode:
           description: The shipping address postal code of this order
           type: string
           example: '13014'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_AddressCity' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_AddressCity' does not comply with the rule
         order_Shipping_AddressCity:
           description: The shipping address city of this order
           type: string
           example: Marseille
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_AddressStateOrRegion' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_AddressStateOrRegion' does not comply with the rule
         order_Shipping_AddressStateOrRegion:
           description: The shipping address state or region of this order
           type: string
           example: BDR
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_AddressCountryName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_AddressCountryName' does not comply with the rule
         order_Shipping_AddressCountryName:
           description: The shipping address country name
           type: string
           example: France
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_AddressCountryIsoCodeAlpha2' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_AddressCountryIsoCodeAlpha2' does not comply with the rule
         order_Shipping_AddressCountryIsoCodeAlpha2:
           description: The shipping address country iso code alpha 2 (see http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#/decoding_table for more details)
           type: string
           example: FR
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_Phone' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Phone' does not comply with the rule
         order_Shipping_Phone:
           description: The phone number of the person in the shipping address for this order
           type: string
           example: '+33000000041'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_MobilePhone' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_MobilePhone' does not comply with the rule
         order_Shipping_MobilePhone:
           description: The mobile phone number of the person in the shipping address for this order
           type: string
           example: '+33000000042'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_Price' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Price' does not comply with the rule
         order_Shipping_Price:
           description: The shipping price of this order
           type: number
           format: decimal
           example: 6.9
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_Method' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Method' does not comply with the rule
         order_Shipping_Method:
           description: The shipping method of this order
           type: string
           example: DPD Domicile
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_ShippingTax' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_ShippingTax' does not comply with the rule
         order_Shipping_ShippingTax:
           description: The shipping tax for this order
           type: number
           format: decimal
           example: 0.0
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_EarliestShipUtcDate' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_EarliestShipUtcDate' does not comply with the rule
         order_Shipping_EarliestShipUtcDate:
           description: The UTC date of the earliest ship for this order
           type: string
           example: '2017-04-02T21:30:00Z'
           format: date-time
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_LatestShipUtcDate' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_LatestShipUtcDate' does not comply with the rule
         order_Shipping_LatestShipUtcDate:
           description: The UTC date of the latest ship for this order
           type: string
           format: date-time
           example: '2017-04-30T21:30:00Z'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_Identifier' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_Identifier' does not comply with the rule
         order_Buyer_Identifier:
           description: The buyer identifier for this order
           type: string
           example: '1234567890'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_Civility' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_Civility' does not comply with the rule
         order_Buyer_Civility:
           description: The buyer civility for this order
           type: string
           example: 'Marseille'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_CompanyName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_CompanyName' does not comply with the rule
         order_Buyer_CompanyName:
           description: The buyer company name for this order
           type: string
           example: 'Marsillia'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_Email' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_Email' does not comply with the rule
         order_Buyer_Email: 
           description: The email of the buyer for this order
           type: string
           example: client_000000@manomano.fr
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_AddressLine1' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_AddressLine1' does not comply with the rule
         order_Buyer_AddressLine1: 
           description: The Buyer address line 1 of this order
           type: string
           example: '5 rue amélie'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_AddressLine2' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_AddressLine2' does not comply with the rule
         order_Buyer_AddressLine2:
           description: The Buyer address line 2 of this order
           type: string
           example: 'BDR'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_AddressLine3' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_AddressLine3' does not comply with the rule
         order_Buyer_AddressLine3:
           description: The Buyer address line 3 of this order
           type: string
           example:  'RDC'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_AddressPostalCode' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_AddressPostalCode' does not comply with the rule
         order_Buyer_AddressPostalCode:
           description: The Buyer address postal code of this order
           type: string
           example: '13014'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_AddressCity' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_AddressCity' does not comply with the rule
         order_Buyer_AddressCity: 
           description: The Buyer address city of this order
           type: string
           example: Marseille
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_AddressStateOrRegion' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_AddressStateOrRegion' does not comply with the rule
         order_Buyer_AddressStateOrRegion:
           description: The Buyer address state or region of this order
           type: string
           example: BDR
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_AddressCountryName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_AddressCountryName' does not comply with the rule
         order_Buyer_AddressCountryName:
           description: The Buyer address country name
           type: string
           example: France
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_AddressCountryIsoCodeAlpha2' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_AddressCountryIsoCodeAlpha2' does not comply with the rule
         order_Buyer_AddressCountryIsoCodeAlpha2:
           description: The Buyer address country iso code alpha 2 (see http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#/decoding_table for more details)
           type: string
           example: FR
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_Phone' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_Phone' does not comply with the rule
         order_Buyer_Phone:
           description: The phone number of the buyer for this order
           type: string
           example: '+33000000101'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_MobilePhone' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_MobilePhone' does not comply with the rule
         order_Buyer_MobilePhone: 
           description: The mobile phone number of the buyer for this order
           type: string
           example: '+33000000042'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_OrderSourceUri' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_OrderSourceUri' does not comply with the rule
         order_OrderSourceUri:
           description: |
@@ -1716,6 +1832,7 @@ definitions:
           type: string
           format: uri
           example: http://beezupblob.com/order.xml
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_OrderItemsSourceUri' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_OrderItemsSourceUri' does not comply with the rule
         order_OrderItemsSourceUri:
           description: |
@@ -1723,6 +1840,7 @@ definitions:
           type: string
           format: uri
           example: http://beezupblob.com/orderItems.xml
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
         orderItems:
           type: array
@@ -1766,16 +1884,22 @@ definitions:
             type: object
             schema: changeOrderRequest
             properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_FulfillmentDate' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_FulfillmentDate' does not comply with the rule
               order_Shipping_FulfillmentDate:
                 required: true
                 type: date-time
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_ShipperTrackingNumber' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_ShipperTrackingNumber' does not comply with the rule
               order_Shipping_ShipperTrackingNumber: 
                 required: true
                 type: string
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_CarrierName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_CarrierName' does not comply with the rule
               order_Shipping_CarrierName: 
@@ -1784,6 +1908,8 @@ definitions:
                 lovRequired: true
                 lovLink:
                   href: /v2/user/PriceMinisterCarrierName
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_Method' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Method' does not comply with the rule
               order_Shipping_Method: 
@@ -1824,16 +1950,22 @@ definitions:
             type: object
             schema: changeOrderRequest
             properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_FulfillmentDate' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_FulfillmentDate' does not comply with the rule
               order_Shipping_FulfillmentDate:
                 required: true
                 type: date-time
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_ShipperTrackingNumber' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_ShipperTrackingNumber' does not comply with the rule
               order_Shipping_ShipperTrackingNumber: 
                 required: true
                 type: string
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_CarrierName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_CarrierName' does not comply with the rule
               order_Shipping_CarrierName: 
@@ -1842,6 +1974,8 @@ definitions:
                 lovRequired: true
                 lovLink:
                   href: /v2/user/PriceMinisterCarrierName
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_Method' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Method' does not comply with the rule
               order_Shipping_Method: 
@@ -1874,6 +2008,8 @@ definitions:
             type: object
             schema: changeOrderRequest
             properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Cancel_Reason' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Cancel_Reason' does not comply with the rule
               order_Cancel_Reason:
@@ -2056,6 +2192,8 @@ definitions:
         href: /v2/user/marketplaces/orders/list/full
         method: POST
         properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'Accept-Encoding' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'Accept-Encoding' does not comply with the rule
           'Accept-Encoding':
@@ -2063,6 +2201,7 @@ definitions:
             required: true
             type: array
             schema: string
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
           request:
             in: body
@@ -2078,6 +2217,7 @@ definitions:
         href: /v2/user/marketplaces/orders/list/light
         method: POST
         properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
           request:
             in: body
@@ -2207,6 +2347,7 @@ definitions:
       paginationResult:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
   
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       orders:
         type: array
@@ -2230,6 +2371,7 @@ definitions:
       paginationResult:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
   
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       orders:
         type: array
@@ -2260,17 +2402,20 @@ definitions:
     description: Describe the history related to an order
     type: object
     properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       changeOrderReportings:
         description: The list of change order operation
         type: array
         items:
           $ref: '#/definitions/changeOrderReporting'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       harvestOrderReportings:
         type: array
         items:
           $ref: '#/definitions/harvestOrderReporting'
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       lastModificationUtcDate:
         format: date-time
@@ -2333,6 +2478,7 @@ definitions:
         description: This operation was a test
         type: boolean
         example: false
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       details:
         type: object
@@ -2384,6 +2530,7 @@ definitions:
     required:
     - changeOrders
     properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       changeOrders:
         type: array
@@ -2433,7 +2580,10 @@ definitions:
   batchOrderOperationResponse:
     description: The response given by the batch operation 
     type: object
+    required:
+    - operations
     properties:
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       operations:
         type: array
@@ -2458,6 +2608,7 @@ definitions:
         type: integer
         description: Indicates the http status corresponding to the individual operation
         example: 204
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       errors:
         description: The error list
