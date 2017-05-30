@@ -629,6 +629,7 @@ paths:
       tags:
       - Alerts
       summary: Save store alerts
+      description: You just have to send the alert you want to update, does not need all alerts. (PARTIAL UPDATE ACCEPTED)
       operationId: SaveStoreAlerts
       parameters:
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
