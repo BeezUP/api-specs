@@ -1067,8 +1067,6 @@ definitions:
       - beginPeriodUtcDate
       - endPeriodUtcDate
       - advancedFilters
-      - pageSize
-      - pageNumber
       properties:
         productState:
          $ref: '#/definitions/productStateFilter'
