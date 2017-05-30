@@ -14,10 +14,32 @@ info:
     
 host: api.beezup.com
 basePath: /v2/user/catalogs
+
+#x-beezup-api-ops:
+#  #repo: V2UserCatalogs
+#  apiName: V2UserCatalogs
+#  serverSideBeezUPFrameworkVersion: 2
+#  namespace: BeezUP2.Catalog.ApiService
+#  appRoot: BeezUP2.Catalog.ApiService
+#  comment: |
+#    Put in place dev branch.
+#
+#x-basePath: /v2/user/catalogs
+#x-apiName: V2UserCatalogs
+#x-namespace: BeezUP2.Catalog.ApiService
+#x-serverSideBeezUPFrameworkVersion: 2
+
+x-beezup-api-ops:
+  repo: Catalog
+  appRoot: BeezUP2.Catalog.ApiService
+  namespace: BeezUP2.Catalog.ApiService
+  useBeezUPFrameworkVersion2: true
+  apiName: V2UserCatalogs
+  comment: |
+    Put in place dev branch.
+
 x-basePath: /v2/user/catalogs
 
-x-api-name: V2UserCatalogs
-x-api-namespace: BeezUP2.Catalog.ApiService
 schemes:
   - https
 
@@ -72,25 +94,9 @@ responses:
       $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
 
   importAlreadyInProgress:
-    description: When a catalog importation is already in progress!
+    description: A catalog importation is already in progress!
     schema:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage'
-        links:
-          description: The action links
-          type: object
-          properties:
-            currentImportation:
-              $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
-          additionalProperties: false
-          example:
-            currentImportation:
-              href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c
-              method: GET
+      $ref: '#/definitions/importAlreadyInProgressResponse'
 
 
 
@@ -429,14 +435,15 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : camelCase]: 'Accept-Encoding' does not comply with the rule
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : camelCase]: 'Accept-Encoding' does not comply with the rule
         - name: Accept-Encoding
           description: Indicates that the client accepts that the response will be compressed to reduce traffic size.
           in: header
           required: true
           type: array
+          collectionFormat: csv
           items:
             type: string
-            collectionFormat: csv
       responses:
         '200':
           description: Categories
@@ -444,9 +451,9 @@ paths:
             Content-Encoding:
               description: Indicates the compression use in the response
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
           schema:
             $ref: '#/definitions/categories'
         '404':
@@ -455,7 +462,7 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
 
-  '/{storeId}/products':
+  '/{storeId}/products/list':
     post:
       tags:
         - Catalog
@@ -539,6 +546,27 @@ paths:
 
 ##################################################################################################
   '/{storeId}/importations':
+    get:
+      tags:
+        - Importation Process
+      summary: Get the latest catalog importation reporting
+      operationId: Importation_GetReportings
+      
+      parameters:
+
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
+      responses:
+        '200':
+          description: The last importation reportings
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/importationReporting'
+
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+  '/{storeId}/importations/start':
     post:
       tags:
         - Importation Process
@@ -573,28 +601,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    get:
-      tags:
-        - Importation Process
-      summary: Get the latest catalog importation reporting
-      operationId: Importation_GetReportings
-      
-
-
-      parameters:
-
-        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
-      responses:
-        '200':
-          description: The last importation reportings
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/importationReporting'
-
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
     
 
 
@@ -625,12 +631,15 @@ paths:
             ExecutionId not found or not yet synchronized. If not synchronized
             within 30 sec after the import has been started, please contact our
             support
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
           
 
     
-    delete:
+  '/{storeId}/importations/{executionId}/cancel':
+    post:
       tags:
         - Importation Process
       summary: Cancel importation
@@ -648,8 +657,12 @@ paths:
           description: |-
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -675,9 +688,13 @@ paths:
           description: |-
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -725,6 +742,8 @@ paths:
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
             Occurs when a catalog column is not found.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: Occurs when this importation is already finished.
         default:
@@ -766,6 +785,8 @@ paths:
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
             Occurs when a catalog column is not found.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -793,9 +814,13 @@ paths:
           description: |-
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -830,10 +855,14 @@ paths:
           description: >-
             ExecutionId not found or not yet synchronized. If not synchronized
             within 30 sec, please contact our support
+                  schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: >-
             Catalog preparation read step is not completed. Please refer to the
             reporting of this execution for more details.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -1284,26 +1313,7 @@ paths:
 ###################################################################################################################
 
 
-  '/{storeId}/autoImport':
-    get:
-      tags:
-        - Auto
-      operationId: Auto_GetAutoImportConfiguration
-      summary: Get the auto import configuration
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
-      responses:
-        '200':
-          description: Auto import configuration
-          schema:
-            $ref: '#/definitions/autoImportConfiguration'
-        '404':
-          description: StoreId or Auto Import configuration not found
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
-
-    
+  '/{storeId}/autoImport/activate':
     post:
       tags:
         - Auto
@@ -1328,6 +1338,28 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
+
+
+  '/{storeId}/autoImport':
+    get:
+      tags:
+        - Auto
+      operationId: Auto_GetAutoImportConfiguration
+      summary: Get the auto import configuration
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
+      responses:
+        '200':
+          description: Auto import configuration
+          schema:
+            $ref: '#/definitions/autoImportConfiguration'
+        '404':
+          description: StoreId or Auto Import configuration not found
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+
     delete:
       tags:
         - Auto
@@ -1344,6 +1376,9 @@ paths:
           description: Occurs when a user tries to work on the wrong store.
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+    
+
 
   '/{storeId}/autoImport/start':
     post:
@@ -1499,6 +1534,85 @@ definitions:
   links.Importation_GetImportationMonitoringLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c
+        method: GET
+
+  links.Importation_CancelLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/cancel
+        method: POST
+
+  links.Importation_ConfigureRemainingCatalogColumnsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/configureRemainingCatalogColumns
+        method: POST
+        
+  links.Importation_CommitColumnsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/commitColumns
+        method: POST
+
+  links.Importation_CommitLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/commit
+        method: POST
+
+
+  links.Importation_TechnicalProgressionLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/technicalProgression
+        method: GET
+
+
+  links.Importation_ActivateAutoImportLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/autoImport/activate
+        method: POST
+
+
+  importAlreadyInProgressResponse:
+    type: object
+    required:
+    - errors
+    - links
+    properties:
+# [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
+      errors:
+        description: The error message list
+        type: array
+        items:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage'
+      links:
+        $ref: '#/definitions/importAlreadyInProgressResponseLinks'
+      
+
+
+  importAlreadyInProgressResponseLinks:
+    description: The action links
+    type: object
+    required:
+    - currentImportation
+    - cancelCurrentImportation
+    properties:
+      currentImportation:
+        $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
+      cancelCurrentImportation:
+        $ref: '#/definitions/links.Importation_CancelLink'
+
 
 
   schedulingType:
@@ -1605,6 +1719,7 @@ definitions:
         format: uri
         example: http://beezupblob.com/Mytransformation.xslt
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       files:
         description: The list of files to get and read
         type: array
@@ -1966,6 +2081,7 @@ definitions:
     - lastUpdateUtcDate
     - beginUtcDate
     - steps
+    
     properties:
       userId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserId'
@@ -1986,6 +2102,7 @@ definitions:
         type: string
         example: '2017-04-01T13:01:01Z'
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       errors:
         description: In case of error a description will be indicated
         type: array
@@ -2002,7 +2119,35 @@ definitions:
           isCatalogImportComputeDiffCompleted: false
           isCatalogUpdateCompleted: false
           isSavedInDb: false
+      links:
+        $ref: '#/definitions/importationMonitoringLinks'
           
+          
+  importationMonitoringLinks:
+    description: Applicable operations considering the state of the importation
+    type: object
+    required:
+    - self
+    - technicalProgression
+    properties:
+      self:
+        $ref: '#/definitions/links.Importation_GetImportationMonitoringLink'
+      technicalProgression:
+        $ref: '#/definitions/links.Importation_TechnicalProgressionLink'
+      cancel:
+        $ref: '#/definitions/links.Importation_CancelLink'
+      configureRemainingCatalogColumns:
+        $ref: '#/definitions/links.Importation_ConfigureRemainingCatalogColumnsLink'
+      commitColumns:
+        $ref: '#/definitions/links.Importation_CommitColumnsLink'
+      commit:
+        $ref: '#/definitions/links.Importation_CommitLink'
+      activateAutoImport:
+        $ref: '#/definitions/links.Importation_ActivateAutoImportLink'
+  
+  
+  
+
   catalogColumnName:
     description: The catalog column name
     type: string
@@ -2021,6 +2166,7 @@ definitions:
     type: object
     properties:
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       detectedCatalogColumns:
         description: Contains all deteted catalog columns
         type: array
@@ -2097,6 +2243,7 @@ definitions:
     type: object
     properties:
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       catalogColumns:
         type: array
         items:
@@ -2106,6 +2253,7 @@ definitions:
     type: object
     properties:
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       customColumns:
         type: array
         items:
@@ -2121,6 +2269,7 @@ definitions:
     type: object
     properties:
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       ignored:
         description: >-
           IF true, the product values of this column will be not taken in
@@ -2252,6 +2401,7 @@ definitions:
         type: integer
         example: 101
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       errors:
         description: Indicate the error message list related to this importation.
         type: array
@@ -2315,6 +2465,7 @@ definitions:
     type: object
     properties:
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       stepsProgression:
         description: Indicate for each step of the importation the uris to look at
         type: object
@@ -2360,6 +2511,7 @@ definitions:
     type: object
     properties:
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       products:
         type: array
         items:
@@ -2382,11 +2534,19 @@ definitions:
     type: object
     description: The request message to get products based on these filters
     properties:
+    
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
+      productIdList:
+        type: array
+        items:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductId'
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       sku:
         description: Search for products containing this SKU (merchant product dentifier).
         type: string
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       title:
         description: Search for products containing this title
         type: string
@@ -2399,6 +2559,7 @@ definitions:
     type: object
     properties:
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       categories:
         description: The category list
         type: array
