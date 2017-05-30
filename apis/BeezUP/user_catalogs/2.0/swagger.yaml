@@ -2538,6 +2538,7 @@ definitions:
 # [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       productIdList:
         type: array
+        description: Filter with a list of product identifier
         items:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductId'
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
