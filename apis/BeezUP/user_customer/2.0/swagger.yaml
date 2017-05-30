@@ -625,29 +625,21 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
         
-  '/stores/{storeId}/alerts/{alertId}':
-    put:
+    post:
       tags:
       - Alerts
-      summary: Save store alert
-      operationId: SaveStoreAlert
+      summary: Save store alerts
+      operationId: SaveStoreAlerts
       parameters:
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
-      - name: alertId
-        in: path
-        type: integer
-        format: int32
-        required: true
       - name: request
         in: body
         required: true
         schema:
-          type: array
-          items:
-            $ref: '#/definitions/saveStoreAlertRequest'
+          $ref: '#/definitions/saveStoreAlertsRequest'
       responses:
         '204':
-          description: Store alert saved
+          description: Store alerts saved
         '400':
           description: BadRequest
           schema:
@@ -1070,7 +1062,7 @@ definitions:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
 
-  links.saveStoreAlertLink:
+  links.saveStoreAlertsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
 
@@ -2844,30 +2836,13 @@ definitions:
     - alertName
     - active
     properties:
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
-        description: The different actions you can make on this offer
+        description: The different actions you can make on this alert
         type: object
         properties:
-          saveStoreAlert:
-            $ref: '#/definitions/links.saveStoreAlertLink'
-        additionalProperties: false
-        example:
-        - href: /v2/user/customer/stores/{storeId}/alerts/{alertId}
-          rel: save
-          method: PUT
-          parameters:
-          - name: storeId
-            in: path
-            required: true
-            value: 00000000-0000-0000-0000-000000000000
-          - name: alertId
-            in: path
-            required: true
-            value: 8
-          - name: request
-            in: body
-            required: true
-            
+          saveStoreAlerts:
+            $ref: '#/definitions/links.saveStoreAlertsLink'
       alertId:
         $ref: '#/definitions/alertId'
         
@@ -2917,6 +2892,13 @@ definitions:
           description: The regular expression related to the alert property
           type: string
           example: '\b0*([1-9]|[12][0-9]|30)\b'
+
+
+  saveStoreAlertsRequest:
+    type: object
+    description: The key is the alert identifier (alertId)
+    additionalProperties:
+      $ref: '#/definitions/saveStoreAlertRequest'
 
         
   saveStoreAlertRequest:
