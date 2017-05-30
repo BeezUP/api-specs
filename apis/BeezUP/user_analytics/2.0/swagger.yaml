@@ -11,9 +11,7 @@ info:
   
   contact:
     email: support@beezup.com
-    
-  x-changeComments: |
-    Add pagination parameters
+  
   
     
   
@@ -25,8 +23,22 @@ info:
 host: api.beezup.com
 basePath: /v2/user/analytics
 
-x-api-name: V2UserAnalytics
-x-api-namespace: BeezUP.Channel.WebService 
+
+schemes:
+ - https
+
+
+x-beezup-api-ops:
+  repo: Channel
+  appRoot: BeezUP.Channel.WebService
+  apiName: V2UserAnalytics
+  namespace: BeezUP.Channel.WebService
+  comment: |
+    Add pagination parameters
+
+
+x-basePath: /v2/user/analytics
+
 
 externalDocs: 
   description: BeezUP API documentation
@@ -1182,6 +1194,7 @@ definitions:
       currencyCode:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CurrencyCode
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
       channels:
         type: array
         items:
@@ -1200,6 +1213,7 @@ definitions:
 
 # [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
       categories:
         type: array
         items:
@@ -1217,6 +1231,7 @@ definitions:
       paginationResult:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
       products:
         type: array
         items:
@@ -1444,12 +1459,14 @@ definitions:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CurrencyCode
 
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
       globalPerformanceIndicators:
         type: array
         items:
           $ref: '#/definitions/globalPerformanceIndicatorByChannel'
 # [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
       days:
         type: array
         items:
@@ -1484,6 +1501,7 @@ definitions:
         $ref: '#/definitions/reportByDayAllChannels'
 # [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
       byChannels:
         type: array
         items:
@@ -1540,10 +1558,16 @@ definitions:
     properties:
       editProduct:
         $ref: '#/definitions/links.GetChannelCatalogProductInfoLink'
-      enableProduct:
+      enableProductForOneChannel:
         $ref: '#/definitions/links.OptimiseByProductLink'
-      disableProduct:
+      disableProductForOneChannel:
         $ref: '#/definitions/links.OptimiseByProductLink'
+      enableProductForAllChannels:
+        $ref: '#/definitions/links.OptimiseByProductLink'
+      disableProductForAllChannels:
+        $ref: '#/definitions/links.OptimiseByProductLink'
+
+
       
   reportByCategoryLinks:
     type: object
@@ -1854,6 +1878,7 @@ definitions:
     - clicks
     properties:
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
       clicks:
         type: array
         items:
@@ -1888,6 +1913,7 @@ definitions:
     - orders
     properties:
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
       orders:
         type: array
         items:
@@ -1973,6 +1999,7 @@ definitions:
     - externalOrders
     properties:
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
       externalOrders:
         type: array
         items:
@@ -2153,6 +2180,7 @@ definitions:
     type: object
     properties:
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
       reportFilters:
         type: array
         items:
@@ -2179,6 +2207,7 @@ definitions:
     required:
     - reportFilterName
     - reportFilterId
+    - reportType
     - links
     properties:
       reportFilterId:
@@ -2190,6 +2219,8 @@ definitions:
         description: Report filter name
         type: string
         example: 'My report filter'
+      reportType:
+        $ref: '#/definitions/reportType'
       links:
         $ref: '#/definitions/reportFilterHeaderLinks'
   
@@ -2264,6 +2295,7 @@ definitions:
     - ByChannel
     - ByCategory
     - ByProduct
+    - ByDate
     example: ByProduct
   
   
@@ -2331,6 +2363,7 @@ definitions:
     properties:
 # [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
       rules:
         description: Rule list
         type: array
@@ -2564,6 +2597,7 @@ definitions:
     properties:
 # [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
       executions:
         description: The rules executions history
         type: array
@@ -2668,13 +2702,6 @@ definitions:
         $ref: '#/definitions/ruleExecutionReportingLinks'
         
 
-# Added by API Auto Mocking Plugin
-x-host: api.beezup.com
-x-basePath: /v2/user/analytics
-# basePath: /v2/user/analytics
-# host: api.beezup.com
-schemes:
- - https
 x-azure-api-id: 'V2UserAnalytics'
 # host: api.beezup.com
 # basePath: /v2/user/analytics
