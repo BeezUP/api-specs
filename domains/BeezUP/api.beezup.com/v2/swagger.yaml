@@ -152,7 +152,19 @@ definitions:
         type: array
         items: 
           type: string
-        description: Indicates on which category path you want to make the filter
+        description: Indicates on which catalog category path you want to make the filter
+        example:
+          - Maison
+          - Chambre
+
+  BeezUP.Common.ChannelCategoryFilter:
+    type: object
+    properties:
+      categoryPath:
+        type: array
+        items: 
+          type: string
+        description: Indicates on which channel category path you want to make the filter
         example:
           - Home
           - Bedroom
