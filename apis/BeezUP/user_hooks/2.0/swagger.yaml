@@ -6,7 +6,7 @@ info:
     
     This api allows you to manage your webhooks like subscriptions. 
     
-    You will be able to:
+    You will be able to: 
     - list all your subscriptions
     - subscribe to an event
     - activate or suspend a subscription
