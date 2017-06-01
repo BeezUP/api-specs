@@ -357,9 +357,9 @@ paths:
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         '200':
-          description: Store list response 
+          description: Store list 
           schema:
-            $ref: '#/definitions/stores'
+            $ref: '#/definitions/storeList'
         304:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         default:
@@ -384,7 +384,7 @@ paths:
         '201':
           description: The store has been created successfully. The http header Location contains the new resource url. The body contains the link to the new resource.
           schema:
-            $ref: '#/definitions/links.getStoresLink'
+            $ref: '#/definitions/links.getStoreLink'
         '403':
           description: The maximum amount of store has been reached. Please upgrade your contract.
         '409':
@@ -409,7 +409,7 @@ paths:
         '200':
           description: The store information
           schema:
-            $ref: '#/definitions/storeHeader'
+            $ref: '#/definitions/store'
         304:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         '404':
@@ -1041,7 +1041,9 @@ definitions:
 
   links.getStoreLink:
     allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'  
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+      href: /
   
   links.deleteStoreLink:
     allOf:
@@ -1166,75 +1168,30 @@ definitions:
         additionalProperties: false
 
  
+  storeListLinks:
+    type: object
+    description: The action links you can do globally on stores
+    properties:
+      self:
+        $ref: '#/definitions/links.getStoresLink'
+      createStore:
+        $ref: '#/definitions/links.createStoreLink'
+    additionalProperties: false      
   
-  stores:
+  storeList:
     type: object
     required:
     - links
-    - storeList
+    - stores
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
-# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
-        description: The action links
-        type: object
-        properties:
-          getStores:
-            $ref: '#/definitions/links.getStoresLink'
-          createStore:
-            $ref: '#/definitions/links.createStoreLink'
-        additionalProperties: false
-       # example:
-       # - href: /v2/user/stores
-       #   method: GET
-       #   rel: self
-       #   operationId: GetStores
-       # - href: /v2/user/stores
-       #   method: POST
-       #   rel: CreateStore
-       #   operationId: CreateStore
-       #   parameters:
-       #   - name: request
-       #     in: body
-       #     type: object
-       #     required: true
-            
-      storeList:
+        $ref: '#/definitions/storesLinks'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
+      stores:
         type: array
         items:
-          $ref: '#/definitions/storeHeader'
-        example:
-        - storeId: 00000000-0000-0000-0000-000000000000
-          userRole: Owner
-          status: Active
-          ownerUserId: 00000000-0000-0000-0000-000000000000
-          creationUtcDate: '2001-01-01T00:00:00'
-          name: My Store
-          url: http://www.mystore.com
-          sectors: 
-          - 1
-          links:
-          - href: /v2/user/stores/{storeId}
-            method: GET
-            rel: self
-            operationId: GetStore
-          - href: /v2/user/stores/{storeId}
-            method: DELETE
-            rel: DeleteStore
-            operationId: DeleteStore
-          - href: /v2/user/stores/{storeId}
-            method: PATCH
-            rel: UpdateStore
-            operationId: UpdateStore
-            parameters:
-            - name: request
-              in: body
-              type: object
-              required: true
-          - href: /v2/user/stores/{storeId}/shares
-            method: GET
-            rel: GetShares
-            operationId: GetShares
+          $ref: '#/definitions/store'
  
   storeUserRole:
     type: string
@@ -1276,83 +1233,71 @@ definitions:
     example: Active
   
   
-  storeHeader:
-   allOf:
-    - $ref: '#/definitions/store'
-    - type: object
-      required:
-      - storeId
-      - name
-      - url
-      - countryIsoCodeAlpha3
-      - userRole
-      - status
-      - ownerUserId
-      - shareCount
-      - creationUtcDate
-      - sectors
-      - links
-      properties:
-        storeId:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
-        userRole:
-          $ref: '#/definitions/storeUserRole'
-        status:
-          $ref: '#/definitions/storeStatus'
-        ownerUserId:
-          format: guid
-          description: The user id of the owner of the store
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
-        shareCount:
-          description: The share count related to this store
-          type: integer
-          example: 5
-        creationUtcDate:
-          format: date-time
-          description: The creation date of the store
-          type: string
-          example: '2017-04-01T22:30:00Z'
+  store:
+    type: object
+    required:
+    - storeId
+    - name
+    - url
+    - countryIsoCodeAlpha3
+    - userRole
+    - status
+    - ownerUserId
+    - shareCount
+    - creationUtcDate
+    - sectors
+    - links
+    properties:
+      storeId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
+      name:
+        $ref: '#/definitions/storeName'
+      url:
+        $ref: '#/definitions/storeUrl'
+      countryIsoCodeAlpha3:
+        $ref: '#/definitions/storeCountryIsoCodeAlpha3'
+      sectors:
+        $ref: '#/definitions/storeSectors'
+      userRole:
+        $ref: '#/definitions/storeUserRole'
+      status:
+        $ref: '#/definitions/storeStatus'
+      ownerUserId:
+        format: guid
+        description: The user id of the owner of the store
+        type: string
+        example: 00000000-0000-0000-0000-000000000000
+      shareCount:
+        description: The share count related to this store
+        type: integer
+        example: 5
+      creationUtcDate:
+        format: date-time
+        description: The creation date of the store
+        type: string
+        example: '2017-04-01T22:30:00Z'
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
-# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
-        links:
-          description: The action links for this store
-          type: object
-          properties:
-            self:
-              $ref: '#/definitions/links.getStoreLink'
-            deleteStore:
-              $ref: '#/definitions/links.deleteStoreLink'
-            updateStore:
-              $ref: '#/definitions/links.updateStoreLink'
-            getShares:
-              $ref: '#/definitions/links.getSharesLink'
-            share:
-              $ref: '#/definitions/links.shareLink'
-          additionalProperties: false
-          #example:
-          #- href: /v2/user/stores/{storeId}
-          #  method: GET
-          #  rel: self
-          #  operationId: GetStore
-          #- href: /v2/user/stores/{storeId}
-          #  method: DELETE
-          #  rel: DeleteStore
-          #  operationId: DeleteStore
-          #- href: /v2/user/stores/{storeId}
-          #  method: PATCH
-          #  rel: UpdateStore
-          #  operationId: UpdateStore
-          #  parameters:
-          #  - name: request
-          #    in: body
-          #    type: object
-          #    required: true
-          #- href: /v2/user/stores/{storeId}/shares
-          #  method: GET
-          #  rel: GetShares
-          #  operationId: GetShares
-
+      links:
+        $ref: '#/definitions/storeLinks'
+         
+         
+  storeLinks:
+    description: The action links for this store
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.getStoreLink'
+      deleteStore:
+        $ref: '#/definitions/links.deleteStoreLink'
+      updateStore:
+        $ref: '#/definitions/links.updateStoreLink'
+      getShares:
+        $ref: '#/definitions/links.getSharesLink'
+      share:
+        $ref: '#/definitions/links.shareLink'
+    additionalProperties: false
+        
+        
   storeName:
     description: The store name. Must be unique.
     type: string
@@ -1395,9 +1340,10 @@ definitions:
     type: string
     description: Your invoice number
     example: B1234
-
   
-  store:
+  createStoreRequest:
+    description: The request to create a store
+    type: object
     required:
     - name
     - url
@@ -1412,10 +1358,7 @@ definitions:
         $ref: '#/definitions/storeCountryIsoCodeAlpha3'
       sectors:
         $ref: '#/definitions/storeSectors'
-  
-  createStoreRequest:
-    allOf:
-    - $ref: '#/definitions/store'
+
 
 
   
