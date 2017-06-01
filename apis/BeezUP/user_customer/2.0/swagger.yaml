@@ -1414,9 +1414,8 @@ definitions:
         $ref: '#/definitions/storeSectors'
   
   createStoreRequest:
-    type: object
     allOf:
-      - $ref: '#/definitions/store'
+    - $ref: '#/definitions/store'
 
 
   
