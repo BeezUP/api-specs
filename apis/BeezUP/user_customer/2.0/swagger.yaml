@@ -875,7 +875,7 @@ paths:
         '200':
           description: Get all invoices of a customer
           schema: 
-            $ref: '#/definitions/invoices'
+            $ref: '#/definitions/invoiceList'
         304:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         default:
@@ -1221,7 +1221,6 @@ definitions:
     type: object
     required:
     - links
-    - shares
     properties:
       links:
         $ref: '#/definitions/storeSharesLinks'
@@ -1494,11 +1493,22 @@ definitions:
         example: true
         description: If you can use this functionality unlimitedly
 
-  invoices:
+
+  invoiceListLinks:
+    type: object
+    required: 
+    - self
+    properties:
+      self:
+        $ref: '#/definitions/links.getInvoicesLink'
+  invoiceList:
     type: object
     required:
+    - links
     - invoices
     properties:
+      links:
+        $ref: '#/definitions/invoiceListLinks'
       invoices:
         type: array
         items:
