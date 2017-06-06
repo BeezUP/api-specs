@@ -87,11 +87,11 @@ paths:
 
   '/':
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : OperationId must be present and non-empty string]: Field 'operationId' required in operation 'get' of path '/'
-# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : OperationId must be present and non-empty string]: Field 'operationId' required in operation 'get' of path '/'
     get:
       tags:
       - Global
       summary: The index of all operations and LOV
+      operationId: GetCustomerIndex
       parameters:
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
@@ -1120,7 +1120,7 @@ definitions:
         method: GET
 
 
-  links.customerIndexLink:
+  links.GetCustomerIndexLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
@@ -1154,7 +1154,7 @@ definitions:
     - friendInfo
     properties:
       self:
-        $ref: '#/definitions/links.customerIndexLink'
+        $ref: '#/definitions/links.GetCustomerIndexLink'
       accountInfo:
         $ref: '#/definitions/links.getUserAccountInfoLink'
       billingPeriods:
