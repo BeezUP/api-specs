@@ -1223,7 +1223,6 @@ definitions:
     - links
     - shares
     properties:
-# [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
         $ref: '#/definitions/storeSharesLinks'
 # [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
