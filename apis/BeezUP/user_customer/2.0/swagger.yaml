@@ -471,7 +471,7 @@ paths:
       tags:
         - Shares
       summary: Get shares related to this store
-      operationId: GetShares
+      operationId: GetStoreShares
       parameters:
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
@@ -492,7 +492,7 @@ paths:
       tags:
         - Shares
       summary: Share a store to another user
-      operationId: Share
+      operationId: ShareStore
 
       parameters:
 
@@ -887,6 +887,246 @@ paths:
 
 definitions:
 
+  links.logoutLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/security/logout
+        method: POST
+
+
+  links.getFriendInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/friends/{userId}
+        method: GET
+        parameters:
+          userId:
+            in: path
+            type: string
+            required: true
+
+
+
+
+  links.getStandardOffersLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/offers
+        method: GET
+
+  
+  links.getBillingPeriodsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/billingPeriods
+        method: GET
+
+
+
+  links.getInvoicesLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/invoices
+        method: GET
+    
+  links.getUserAccountInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/account
+        method: GET
+
+  links.shareStoreLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/stores/51afae05-277e-4902-8b17-5a811a23a2c6/shares
+        method: POST
+        parameters:
+          email: 
+            type: string
+            in: body
+            required: true
+
+
+  links.deleteShareStoreLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/stores/51afae05-277e-4902-8b17-5a811a23a2c6/shares/277596c1-a5a9-4cce-9f34-b5906451a98f
+        method: DELETE
+
+  links.getStoresLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'  
+    - example:
+        href: /v2/user/customer/stores
+        method: GET
+    
+  links.createStoreLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3' 
+    - example:
+        href: /v2/user/customer/stores
+        method: POST
+
+  links.getStoreLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/stores/51afae05-277e-4902-8b17-5a811a23a2c6
+        method: GET
+
+  
+  links.deleteStoreLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'  
+    - example:
+        href: /v2/user/customer/stores/51afae05-277e-4902-8b17-5a811a23a2c6
+        method: DELETE
+
+  links.updateStoreLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'  
+    - example:
+        href: /v2/user/customer/stores/51afae05-277e-4902-8b17-5a811a23a2c6
+        method: PATCH
+    
+  links.getStoreSharesLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/stores/51afae05-277e-4902-8b17-5a811a23a2c6/shares
+        method: GET
+
+  links.createContractLink:          
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/contracts
+        method: POST
+        parameters:
+          request:
+            in: body
+            type: object
+            value:
+              offerId: 1
+              storeCount: 1
+              couponDiscountCode: I-LOVE-BEEZUP
+              couponOfferCode: 04efc310-bc25-4710-a83a-faf200284fe5
+              billingPeriodInMonth:  12
+
+
+
+  links.saveCreditCardInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/account/creditCardInfo
+        method: PUT
+
+  links.saveStoreAlertsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/stores/51afae05-277e-4902-8b17-5a811a23a2c6/alerts
+        method: POST
+
+  links.savePersonalInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/account/personalInfo
+        method: PUT
+
+
+  links.changePasswordLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/account/changePassword
+        method: POST
+    
+  links.saveCompanyInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/account/companyInfo
+        method: PUT
+    
+  links.saveProfilePictureInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/account/profilePictureInfo
+        method: PUT
+    
+  links.getCreditCardInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/account/creditCardInfo
+        method: GET
+    
+  links.getContractsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/contracts
+        method: GET
+
+  links.reactivateCurrentContractLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/contracts/current/reenableAutoRenewal
+        method: POST
+
+
+  links.terminateCurrentContractLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/contracts/current/disableAutoRenewal
+        method: POST
+
+
+  links.deleteNextContractLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/contracts/next
+        method: DELETE
+
+
+  links.activateUserAccountLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/account/activate
+        method: POST
+    
+
+  links.getProfilePictureInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/account/profilePictureInfo
+        method: GET
+
+
+  links.customerIndexLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer
+        method: GET
+
 
   customerIndex:
     description: The index of the customer API
@@ -902,12 +1142,6 @@ definitions:
     
 
 
-  links.customerIndexLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    - example:
-        href: /v2/user/customer
-        method: GET
 
   customerIndexLinks:
     description: Gives you want you can do on this API
@@ -965,152 +1199,6 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
 
 
-  links.logoutLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    - example:
-        href: /v2/user/customer/security/logout
-        method: POST
-
-
-  links.getFriendInfoLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    - example:
-        href: /v2/user/customer/friends/{userId}
-        method: GET
-        parameters:
-          userId:
-            in: path
-            type: string
-            required: true
-
-
-
-
-  links.getStandardOffersLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    - example:
-        href: /v2/user/customer/offers
-        method: GET
-
-  
-  links.getBillingPeriodsLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    - example:
-        href: /v2/user/customer/billingPeriods
-        method: GET
-
-
-
-  links.getInvoicesLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    - example:
-        href: /v2/user/customer/invoices
-        method: GET
-    
-  links.getUserAccountInfoLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    - example:
-        href: /v2/user/customer/account
-        method: GET
-
-  links.shareLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-
-
-  links.deleteShareLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-
-  links.getStoresLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'  
-    - example:
-        href: /v2/user/customer/stores
-        method: GET
-    
-  links.createStoreLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3' 
-
-  links.getStoreLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    - example:
-      href: /
-  
-  links.deleteStoreLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'  
-
-  links.updateStoreLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'  
-    
-  links.getSharesLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-
-  links.createContractLink:          
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-
-  links.saveCreditCardInfoLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-
-  links.saveStoreAlertsLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-
-  links.savePersonalInfoLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    
-  links.changePasswordLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    
-  links.saveCompanyInfoLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    
-  links.saveProfilePictureInfoLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    
-  links.getCreditCardInfoLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    - example:
-        href: /v2/user/customer/account/creditCardinfo
-        method: GET
-    
-  links.getContractsLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    - example:
-        href: /v2/user/customer/contracts
-        method: GET
-
-  links.reactivateCurrentContractLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-
-  links.terminateCurrentContractLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-
-
-  links.deleteNextContractLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
 
   storeShares:
     type: object
@@ -1119,31 +1207,21 @@ definitions:
     - shares
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
-# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
-        type: object
-        required:
-        - share
-        properties:
-          share:
-            $ref: '#/definitions/links.shareLink'
-        additionalProperties: false
+        $ref: '#/definitions/storeSharesLinks'
+# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       shares:
         type: array
         items:
           $ref: '#/definitions/storeShare'
-        example:
-        - userId: '277596c1-a5a9-4cce-9f34-b5906451a98f'
-          storeRole: User
-          links:
-            deleteShare:
-              href: /v2/user/stores/{storeId}/shares/{userId}
-              method: DELETE
-              operationId: DeleteShare
-              parameters:
-                storeId: '51afae05-277e-4902-8b17-5a811a23a2c6'
-                userId: '277596c1-a5a9-4cce-9f34-b5906451a98f'
 
+  storeSharesLinks:
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.getStoreSharesLink'
+      share:
+        $ref: '#/definitions/links.shareStoreLink'
 
 
   storeShare:
@@ -1157,16 +1235,17 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserId'
       userRole:
         $ref: '#/definitions/storeUserRole'
-# [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
-# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
-        description: The different actions you can make on this share
-        type: object
-        properties:
-          deleteShare:
-            $ref: '#/definitions/links.deleteShareLink'
-        additionalProperties: false
+        $ref: '#/definitions/storeShareLinks'
 
+
+  storeShareLinks:
+    description: The different actions you can make on this store share
+    type: object
+    properties:
+      deleteShare:
+        $ref: '#/definitions/links.deleteShareStoreLink'
+   
  
   storeListLinks:
     type: object
@@ -1176,7 +1255,7 @@ definitions:
         $ref: '#/definitions/links.getStoresLink'
       createStore:
         $ref: '#/definitions/links.createStoreLink'
-    additionalProperties: false      
+         
   
   storeList:
     type: object
@@ -1186,7 +1265,7 @@ definitions:
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
-        $ref: '#/definitions/storesLinks'
+        $ref: '#/definitions/storeListLinks'
 # [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       stores:
         type: array
@@ -1276,7 +1355,6 @@ definitions:
         description: The creation date of the store
         type: string
         example: '2017-04-01T22:30:00Z'
-# [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
         $ref: '#/definitions/storeLinks'
          
@@ -1291,11 +1369,11 @@ definitions:
         $ref: '#/definitions/links.deleteStoreLink'
       updateStore:
         $ref: '#/definitions/links.updateStoreLink'
-      getShares:
-        $ref: '#/definitions/links.getSharesLink'
+      shares:
+        $ref: '#/definitions/links.getStoreSharesLink'
       share:
-        $ref: '#/definitions/links.shareLink'
-    additionalProperties: false
+        $ref: '#/definitions/links.shareStoreLink'
+   
         
         
   storeName:
@@ -1858,27 +1936,19 @@ definitions:
       info:
        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries'
       links:
-        description: The different actions you can make on this offer
-        type: object
-        properties:
-          createContract:
-            $ref: '#/definitions/links.createContractLink'
-        additionalProperties: false
-        example:
-        - href: /v2/user/customer/contracts
-          operationId: CreateContract
-          rel: CreateContract
-          parameters:
-            - name: request
-              in: body
-              type: object
-              value:
-                offerId: 1
-                storeCount: 1
-                couponDiscountCode: I-LOVE-BEEZUP
-                couponOfferCode: 04efc310-bc25-4710-a83a-faf200284fe5
-                billingPeriodInMonth:  12
+        $ref: '#/definitions/offerLinks'
+
+
   
+  
+  offerLinks:
+    description: The different actions you can make on this offer
+    type: object
+    properties:
+      createContract:
+        $ref: '#/definitions/links.createContractLink'
+   
+
 
         
   offerContent:
@@ -2470,24 +2540,9 @@ definitions:
         $ref: '#/definitions/links.saveCreditCardInfoLink'
       activateUserAccount:
         $ref: '#/definitions/links.activateUserAccountLink'
-
-
-
-
-    additionalProperties: false
+   
     
 
-  links.activateUserAccountLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    
-
-  links.getProfilePictureInfoLink:
-    allOf:
-    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-    - example:
-        href: /v2/user/customer/account/profilePictureInfo
-        method: GET
     
   accountInfo:
     type: object
@@ -2655,36 +2710,29 @@ definitions:
     
 
   
+  creditCardInfoResponseLinks:
+    description: The different actions you can make on this offer
+    type: object
+    required:
+    - self
+    - saveCreditCardInfo
+    properties:
+      self:
+        $ref: '#/definitions/links.getCreditCardInfoLink'
+      saveCreditCardInfo:
+        $ref: '#/definitions/links.saveCreditCardInfoLink'
+   
 
     
   creditCardInfoResponse:
     type: object
     required:
     - links
+    - currentPaymentMethod
     properties:
       links:
-        description: The different actions you can make on this offer
-        type: object
-        properties:
-          self:
-            $ref: '#/definitions/links.getCreditCardInfoLink'
-          saveCreditCardInfo:
-            $ref: '#/definitions/links.saveCreditCardInfoLink'
-        additionalProperties: false
-        example:
-        - href: /v2/user/customer/creditCardinfo
-          rel: self
-          operationId: GetCreditCardInfo
-          method: GET
-        - href: /v2/user/customer/creditCardinfo
-          ref: SaveCreditCardInfo
-          method: PUT
-          parameters:
-          - name: request
-            in: body
-            required: true
-            type: object
-            
+        $ref: '#/definitions/creditCardInfoResponseLinks'
+
       currentPaymentMethod:
         $ref: '#/definitions/paymentMethod'
         
@@ -2767,33 +2815,31 @@ definitions:
     type: string
     example: NoImportSinceXDays
     
-  alertIsActive:
-    description: Is the alert is active ?
+  alertEnabled:
+    description: Is the alert enable ?
     type: boolean
     example: true
 
   storeAlert:
     type: object
     required:
+    - links
     - alertId
     - alertName
-    - active
+    - enabled
     properties:
-# [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
-        description: The different actions you can make on this alert
-        type: object
-        properties:
-          saveStoreAlerts:
-            $ref: '#/definitions/links.saveStoreAlertsLink'
+        $ref: '#/definitions/storeAlertLinks'
+
       alertId:
         $ref: '#/definitions/alertId'
         
       alertName:
         $ref: '#/definitions/alertName'
 
-      active:
-        $ref: '#/definitions/alertIsActive'
+      enabled:
+        $ref: '#/definitions/alertEnabled'
+      
       properties:
         description: The current configuration properties of the alert
         type: array
@@ -2804,6 +2850,12 @@ definitions:
           propertyValidationExpression: '\b0*([1-9]|[12][0-9]|30)\b'
           propertyValue: '2'
   
+  storeAlertLinks:
+    description: The different actions you can make on this alert
+    type: object
+    properties:
+      save:
+        $ref: '#/definitions/links.saveStoreAlertsLink'
 
   alertPropertyId:
     format: int32
@@ -2847,10 +2899,10 @@ definitions:
   saveStoreAlertRequest:
     type: object
     required:
-    - active
+    - enabled
     properties:
-      active:
-        $ref: '#/definitions/alertIsActive'
+      enabled:
+        $ref: '#/definitions/alertEnabled'
       properties:
         description: Properties to configure the alert
         type: array
