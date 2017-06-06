@@ -81,12 +81,9 @@ consumes:
 produces:
   - application/json
 
-
-  
 paths:
 
   '/':
-# [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : OperationId must be present and non-empty string]: Field 'operationId' required in operation 'get' of path '/'
     get:
       tags:
       - Global
