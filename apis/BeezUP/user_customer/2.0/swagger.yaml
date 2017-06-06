@@ -917,6 +917,19 @@ definitions:
         href: /v2/user/customer/offers
         method: GET
 
+  links.getOfferLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/customer/offers
+        method: POST
+        parameters:
+          request:
+            in: body
+            required: true
+            type: object
+            schema: offerRequest
+
   
   links.getBillingPeriodsLink:
     allOf:
@@ -1161,6 +1174,9 @@ definitions:
         $ref: '#/definitions/links.getBillingPeriodsLink'
       standardOffers:
         $ref: '#/definitions/links.getStandardOffersLink'
+      offer:
+        $ref: '#/definitions/links.getOfferLink'
+      
       friendInfo:
         $ref: '#/definitions/links.getFriendInfoLink'
 
