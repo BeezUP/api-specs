@@ -662,7 +662,7 @@ paths:
         '200':
           description: Get the billing periods conditions
           schema:
-            $ref: '#/definitions/billingPeriods'
+            $ref: '#/definitions/billingPeriodList'
         304:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         default:
@@ -1221,6 +1221,7 @@ definitions:
     type: object
     required:
     - links
+    - shares
     properties:
       links:
         $ref: '#/definitions/storeSharesLinks'
@@ -1278,7 +1279,6 @@ definitions:
     - links
     - stores
     properties:
-# [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
       links:
         $ref: '#/definitions/storeListLinks'
 # [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
@@ -1414,13 +1414,14 @@ definitions:
     items:
       $ref: '#/definitions/storeSector'
     example:
-    - 1
+    - ANIMALERIE
+    - AUTOMOTO
 
 
   storeSector:
     description: The store's sector based on the list of values /user/lov/ParamSector
-    type: integer
-    example: 1
+    type: string
+    example: ANIMALERIE
     x-lov: ParamSector
 
 
@@ -1691,6 +1692,8 @@ definitions:
 
   contracts:
     type: object
+    required: 
+    - links
     properties:
       links:
         $ref: '#/definitions/contractsLinks'
@@ -2371,6 +2374,8 @@ definitions:
   contractBonusInfo:
     description: Describe the bonus information related to your current contract.
     type: object
+    required: 
+    - bonuses
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
@@ -2383,6 +2388,8 @@ definitions:
   fixedAndVariableClickModelInfo:
     description: 'Internal usage: Old offer type. Describe the fix and variable model information'
     type: object
+    required: 
+    - clickIncludedAndAdditionalClickPrices
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
@@ -2396,6 +2403,10 @@ definitions:
   variableModelInfo:
     description: 'Internal usage: Old offer type. Describe the fix and variable model information'
     type: object
+    required: 
+    - clickIncludedAndVariablePrices
+    - overflowClickCount
+    - overflowClickPrice
     properties:
 # [Style Validator (b57732e9-e6c7-445c-a1ac-7b5d3d516607) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (0607dff4-da5f-40b0-beeb-505fcecb5589) : All model properties must have examples]: Field 'example' required in 'properties'
@@ -2421,6 +2432,9 @@ definitions:
        # description: Documentation not available
   bonusInfo:
     type: object
+    required: 
+    - bonusType
+    - amount
     properties:
       bonusType:
         $ref: '#/definitions/bonusType'
@@ -2957,6 +2971,9 @@ definitions:
 
   standardOffers:
     type: object
+    required: 
+    - offers
+    - functionalities
     properties:
       offers:
         description: All standard offers
@@ -3040,6 +3057,9 @@ definitions:
           text: Marketplace management
   functionality:
     type: object
+    required: 
+    - code
+    - order
     properties:
       code:
         description: The functionality code
@@ -3075,11 +3095,20 @@ definitions:
         type: string
         example: Marketplace management
 
-  billingPeriods:
+  billingPeriodListLinks:
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.getBillingPeriodsLink'
+
+  billingPeriodList:
     type: object
     required:
+    - links
     - billingPeriods
     properties:
+      links:
+        $ref: '#/definitions/billingPeriodListLinks'
       billingPeriods:
         description: The billing period list
         type: array
