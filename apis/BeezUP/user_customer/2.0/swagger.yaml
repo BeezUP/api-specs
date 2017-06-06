@@ -1170,12 +1170,7 @@ definitions:
         $ref: '#/definitions/links.GetCustomerIndexLink'
       accountInfo:
         $ref: '#/definitions/links.getUserAccountInfoLink'
-      billingPeriods:
-        $ref: '#/definitions/links.getBillingPeriodsLink'
-      standardOffers:
-        $ref: '#/definitions/links.getStandardOffersLink'
-      getOffer:
-        $ref: '#/definitions/links.getOfferLink'
+        
       
       friendInfo:
         $ref: '#/definitions/links.getFriendInfoLink'
@@ -1187,13 +1182,19 @@ definitions:
       stores:
         $ref: '#/definitions/links.getStoresLink'
 
+
+      billingPeriods:
+        $ref: '#/definitions/links.getBillingPeriodsLink'
+      standardOffers:
+        $ref: '#/definitions/links.getStandardOffersLink'
+      getOffer:
+        $ref: '#/definitions/links.getOfferLink'
+
       invoices:
         $ref: '#/definitions/links.getInvoicesLink'
 
       contracts:
         $ref: '#/definitions/links.getContractsLink'
-
-
 
 
   customerIndexLovLinks:
