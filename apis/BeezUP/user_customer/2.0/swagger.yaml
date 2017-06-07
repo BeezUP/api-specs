@@ -513,6 +513,30 @@ paths:
 
 
 
+  '/stores/{storeId}/shares/{userId}':
+    delete:
+      tags:
+        - Shares
+      summary: Delete a share of a store to another user
+      operationId: DeleteStoreShare
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
+        - name: userId
+          in: path
+          description: The friend user id
+          required: true
+          type: string
+          format: guid
+      responses:
+        '204':
+          description: Share deleted
+        '404':
+          description: Store not found or customer not the owner
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+
   '/friends/{userId}':
     get:
       tags:
@@ -541,30 +565,6 @@ paths:
             
             
  
-  '/stores/{storeId}/shares/{userId}':
-    delete:
-      tags:
-        - Shares
-      summary: Delete a share to another user
-      operationId: DeleteShare
-      parameters:
-        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
-        - name: userId
-          in: path
-          description: The friend user id
-          required: true
-          type: string
-          format: guid
-      responses:
-        '204':
-          description: Share deleted
-        '404':
-          description: Store not found or customer not the owner
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
-
-
             
   '/stores/{storeId}/rights':
     post:
@@ -964,7 +964,7 @@ definitions:
             required: true
 
 
-  links.deleteShareStoreLink:
+  links.deleteStoreShareLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
@@ -1257,7 +1257,7 @@ definitions:
     type: object
     properties:
       deleteShare:
-        $ref: '#/definitions/links.deleteShareStoreLink'
+        $ref: '#/definitions/links.deleteStoreShareLink'
    
  
   storeListLinks:
