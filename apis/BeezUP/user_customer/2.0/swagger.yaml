@@ -89,7 +89,6 @@ paths:
       - Global
       summary: The index of all operations and LOV
       operationId: GetCustomerIndex
-      position: 1
       parameters:
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
