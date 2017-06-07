@@ -58,6 +58,8 @@ tags:
   description: All global operations 
 - name: Account
   description: All user account operations 
+- name: Security
+  description: All security operations
 - name: Stores
   description: All stores operations
 - name: Shares
@@ -72,8 +74,6 @@ tags:
   description: All contracts and offer operations
 - name: Invoices
   description: All invoice operations
-- name: Security
-  description: All security operations
   
 
 consumes:
@@ -463,6 +463,90 @@ paths:
 
 
 
+  '/stores/{storeId}/rights':
+    post:
+      tags:
+        - Rights
+      summary: Get store's rights
+      operationId: GetRights
+      deprecated: true
+      parameters:
+
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
+        - name: functionalityCodeList
+          in: body
+          description: The functionality code list you want to check
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: The store's rights
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/functionalityRightInfo'
+        '403':
+          description: Functionality not found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries'
+        '404':
+          description: Store not found or not authorized
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+ 
+  '/stores/{storeId}/alerts':
+    get:
+      tags:
+      - Alerts
+      summary: Get store's alerts
+      operationId: GetStoreAlerts
+      parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
+      
+      responses:
+        '200':
+          description: User account alerts information
+          schema:
+            $ref: '#/definitions/storeAlerts'
+        304:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
+        '404':
+          description: Store not found or not authorized
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+        
+    post:
+      tags:
+      - Alerts
+      summary: Save store alerts
+      description: You just have to send the alert you want to update, does not need all alerts. (PARTIAL UPDATE ACCEPTED)
+      operationId: SaveStoreAlerts
+      parameters:
+      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
+      - name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/saveStoreAlertsRequest'
+      responses:
+        '204':
+          description: Store alerts saved
+        '400':
+          description: BadRequest
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        '404':
+          description: Store not found or not authorized
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+
+
   '/stores/{storeId}/shares':
     get:
       tags:
@@ -565,87 +649,6 @@ paths:
             
             
  
-            
-  '/stores/{storeId}/rights':
-    post:
-      tags:
-        - Rights
-      summary: Get store's rights
-      operationId: GetRights
-      deprecated: true
-      parameters:
-
-        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
-        - name: functionalityCodeList
-          in: body
-          description: The functionality code list you want to check
-          required: true
-          schema:
-            type: array
-            items:
-              type: string
-      responses:
-        '200':
-          description: The store's rights
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/functionalityRightInfo'
-        '403':
-          description: Functionality not found
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries'
-        '404':
-          description: Store not found or not authorized
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
- 
-  '/stores/{storeId}/alerts':
-    get:
-      tags:
-      - Alerts
-      summary: Get store's alerts
-      operationId: GetStoreAlerts
-      parameters:
-      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
-      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
-      
-      responses:
-        '200':
-          description: User account alerts information
-          schema:
-            $ref: '#/definitions/storeAlerts'
-        304:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
-        '404':
-          description: Store not found or not authorized
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-        
-    post:
-      tags:
-      - Alerts
-      summary: Save store alerts
-      description: You just have to send the alert you want to update, does not need all alerts. (PARTIAL UPDATE ACCEPTED)
-      operationId: SaveStoreAlerts
-      parameters:
-      - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
-      - name: request
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/saveStoreAlertsRequest'
-      responses:
-        '204':
-          description: Store alerts saved
-        '400':
-          description: BadRequest
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-        '404':
-          description: Store not found or not authorized
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
   '/billingPeriods':
     get:
@@ -879,6 +882,9 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
   
 
+
+
+            
 
 
 
