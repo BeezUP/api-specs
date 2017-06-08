@@ -2541,12 +2541,10 @@ definitions:
         description: Filter with a list of product identifier
         items:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductId'
-# [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
       sku:
         description: Search for products containing this SKU (merchant product dentifier).
         type: string
         example: MySku123
-# [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
       title:
         description: Search for products containing this title
         type: string
