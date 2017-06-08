@@ -36,7 +36,8 @@ x-beezup-api-ops:
   useBeezUPFrameworkVersion2: true
   apiName: V2UserCatalogs
   comment: |
-    Put in place dev branch.
+    Add product count on category
+    Improve some types
 
 x-basePath: /v2/user/catalogs
 
