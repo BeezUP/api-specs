@@ -455,7 +455,7 @@ paths:
               items:
                 type: string
           schema:
-            $ref: '#/definitions/categories'
+            $ref: '#/definitions/categoryList'
         '404':
           description: StoreId not found
         default:
@@ -2553,7 +2553,7 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'        
       
   
-  categories:
+  categoryList:
     description: The object which contains the category list
     type: object
     properties:
