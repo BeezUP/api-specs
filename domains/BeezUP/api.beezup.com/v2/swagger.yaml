@@ -144,6 +144,15 @@ responses:
 definitions:
 
 
+  BeezUP.Common.PaginationRequestParameters:
+    type: object
+    properties:
+      pageSize:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/pageSize'
+      pageNumber:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/pageNumber'
+
+
   BeezUP.Common.PageSize:
     description: Indicate the item count per page
     type: integer
