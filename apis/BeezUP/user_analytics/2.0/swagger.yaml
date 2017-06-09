@@ -1568,6 +1568,18 @@ definitions:
         type: number
         description: The performance indicator based on the performance indicator formula indicated in the request for this product
         example: 10.12
+        
+      totalSales:
+        type: number
+        description: The total sales related to this product
+        example: 234.42
+      
+      soldCount:
+        type: integer
+        description: The product sold count count for this product
+        example: 2
+        
+        
       links:
         $ref: '#/definitions/reportByProductLinks'
 
