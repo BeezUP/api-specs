@@ -144,6 +144,24 @@ responses:
 definitions:
 
 
+  BeezUP.Common.PageSize:
+    description: Indicate the item count per page
+    type: integer
+    format: int32
+    default: 100
+    minimum: 25
+    maximum: 100
+    example: 100
+
+  BeezUP.Common.PageNumber:
+    description: Indicates the page number
+    format: int32
+    type: integer
+    example: 1
+    minimum: 1
+    default: 1
+
+
 
   BeezUP.Common.CatalogCategoryFilter:
     type: object
