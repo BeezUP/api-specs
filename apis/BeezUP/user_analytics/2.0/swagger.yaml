@@ -1492,12 +1492,18 @@ definitions:
     
   reportByProductOneChannelLinks:
     type: object
+    description: If the report concerned one product for one channel the channel catalog proudct info will give you all you need to enable or disable the product.
+    required: 
+    - productInfo
     properties:
       productInfo:
         $ref: '#/definitions/links.GetChannelCatalogProductInfoLink'
 
   reportByProductAllChannelsLinks:
     type: object
+    required:
+    - enableProductForAllChannels
+    - disableProductForAllChannels
     properties:
       enableProductForAllChannels:
         $ref: '#/definitions/links.OptimiseByProductLink'
@@ -1505,6 +1511,7 @@ definitions:
         $ref: '#/definitions/links.OptimiseByProductLink'
 
   reportByProductLinks:
+    description: Depending if the report concerned multiple channels or one channel.
     type: object
     properties:
       oneChannelLinks:
