@@ -1492,7 +1492,7 @@ definitions:
     
   reportByProductOneChannelLinks:
     type: object
-    description: If the report concerned one product for one channel the channel catalog proudct info will give you all you need to enable or disable the product.
+    description: If the report concerned one product for one channel the channel catalog product info will give you all you need to enable or disable the product.
     required: 
     - productInfo
     properties:
