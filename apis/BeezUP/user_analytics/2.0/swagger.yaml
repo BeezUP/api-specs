@@ -34,6 +34,7 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
+    Clarify the links for reportProduct
     Add pagination parameters
 
 
