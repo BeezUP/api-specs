@@ -1490,20 +1490,27 @@ definitions:
 
   
     
-  
-  reportByProductLinks:
+  reportByProductOneChannelLinks:
     type: object
     properties:
-      editProduct:
+      productInfo:
         $ref: '#/definitions/links.GetChannelCatalogProductInfoLink'
-      enableProductForOneChannel:
-        $ref: '#/definitions/links.OptimiseByProductLink'
-      disableProductForOneChannel:
-        $ref: '#/definitions/links.OptimiseByProductLink'
+
+  reportByProductAllChannelsLinks:
+    type: object
+    properties:
       enableProductForAllChannels:
         $ref: '#/definitions/links.OptimiseByProductLink'
       disableProductForAllChannels:
         $ref: '#/definitions/links.OptimiseByProductLink'
+
+  reportByProductLinks:
+    type: object
+    properties:
+      oneChannelLinks:
+        $ref: '/#definitions/reportByProductOneChannelLinks'
+      allChannelsLinks:
+        $ref: '/#definitions/reportByProductAllChannelsLinks'
 
 
       
