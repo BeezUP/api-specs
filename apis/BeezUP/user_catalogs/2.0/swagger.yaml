@@ -137,6 +137,27 @@ parameters:
     
 paths:
 
+
+
+  '/':
+    get:
+      tags:
+        - Global
+      operationId: CatalogIndex
+      summary: Get the index of the catalog API
+      description: The operation will give you all the operations you will be able to do and all the LOV used in this API.
+
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/catalogIndex'            
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+
+
   '/beezupColumns':
     get:
       tags:
@@ -1583,6 +1604,78 @@ definitions:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/autoImport/activate
         method: POST
 
+  links.Catalog_GetBeezUPColumnsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/beezupColumns
+        method: GET
+
+
+  links.CatalogIndexLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs
+        method: GET
+  
+
+  catalogIndexLinks:
+    type: object
+    required:
+    - self
+    - beezUPColumns
+    properties:
+      self:
+        $ref: '#/definitions/links.CatalogIndexLink'
+      beezUPColumns:
+        $ref: '#/definitions/links.Catalog_GetBeezUPColumnsLink'
+
+
+  catalogIndexLOVLinks:
+    type: object
+    required:
+    - beezUPColumnLov
+    - beezUPColumnDataTypeLov
+    - beezUPColumnImportanceLov
+    - beezUPColumnDisplayGroupLov
+    - duplicateProductValueStrategyLov
+    - compareOptionLov
+    properties:
+      beezUPColumnLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      beezUPColumnDataTypeLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      beezUPColumnImportanceLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      beezUPColumnDisplayGroupLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      duplicateProductValueStrategyLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      compareOptionLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+
+
+
+  catalogIndex:
+    type: object
+    required:
+    - links
+    - lovLinks
+    properties:
+      links:
+        $ref: '#/definitions/catalogIndexLinks'
+      lovLinks:
+        $ref: '#/definitions/catalogIndexLOVLinks'
+        
+
+
+
+  catalogStoreIndex:
+    type: object
+    properties:
+      links:
+        $ref: '#/definitions/catalogIndexLinks'
 
   importAlreadyInProgressResponse:
     type: object
@@ -2368,7 +2461,6 @@ definitions:
     - beginUtcDate
     - lastUpdateUtcDate
     - steps
-    
     properties:
       stepName:
         description: The last step name of the importation process
