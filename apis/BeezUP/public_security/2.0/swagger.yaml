@@ -31,9 +31,10 @@ x-beezup-api-ops:
   appRoot: BeezUP.Customer.WebService
   namespace: BeezUP.Customer.WebService
   comment: |
-    Change the product name from BeezUP API to UserApi to correspond to the reality
+    No change. Just server side generation.
 
 x-basePath: /v2/public/security
+
 
 schemes:
   - https
