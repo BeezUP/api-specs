@@ -12,7 +12,7 @@ info:
     url: http://www.beezup.com
   
   x-changeComment: |
-    Remove the groups opreations
+    No change. Server side regeneration.
 
 
  
@@ -21,8 +21,15 @@ basePath: /v2/user/lov
 schemes:
   - https
 
-x-api-name: UserLOV
-x-api-namespace: BeezUP.Framework.LOV.WebService
+x-beezup-api-ops:
+  repo: LOVWebService
+  appRoot: BeezUP.Framework.LOV.WebService
+  namespace: BeezUP.Framework.LOV.WebService
+  apiName: V2UserLOV
+  comment: |
+    Put in place dev branch.
+    
+x-basePath: /v2/user/lov
 
 consumes:
   - application/json
@@ -63,9 +70,9 @@ paths:
                 Indicates the directive around the caching mechanisms.\
                 For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
           schema:
             $ref: '#/definitions/userLovIndex'
         304:
@@ -80,9 +87,9 @@ paths:
                 Indicates the directive around the caching mechanisms.\
                 For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
           
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -115,15 +122,15 @@ paths:
                 Indicates the directive around the caching mechanisms.\
                 For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
             Content-Language:
               description: Indicates the language use in the response
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
               
               
           schema:
@@ -140,9 +147,9 @@ paths:
                 Indicates the directive around the caching mechanisms.\
                 For more information, please go to this link: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
               type: array
+              collectionFormat: csv
               items:
                 type: string
-                collectionFormat: csv
 
         404:
           description: List not found
@@ -206,6 +213,7 @@ definitions:
       links:
         $ref: '#/definitions/userListOfValuesResponseLinks'
 # [Style Validator (0015615c-61c2-47a4-b7b1-da373f4df0ef) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (d34d4816-d4b3-41fd-92a9-4ce2f969f3c5) : All model properties must have examples]: Field 'example' required in 'properties'
       items:
         type: array
         items:
