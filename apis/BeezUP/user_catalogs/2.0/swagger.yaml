@@ -168,7 +168,7 @@ paths:
 
       responses:
         '200':
-          description: OK
+          description: The catalog API index
           schema:
             type: array
             items:
@@ -177,6 +177,27 @@ paths:
             
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
+
+
+  '/{storeId}':
+    get:
+      tags:
+        - Catalog
+      operationId: CatalogStoreIndex
+      summary: Get the index of the catalog API for this store
+      description: The operation will give you all the operations you will be able to do on this store for this API.
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
+
+      responses:
+        '200':
+          description: The catalog index
+          schema:
+            $ref: '#/definitions/catalogStoreIndex'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
 
 
 
@@ -494,6 +515,7 @@ paths:
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
         - name: request
+          required: true
           in: body
           schema:
             $ref: '#/definitions/getProductsRequest'
@@ -1619,6 +1641,146 @@ definitions:
         href: /v2/user/catalogs
         method: GET
   
+  links.CatalogStoreIndexLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3
+        method: GET
+
+
+  links.Auto_GetAutoImportConfigurationLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/autoImport
+        method: GET
+
+  links.Auto_StartAutoImportLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/autoImport/start
+        method: POST
+
+  links.Auto_PauseAutoImportLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/autoImport/pause
+        method: POST
+
+  links.Auto_ResumeAutoImportLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/autoImport/resume
+        method: POST
+
+  links.Auto_ConfigureAutoImportIntervalLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/autoImport/scheduling/interval
+        method: POST
+        parameters:
+          request:
+            in: body
+            required: true
+            type: object
+            schema: configureAutoImportIntervalRequest
+
+
+  links.Auto_ScheduleAutoImportLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/autoImport/scheduling/schedules
+        method: POST
+        parameters:
+          request:
+            in: body
+            required: true
+            type: object
+            schema: scheduleAutoImportRequest
+
+
+  links.Importation_GetReportingsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations
+        method: GET
+    
+
+  links.Importation_StartManualUpdateLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/start
+        method: POST
+        parameters:
+          request:
+            in: body
+            required: true
+            type: object
+            schema: startManualImportRequest
+
+
+
+
+
+  links.Importation_GetManualUpdateLastInputConfigLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/inputConfiguration
+        method: GET
+
+  links.Catalog_GetCatalogColumnsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/catalogColumns
+        method: GET
+  
+  links.Catalog_GetCustomColumnsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/customColumns
+        method: GET
+
+  links.Catalog_GetCategoriesLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/categories
+        method: GET
+
+
+  links.Catalog_GetProductsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/products/list
+        method: POST
+        parameters:
+          request:
+            in: body
+            required: true
+            type: object
+            schema: getProductsRequest
+
+
+  links.Catalog_GetRandomProductsLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/products/random
+        method: GET
+
+
 
   catalogIndexLinks:
     type: object
@@ -1667,15 +1829,68 @@ definitions:
         $ref: '#/definitions/catalogIndexLinks'
       lovLinks:
         $ref: '#/definitions/catalogIndexLOVLinks'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
+      stores:
+        description: The key is the store identifier.
+        additionalProperties:
+          $ref: '#/definitions/catalogStoreIndex'
+        
+
+  catalogStoreIndexLinks:
+    type: object
+    required:
+    - self
+    properties:
+      self:
+        $ref: '#/definitions/links.CatalogStoreIndexLink'
+      inputConfiguration:
+        $ref: '#/definitions/links.Importation_GetManualUpdateLastInputConfigLink'
+      autoImportInfo:
+        $ref: '#/definitions/links.Auto_GetAutoImportConfigurationLink'
+      importations:
+        $ref: '#/definitions/links.Importation_GetReportingsLink'
+      startImportation:
+        $ref: '#/definitions/links.Importation_StartManualUpdateLink'
+      catalogColumns:
+        $ref: '#/definitions/links.Catalog_GetCatalogColumnsLink'
+      customColumns:
+        $ref: '#/definitions/links.Catalog_GetCustomColumnsLink'
+      categories:
+        $ref: '#/definitions/links.Catalog_GetCategoriesLink'
+      products:
+        $ref: '#/definitions/links.Catalog_GetProductsLink'
+      randomProducts:
+        $ref: '#/definitions/links.Catalog_GetRandomProductsLink'
+        
+ 
+        
         
 
 
+  catalogStoreStatus:
+    description: |
+      Indicates the status of the catalog store.
+      * OK: If the latest importation is a success!
+      * Failed: If the latest importation has failed !
+      * Outdated: If the latest succeed importation is later than 1 day.
+    type: string
+    enum:
+    - OK
+    - Failed
+    - Outdated
 
   catalogStoreIndex:
     type: object
+    required:
+    - links
+    - status
     properties:
       links:
-        $ref: '#/definitions/catalogIndexLinks'
+        $ref: '#/definitions/catalogStoreIndexLinks'
+      status:
+        $ref: '#/definitions/catalogStoreStatus'
+        
+      
 
   importAlreadyInProgressResponse:
     type: object
@@ -1745,6 +1960,29 @@ definitions:
     type: string
     default: None
     example: IgnoreCase
+
+
+  autoImportConfigurationLinks:
+    type: object
+    required:
+    - self
+    properties:
+      self:
+        $ref: '#/definitions/links.Auto_GetAutoImportConfigurationLink'
+      activate:
+        $ref: '#/definitions/links.Importation_ActivateAutoImportLink'
+      start:
+        $ref: '#/definitions/links.Auto_StartAutoImportLink'
+      pause:
+        $ref: '#/definitions/links.Auto_PauseAutoImportLink'
+      resume:
+        $ref: '#/definitions/links.Auto_ResumeAutoImportLink'
+      scheduleInterval:
+        $ref: '#/definitions/links.Auto_ConfigureAutoImportIntervalLink'
+      schedule:
+        $ref: '#/definitions/links.Auto_ScheduleAutoImportLink'
+        
+
 
   autoImportConfiguration:
     type: object
