@@ -234,7 +234,7 @@ paths:
         '200':
           description: Catalog column list
           schema:
-            $ref: '#/definitions/catalogColumns'
+            $ref: '#/definitions/catalogColumnList'
         '404':
           description: StoreId not found
         default:
@@ -290,7 +290,7 @@ paths:
         '200':
           description: Custom column list
           schema:
-            $ref: '#/definitions/customColumns'
+            $ref: '#/definitions/customColumnList'
         '404':
           description: StoreId not found
         default:
@@ -603,9 +603,7 @@ paths:
         '200':
           description: The last importation reportings
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/importationReporting'
+            $ref: '#/definitions/importationsResponse'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -1024,9 +1022,13 @@ paths:
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
             Occurs when a catalog column is not found.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -1054,10 +1056,14 @@ paths:
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
             Occurs when a catalog column is not found.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         '409':
           description: Occurs when this importation is already finished.
 
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -1086,8 +1092,12 @@ paths:
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
             Occurs when a catalog column is not found.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -1123,8 +1133,12 @@ paths:
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
             Occurs when a catalog column is not found.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -1153,8 +1167,12 @@ paths:
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
             Occurs when a catalog column is not found.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -1177,15 +1195,19 @@ paths:
         '200':
           description: Custom columns of current Importation successfully retrieved
           schema:
-              $ref: '#/definitions/customColumns'
+              $ref: '#/definitions/customColumnList'
         '404':
           description: >-
             ExecutionId not found or not yet synchronized. If not synchronized
             within 30 sec, please contact our support
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: >-
             Catalog preparation read step is not completed. Please refer to the
             reporting of this execution for more details.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -1215,11 +1237,15 @@ paths:
           description: >-
             ExecutionId not found or not yet synchronized. If not synchronized
             within 30 sec, please contact our support
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: >-
             Catalog preparation read step is not completed. Please refer to the
             reporting of this execution for more details.
 
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -1252,8 +1278,12 @@ paths:
           description: |-
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -1278,6 +1308,8 @@ paths:
           description: |-
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -1309,8 +1341,12 @@ paths:
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
             Occurs when a catalog column is not found.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -1339,8 +1375,12 @@ paths:
             Occurs when a user tries to work on the wrong store.
             Occurs when the message concerns the wrong execution.
             Occurs when a catalog column is not found.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: Occurs when this importation is already finished.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -1375,6 +1415,8 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '404':
           description: Occurs when a user tries to work on the wrong store.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: When a catalog importation is already in progress!
           schema:
@@ -1399,6 +1441,8 @@ paths:
             $ref: '#/definitions/autoImportConfiguration'
         '404':
           description: StoreId or Auto Import configuration not found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -1416,8 +1460,12 @@ paths:
           description: Auto import deleted
         '400':
           description: Occurs when the catalog auto import is not configured.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '404':
           description: Occurs when a user tries to work on the wrong store.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -1457,6 +1505,8 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '404':
           description: Occurs when a user tries to work on the wrong store.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '409':
           description: When a catalog importation is already in progress!
           schema:
@@ -1481,8 +1531,12 @@ paths:
           description: Auto import paused
         '400':
           description: Occurs when the catalog auto import is not configured.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '404':
           description: Occurs when a user tries to work on the wrong store.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -1502,8 +1556,12 @@ paths:
           description: Auto import resumed
         '400':
           description: Occurs when the catalog auto import is not configured.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '404':
           description: Occurs when a user tries to work on the wrong store.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -1535,6 +1593,8 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '404':
           description: Occurs when a user tries to work on the wrong store.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -1569,11 +1629,97 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         '404':
           description: Occurs when a user tries to work on the wrong store.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
     
 definitions:
+
+
+  links.Catalog_ChangeCatalogColumnUserNameLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/catalogColumns/b45c1999-e089-4bb1-a219-80a7a50a6f53/rename
+        method: POST
+        parameters:
+          request:
+            in: body
+            required: true
+            type: object
+            schema: changeUserColumnNameRequest
+
+
+
+  links.Importation_ConfigureCatalogColumnLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/catalogColumns/b45c1999-e089-4bb1-a219-80a7a50a6f53
+        method: POST
+        parameters:
+          request:
+            in: body
+            required: true
+            type: object
+            schema: configureCatalogColumnCatalogRequest
+
+
+  links.Importation_IgnoreColumnLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/catalogColumns/b45c1999-e089-4bb1-a219-80a7a50a6f53/ignore
+        method: POST
+
+  links.Importation_ReattendColumnLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/catalogColumns/b45c1999-e089-4bb1-a219-80a7a50a6f53/reattend
+        method: POST
+
+  links.Importation_MapCatalogColumnLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/catalogColumns/b45c1999-e089-4bb1-a219-80a7a50a6f53/map
+        method: POST
+        parameters:
+          request:
+            in: body
+            required: true
+            type: object
+            schema: mapBeezUPColumnRequest
+
+
+  links.Importation_UnmapCatalogColumnLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/catalogColumns/b45c1999-e089-4bb1-a219-80a7a50a6f53/map
+        method: POST
+
+  links.Catalog_ComputeExpressionLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/customColumns/computeExpression
+        method: POST
+        parameters:
+          request:
+            in: body
+            required: true
+            type: object
+            schema: computeExpressionRequest
+
+
+
+
+
+
 
   links.Importation_GetImportationMonitoringLink:
     allOf:
@@ -1751,6 +1897,69 @@ definitions:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/customColumns
         method: GET
 
+
+  links.Catalog_SaveCustomColumnLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/customColumns/{columnId}
+        method: POST
+        parameters:
+          columnId:
+            type: string
+            required: true
+            in: path
+          request:
+            type: object
+            required: true
+            in: body
+            schema: createCustomColumnRequest
+
+  links.Catalog_DeleteCustomColumnLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/customColumns/5b56bb78-bc0b-485e-abd8-8db7eed995cb
+        method: DELETE
+
+
+  links.Catalog_ChangeCustomColumnUserNameLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/customColumns/5b56bb78-bc0b-485e-abd8-8db7eed995cb/rename
+        method: POST
+        parameters:
+          request:
+            type: object
+            required: true
+            in: body
+            schema: changeUserColumnNameRequest
+
+
+
+  links.Catalog_GetCustomColumnExpressionLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/customColumns/5b56bb78-bc0b-485e-abd8-8db7eed995cb/expression
+        method: GET
+
+  links.Catalog_ChangeCustomColumnExpressionLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/customColumns/5b56bb78-bc0b-485e-abd8-8db7eed995cb/expression
+        method: PUT
+        parameters:
+          request:
+            type: object
+            required: true
+            in: body
+            schema: changeCustomColumnExpressionRequest
+
+
+
   links.Catalog_GetCategoriesLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -1861,6 +2070,9 @@ definitions:
         $ref: '#/definitions/links.Catalog_GetProductsLink'
       randomProducts:
         $ref: '#/definitions/links.Catalog_GetRandomProductsLink'
+      computeExpression:
+        $ref: '#/definitions/links.Catalog_ComputeExpressionLink'
+        
         
  
         
@@ -1878,6 +2090,7 @@ definitions:
     - OK
     - Failed
     - Outdated
+    example: OK
 
   catalogStoreIndex:
     type: object
@@ -1891,6 +2104,33 @@ definitions:
         $ref: '#/definitions/catalogStoreStatus'
         
       
+
+  importationsResponseLinks:
+    type: object
+    properties:
+      self:
+        $ref: '#/definitions/links.Importation_GetReportingsLink'
+      start:
+        $ref: '#/definitions/links.Importation_StartManualUpdateLink'
+        
+  importationsResponse:
+    type: object
+    properties:
+      links:
+        $ref: '#/definitions/importationsResponseLinks'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
+      importations:
+        type: array
+        items:
+          $ref: '#/definitions/importationReporting'
+
+
+
+
+
+
+
+
 
   importAlreadyInProgressResponse:
     type: object
@@ -2503,28 +2743,43 @@ definitions:
         description: Contains all deteted catalog columns
         type: array
         items:
-         $ref: '#/definitions/detectedCatalogColumn'
-          
+          $ref: '#/definitions/detectedCatalogColumn'
+
+
+  detectedCatalogColumnLinks:
+    type: object
+    properties:
+      configure:
+        $ref: '#/definitions/links.Importation_ConfigureCatalogColumnLink'
+      ignore:
+        $ref: '#/definitions/links.Importation_IgnoreColumnLink'
+      reattend:
+        $ref: '#/definitions/links.Importation_ReattendColumnLink'
+      map:
+        $ref: '#/definitions/links.Importation_MapCatalogColumnLink'
+      unmap:
+        $ref: '#/definitions/links.Importation_UnmapCatalogColumnLink'
+
   detectedCatalogColumn:
     allOf:
     - $ref: '#/definitions/catalogColumn'
     - type: object
       description: The catalog column detected during the first parsing step
       required:
-      - columnId
+      - id
       - catalogColumnName
       - detected
+      - links
       properties:
-        columnId:
-          $ref: '#/definitions/columnId'
-        catalogColumnName:
-          $ref: '#/definitions/catalogColumnName'
         detected:
           description: Indicates if the column is detected or is from the current catalog
           type: boolean
           example: true
         existingConfiguration:
           $ref: '#/definitions/existingCatalogColumnConfiguration'
+        links:
+          $ref: '#/definitions/detectedCatalogColumnLinks'
+
           
           
   existingCatalogColumnConfiguration:
@@ -2571,8 +2826,10 @@ definitions:
         $ref: '#/definitions/catalogColumn'
   
   
-  catalogColumns:
+  catalogColumnList:
     type: object
+    required:
+    - catalogColumns
     properties:
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
@@ -2581,9 +2838,27 @@ definitions:
         items:
           $ref: '#/definitions/catalogColumn'
 
-  customColumns:
+
+
+  customColumnListLinks:
     type: object
+    required:
+    - self
     properties:
+      self:
+        $ref: '#/definitions/links.Catalog_GetCustomColumnsLink'
+      add:
+        $ref: '#/definitions/links.Catalog_SaveCustomColumnLink'
+
+  customColumnList:
+    type: object
+    required:
+    - links
+    - customColumns
+    properties:
+      links:
+        $ref: '#/definitions/customColumnListLinks'
+        
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       customColumns:
@@ -2591,6 +2866,15 @@ definitions:
         items:
           $ref: '#/definitions/customColumn'
   
+
+  catalogColumnLinks:
+    type: object
+    properties:
+      rename:
+        $ref: '#/definitions/links.Catalog_ChangeCatalogColumnUserNameLink'
+
+
+
   catalogColumn:
     description: The catalog column configuration
     required:
@@ -2598,6 +2882,7 @@ definitions:
       - catalogColumnName
       - userColumName
       - configuration
+      - links
     type: object
     properties:
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
@@ -2619,6 +2904,9 @@ definitions:
         $ref: '#/definitions/userColumName'
       configuration:
         $ref: '#/definitions/columnConfiguration'
+      links:
+        $ref: '#/definitions/catalogColumnLinks'
+
     example:
       ignored: true
       duplicateProductValueConfiguration:
@@ -2639,7 +2927,7 @@ definitions:
         
         
   duplicateProductValueConfiguration:
-    description: Describe how you 
+    description: Describe how you want to manage the duplication of the product value 
     required:
       - strategy
       - compareOptions
@@ -2820,7 +3108,21 @@ definitions:
       userColumName:
         $ref: '#/definitions/userColumName'
         
-        
+  
+  customColumnLinks:
+    type: object
+    properties:
+      save:
+        $ref: '#/definitions/links.Catalog_SaveCustomColumnLink'
+      delete:
+        $ref: '#/definitions/links.Catalog_DeleteCustomColumnLink'
+      rename:
+        $ref: '#/definitions/links.Catalog_ChangeCustomColumnUserNameLink'
+      expression:
+        $ref: '#/definitions/links.Catalog_GetCustomColumnExpressionLink'
+      saveExpression:
+        $ref: '#/definitions/links.Catalog_ChangeCustomColumnExpressionLink'
+
         
   customColumn:
     description: The custom column configuration
@@ -2836,6 +3138,9 @@ definitions:
         $ref: '#/definitions/userColumName'
       configuration:
         $ref: '#/definitions/columnConfiguration'
+      links:
+        $ref: '#/definitions/customColumnLinks'
+        
         
   
   products:
