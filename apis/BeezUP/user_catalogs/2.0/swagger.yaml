@@ -36,6 +36,7 @@ x-beezup-api-ops:
   useBeezUPFrameworkVersion2: true
   apiName: V2UserCatalogs
   comment: |
+    Integrate links !
     Add product count on category
     Improve some types
 
@@ -2886,7 +2887,7 @@ definitions:
 
       customColumns:
         $ref: '#/definitions/links.Importation_GetCustomColumnsLink'
-        
+
       productSamples:
         $ref: '#/definitions/links.Importation_GetProductSampleLink'
 
