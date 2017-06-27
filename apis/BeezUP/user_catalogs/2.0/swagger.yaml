@@ -3438,6 +3438,10 @@ definitions:
     description: The request message to get products based on these filters
     properties:
     
+      exists:
+        type: boolean
+        description: Search for existing products or not. If null you will received both.
+        example: true
 # [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       productIdList:
         type: array
