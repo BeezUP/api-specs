@@ -36,6 +36,7 @@ x-beezup-api-ops:
   useBeezUPFrameworkVersion2: true
   apiName: V2UserCatalogs
   comment: |
+    Add Product Exist
     Integrate links !
     Add product count on category
     Improve some types
@@ -544,7 +545,7 @@ paths:
         '200':
           description: Product list
           schema:
-            $ref: '#/definitions/products'
+            $ref: '#/definitions/productList'
         '404':
           description: StoreId not found
           schema:
@@ -576,7 +577,7 @@ paths:
         '200':
           description: Random product list
           schema:
-            $ref: '#/definitions/products'
+            $ref: '#/definitions/productList'
         '404':
           description: StoreId not found
           schema:
@@ -3410,7 +3411,7 @@ definitions:
 
 
   
-  products:
+  productList:
     type: object
     properties:
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
@@ -3422,6 +3423,11 @@ definitions:
         
   product:
     description: Represent a catalog product
+    required: 
+    - productId
+    - categoryId
+    - values
+    - exists
     properties:
       productId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductId'
@@ -3429,6 +3435,10 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryId'
       values:
         $ref: '#/definitions/productValues'
+      exists:
+        type: boolean
+        description: Indicates if the product exists in the current catalog
+        example: true
 
 
 
@@ -3463,6 +3473,8 @@ definitions:
   categoryList:
     description: The object which contains the category list
     type: object
+    required:
+    - categories
     properties:
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
