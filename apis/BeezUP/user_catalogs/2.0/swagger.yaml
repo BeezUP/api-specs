@@ -36,6 +36,7 @@ x-beezup-api-ops:
   useBeezUPFrameworkVersion2: true
   apiName: V2UserCatalogs
   comment: |
+    Add Product list columns filter
     Add Product list pagination and getproductsrequest pagination parameters
     Add Product Exist and add some required
     Integrate links !
@@ -561,19 +562,9 @@ paths:
         - Catalog
       operationId: Catalog_GetRandomProducts
       summary: Get random product list
-      
+      description: We will return 10 products randomly selected with all product values
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
-        - name: count
-          description: The count of random product you want to get 
-          in: query
-          required: false
-          type: integer
-          format: int32
-          default: 100
-          minimum: 25
-          maximum: 100
-          x-example: 25
       responses:
         '200':
           description: Random product list
@@ -3467,12 +3458,21 @@ definitions:
     required:
     - pageNumber
     - pageSize
+    - columnIdList
     properties:
     
       pageNumber:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PageNumber'
       pageSize:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PageSize'
+    
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
+      columnIdList:
+        type: array
+        minItems: 1
+        maxItems: 5
+        items:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogColumnId'
     
       exists:
         type: boolean
