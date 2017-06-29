@@ -36,6 +36,7 @@ x-beezup-api-ops:
   useBeezUPFrameworkVersion2: true
   apiName: V2UserCatalogs
   comment: |
+    Add Product list pagination and getproductsrequest pagination parameters
     Add Product Exist and add some required
     Integrate links !
     Add product count on category
@@ -577,7 +578,7 @@ paths:
         '200':
           description: Random product list
           schema:
-            $ref: '#/definitions/productList'
+            $ref: '#/definitions/randomProductList'
         '404':
           description: StoreId not found
           schema:
@@ -3410,10 +3411,27 @@ definitions:
         $ref: '#/definitions/importationCustomColumnLinks'
 
 
+  randomProductList:
+    type: object
+    required:
+    - products
+    properties:
+# [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
+      products:
+        type: array
+        items:
+          $ref: '#/definitions/product'
+  
   
   productList:
     type: object
+    required:
+    - paginationResult
+    - products
     properties:
+      paginationResult:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult'
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       products:
@@ -3446,7 +3464,15 @@ definitions:
   getProductsRequest:
     type: object
     description: The request message to get products based on these filters
+    required:
+    - pageNumber
+    - pageSize
     properties:
+    
+      pageNumber:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PageNumber'
+      pageSize:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PageSize'
     
       exists:
         type: boolean
