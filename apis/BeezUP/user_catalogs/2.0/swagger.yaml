@@ -2596,7 +2596,6 @@ definitions:
       - hasHeaderRecord
       - ignoreHeaderRecord
       - csvSeparator
-      - csvTextQualifier
     type: object
     properties:
       hasHeaderRecord:
