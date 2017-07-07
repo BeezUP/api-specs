@@ -214,36 +214,38 @@ definitions:
 
 
 
-
+  BeezUP.Common.AdditionalProductFiltersValue:
+    type: object
+    properties:
+  #      columnId:
+  #        type: string
+  #        format: guid
+  #        description: The column identifier of your catalog or a custom column.
+  #        example: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
+      operatorName:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilterOperatorName'
+      values:
+        description: |
+          Must be null if the operator is "IsNull" or "IsNotNull". 
+          Can contains multiple value in case of "InList" operator. Otherwise a single value is expected.
+        type: array
+        items:
+          type: string
+        example:
+          - My value
+    example:
+      '672644c7-5bd0-4e25-88c1-1f732bda5e4c':
+        operatorName: GreaterTo
+        values:
+          - 100
   BeezUP.Common.AdditionalProductFilters:
     type: object
     description: |
       Describe a filter on a product's column.
       The key is the column identifier of your catalog or a custom column.
     additionalProperties:
-      type: object
-      properties:
-#      columnId:
-#        type: string
-#        format: guid
-#        description: The column identifier of your catalog or a custom column.
-#        example: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
-        operatorName:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilterOperatorName'
-        values:
-          description: |
-            Must be null if the operator is "IsNull" or "IsNotNull". 
-            Can contains multiple value in case of "InList" operator. Otherwise a single value is expected.
-          type: array
-          items:
-            type: string
-          example:
-            - My value
-      example:
-        '672644c7-5bd0-4e25-88c1-1f732bda5e4c':
-          operatorName: GreaterTo
-          values:
-            - 100
+      $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.AdditionalProductFiltersValue'
+     
 
   BeezUP.Common.ProductFilterOperatorName:
     type: string
