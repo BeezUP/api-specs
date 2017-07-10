@@ -2195,7 +2195,7 @@ definitions:
         $ref: '#/definitions/catalogIndexLinks'
       lovLinks:
         $ref: '#/definitions/catalogIndexLOVLinks'
-      stores:
+      storeLinks:
         $ref: '#/definitions/catalogStoreIndexList'
         
   catalogStoreIndexList:
