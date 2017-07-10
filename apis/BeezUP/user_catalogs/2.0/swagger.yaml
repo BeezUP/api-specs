@@ -2198,7 +2198,6 @@ definitions:
 # [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       stores:
         description: The key is the store identifier.
-        type: array
         additionalProperties:
           type: array
           items:
