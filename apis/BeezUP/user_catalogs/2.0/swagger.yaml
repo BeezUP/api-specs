@@ -2195,13 +2195,18 @@ definitions:
         $ref: '#/definitions/catalogIndexLinks'
       lovLinks:
         $ref: '#/definitions/catalogIndexLOVLinks'
-# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       stores:
+        $ref: '#/definitions/catalogStoreIndexList'
+        
+  catalogStoreIndexList:
+    type: object
+    properties:
+# [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
+      links:
         description: The key is the store identifier.
         type: object
         additionalProperties:
           $ref: '#/definitions/catalogStoreIndex'
-        
 
   catalogStoreIndexLinks:
     type: object
