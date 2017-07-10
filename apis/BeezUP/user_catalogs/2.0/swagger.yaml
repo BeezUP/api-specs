@@ -2200,9 +2200,7 @@ definitions:
         description: The key is the store identifier.
         type: object
         additionalProperties:
-          type: object
-          items:
-            $ref: '#/definitions/catalogStoreIndex'
+          $ref: '#/definitions/catalogStoreIndex'
         
 
   catalogStoreIndexLinks:
