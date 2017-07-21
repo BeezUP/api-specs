@@ -12,12 +12,19 @@ info:
     url: "https://avatars0.githubusercontent.com/u/25665430"
     backgroundColor: "#FFFFFF"
     
-  x-changeComment: |
-    Link3 integrated
 
 host: api.beezup.com
 basePath: /v2/user/marketplaces/channelcatalogs
-x-host: api.beezup.com
+
+
+x-beezup-api-ops:
+  repo: MP2-PUB3-BackOffice
+  appRoot: BeezUP.MarketPlace2.Publication.BackOffice.WebService
+  namespace: BeezUP.MarketPlace2.Publication.BackOffice.WebService
+  apiName: V2UserMarketplacesChannelCatalogs
+  comment: |
+    Link3 integrated
+    
 x-basePath: /v2/user/marketplaces/channelcatalogs
 
 externalDocs: 
@@ -466,19 +473,21 @@ definitions:
     - example:
         href: /v2/user/marketplaces/channelcatatalogs/6a90fcfd-24c7-422e-a65f-aadb1725bbfe/properties
   
+  externalLinks.GetExternalConfigurationPageLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
 
-
-  
   channelCatalogMarketplacePropertiesLinks:
     type: object
     required:
     - self
-    - settings
     properties:
       self:
         $ref: '#/definitions/links.GetChannelCatalogMarketplacePropertiesLink'
       settings:
         $ref: '#/definitions/links.GetChannelCatalogMarketplaceSettingsLink'
+      externalConfigurationPage:
+        $ref: '#/definitions/externalLinks.GetExternalConfigurationPageLink'
   
   channelCatalogMarketplaceProperties:
     type: object
@@ -898,6 +907,7 @@ definitions:
       links:
         $ref: '#/definitions/marketplaceChannelCatalogListLinks'
 # [Style Validator (4a994891-7084-43d6-837c-76deda0681aa) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (ee8a4c75-7b52-4c2e-be8c-95d5387eb4e1) : All model properties must have examples]: Field 'example' required in 'properties'
       marketplaceChannelCatalogs:
         description: The list of marketplace channel catalog
         type: array
