@@ -23,7 +23,8 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.Publication.BackOffice.WebService
   apiName: V2UserMarketplacesChannelCatalogs
   comment: |
-    Link3 integrated
+    Adding Enabled field on Marketplace Channel Catalog object
+    Adding RedirectionPageUrl in Marketplace Channel Catalog Properties request
     
 x-basePath: /v2/user/marketplaces/channelcatalogs
 
@@ -155,10 +156,7 @@ paths:
           $ref: '#/responses/processingResponse'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
       deprecated: false
-
-      
       
   '/{channelCatalogId}/properties':
     get:
@@ -172,6 +170,11 @@ paths:
           required: true
           type: string
           format: guid
+        - name: redirectionPageUrl
+          in: query
+          required: true
+          type: string
+          format: uri
       responses:
         '200':
           description: Successfully fetched channel catalog properties
@@ -183,9 +186,7 @@ paths:
           $ref: '#/responses/processingResponse'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
-      
-  
+          
   '/{channelCatalogId}/settings':
     get:
       tags:
@@ -932,6 +933,7 @@ definitions:
     description: This object indicates you the association between a channel catalog and a marketplace. The account identifier will be automatically defined based on your marketplace merchant identfier.
     type: object
     required:
+    - enabled
     - marketplaceTechnicalCode
     - marketplaceBusinessCode
     - marketplaceMarketPlaceId
@@ -944,6 +946,10 @@ definitions:
     - lovLinks
     - links
     properties:
+      enabled:
+        description: The enabled status of the Channel Catalog
+        type: boolean
+        example: true
       marketplaceTechnicalCode: 
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceTechnicalCode'
       marketplaceBusinessCode:
@@ -969,7 +975,6 @@ definitions:
         description: The store name
         type: string
         example: My Store 1
- 
       marketplaceMerchantIdentifiers:
         type: object
         description: The marketplace merchant identifier list
@@ -979,10 +984,8 @@ definitions:
           'Ebay_PayPalEmailAddress': 'yourEbayId@paypal.com'
       marketplaceAccountId: 
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceAccountId'
-
       lovLinks:
        $ref: '#/definitions/marketplaceChannelCatalogLovLinks'
-
       links:
         $ref: '#/definitions/marketplaceChannelCatalogLinks'
       
