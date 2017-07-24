@@ -11,11 +11,9 @@ info:
   x-logo:
     url: "https://avatars0.githubusercontent.com/u/25665430"
     backgroundColor: "#FFFFFF"
-    
-
+  
 host: api.beezup.com
 basePath: /v2/user/marketplaces/channelcatalogs
-
 
 x-beezup-api-ops:
   repo: MP2-PUB3-BackOffice
@@ -37,8 +35,6 @@ x-servers:
   description: Mock Server
 - url: https://api.beezup.com/v2/user/marketplaces/channelcatalogs
   description: Production Server
-
-
 
 schemes:
   - https
@@ -65,7 +61,7 @@ securityDefinitions:
     type: apiKey
     name: Ocp-Apim-Subscription-Key
     in: header
- 
+
 security:
 - api_key: []
  
@@ -78,8 +74,6 @@ responses:
         type: integer
         format: int32
         x-example: 120
-
-
 
 paths:
   '/':
@@ -211,8 +205,7 @@ paths:
           $ref: '#/responses/processingResponse'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
-      
+    
     post:
       tags:
         - Settings
@@ -247,7 +240,6 @@ paths:
           $ref: '#/responses/processingResponse'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      
 
 definitions:
   
@@ -274,7 +266,7 @@ definitions:
     type: string
     example: Offers
     x-lov: MarketplacePublicationFeedType
- 
+  
   accountPublicationsLinks:
     type: object
     required:
@@ -282,7 +274,7 @@ definitions:
     properties:
       self:
         $ref: '#/definitions/links.GetPublicationsLink'
-        
+  
   accountPublications:
     description: The publication history for an account
     type: object
@@ -372,7 +364,7 @@ definitions:
                 errorMessage: ''
                 htmlReportUrl: http://www.myreporthtml.com
                 htmlReportGenerationErrorMessage: ''
-          
+  
   publicationReporting:
     description: 'Model for a publication reporting, can have multiple feeds'
     type: object
@@ -477,7 +469,7 @@ definitions:
   externalLinks.GetExternalConfigurationPageLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-
+  
   channelCatalogMarketplacePropertiesLinks:
     type: object
     required:
@@ -557,7 +549,7 @@ definitions:
               lovRequired: true
               minItems: 1
               maxItems: 2
-
+        
         - displayGroupCode: SalesConditions
           displayGroupPosition: 3       
           properties:
@@ -604,7 +596,7 @@ definitions:
               position: 1
               type: boolean
               required: false
-
+  
   channelCatalogMarketplacePropertyGroup:
     required:
     - displayGroupCode
@@ -646,7 +638,7 @@ definitions:
       - number
     type: string
     example: string
-
+  
   channelCatalogMarketplaceProperty:
     allOf: 
       - $ref: '#/definitions/channelCatalogMarketplaceSetting'
@@ -746,13 +738,12 @@ definitions:
       settings:
         $ref: '#/definitions/channelCatalogMarketplaceSettingArray'
   
-  
   links.GetChannelCatalogMarketplaceSettingsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/marketplaces/channelcatatalogs/6a90fcfd-24c7-422e-a65f-aadb1725bbfe/settings
-
+  
   links.SetChannelCatalogMarketplaceSettingsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -764,7 +755,7 @@ definitions:
             in: body
             type: object
             schema: setChannelCatalogMarketplaceSettingsRequest
-          
+  
   channelCatalogMarketplaceSettingsLinks:
     type: object
     required:
@@ -775,7 +766,6 @@ definitions:
         $ref: '#/definitions/links.GetChannelCatalogMarketplaceSettingsLink'
       save:
         $ref: '#/definitions/links.SetChannelCatalogMarketplaceSettingsLink'
-        
   
   channelCatalogMarketplaceSettings:
     description: The channel catalog marketplace settings
@@ -786,7 +776,6 @@ definitions:
     properties:
       links:
         $ref: '#/definitions/channelCatalogMarketplaceSettingsLinks'
-
 #        - href: /v2/user/marketplaces/channelcatatalogs/{channelCatalogId}/settings
 #          rel: SetChannelCatalogMarketplaceSettings
 #          operationId: SetChannelCatalogMarketplaceSettings
@@ -799,7 +788,6 @@ definitions:
 #          - name: request
 #            type: object
 #            in: body
-
       settings:
         type: array
         items:
@@ -838,7 +826,7 @@ definitions:
         - name: ShippingService
           values:
           - FR_ColiposteColissimo
-
+  
   channelCatalogMarketplaceSettingArray:
     type: array
     items:
@@ -896,8 +884,7 @@ definitions:
           type: string
         example:
           - myemail@mydomain.com
-          
-          
+  
   marketplaceChannelCatalogList:
     description: The marketplace channel catalog list
     type: object
@@ -914,13 +901,13 @@ definitions:
         type: array
         items: 
           $ref: '#/definitions/marketplaceChannelCatalog'
-
+  
   links.GetMarketplaceAccountStoresLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/marketplaces/channelcatalogs
-        
+  
   marketplaceChannelCatalogListLinks:
     type: object
     required:
@@ -928,7 +915,7 @@ definitions:
     properties:
       self:
         $ref: '#/definitions/links.GetMarketplaceAccountStoresLink'
-
+  
   marketplaceChannelCatalog:
     description: This object indicates you the association between a channel catalog and a marketplace. The account identifier will be automatically defined based on your marketplace merchant identfier.
     type: object
@@ -988,14 +975,13 @@ definitions:
        $ref: '#/definitions/marketplaceChannelCatalogLovLinks'
       links:
         $ref: '#/definitions/marketplaceChannelCatalogLinks'
-      
   
   links.GetPublicationsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/marketplaces/channelcatalogs/publications/Amazon/123/history
-
+  
   marketplaceChannelCatalogLovLinks:
     type: object
     description: Indicates the List Of Values related to the marketplace
@@ -1008,8 +994,7 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
       refundReasonCodeLOV:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
-
-    
+  
   marketplaceChannelCatalogLinks:
     description: Indicate the actions you can do on a channel catalog. If the settings are valid, you will be able to access to the publication history.
     type: object
@@ -1023,6 +1008,5 @@ definitions:
         $ref: '#/definitions/links.GetChannelCatalogMarketplaceSettingsLink'
       publications:
         $ref: '#/definitions/links.GetPublicationsLink'
-        
 
 x-azure-api-id: 'V2UserMarketplacesChannelCatalogs'
