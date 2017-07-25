@@ -298,10 +298,6 @@ paths:
           description: Could not process request for given parameters values. Please check error message for more details.
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-        404:
-          description: No orders have been found for this request.
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -327,11 +323,6 @@ paths:
           description: Could not process request for given parameters values. Please check error message for more details.
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-        404:
-          description: No orders have been found for this request.
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
