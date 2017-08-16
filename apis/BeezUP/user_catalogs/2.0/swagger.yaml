@@ -42,6 +42,7 @@ x-beezup-api-ops:
     Integrate links !
     Add product count on category
     Improve some types
+    Removing existingCatalogColumnConfiguration type and usages
 
 x-basePath: /v2/user/catalogs
 
@@ -2955,31 +2956,31 @@ definitions:
       required:
       - id
       - catalogColumnName
-      - detected
+#      - detected
       - links
       properties:
-        detected:
-          description: Indicates if the column is detected or is from the current catalog
-          type: boolean
-          example: true
-        existingConfiguration:
-          $ref: '#/definitions/existingCatalogColumnConfiguration'
+#        detected:
+#          description: Indicates if the column is detected or is from the current catalog
+#          type: boolean
+#          example: true
+#        existingConfiguration:
+#          $ref: '#/definitions/existingCatalogColumnConfiguration'
         links:
           $ref: '#/definitions/detectedCatalogColumnLinks'
 
           
           
-  existingCatalogColumnConfiguration:
-    description: In case your catalog column already exists we indicate you the existing configuration.
-    type: object
-    required:
-    - userColumName
-    - configuration
-    properties:
-      userColumName:
-        $ref: '#/definitions/userColumName'
-      configuration:
-        $ref: '#/definitions/columnConfiguration'
+#  existingCatalogColumnConfiguration:
+#    description: In case your catalog column already exists we indicate you the existing configuration.
+#    type: object
+#    required:
+#    - userColumName
+#    - configuration
+#    properties:
+#      userColumName:
+#        $ref: '#/definitions/userColumName'
+#      configuration:
+#        $ref: '#/definitions/columnConfiguration'
         
         
   
