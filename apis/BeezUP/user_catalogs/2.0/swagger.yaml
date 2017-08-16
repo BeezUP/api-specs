@@ -36,13 +36,13 @@ x-beezup-api-ops:
   useBeezUPFrameworkVersion2: true
   apiName: V2UserCatalogs
   comment: |
+    Remove existingCatalogColumnConfiguration type and usages
     Add Product list columns filter
     Add Product list pagination and getproductsrequest pagination parameters
     Add Product Exist and add some required
     Integrate links !
     Add product count on category
     Improve some types
-    Removing existingCatalogColumnConfiguration type and usages
 
 x-basePath: /v2/user/catalogs
 
