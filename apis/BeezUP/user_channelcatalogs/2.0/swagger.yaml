@@ -1942,8 +1942,6 @@ definitions:
         
 
 
-        
-        
   channelCatalogProductByChannelCatalogRequest:
     type: object
     properties:
