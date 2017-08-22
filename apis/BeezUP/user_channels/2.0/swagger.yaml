@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: '2.0'
+  version: "2.0"
   title: Channels
   description: This api allows you to get access to your channels
   x-logo:
@@ -34,12 +34,13 @@ x-servers:
 
 
 x-beezup-api-ops:
-  repo: Channel
+  repo: Channel2
   appRoot: BeezUP2.Channel.ApiService
   apiName: V2UserChannels
+  useBeezUPFrameworkVersion2: true
   namespace: BeezUP2.Channel.ApiService
   comment: |
-    add descriptionAvailable to channelHeader
+    Updated Link2 to Link3
 
 
 x-basePath: /v2/user/channels
@@ -124,6 +125,7 @@ paths:
       operationId: GetChannelCategories
       parameters:
       - $ref: '#/parameters/channelIdParameter'
+# [Style Validator (e4950b7a-5ffc-455a-9568-276b972187de) : camelCase]: 'Accept-Encoding' does not comply with the rule
       - name: 'Accept-Encoding'
         description: Indicates that the client accepts that the response will be compressed to reduce traffic size.
         in: header
@@ -155,6 +157,7 @@ paths:
       operationId: GetChannelColumns
       parameters:
       - $ref: '#/parameters/channelIdParameter'
+# [Style Validator (e4950b7a-5ffc-455a-9568-276b972187de) : camelCase]: 'Accept-Encoding' does not comply with the rule
       - name: 'Accept-Encoding'
         description: Indicates that the client accepts that the response will be compressed to reduce traffic size.
         in: header
@@ -267,8 +270,7 @@ definitions:
     - self
     properties:
       self:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link2'
-
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
 
 
   channelInfo:
@@ -291,6 +293,7 @@ definitions:
         type: string
         description: Indicate the BeezUP offer
         example: First month free
+# [Style Validator (e4950b7a-5ffc-455a-9568-276b972187de) : All model properties must have examples]: Field 'example' required in 'properties'
       salesContact:
         type: object
         properties:
@@ -307,6 +310,7 @@ definitions:
             type: string
             description: The sales contact phone number
             example: '0033 6 08 87 85 45'
+# [Style Validator (e4950b7a-5ffc-455a-9568-276b972187de) : All model properties must have examples]: Field 'example' required in 'properties'
       details:
         type: object
         properties:
@@ -336,6 +340,7 @@ definitions:
             description: The subscription link to the channel
             example: |
               By Email at : stephanie.gregis@m6.fr
+# [Style Validator (e4950b7a-5ffc-455a-9568-276b972187de) : All model properties must have examples]: Field 'example' required in 'properties'
       keyNumbers:
         type: object
         properties:
@@ -355,6 +360,7 @@ definitions:
             type: string
             description: The estimated view count per month of the channel
             example: '3M'
+# [Style Validator (e4950b7a-5ffc-455a-9568-276b972187de) : All model properties must have examples]: Field 'example' required in 'properties'
       technicalContact:
         type: object
         properties:
@@ -399,6 +405,7 @@ definitions:
     required:
     - firstLevelCategories
     properties:
+# [Style Validator (e4950b7a-5ffc-455a-9568-276b972187de) : All model properties must have examples]: Field 'example' required in 'properties'
       firstLevelCategories:
         type: array
         items:
@@ -457,6 +464,7 @@ definitions:
         $ref: '#/definitions/channelCategoryChannelCode'
       channelCategoryColumnOverrides:
         $ref: '#/definitions/channelCategoryColumnOverrides'
+# [Style Validator (e4950b7a-5ffc-455a-9568-276b972187de) : All model properties must have examples]: Field 'example' required in 'properties'
       subCategories:
         type: array
         items:
