@@ -994,6 +994,8 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
       refundReasonCodeLOV:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      marketplaceStorePropertyLOV:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
   
   marketplaceChannelCatalogLinks:
     description: Indicate the actions you can do on a channel catalog. If the settings are valid, you will be able to access to the publication history.
