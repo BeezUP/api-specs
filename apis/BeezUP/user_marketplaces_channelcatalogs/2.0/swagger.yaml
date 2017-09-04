@@ -21,6 +21,7 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.Publication.BackOffice.WebService
   apiName: V2UserMarketplacesChannelCatalogs
   comment: |
+    Adding MarketplaceStorePropertyLOV to Index
     Adding Enabled field on Marketplace Channel Catalog object
     Adding RedirectionPageUrl in Marketplace Channel Catalog Properties request
     
@@ -993,6 +994,8 @@ definitions:
       cancelationReasonCodeLOV:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
       refundReasonCodeLOV:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      marketplaceStorePropertyLOV:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
   
   marketplaceChannelCatalogLinks:
