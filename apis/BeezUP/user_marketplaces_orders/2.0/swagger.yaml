@@ -28,7 +28,9 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
   apiName: V2UserMarketplacesOrders
   comment: |
-    Manage the no orders found for list and exportations
+    Adding information about max items per batch call
+    Order Change link from Dictionary to Array
+    Renaming AutomaticTransitionInfos to AutomaticTransitionInfoList to avoid overlap with property name
 
 x-host: api.beezup.com
 x-basePath: /v2/user/marketplaces/orders
@@ -217,7 +219,7 @@ paths:
         200:
           description: Successfully fetched list of configured automatic Order status transitions
           schema:
-            $ref: '#/definitions/automaticTransitionInfos'
+            $ref: '#/definitions/automaticTransitionInfoList'
         304:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
         default:
@@ -389,8 +391,8 @@ paths:
       tags:
       - Batches
       operationId: SetMerchantOrderInfoList
-      summary: Send a batch of operations to set an Order's merchant information
-      description: The purpose of this operation is to reduce the amount of request to the API. 
+      summary: Send a batch of operations to set an Order's merchant information  (max 100 items per call)
+      description: The purpose of this operation is to reduce the amount of request to the API.
       parameters:
       - name: request
         in: body
@@ -415,8 +417,8 @@ paths:
       tags:
       - Batches
       operationId: ClearMerchantOrderInfoList
-      summary: Send a batch of operations to clear an Order's merchant information
-      description: The purpose of this operation is to reduce the amount of request to the API. 
+      summary: Send a batch of operations to clear an Order's merchant information (max 100 items per call)
+      description: The purpose of this operation is to reduce the amount of request to the API.
       parameters:
       - name: request
         in: body
@@ -1025,7 +1027,7 @@ definitions:
     example: Done        
 
 
-  automaticTransitionInfosLinks:
+  automaticTransitionInfoListLinks:
     type: object
     required:
     - self
@@ -1036,13 +1038,13 @@ definitions:
       configure:
         $ref: '#/definitions/links.ConfigureAutomaticTransitionsLink'
 
-  automaticTransitionInfos:
+  automaticTransitionInfoList:
     type: object
     required:
     - links
     properties:
       links:
-        $ref: '#/definitions/automaticTransitionInfosLinks'
+        $ref: '#/definitions/automaticTransitionInfoListLinks'
 
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
@@ -1852,8 +1854,15 @@ definitions:
   links.ChangeOrderLink:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
+    - type: object
+      properties:
+        rel:
+          type: string
+          description: Indicate the relation name related to the link
+          example: self
     - example:
-        href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/shipOrder
+        rel: ShipOrder
+        href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/ShipOrder
         method: POST
         templated: true
         parameters:
@@ -1914,12 +1923,12 @@ definitions:
 
   orderTransitionLinks:
     description: Contains the authorized change actions for an order
-    type: object
-    additionalProperties:
+    type: array
+    items:
       $ref: '#/definitions/links.ChangeOrderLink'
     example:
-      shipOrder:
-        href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/shipOrder
+      - rel: ShipOrder
+        href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/ShipOrder
         method: POST
         templated: true
         parameters:
@@ -1976,8 +1985,8 @@ definitions:
                 lovLink:
                   href: /v2/user/ShippingMethod_PriceMinister
 
-      cancelOrder:
-        href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/cancelOrder
+      - rel: CancelOrder
+        href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/CancelOrder
         method: POST
         templated: true
         parameters:
