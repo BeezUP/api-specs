@@ -28,6 +28,7 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
   apiName: V2UserMarketplacesOrders
   comment: |
+    Removing required from ChangeOrderRequest (some changes do not require parameters)
     Adding information about max items per batch call
     Order Change link from Dictionary to Array
     Renaming AutomaticTransitionInfos to AutomaticTransitionInfoList to avoid overlap with property name
@@ -673,7 +674,8 @@ paths:
 
       - name: request
         in: body
-        required: true
+        #required: true
+        required: false
         schema:
           $ref: '#/definitions/changeOrderRequest'
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifMatchParameter'
@@ -2545,7 +2547,7 @@ definitions:
     description: Contains the order identifier and the change order request
     required:
     - order
-    - changeOrderRequest
+    #- changeOrderRequest
     properties:
       order:
         $ref: '#/definitions/orderIdentifierWithETag'
