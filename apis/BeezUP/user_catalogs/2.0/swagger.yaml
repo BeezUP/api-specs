@@ -584,8 +584,8 @@ paths:
     get:
       tags:
         - Catalog
-      operationId: Catalog_GetProduct
-      summary: Get product
+      operationId: Catalog_GetProductByProductId
+      summary: Get product by ProductId
       
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
@@ -607,7 +607,31 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
+  '/{storeId}/products':
+    get:
+      tags:
+        - Catalog
+      operationId: Catalog_GetProductBySku
+      summary: Get product by Sku
+      
+      parameters:
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
+        - name: sku
+          description: The product sku you want to get
+          in: query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Product
+          schema:
+            $ref: '#/definitions/product'
+        '404':
+          description: StoreId or Product not found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
 ##################################################################################################
   '/{storeId}/importations':
