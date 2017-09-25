@@ -3,7 +3,7 @@ info:
   version: '2.0'
   title: Marketplaces - Orders
   description: |
-    The features exposed in this API are centered around managing Orders harvested from your configured marketplaces.\
+    The features exposed in this API are centered around managing Orders harvested from your configured marketplaces.\ 
     This includes:
     - fetching current information (as known by BeezUP) for a single or multiple Orders,
     - requesting Order harvest to synchronize your marketplaces and BeezUP accounts,
