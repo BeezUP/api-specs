@@ -48,8 +48,7 @@ x-beezup-api-ops:
   namespace: BeezUP2.Channel.ApiService
   useBeezUPFrameworkVersion2: true
   comment: |
-    Add pagination info in get products operation (request/response)
-    Add channelCostSettings and put some properties required to help the developer to understand the situation on channel catalog.
+    POST /products updated. Request passed in body instead of path
 
 
 x-basePath: /v2/user/channelcatalogs
@@ -149,6 +148,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/channelCatalogList'
+        
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
     post:
@@ -178,6 +178,10 @@ paths:
               x-example: 5
           schema:
             $ref: '#/definitions/links.GetChannelCatalogLink'
+        404:
+          description: StoreId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
   
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -200,6 +204,11 @@ paths:
           description: Channel catalog
           schema:
             $ref: '#/definitions/channelCatalog'
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
     delete:
@@ -212,6 +221,10 @@ paths:
       responses:
         204:
           description: Channel catalog deleted
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -227,6 +240,10 @@ paths:
       responses:
         204:
           description: Channel catalog enabled
+        404:
+          description: Occurs when a user tries to work on the wrong ChanelCatalogId.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         402:
           description: You have to upgrade your offer to activate this channel catalog
           schema:
@@ -245,6 +262,10 @@ paths:
       responses:
         204:
           description: Channel catalog disabled
+        404:
+          description: Occurs when a user tries to work on the wrong ChanelCatalogId.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -266,6 +287,10 @@ paths:
       responses:
         204:
           description: Channel catalog general settings configured
+        404:
+          description: Occurs when a user tries to work on the wrong ChanelCatalogId.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -285,7 +310,10 @@ paths:
       responses:
         204:
           description: Channel catalog cost settings configured
-          
+        404:
+          description: Occurs when a user tries to work on the wrong ChanelCatalogId.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       
@@ -305,6 +333,10 @@ paths:
       responses:
         204:
           description: Channel catalog column mappings configured
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -321,7 +353,11 @@ paths:
         200:
           description: Channel catalog category mappings
           schema:
-            $ref: '#/definitions/channelCatalogCategoryMappings'
+            $ref: '#/definitions/channelCatalogCategoryMappingList'
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -337,6 +373,10 @@ paths:
       responses:
         204:
           description: Channel catalog category mapping disabled
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -352,6 +392,10 @@ paths:
       responses:
         204:
           description: Channel catalog category mapping reenabled
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -372,6 +416,14 @@ paths:
       responses:
         204:
           description: Channel catalog category mapped
+        400:
+          description: BadRequest. See Error Response for more details
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
           
@@ -391,6 +443,14 @@ paths:
       responses:
         204:
           description: Channel catalog category unmapped
+        400:
+          description: BadRequest. See Error Response for more details
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -423,7 +483,10 @@ paths:
           description: Channel catalog exclusion filter list
           schema:
             $ref: '#/definitions/exclusionFiltersResponse'
-
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -443,7 +506,14 @@ paths:
       responses:
         204:
           description: Channel catalog exclusion filter list configured
-
+        400:
+          description: BadRequest. See Error Response for more details
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -467,6 +537,10 @@ paths:
           description: Channel catalog product information
           schema:
             $ref: '#/definitions/channelCatalogProductInfoList'
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -501,6 +575,10 @@ paths:
             application/json:
               href: 'https://beezupchannel.blob.core.windows.net/reports/exports/Excel_Products.xslx'
               method: 'GET'
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -518,21 +596,25 @@ paths:
           description: Channel catalog products' counters
           schema:
             $ref: '#/definitions/channelCatalogProductsCounters'
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
 
 
-  '/products/{productId}':
+  '/products':
     post:
       tags:
       - Products
       summary: Get channel catalog products related to these channel catalogs 
       operationId: GetChannelCatalogProductByChannelCatalog
       parameters:
-        - $ref: '#/parameters/productIdParameter'
         - name: request
           in: body
+          required: true
           schema:
             $ref: '#/definitions/channelCatalogProductByChannelCatalogRequest'
               
@@ -541,6 +623,10 @@ paths:
           description: The channel catalog product by channel catalog
           schema:
             $ref: '#/definitions/channelCatalogProductByChannelCatalogResponse'
+        404:
+          description: ProductId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
   
@@ -560,6 +646,10 @@ paths:
           description: Channel catalog product information
           schema:
             $ref: '#/definitions/channelCatalogProductInfo'
+        404:
+          description: ChannelCatalog or ProductId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -581,6 +671,14 @@ paths:
       responses:
         204:
           description: Channel catalog product overriden
+        400:
+          description: BadRequest. See Error Response for more details
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        404:
+          description: ChannelCatalogId or ProductId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -603,6 +701,10 @@ paths:
       responses:
         204:
           description: Channel catalog product value override deleted
+        404:
+          description: ChannelCatalogId or ProductId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -623,6 +725,10 @@ paths:
       responses:
         204:
           description: Channel catalog product disabled
+        404:
+          description: ChannelCatalogId Or ProductId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -643,6 +749,10 @@ paths:
       responses:
         204:
           description: Channel catalog product reenabled
+        404:
+          description: ChannelCatalogId or ProductId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -660,6 +770,10 @@ paths:
           description: Channel catalog exportation cache information
           schema:
             $ref: '#/definitions/channelCatalogExportCacheInfoResponse'
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
   
@@ -674,6 +788,10 @@ paths:
       responses:
         204:
           description: Channel catalog exportation cache cleared
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
@@ -693,6 +811,10 @@ paths:
           description: Channel catalog exportation history
           schema:
             $ref: '#/definitions/channelCatalogExportationHistory'
+        404:
+          description: ChannelCatalogId not found or not authorized
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
             
@@ -1020,11 +1142,12 @@ definitions:
       cacheStatus:
         description: The cache status during the exportation
         type: string
-        enum:
-        - Error
-        - Available
-        - GeneratedManually
+        #enum:
+        #- Error
+        #- Available
+        #- GeneratedManually
         example: Available
+        x-lov: ChannelCatalogExportationCacheGenerationStatus
       exportedProductCount:
         type: integer
         format: int32
@@ -1224,7 +1347,7 @@ definitions:
       reenable:
         $ref: '#/definitions/links.ReenableChannelCatalogCategoryMappingLink'
 
-  channelCatalogCategoryMappings:
+  channelCatalogCategoryMappingList:
     type: object
     required:
     - links
@@ -1942,9 +2065,19 @@ definitions:
         
 
 
+        
+        
   channelCatalogProductByChannelCatalogRequest:
     type: object
+    required:
+    - storeId
+    - productId
+    - channelCatalogIds
     properties:
+      storeId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'  
+      productId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductId'
 # [Style Validator (6aebcd41-342d-4790-b578-3d41befb3108) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (32a521e3-c4d9-43e7-9446-13c5fbcd028a) : All model properties must have examples]: Field 'example' required in 'properties'
       channelCatalogIds:
