@@ -642,10 +642,13 @@ definitions:
       method:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpMethod
       parameters:
+        type: object
         properties:
+          type: object
           default: 
             $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameter3
         additionalProperties:
+          type: object
           $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameter3
       urlTemplated:
         type: boolean
