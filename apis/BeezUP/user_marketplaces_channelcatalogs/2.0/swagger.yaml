@@ -640,95 +640,175 @@ definitions:
     type: string
     example: string
   
+  
+  
+  
+  
+  channelCatalogMarketplaceStringProperty:
+    allOf:
+    - $ref: '#/definitions/channelCatalogMarketplaceProperty'
+    - type: object
+      properties:
+        values:
+          description: Channel catalog marketplace property values
+          type: array
+          items:
+            type: string
+          example:
+            - myemail@mydomain.com
+        default:
+          description: Indicate the default values of the property
+          type: array
+          items:
+            type: string
+          example: 
+          - 'My default value'
+
+
+  channelCatalogMarketplaceBooleanProperty:
+    allOf:
+    - $ref: '#/definitions/channelCatalogMarketplaceProperty'
+    - type: object
+      properties:
+        value:
+          description: Channel catalog marketplace property values
+          type: boolean
+          example: false
+        default:
+          description: Indicate the default values of the property
+          type: boolean
+          example: true
+
+  channelCatalogMarketplaceDecimalProperty:
+    allOf:
+    - $ref: '#/definitions/channelCatalogMarketplaceProperty'
+    - type: object
+      properties:
+        values:
+          description: Channel catalog marketplace property values
+          type: array
+          items:
+            type: number
+          example:
+            - 201.69
+        default:
+          description: Indicate the default values of the property
+          type: array
+          items:
+            type: number
+          example: 
+          - 10.42
+
+  channelCatalogMarketplaceIntegerProperty:
+    allOf:
+    - $ref: '#/definitions/channelCatalogMarketplaceProperty'
+    - type: object
+      properties:
+        values:
+          description: Channel catalog marketplace property values
+          type: array
+          items:
+            type: integer
+          example:
+            - 201
+        default:
+          description: Indicate the default values of the property
+          type: array
+          items:
+            type: integer
+          example: 
+          - 10
+  
   channelCatalogMarketplaceProperty:
-    allOf: 
-      - $ref: '#/definitions/channelCatalogMarketplaceSetting'
-      - type: object
+      type: object
+      required:
+      - name
+      - position
+      - readOnly
+      - required
+      - visible
+      - type
+      - discriminatorType
+      description: Model for fetching a channel catalog marketplace property
+      properties:
+        name:
+          $ref: '#/definitions/channelCatalogMarketplacePropertyName'
+
+        info:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries'
+        description:
+          type: string
+          description: Indicate the description of the property
+          example: If true allows to retireve one marketplace country only
+        position:
+          type: integer
+          description: Indicate the position of the property in the display group
+          minimum: 1
+          example: 1
+        readOnly:
+          type: boolean
+          description: Indicate if the value cannot be changed. This is used for example for ebay token that should not be changed.
+          default: false
+          example: false
+        minLength:
+          type: integer
+          format: int32
+          description: Indicates the minimum size of the property value
+          default: 0
+          minimum: 0
+          example: 1
+        maxLength:
+          type: integer
+          format: int32
+          description: Indicates the maximum size of the property value
+          minimum: 1
+          example: 500
+        minItems:
+          type: integer
+          format: int32
+          description: Indicates the minimum item count of the property value.
+          default: 1
+          minimum: 0
+          example: 1
+        maxItems:
+          type: integer
+          format: int32
+          description: Indicates the maximum item count of the property value
+          default: 1
+          minimum: 1
+          example: 2
+        lovLink:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+        lovRequired:
+          type: boolean
+          description: Indicates if the property value must be in the list of value.
+          default: false
+          example: true
         required:
-        - name
-        - position
-        - readOnly
-        - required
-        - visible
-        description: Model for fetching a channel catalog marketplace property
-        properties:
-          info:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries'
-          default:
-            description: Indicate the default values of the property
-            type: array
-            items:
-              type: string
-            example: 
-            - 'true'
-          description:
-            type: string
-            description: Indicate the description of the property
-            example: If true allows to retireve one marketplace country only
-          position:
-            type: integer
-            description: Indicate the position of the property in the display group
-            minimum: 1
-            example: 1
-          readOnly:
-            type: boolean
-            description: Indicate if the value cannot be changed. This is used for example for ebay token that should not be changed.
-            default: false
-            example: false
-          minLength:
-            type: integer
-            format: int32
-            description: Indicates the minimum size of the property value
-            default: 0
-            minimum: 0
-            example: 1
-          maxLength:
-            type: integer
-            format: int32
-            description: Indicates the maximum size of the property value
-            minimum: 1
-            example: 500
-          minItems:
-            type: integer
-            format: int32
-            description: Indicates the minimum item count of the property value.
-            default: 1
-            minimum: 0
-            example: 1
-          maxItems:
-            type: integer
-            format: int32
-            description: Indicates the maximum item count of the property value
-            default: 1
-            minimum: 1
-            example: 2
-          lovLink:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
-          lovRequired:
-            type: boolean
-            description: Indicates if the property value must be in the list of value.
-            default: false
-            example: true
-          required:
-            type: boolean
-            description: Indicate if the property is required or not
-            default: false
-            example: true
-          offerIdRequired:
-            type: integer
-            description: Indicates the offer identifier required to configure this property.
-            example: 10
-          visible:
-            type: boolean
-            description: Indicates if this property should be displayed in the configuration page.
-            default: true
-            example: true
-          type:
-            $ref: '#/definitions/type'
-          pattern:
-            description: Channel catalog marketplace setting value format validation regular expression
-            type: string
-            example: (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+          type: boolean
+          description: Indicate if the property is required or not
+          default: false
+          example: true
+        offerIdRequired:
+          type: integer
+          description: Indicates the offer identifier required to configure this property.
+          example: 10
+        visible:
+          type: boolean
+          description: Indicates if this property should be displayed in the configuration page.
+          default: true
+          example: true
+        type:
+          $ref: '#/definitions/type'
+        pattern:
+          description: Channel catalog marketplace setting value format validation regular expression
+          type: string
+          example: (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+# [Style Validator (ee8a4c75-7b52-4c2e-be8c-95d5387eb4e1) : All model properties must have examples]: Field 'example' required in 'properties'
+        discriminatorType:
+          type: string
+      discriminator: discriminatorType
+        
   
   setChannelCatalogMarketplaceSettingsRequest:
     description: The channel catalog marketplace settings to save
@@ -867,6 +947,15 @@ definitions:
       values:
       - FR_ColiposteColissimo
 
+
+
+  channelCatalogMarketplacePropertyName:
+    description: Channel catalog marketplace property name
+    type: string
+    example: PaypalAddress
+    x-lov: MarketplaceStoreProperty
+    
+
   channelCatalogMarketplaceSetting:
     description: Model for fetching a channel catalog marketplace setting
     type: object
@@ -874,10 +963,7 @@ definitions:
     - name
     properties:
       name:
-        description: Channel catalog marketplace property name
-        type: string
-        example: PaypalAddress
-        x-lov: MarketplaceStoreProperty
+        $ref: '#/definitions/channelCatalogMarketplacePropertyName'
       values:
         description: Channel catalog marketplace property values
         type: array
@@ -917,10 +1003,13 @@ definitions:
       self:
         $ref: '#/definitions/links.GetMarketplaceAccountStoresLink'
   
+  
+  
   marketplaceChannelCatalog:
     description: This object indicates you the association between a channel catalog and a marketplace. The account identifier will be automatically defined based on your marketplace merchant identfier.
     type: object
     required:
+    - apiSettingsStatus
     - enabled
     - marketplaceTechnicalCode
     - marketplaceBusinessCode
@@ -934,6 +1023,9 @@ definitions:
     - lovLinks
     - links
     properties:
+      apiSettingsStatus:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ApiSettingsStatus'
+              
       enabled:
         description: The enabled status of the Channel Catalog
         type: boolean
