@@ -1040,3 +1040,11 @@ definitions:
         type: string
       type:
         type: string
+        
+  BeezUP.Common.ApiSettingsStatus:
+    type: string
+    enum:
+    - warning
+    - success
+    - failed
+    example: success
