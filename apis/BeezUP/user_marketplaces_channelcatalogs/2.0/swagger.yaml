@@ -640,9 +640,19 @@ definitions:
     type: string
     example: string
 
+  channelCatalogMarketplacePropertyDiscriminatorType:
+    description: The Data Type
+    enum:
+      - channelCatalogMarketplaceStringProperty
+      - channelCatalogMarketplaceIntegerProperty
+      - channelCatalogMarketplaceBooleanProperty
+      - channelCatalogMarketplaceNumberProperty
+    type: string
+    example: string
+
   channelCatalogMarketplaceProperty:
       type: object
-      discriminator: type
+      discriminator: discriminatorType
       required:
       - name
       - position
@@ -650,6 +660,7 @@ definitions:
       - required
       - visible
       - type
+      - discriminatorType
       description: Model for fetching a channel catalog marketplace property
       properties:
         name:
@@ -720,6 +731,8 @@ definitions:
           example: true
         type:
           $ref: '#/definitions/type'
+        discriminatorType:
+          $ref: '#/definitions/channelCatalogMarketplacePropertyDiscriminatorType'
         pattern:
           description: Channel catalog marketplace setting value format validation regular expression
           type: string
@@ -737,6 +750,19 @@ definitions:
             type: string
           example:
             - 'My default value'
+
+  channelCatalogMarketplaceIntegerProperty:
+    allOf:
+    - $ref: '#/definitions/channelCatalogMarketplaceProperty'
+    - type: object
+      properties:
+        default:
+          description: Indicate the default values of the property
+          type: array
+          items:
+            type: integer
+          example:
+            - 201
 
   channelCatalogMarketplaceBooleanProperty:
     allOf:
@@ -760,19 +786,6 @@ definitions:
             type: number
           example:
             - 201.69
-
-  channelCatalogMarketplaceIntegerProperty:
-    allOf:
-    - $ref: '#/definitions/channelCatalogMarketplaceProperty'
-    - type: object
-      properties:
-        default:
-          description: Indicate the default values of the property
-          type: array
-          items:
-            type: integer
-          example:
-            - 201
 
   setChannelCatalogMarketplaceSettingsRequest:
     description: The channel catalog marketplace settings to save
