@@ -641,7 +641,6 @@ definitions:
     example: string
 
   channelCatalogMarketplacePropertyDiscriminatorType:
-    description: The Data Type
     enum:
       - channelCatalogMarketplaceStringProperty
       - channelCatalogMarketplaceIntegerProperty
