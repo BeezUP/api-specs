@@ -741,50 +741,50 @@ definitions:
     allOf:
     - $ref: '#/definitions/channelCatalogMarketplaceProperty'
     - type: object
-    properties:
-      default:
-        description: Indicate the default values of the property
-        type: array
-        items:
-          type: string
-        example:
-          - 'My default value'
+      properties:
+        default:
+          description: Indicate the default values of the property
+          type: array
+          items:
+            type: string
+          example:
+            - 'My default value'
 
   channelCatalogMarketplaceIntegerProperty:
     allOf:
     - $ref: '#/definitions/channelCatalogMarketplaceProperty'
     - type: object
-    properties:
-      default:
-        description: Indicate the default values of the property
-        type: array
-        items:
-          type: integer
-        example:
-          - 201
+      properties:
+        default:
+          description: Indicate the default values of the property
+          type: array
+          items:
+            type: integer
+          example:
+            - 201
 
   channelCatalogMarketplaceBooleanProperty:
     allOf:
     - $ref: '#/definitions/channelCatalogMarketplaceProperty'
     - type: object
-    properties:
-      default:
-        description: Indicate the default values of the property
-        type: boolean
-        example: false
+      properties:
+        default:
+          description: Indicate the default values of the property
+          type: boolean
+          example: false
 
   channelCatalogMarketplaceNumberProperty:
     allOf:
     - $ref: '#/definitions/channelCatalogMarketplaceProperty'
     - type: object
-    properties:
-      default:
-        description: Indicate the default values of the property
-        type: array
-        items:
-          type: number
-        example:
-          - 201.69
+      properties:
+        default:
+          description: Indicate the default values of the property
+          type: array
+          items:
+            type: number
+          example:
+            - 201.69
 
   setChannelCatalogMarketplaceSettingsRequest:
     description: The channel catalog marketplace settings to save
@@ -950,62 +950,55 @@ definitions:
         $ref: '#/definitions/channelCatalogMarketplacePropertyName'
       discriminatorType:
         $ref: '#/definitions/channelCatalogMarketplaceSettingDiscriminatorType'
-      values:
-        description: Channel catalog marketplace property values
-        type: array
-        items:
-          type: string
-        example:
-          - myemail@mydomain.com
   
   channelCatalogMarketplaceStringSetting:
     allOf:
     - $ref: '#/definitions/channelCatalogMarketplaceSetting'
     - type: object
-    properties:
-      values:
-        description: Channel catalog marketplace property values
-        type: array
-        items:
-          type: string
-        example:
-          - myemail@mydomain.com
+      properties:
+        values:
+          description: Channel catalog marketplace property values
+          type: array
+          items:
+            type: string
+          example:
+            - myemail@mydomain.com
 
   channelCatalogMarketplaceIntegerSetting:
     allOf:
     - $ref: '#/definitions/channelCatalogMarketplaceSetting'
     - type: object
-    properties:
-      values:
-        description: Channel catalog marketplace property values
-        type: array
-        items:
-          type: integer
-        example:
-          - 201
+      properties:
+        values:
+          description: Channel catalog marketplace property values
+          type: array
+          items:
+            type: integer
+          example:
+            - 201
 
   channelCatalogMarketplaceBooleanSetting:
     allOf:
     - $ref: '#/definitions/channelCatalogMarketplaceSetting'
     - type: object
-    properties:
-      values:
-        description: Channel catalog marketplace property values
-        type: boolean
-        example: false
+      properties:
+        values:
+          description: Channel catalog marketplace property values
+          type: boolean
+          example: false
 
   channelCatalogMarketplaceNumberSetting:
     allOf:
     - $ref: '#/definitions/channelCatalogMarketplaceSetting'
     - type: object
-    properties:
-      values:
-        description: Channel catalog marketplace property values
-        type: array
-        items:
-          type: number
-        example:
-          - 201.69
+      properties:
+        values:
+          description: Channel catalog marketplace property values
+          type: array
+          items:
+            type: number
+          example:
+            - 201.69
 
   marketplaceChannelCatalogList:
     description: The marketplace channel catalog list
