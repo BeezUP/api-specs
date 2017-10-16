@@ -982,7 +982,7 @@ definitions:
     - $ref: '#/definitions/channelCatalogMarketplaceSetting'
     - type: object
       properties:
-        values:
+        value:
           description: Channel catalog marketplace property values
           type: boolean
           example: false
