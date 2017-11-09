@@ -268,7 +268,6 @@ definitions:
     - productId
     - productSku
     - productTitle
-    - productImageUrl
     - productExists
     properties:
       productId:
