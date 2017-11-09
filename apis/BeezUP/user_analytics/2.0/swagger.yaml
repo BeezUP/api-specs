@@ -28,6 +28,7 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
+    Fixing values of ReportType (ByDay => ByDate)
     Cleaning up old export resources
     Removing export methods
     Add ReportType to OptimiseRequest
@@ -2562,7 +2563,7 @@ definitions:
     - ByChannel
     - ByCategory
     - ByProduct
-    - ByDate
+    - ByDay
     example: ByProduct
 
   ruleListLinks:
