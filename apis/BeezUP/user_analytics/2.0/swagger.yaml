@@ -28,6 +28,7 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
+    Replacing TurnOver with Turnover
     Fixing values of ReportType (ByDay => ByDate)
     Cleaning up old export resources
     Removing export methods
@@ -1862,7 +1863,7 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - turnOver
+    - turnover
     - margin
     - performanceIndicator
     - totalSales
@@ -1891,7 +1892,7 @@ definitions:
         type: integer
         description: The order count for this product
         example: 234.42
-      turnOver:
+      turnover:
         type: number
         description: The Turnover for this product
         example: 42.01
@@ -1926,7 +1927,7 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - turnOver
+    - turnover
     - margin
     - performanceIndicator
     - totalSales
@@ -1958,7 +1959,7 @@ definitions:
         type: integer
         description: The order count for this category
         example: 25.33
-      turnOver:
+      turnover:
         type: number
         description: The Turnover for this category
         example: 25.33
@@ -1993,7 +1994,7 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - turnOver
+    - turnover
     - margin
     - performanceIndicator
     - totalSales
@@ -2023,7 +2024,7 @@ definitions:
         type: integer
         description: The order count for this channel
         example: 42
-      turnOver:
+      turnover:
         type: number
         description: The Turnover for this channel
         example: 42.42
@@ -2055,7 +2056,7 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - turnOver
+    - turnover
     - margin
     - performanceIndicator
     - totalSales
@@ -2073,7 +2074,7 @@ definitions:
         type: integer
         description: The order count for this day and all channels
         example: 42
-      turnOver:
+      turnover:
         type: number
         description: The Turnover for this day and all channels
         example: 23.11
@@ -2103,7 +2104,7 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - turnOver
+    - turnover
     - margin
     - performanceIndicator
     - totalSales
@@ -2124,7 +2125,7 @@ definitions:
         type: integer
         description: The order count for this day and this channel
         example: 42
-      turnOver:
+      turnover:
         type: number
         description: The Turnover for this day and this channel
         example: 23.11
