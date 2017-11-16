@@ -21,6 +21,7 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.Publication.BackOffice.WebService
   apiName: V2UserMarketplacesChannelCatalogs
   comment: |
+    Test
     Fixing MarketplaceStorePropertyGroup information
     Adding MarketplaceStorePropertyLOV to Index
     Adding Enabled field on Marketplace Channel Catalog object
