@@ -3549,7 +3549,7 @@ definitions:
       totalProductCount:
         type: integer
         format: int32
-        description: The total product count related to this category and his leaves
+        description: The total product count related to this category and his sub categories
         example: 101
       selfProductCount:
         type: integer
