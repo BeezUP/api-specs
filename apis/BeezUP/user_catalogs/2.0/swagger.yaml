@@ -36,13 +36,7 @@ x-beezup-api-ops:
   useBeezUPFrameworkVersion2: true
   apiName: V2UserCatalogs
   comment: |
-    Remove existingCatalogColumnConfiguration type and usages
-    Add Product list columns filter
-    Add Product list pagination and getproductsrequest pagination parameters
-    Add Product Exist and add some required
-    Integrate links !
-    Add product count on category
-    Improve some types
+    Added totalProductCount and selfProductCount in GET Categories
 
 x-basePath: /v2/user/catalogs
 
@@ -3545,13 +3539,19 @@ definitions:
     required:
     - categoryId
     - categoryPath
-    - productCount
+    - totalProductCount
+    - selfProductCount
     properties:
       categoryId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryId'
       categoryPath:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'
-      productCount:
+      totalProductCount:
+        type: integer
+        format: int32
+        description: The total product count related to this category and his leaves
+        example: 101
+      selfProductCount:
         type: integer
         format: int32
         description: The product count related to this category
