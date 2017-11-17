@@ -3537,13 +3537,13 @@ definitions:
   category:
     description: The catalog category
     required:
-    - categoryId
+    #- categoryId
     - categoryPath
     - totalProductCount
     - selfProductCount
     properties:
-      categoryId:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryId'
+      #categoryId:
+      #  $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common#.CatalogCategoryId'
       categoryPath:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'
       totalProductCount:
