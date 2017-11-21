@@ -48,7 +48,7 @@ x-beezup-api-ops:
   namespace: BeezUP2.Channel.ApiService
   useBeezUPFrameworkVersion2: true
   comment: |
-    AMO - Few changes for Categories Mapping and Cost
+    Added external link to channelinfo
 
 
 x-basePath: /v2/user/channelcatalogs
@@ -1694,7 +1694,6 @@ definitions:
     - exportedProductCount
     - columnMappingStatus
     - categoryMappingState
-    - apiSettingStatus
     properties:
       exportedProductCount:
         type: integer
@@ -1704,8 +1703,8 @@ definitions:
         $ref: '#/definitions/columnMappingStatus'
       categoryMappingState:
         $ref: '#/definitions/categoryMappingState'
-      apiSettingStatus:
-        $ref: '#/definitions/apiSettingStatus'
+      apiSettingsStatus:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ApiSettingsStatus'
       
 
   columnMappingStatus:
@@ -1732,8 +1731,7 @@ definitions:
         format: int32
         description: Indicates the categorized product count without cost defined on the category
         example: 42
-      
-        
+
   categoryMappingStatus:
     type: string
     enum:
@@ -1741,18 +1739,7 @@ definitions:
     - success
     - failed
     example: success
-    
-  apiSettingStatus:
-    type: string
-    enum:
-    - warning
-    - success
-    - failed
-    example: success
-  
-  
-  
-  
+
   channelCategorySettings:
     type: object
     properties:
@@ -1854,6 +1841,12 @@ definitions:
         href: /v2/user/marketplaces/channelcatatalogs/6d6b04de-406b-4539-8e7e-bf3e8da5dfb0/settings
         method: GET
 
+  externalLinks.GetChannelInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/channels/6d6b04de-406b-4539-8e7e-bf3e8da5dfb0
+        method: GET
  
 
       
@@ -1902,6 +1895,9 @@ definitions:
 
       marketplaceSettings:
         $ref: '#/definitions/externalLinks.GetChannelCatalogMarketplaceSettingsLink'
+        
+      channelInfo:
+        $ref: '#/definitions/externalLinks.GetChannelInfoLink'
 
 
   productOverridesCopyResponse:
