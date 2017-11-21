@@ -6,22 +6,20 @@ info:
   x-logo:
     url: "https://avatars0.githubusercontent.com/u/25665430"
     backgroundColor: "#FFFFFF"
-  
+
   contact:
     email: support@beezup.com
-    
-   
+
   license:
-    name: BeezUP 
+    name: BeezUP
     url: http://www.beezup.com
-    
 
 schemes:
  - https
 host: api.beezup.com
 basePath: /v2/user/channels
 
-externalDocs: 
+externalDocs:
   description: BeezUP API documentation
   url: https://beezup.github.io/api-docs/
 
@@ -31,8 +29,6 @@ x-servers:
 - url: https://api.beezup.com/v2/user/channels
   description: Production Server
 
-
-
 x-beezup-api-ops:
   repo: Channel2
   appRoot: BeezUP2.Channel.ApiService
@@ -40,11 +36,9 @@ x-beezup-api-ops:
   useBeezUPFrameworkVersion2: true
   namespace: BeezUP2.Channel.ApiService
   comment: |
-    Updated Link2 to Link3
-
+    Removed DescriptionAvailable + typed link to self in GET GetAvailableChannels
 
 x-basePath: /v2/user/channels
-
 
 consumes:
   - application/json
@@ -57,7 +51,6 @@ securityDefinitions:
     type: apiKey
     name: Ocp-Apim-Subscription-Key
     in: header
-
 
 security:
 - api_key: []
@@ -72,7 +65,6 @@ parameters:
     type: string
     format: guid
     x-example: '2dc136a7-0d3d-4cc9-a825-a28a42c53e28'
-    
 
 tags:
 - name: Channels Global
@@ -83,7 +75,7 @@ paths:
     get:
       tags:
       - Channels Global
-      summary: List all available channel for this store 
+      summary: List all available channel for this store
       operationId: GetAvailableChannels
       parameters:
       - name: storeId
@@ -101,12 +93,11 @@ paths:
             items:
               $ref: '#/definitions/channelHeader'
 
-
   '/{channelId}':
     get:
       tags:
       - Channels Global
-      summary: Get channel information 
+      summary: Get channel information
       operationId: GetChannelInfo
       parameters:
       - $ref: '#/parameters/channelIdParameter'
@@ -116,12 +107,11 @@ paths:
           schema:
             $ref: '#/definitions/channelInfo'
 
-
   '/{channelId}/categories':
     get:
       tags:
       - Channels Global
-      summary: Get channel categories 
+      summary: Get channel categories
       operationId: GetChannelCategories
       parameters:
       - $ref: '#/parameters/channelIdParameter'
@@ -134,7 +124,7 @@ paths:
         collectionFormat: csv
         items:
           type: string
-#        x-example: 
+#        x-example:
 #        - gzip
       responses:
         200:
@@ -166,7 +156,7 @@ paths:
         collectionFormat: csv
         items:
           type: string
-#        x-example: 
+#        x-example:
 #        - gzip
       - name: request
         in: body
@@ -175,7 +165,7 @@ paths:
         schema:
           type: array
           items:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelColumnId' 
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelColumnId'
       responses:
         200:
           description: Channel columns
@@ -190,7 +180,6 @@ paths:
             type: array
             items:
               $ref: '#/definitions/channelColumn'
-
 
 #  '/{channelId}/categories/{channelCategoryId}':
 #    get:
@@ -214,7 +203,7 @@ paths:
 #        items:
 #          type: string
 #          collectionFormat: csv
-#        x-example: 
+#        x-example:
 #        - gzip
 #      responses:
 #        200:
@@ -230,8 +219,15 @@ paths:
 #            $ref: '#/definitions/channelFirstLevelCategory'
 #
 
-
 definitions:
+
+  links.GetChannelInfoLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/channels/6d6b04de-406b-4539-8e7e-bf3e8da5dfb0
+        method: GET
+
   channelHeader:
     description: The available channel
     type: object
@@ -239,9 +235,9 @@ definitions:
     - channelId
     - channelName
     - channelLogoUrl
-    - descriptionAvailable
+    #- descriptionAvailable
     - links
-    - isMarketplace
+    - types
     properties:
       channelId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelId'
@@ -249,29 +245,27 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelName'
       channelLogoUrl:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
-      descriptionAvailable:
-        type: boolean
-        description: Indicates if we have more detailed information about this channel
-        default: false
-        example: true
-      isMarketplace:
-        type: boolean
-        description: Indicates if the channel is a marketplace
-        default: false
-        example: true
+      #descriptionAvailable:
+      #  type: boolean
+      #  description: Indicates if we have more detailed information about this channel
+      #  default: false
+      #  example: true
+      types:
+        description: The type list related to a channel
+        type: array
+        items:
+          type: string
+        example:
+        - Marketplace
       links:
         $ref: '#/definitions/channelHeaderLinks'
-
 
   channelHeaderLinks:
     description: The links related to an available channel
     type: object
-    required:
-    - self
     properties:
       self:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
-
+        $ref: '#/definitions/links.GetChannelInfoLink'
 
   channelInfo:
     type: object
@@ -344,7 +338,7 @@ definitions:
       keyNumbers:
         type: object
         properties:
-          products: 
+          products:
             type: string
             description: The estimated product count of the channel
             example: '1M'
@@ -377,9 +371,6 @@ definitions:
             description: The technical contact email
             example: pierre.guedon@m6.fr
 
-
-
-
   channelCategoryDefaultCost:
     description: The default cost on this channel category
     type: number
@@ -397,8 +388,6 @@ definitions:
     description: The channel category level starting from 1
     example: 3
 
-
-
   channelRootCategory:
     description: Get channel first level category list
     type: object
@@ -410,7 +399,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/channelFirstLevelCategory'
-
 
 #  channelFirstLevelCategoryInfo:
 #    description: The information concerning the first level channel category
@@ -469,7 +457,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/channelCategory'
-    
 
   channelCategory:
     description: The channel category
@@ -491,8 +478,6 @@ definitions:
         $ref: '#/definitions/channelCategoryChannelCode'
       channelCategoryColumnOverrides:
         $ref: '#/definitions/channelCategoryColumnOverrides'
-
-
 
   channelCategoryColumnOverrides:
     description: The channel category column overrides
@@ -519,20 +504,17 @@ definitions:
       configuration:
         $ref: '#/definitions/channelColumnConfiguration'
       restrictedValues:
-        $ref: '#/definitions/channelColumnRestrictedValues' 
-
-
+        $ref: '#/definitions/channelColumnRestrictedValues'
 
   channelColumnDescription:
     type: string
     description: The channel column description
     example: 'Please enter the base prices (price per unit) according to <a href="http://www.gesetze-im-internet.de/pangv/__2.html">Article PAngV</a>'
-    
+
   channelColumnShowInMapping:
     type: boolean
     description: Indicates if this column must shown in the mapping page or not
     example: true
-
 
   channelColumn:
     description: The channel column
@@ -543,7 +525,7 @@ definitions:
     - showInMapping
     - position
     - configuration
-    
+
     properties:
       channelColumnId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelColumnId'
@@ -560,7 +542,7 @@ definitions:
       configuration:
         $ref: '#/definitions/channelColumnConfiguration'
       restrictedValues:
-        $ref: '#/definitions/channelColumnRestrictedValues' 
+        $ref: '#/definitions/channelColumnRestrictedValues'
 
   channelColumnRestrictedValues:
     type: object
@@ -568,7 +550,7 @@ definitions:
       The restricted values. The key will be the restricted value identifier (format:guid) and the value will be the restriced value
     additionalProperties:
       type: string
-        
+
   channelColumnConfiguration:
     description: The channel column configuration. The BeezUP Column Name is optional. If the BeezUP column is mapped we will indicate the data type and column importance of the BeezUP column.
     type: object
@@ -582,3 +564,4 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ColumnDataType'
       beezUPColumnName:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.BeezUPColumnName'
+x-azure-api-id: 'V2UserChannels'
