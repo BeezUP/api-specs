@@ -171,6 +171,7 @@ paths:
           required: true
           type: string
           format: uri
+        - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/acceptLanguageParameter'
       responses:
         '200':
           description: Successfully fetched channel catalog properties
