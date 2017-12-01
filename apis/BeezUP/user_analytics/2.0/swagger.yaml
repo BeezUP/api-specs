@@ -28,6 +28,7 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
+    Changing DateTime to Date in ByDay Request
     Replacing TurnOver with Turnover
     Fixing values of ReportType (ByDay => ByDate)
     Cleaning up old export resources
@@ -1685,12 +1686,12 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryId'
       beginPeriodUtcDate:
         type: string
-        format: date-time
+        format: date
         description: The begin date period you want to get the report
         example: '2006-11-20T00:00:00Z'
       endPeriodUtcDate:
         type: string
-        format: date-time
+        format: date
         description: The end date period you want to get the report.
         example: '2006-12-20T00:00:00Z'
       advancedFilters:
@@ -1798,7 +1799,7 @@ definitions:
       day:
         type: string
         format: date
-        example: '2017-04-23T18:25:43.511Z'
+        example: '2017-04-23T00:00:00.000Z'
       allChannels:
         $ref: '#/definitions/reportByDayAllChannels'
 # [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
