@@ -3,8 +3,11 @@ info:
   version: "2.0"
   title: Analytics
   description: |
-    This API will help you to manage the tracking of your clicks and your sales, get reporting on this trackings and put in place rules based on this reporting to automatically optimise your channel catalogs. \
-    Also, you will be able to consult the rule execution reporting.
+    The puroposes of this API is to:
+    - expose the tracking status of clicks and sales (by store or of the entire system),
+    - generate and save statistical reports by channel, category or product to view their performance,
+    - optimise (activate or deactivate) products (by channel, category or product) based on these reports,
+    - configure and monitor rules to apply these optimisations periodically.
   x-logo:
     url: "https://avatars0.githubusercontent.com/u/25665430"
     backgroundColor: "#FFFFFF"
@@ -28,22 +31,24 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
+    Adding Optimise All without pagination
+    Adding Product Columns To Display to Optimise request (correct order when optimising by page)
     Changing DateTime to Date in ByDay Request
     Replacing TurnOver with Turnover
     Fixing values of ReportType (ByDay => ByDate)
     Cleaning up old export resources
     Removing export methods
-    Add ReportType to OptimiseRequest
-    Add Copy optimisations
-    Fix reportFilters type name
-    Add enum values on performance indicator parameter type
-    Add enum values on rule execution reporting status
-    add 403 on put report filter
-    use common page size and page number instead of local one
-    Integrate global operations with links
-    Add 4xx responses
-    Clarify the links for reportProduct
-    Add pagination parameters
+    Adding ReportType to OptimiseRequest
+    Adding Copy Optimisations feature
+    Fixing reportFilters type name
+    Adding enum values on performance indicator parameter type
+    Adding enum values on rule execution reporting status
+    Adding 403 on put report filter
+    Using common page size and page number instead of local one
+    Integrating global operations with links
+    Adding 4xx responses
+    Clarifying the links for reportProduct
+    Adding pagination parameters
 
 x-basePath: /v2/user/analytics
 
@@ -88,7 +93,6 @@ tags:
   description: All optmisations operations
 
 parameters:
-
   ruleIdOnlyGeneralParameters:
     name: ruleId
     in: path
@@ -381,7 +385,7 @@ paths:
     post:
       tags:
         - Optimisations
-      summary: Copy products optimisation between 2 channels
+      summary: Copy product optimisations between 2 channels
       operationId: CopyOptimisation
       parameters:
         - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
@@ -405,7 +409,7 @@ paths:
     post:
       tags:
         - Optimisations
-      summary: Optimise products
+      summary: Optimise products by page
       description: |
         /!\ WARNING /!\ \
         Apply the operation on every product related to this request. \
@@ -430,11 +434,40 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
+  '/{storeId}/optimisations/all/{actionName}':
+    post:
+      tags:
+        - Optimisations
+      summary: Optimise all products
+      description: |
+        /!\ WARNING /!\ \
+        Apply the operation on every product related to this request. \
+        This operation is used at the bottom of the analytics page result.
+      operationId: OptimiseAll
+      parameters:
+        - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters
+        - $ref: '#/parameters/optimisationActionNameGeneralParameters'
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/optimiseAllRequest'
+
+      responses:
+        204:
+          description: Products optimisatized
+        400:
+          $ref: '#/responses/BadRequestResponse'
+        404:
+          $ref: '#/responses/StoreNotFoundResponse'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+
   '/{storeId}/optimisations/byproduct/{productId}/{actionName}':
     post:
       tags:
         - Optimisations
-      summary: Optimise products
+      summary: Optimise product
       description: |
         /!\ WARNING /!\ \
         This operation will reenable or disable this product for every channel indicated in the body.
@@ -477,7 +510,7 @@ paths:
     post:
       tags:
         - Optimisations
-      summary: Optimise products's category
+      summary: Optimise products by category
       description: |
         /!\ WARNING /!\ \
         This operation will reenable or disable products's category for every channel indicated in the body.
@@ -520,7 +553,7 @@ paths:
     post:
       tags:
         - Optimisations
-      summary: Optimise products's category
+      summary: Optimise products by channel
       description: |
         /!\ WARNING /!\ \
         Apply the operation on every product on this channel.
@@ -1446,9 +1479,28 @@ definitions:
         description: If true the existing optimisation will be kept
         example: false
 
-  optimiseRequest:
+  optimiseAllRequest:
     allOf:
     - $ref: '#/definitions/reportFilterCommonParameters'
+    - type: object
+      required:
+      - beginPeriodUtcDate
+      - endPeriodUtcDate
+      - advancedFilters
+      - reportType
+      properties:
+        reportType:
+          $ref: '#/definitions/reportType'
+        productColumnsToDisplay:
+          $ref: '#/definitions/productColumnsToDisplay'
+        productState:
+          $ref: '#/definitions/productStateFilter'
+        productFilters:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
+
+  optimiseRequest:
+    allOf:
+    - $ref: '#/definitions/optimiseAllRequest'
     - $ref: '#/definitions/paginationRequestParameters'
     - type: object
       required:
@@ -2550,13 +2602,13 @@ definitions:
       - reportType
       properties:
         reportType:
-         $ref: '#/definitions/reportType'
-        productState:
-         $ref: '#/definitions/productStateFilter'
-        productFilters:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
+          $ref: '#/definitions/reportType'
         productColumnsToDisplay:
           $ref: '#/definitions/productColumnsToDisplay'
+        productState:
+          $ref: '#/definitions/productStateFilter'
+        productFilters:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
 
   reportType:
     type: string
