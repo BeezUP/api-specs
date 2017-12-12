@@ -31,6 +31,8 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
+    Adding ProductCount to PerformanceIndicatorType
+    Replacing Turnover with ROI
     Adding Optimise All without pagination
     Adding Product Columns To Display to Optimise request (correct order when optimising by page)
     Changing DateTime to Date in ByDay Request
@@ -1131,7 +1133,7 @@ definitions:
                 performanceIndicatorFormula:
                   firstParameter: Cost
                   operatorName: Multiply
-                  secondParamter: Turnover
+                  secondParamter: ROI
                   thirdParameter: 100
               pageSize: 100
               pageNumber: 1
@@ -1693,11 +1695,12 @@ definitions:
     description: Indicate on which indicator or value you want to make your formula
     enum:
     - Cost
-    - Turnover
+    - TotalSales
     - Margin
     - OrderCount
     - ClickCount
-    - TotalSales
+    - ROI
+    - ProductCount
     - SoldProductCount
     - DisabledProductCount
     - EnabledProductCount
@@ -1708,13 +1711,12 @@ definitions:
     description: Indicate on which indicator or value you want to make your formula
     enum:
     - Cost
-    - Turnover
+    - TotalSales
     - Margin
-    - TunoverMinusCost
+    - TotalSalesMinusCost
     - MarginMinusCost
     - OrderCount
     - ClickCount
-    #- TotalSales
     - SoldProductCount
     - One
     example: Cost
@@ -1916,7 +1918,7 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - turnover
+    - roi
     - margin
     - performanceIndicator
     - totalSales
@@ -1945,9 +1947,9 @@ definitions:
         type: integer
         description: The order count for this product
         example: 234.42
-      turnover:
+      roi:
         type: number
-        description: The Turnover for this product
+        description: The Return On Investment for this product
         example: 42.01
       margin:
         type: number
@@ -1957,17 +1959,14 @@ definitions:
         type: number
         description: The performance indicator based on the performance indicator formula indicated in the request for this product
         example: 10.12
-
       totalSales:
         type: number
         description: The total sales related to this product
         example: 234.42
-
       soldProductCount:
         type: integer
         description: The product sold count count for this product
         example: 2
-
       links:
         $ref: '#/definitions/reportByProductLinks'
 
@@ -1980,7 +1979,7 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - turnover
+    - roi
     - margin
     - performanceIndicator
     - totalSales
@@ -2012,9 +2011,9 @@ definitions:
         type: integer
         description: The order count for this category
         example: 25.33
-      turnover:
+      roi:
         type: number
-        description: The Turnover for this category
+        description: The Return On Investment for this category
         example: 25.33
       margin:
         type: number
@@ -2024,17 +2023,14 @@ definitions:
         type: number
         description: The performance indicator based on the performance indicator formula indicated in the request for this category
         example: 25.33
-
       totalSales:
         type: number
         description: The total sales related to this category
         example: 234.42
-
       soldProductCount:
         type: integer
         description: The product sold count count for this category
         example: 2
-
       links:
         $ref: '#/definitions/reportByCategoryLinks'
 
@@ -2047,7 +2043,7 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - turnover
+    - roi
     - margin
     - performanceIndicator
     - totalSales
@@ -2077,9 +2073,9 @@ definitions:
         type: integer
         description: The order count for this channel
         example: 42
-      turnover:
+      roi:
         type: number
-        description: The Turnover for this channel
+        description: The Return On Investment for this channel
         example: 42.42
       margin:
         type: number
@@ -2109,7 +2105,7 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - turnover
+    - roi
     - margin
     - performanceIndicator
     - totalSales
@@ -2127,9 +2123,9 @@ definitions:
         type: integer
         description: The order count for this day and all channels
         example: 42
-      turnover:
+      roi:
         type: number
-        description: The Turnover for this day and all channels
+        description: The Return On Investment for this day and all channels
         example: 23.11
       margin:
         type: number
@@ -2157,7 +2153,7 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - turnover
+    - roi
     - margin
     - performanceIndicator
     - totalSales
@@ -2178,9 +2174,9 @@ definitions:
         type: integer
         description: The order count for this day and this channel
         example: 42
-      turnover:
+      roi:
         type: number
-        description: The Turnover for this day and this channel
+        description: The Return On Investment for this day and this channel
         example: 23.11
       margin:
         type: number
@@ -2213,7 +2209,7 @@ definitions:
     example:
       firstParameter: Cost
       operatorName: Multiply
-      secondParamter: Turnover
+      secondParamter: ROI
       thirdParameter: 100
     properties:
       firstParameter:
