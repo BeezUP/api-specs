@@ -3517,7 +3517,13 @@ definitions:
         type: string
         example: Frigo
       categoryPath:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'        
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'     
+      orderbyCatalogColumnId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogColumnId'
+      withoutSubCategories:
+        type: boolean
+        description: 'Do not retrieve sub categories. By default, this value is set to false'
+        example: false
       
   
   categoryList:
