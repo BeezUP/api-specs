@@ -10,7 +10,6 @@ parameters:
     type: string
     format: guid
     description: Your store identifier
-    
 
   pageNumberQueryStrngParameter:
     name: pageNumber
@@ -21,7 +20,7 @@ parameters:
     format: int32
     minimum: 1
     x-example: 1
-    
+
   pageSizeQueryStrngParameter:
     name: pageSize
     description: The entry count you want to get
@@ -33,9 +32,6 @@ parameters:
     maximum: 100
     x-example: 25
 
-    
-    
-  
   ifNoneMatchParameter:
     name: If-None-Match
     type: string
@@ -47,7 +43,6 @@ parameters:
       If the ETag value does not match the response will be 200 to give you a new content, otherwise the response will be: 304 Not Modified, without any content.\
       For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
 
-    
   ifMatchParameter:
     name: If-Match
     in: header
@@ -70,7 +65,7 @@ parameters:
 
   acceptEncodingRequiredParameter:
     name: Accept-Encoding
-    description: Allows the client to indicate wether it accepts a compressed encoding to reduce traffic size. 
+    description: Allows the client to indicate whether it accepts a compressed encoding to reduce traffic size.
     in: header
     required: true
     type: array
@@ -80,14 +75,13 @@ parameters:
 
   acceptEncodingOptionalParameter:
     name: Accept-Encoding
-    description: Allows the client to indicate wether it accepts a compressed encoding to reduce traffic size. 
+    description: Allows the client to indicate whether it accepts a compressed encoding to reduce traffic size.
     in: header
     required: false
     type: array
     collectionFormat: csv
     items:
       type: string
-
 
 # To remind the http header
 # responseHeaders:
@@ -107,9 +101,6 @@ parameters:
 #        type: string
 #        collectionFormat: csv
 
-
-    
-    
 responses:
   GeneralError:
     description: Occurs when something goes wrong
@@ -138,11 +129,7 @@ responses:
           The ETag value to identify the resource.\
           For more details go to this link: http://tools.ietf.org/html/rfc7232#section-2.3
 
-
-
-
 definitions:
-
 
   BeezUP.Common.PaginationRequestParameters:
     type: object
@@ -151,7 +138,6 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PageSize'
       pageNumber:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PageNumber'
-
 
   BeezUP.Common.PageSize:
     description: Indicate the item count per page
@@ -170,32 +156,34 @@ definitions:
     minimum: 1
     default: 1
 
-
-
   BeezUP.Common.CatalogCategoryFilter:
     type: object
+    required:
+    - withoutSubcategories
     properties:
       categoryPath:
         type: array
-        items: 
+        items:
           type: string
         description: Indicates on which catalog category path you want to make the filter
         example:
           - Maison
           - Chambre
+      withoutSubcategories:
+        type: boolean
+        example: false
 
   BeezUP.Common.ChannelCategoryFilter:
     type: object
     properties:
       categoryPath:
         type: array
-        items: 
+        items:
           type: string
         description: Indicates on which channel category path you want to make the filter
         example:
           - Home
           - Bedroom
-
 
   BeezUP.Common.ProductFilters:
     type: object
@@ -208,11 +196,8 @@ definitions:
         type: string
         description: The product title filter
         example: 'Refrigérateur'
-        
       additionalProductFilters:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.AdditionalProductFilters'
-
-
 
   BeezUP.Common.AdditionalProductFiltersValue:
     type: object
@@ -226,7 +211,7 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilterOperatorName'
       values:
         description: |
-          Must be null if the operator is "IsNull" or "IsNotNull". 
+          Must be null if the operator is "IsNull" or "IsNotNull".
           Can contains multiple value in case of "InList" operator. Otherwise a single value is expected.
         type: array
         items:
@@ -245,7 +230,6 @@ definitions:
       The key is the column identifier of your catalog or a custom column.
     additionalProperties:
       $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.AdditionalProductFiltersValue'
-     
 
   BeezUP.Common.ProductFilterOperatorName:
     type: string
@@ -258,8 +242,6 @@ definitions:
     - InList
     - IsNull
     - IsNotNull
- 
-
 
   BeezUP.Common.ProductBasicInfo:
     description: The basic information related to a product
@@ -293,7 +275,6 @@ definitions:
         description: Indicates if the product still exists in your catalog
         example: true
 
-
   BeezUP.Common.ChannelBasicInfo:
     description: The basic info related to a channel
     type: object
@@ -309,27 +290,21 @@ definitions:
       channelImageUrl:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
 
-
-
   BeezUP.Common.CatalogColumnId:
     type: string
     format: guid
-    description: The catalog column identifier (catalog or custom column) 
+    description: The catalog column identifier (catalog or custom column)
     example: 'bea7c21e-948b-4ac3-9ffd-4396e62c4163'
-
 
   BeezUP.Common.CatalogColumnUserName:
     type: string
     description: The catalog column named by the user (catalog or custom column)
     example: 'My title'
 
-
   BeezUP.Common.ChannelColumnName:
     type: string
     description: The channel column name
     example: 'NAME'
-
-
 
   BeezUP.Common.ColumnImportance:
     type: string
@@ -359,14 +334,10 @@ definitions:
     default: String
     example: String
 
-
-
   BeezUP.Common.BeezUPColumnName:
     type: string
     description: The BeezUP column name
     example: CategoryFirstLevel
-
-
 
   BeezUP.Common.MarketplaceTechnicalCode:
     description: The technical code of the marketplace.
@@ -392,7 +363,6 @@ definitions:
     x-lov: Country
     example: FRA
 
-
   BeezUP.Common.CurrencyCode:
     description: |
       The currency code <a href="https://en.wikipedia.org/wiki/ISO_4217">(ISO 4217)</a>
@@ -417,19 +387,18 @@ definitions:
     description: The store identifier
     type: string
     example: 64f43358-63a1-47f7-97ec-0301fc39956b
-    
+
   BeezUP.Common.ChannelCatalogId:
     type: string
     format: guid
     description: The channel catalog identifier
     example: '6d6b04de-406b-4539-8e7e-bf3e8da5dfb0'
 
-
   BeezUP.Common.ChannelCategoryId:
     type: string
     format: guid
     example: '24f508da-a069-4467-b9d3-15baebe9bac7'
-        
+
   BeezUP.Common.ChannelCategoryPath:
     description: The channel category path
     type: array
@@ -450,13 +419,11 @@ definitions:
     - Femmes
     - Chaussures
 
-
   BeezUP.Common.CatalogCategoryId:
     description: The catalog category identifier
     type: string
     format: guid
     example: '81a058a6-0451-4b79-84ef-94c58d0ed4ac'
-
 
   BeezUP.Common.ChannelId:
     type: string
@@ -469,20 +436,17 @@ definitions:
     description: The channel name
     example: Amazon FRA
 
-
   BeezUP.Common.ProductId:
     type: string
     format: guid
     description: The product identifier
     example: '578419df-1bbf-41a6-96fa-862e42182b67'
 
-
   BeezUP.Common.ChannelColumnId:
     type: string
     format: guid
     description: The channel column identifier
-    example: '8a76f06a-fefc-4c0d-bcfe-b210f1482977'    
-
+    example: '8a76f06a-fefc-4c0d-bcfe-b210f1482977'
 
   BeezUP.Common.ListOfValueItem:
     description: This object is used by LOV apis
@@ -505,7 +469,7 @@ definitions:
         format: int32
         type: integer
         example: 1
-  
+
   BeezUP.Common.PaginationResult:
     type: object
     required:
@@ -514,17 +478,17 @@ definitions:
     - totalEntryCount
     - links
     properties:
-      entryCount: 
+      entryCount:
         type: integer
         description: The entry count currently returned
         example: 25
         minimum: 0
-      pageCount: 
+      pageCount:
         type: integer
         description: The page count
         example: 38
         minimum: 0
-      totalEntryCount: 
+      totalEntryCount:
         type: integer
         description: The total entry count
         example: 943
@@ -591,16 +555,12 @@ definitions:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
       next:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
-      
-
-
 
   BeezUP.Common.Href:
     type: string
     example: /v2/marketplaces/orders/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}
     description: Indicate the relative uri for this link
-    
-    
+
   BeezUP.Common.OperationId:
     type: string
     description: The operationId to call.
@@ -617,7 +577,6 @@ definitions:
     default: GET
     example: GET
     description: Indicate the http method to use on this link
-  
 
   BeezUP.Common.Link3:
     type: object
@@ -656,9 +615,6 @@ definitions:
       info:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
 
-
-  
-
   BeezUP.Common.Link2:
     type: object
     x-deprecated: true
@@ -692,12 +648,12 @@ definitions:
       * query: if the parameter must be passed in querystring
       * body: if the paramter must be passed in the body
     example: path
-    enum: 
+    enum:
       - path
       - header
       - query
       - body
-      
+
   BeezUP.Common.ParameterType:
         description: The value type of the parameter
         type: string
@@ -749,16 +705,14 @@ definitions:
         description: schema of the parameter
         example: orderListRequest
       properties:
-        description: If the parameter is an object with flexible properties (additionProperties/dictionary), we will describe the properties of the object. 
+        description: If the parameter is an object with flexible properties (additionProperties/dictionary), we will describe the properties of the object.
         type: object
         additionalProperties:
           $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameterProperty3
         example:
           shipOrder:
             type: string
-          
-          
-          
+
   BeezUP.Common.LinkParameterProperty3:
     type: object
     required:
@@ -791,11 +745,7 @@ definitions:
         type: string
         description: schema of the parameter
         example: orderListRequest
-  
 
-
-
-        
   BeezUP.Common.LinkParameter2:
     type: object
     x-deprecated: true
@@ -824,7 +774,7 @@ definitions:
         type: boolean
         description: If true, you MUST use indicate a value from the list of values otherwise it's a freetext
         example: true
-        
+
   BeezUP.Common.LOVLink2:
     description: Describe the way you have to follow to get access to the LOV
     x-deprecated: true
@@ -845,7 +795,7 @@ definitions:
         type: string
         description: The name of the list of value
         example: Go2CultureName
-        
+
   BeezUP.Common.LOVLink3:
     description: Describe the way you have to follow to get access to the LOV
     type: object
@@ -866,7 +816,7 @@ definitions:
     #format: uri
     pattern: ^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$
     example: 'http://www.mydomain.com'
-   
+
   BeezUP.Common.ErrorResponseMessage:
     type: object
     required:
@@ -875,16 +825,14 @@ definitions:
       errors:
         type: array
         uniqueItems: false
-        items: 
+        items:
           $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage
-  
 
   BeezUP.Common.DocUrl:
     type: string
     format: uri
     description: The documentation related to this operation.
     example: 'https://api-docs.beezup.com/#operation/EnableChannelCatalog'
-
 
   BeezUP.Common.UserErrorMessage:
     type: object
@@ -925,7 +873,7 @@ definitions:
               type: object
               description: The value of the parameter. Depending to the type.
               example: b24d0dd8-a561-478a-9b26-34f573f03527
-          
+
   BeezUP.Common.InfoSummaries:
     type: object
     properties:
@@ -945,7 +893,7 @@ definitions:
         type: array
         items:
           $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummary
-          
+
   BeezUP.Common.SuccessSummary:
     type: object
     properties:
@@ -963,7 +911,7 @@ definitions:
         type: string
       objectName:
         type: string
-        
+
   BeezUP.Common.ErrorSummary:
     type: object
     properties:
@@ -993,7 +941,7 @@ definitions:
         type: string
       source:
         type: string
-        
+
   BeezUP.Common.WarningSummary:
     type: object
     properties:
@@ -1007,7 +955,7 @@ definitions:
         type: object
         additionalProperties:
           type: string
-          
+
   BeezUP.Common.InfoSummary:
     type: object
     properties:
@@ -1025,7 +973,7 @@ definitions:
         type: string
       objectName:
         type: string
-        
+
   BeezUP.Common.ExceptionDetail:
     type: object
     properties:
@@ -1039,7 +987,7 @@ definitions:
         type: string
       type:
         type: string
-        
+
   BeezUP.Common.ApiSettingsStatus:
     type: string
     enum:
