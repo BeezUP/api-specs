@@ -31,6 +31,9 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
+    Fixing bad names in generated code
+    Adding Links to OptimiseAll and renaming links to Optimise
+    Adding enableProductForOneChannel and disableProductForOneChannel to ReportByProductOneChannelLinks
     Adding ProductCount to PerformanceIndicatorType
     Replacing Turnover with ROI
     Adding Optimise All without pagination
@@ -1100,6 +1103,51 @@ definitions:
             type: object
             schema: reportByProductRequest
 
+  links.OptimiseAllLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/analytics/8f95eb1a-3691-4750-950d-a13c4a8a9bcc/optimisations/all/enable
+        method: POST
+        parameters:
+          request:
+            in: body
+            type: object
+            schema: optimiseAllRequest
+            value:
+              channelId: '2dc136a7-0d3d-4cc9-a825-a28a42c53e28'
+              beginPeriodUtcDate: '2006-11-20T00:00:00Z'
+              endPeriodUtcDate: '2006-12-20T00:00:00Z'
+              categoryFilter:
+                categoryPath:
+                  - Home
+                  - Bedroom
+              indicatorFilters:
+                - indicator: Cost
+                  operatorName: Equals
+                  value: 10.42
+              advancedFilters:
+                marginType: Global
+                globalmarginPercent: 10
+                linkClickToOrderType: OnClickDate
+                linkClickToOrderMaxDay: 5
+                onlyPaymentValidatedOrders: true
+                onlyDirectSales: true
+                performanceIndicatorFormula:
+                  firstParameter: Cost
+                  operatorName: Multiply
+                  secondParamter: ROI
+                  thirdParameter: 100
+              productState: All
+              productFilters:
+                sku: M1234
+                title: Refrigérateur
+                additionalProductFilters:
+                  - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
+                    operatorName: GreaterTo
+                    values:
+                      - 100
+
   links.OptimiseLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -1522,8 +1570,12 @@ definitions:
     type: object
     properties:
       enableAllProducts:
-        $ref: '#/definitions/links.OptimiseLink'
+        $ref: '#/definitions/links.OptimiseAllLink'
       disableAllProducts:
+        $ref: '#/definitions/links.OptimiseAllLink'
+      enableProducts:
+        $ref: '#/definitions/links.OptimiseLink'
+      disableProducts:
         $ref: '#/definitions/links.OptimiseLink'
 
   reportByChannelResponseLinks:
@@ -1869,9 +1921,15 @@ definitions:
     description: If the report concerned one product for one channel the channel catalog product info will give you all you need to enable or disable the product.
     required:
     - productInfo
+    - enableProductForOneChannel
+    - disableProductForOneChannel
     properties:
       productInfo:
         $ref: '#/definitions/links.GetChannelCatalogProductInfoLink'
+      enableProductForOneChannel:
+        $ref: '#/definitions/links.OptimiseByProductLink'
+      disableProductForOneChannel:
+        $ref: '#/definitions/links.OptimiseByProductLink'
 
   reportByProductAllChannelsLinks:
     type: object
