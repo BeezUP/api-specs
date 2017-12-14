@@ -2559,12 +2559,6 @@ definitions:
         format: int32
         default: 30
         example: 360
-      isLocalImport:
-        description: "default:false"
-        type: boolean
-        example: true
-        
-
 
   fileFormatStrategy:
     description: CSV or XML
