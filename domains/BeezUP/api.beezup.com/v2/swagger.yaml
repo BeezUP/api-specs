@@ -158,8 +158,8 @@ definitions:
 
   BeezUP.Common.CatalogCategoryFilter:
     type: object
-    required:
-    - withoutSubcategories
+    #required:
+    #- withoutSubcategories
     properties:
       categoryPath:
         type: array
@@ -169,9 +169,9 @@ definitions:
         example:
           - Maison
           - Chambre
-      withoutSubcategories:
-        type: boolean
-        example: false
+      #withoutSubcategories:
+      #  type: boolean
+      #  example: false
 
   BeezUP.Common.ChannelCategoryFilter:
     type: object
