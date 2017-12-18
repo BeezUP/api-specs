@@ -11,10 +11,8 @@ info:
   x-logo:
     url: "https://avatars0.githubusercontent.com/u/25665430"
     backgroundColor: "#FFFFFF"
-
   contact:
     email: support@beezup.com
-
   license:
     name: BeezUP
     url: http://www.beezup.com
@@ -31,7 +29,8 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
-    Fixing bad names in generated code
+    Adding orderedReportFilterCommonParameters
+    Fixing bad names in build
     Adding Links to OptimiseAll and renaming links to Optimise
     Adding enableProductForOneChannel and disableProductForOneChannel to ReportByProductOneChannelLinks
     Adding ProductCount to PerformanceIndicatorType
@@ -269,12 +268,10 @@ paths:
           description: This report filter is used by rule. In the error message you will find the rule identifier.
           schema:
             $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage
-
         403:
           description: This report filter identifier is already used by another store, please check your identifiers.
           schema:
             $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage
-
         400:
           $ref: '#/responses/BadRequestResponse'
         404:
@@ -399,7 +396,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/copyOptimisationRequest'
-
       responses:
         204:
           description: Products optimisatisation copied
@@ -428,7 +424,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/optimiseRequest'
-
       responses:
         204:
           description: Products optimisatized
@@ -457,7 +452,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/optimiseAllRequest'
-
       responses:
         204:
           description: Products optimisatized
@@ -500,7 +494,6 @@ paths:
               format: guid
             example:
               - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
-
       responses:
         204:
           description: Product(s) optimisatized
@@ -543,7 +536,6 @@ paths:
               format: guid
             example:
               - 'a2d38563-50f0-43f1-be2b-b16e7ec4f007'
-
       responses:
         204:
           description: Products optimisatized
@@ -779,7 +771,6 @@ paths:
           type: integer
           default: 1
           minimum: 1
-
         - name: pageSize
           in: query
           description: The count of rule history to retrieve
@@ -1375,7 +1366,7 @@ definitions:
               endUtcDate": '2016-08-29T09:12:33.001Z'
 
 ################################################################
-################## MODELS DEFINITIONS ##########################
+################## MODEL DEFINITIONS ###########################
 ################################################################
 
   analyticsIndexLovLinks:
@@ -1435,10 +1426,8 @@ definitions:
         $ref: '#/definitions/links.GetStoreTrackedOrdersLink'
       trackedExternalOrders:
         $ref: '#/definitions/links.GetStoreTrackedExternalOrdersLink'
-
       reportFilters:
         $ref: '#/definitions/links.GetReportFiltersLink'
-
       reportByDay:
         $ref: '#/definitions/links.GetStoreReportByDayLink'
       reportByChannel:
@@ -1447,7 +1436,6 @@ definitions:
         $ref: '#/definitions/links.GetStoreReportByCategoryLink'
       reportByProduct:
         $ref: '#/definitions/links.GetStoreReportByProductLink'
-
       optimise:
         $ref: '#/definitions/links.OptimiseLink'
       optimiseByChannel:
@@ -1456,7 +1444,6 @@ definitions:
         $ref: '#/definitions/links.OptimiseByCategoryLink'
       optimiseByProduct:
         $ref: '#/definitions/links.OptimiseByProductLink'
-
       rules:
         $ref: '#/definitions/links.GetRulesLink'
 
@@ -1467,7 +1454,6 @@ definitions:
     properties:
       links:
         $ref: '#/definitions/analyticsStoreIndexLinks'
- #     trackingStatus:
 
 #  analyticsStoreTrackingStatus:
 #    type: string
@@ -1494,23 +1480,13 @@ definitions:
     example:
     - '4b460e31-3d1f-4117-922d-b159a64ec1d2'
 
-  reportByProductRequest:
-    allOf:
-    - $ref: '#/definitions/reportFilterCommonParameters'
-    - $ref: '#/definitions/paginationRequestParameters'
-    - type: object
-      required:
-      - beginPeriodUtcDate
-      - endPeriodUtcDate
-      - advancedFilters
-      - productState
-      properties:
-        productColumnsToDisplay:
-          $ref: '#/definitions/productColumnsToDisplay'
-        productState:
-         $ref: '#/definitions/productStateFilter'
-        productFilters:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
+  optimisationActionName:
+    description: The optimisation action
+    type: string
+    enum:
+      - reenable
+      - disable
+    example: reenable
 
   copyOptimisationRequest:
     type: object
@@ -1528,43 +1504,6 @@ definitions:
         type: boolean
         description: If true the existing optimisation will be kept
         example: false
-
-  optimiseAllRequest:
-    allOf:
-    - $ref: '#/definitions/reportFilterCommonParameters'
-    - type: object
-      required:
-      - beginPeriodUtcDate
-      - endPeriodUtcDate
-      - advancedFilters
-      - reportType
-      properties:
-        reportType:
-          $ref: '#/definitions/reportType'
-        productColumnsToDisplay:
-          $ref: '#/definitions/productColumnsToDisplay'
-        productState:
-          $ref: '#/definitions/productStateFilter'
-        productFilters:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
-
-  optimiseRequest:
-    allOf:
-    - $ref: '#/definitions/optimiseAllRequest'
-    - $ref: '#/definitions/paginationRequestParameters'
-    - type: object
-      required:
-      - beginPeriodUtcDate
-      - endPeriodUtcDate
-      - advancedFilters
-      - reportType
-      properties:
-        productState:
-          $ref: '#/definitions/productStateFilter'
-        reportType:
-          $ref: '#/definitions/reportType'
-        productFilters:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
 
   reportByCommonResponseLinks:
     type: object
@@ -1618,8 +1557,6 @@ definitions:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
       currencyCode:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CurrencyCode
-
-# [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
       categories:
@@ -1699,10 +1636,16 @@ definitions:
       advancedFilters:
         $ref: '#/definitions/reportAdvancedFilters'
 
-  reportByCategoryRequest:
+  orderedReportFilterCommonParameters:
+    description: Contains common filter parameters with Order By functionnality
     allOf:
     - $ref: '#/definitions/reportFilterCommonParameters'
-    - $ref: '#/definitions/paginationRequestParameters'
+    - type: object
+      properties:
+        orderBy:
+          $ref: '#/definitions/performanceIndicatorType'
+        orderByDirection:
+          $ref: '#/definitions/orderByDirection'
 
   paginationRequestParameters:
     type: object
@@ -1712,10 +1655,70 @@ definitions:
       pageNumber:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PageNumber'
 
+  reportByCategoryRequest:
+    allOf:
+    - $ref: '#/definitions/orderedReportFilterCommonParameters'
+    - $ref: '#/definitions/paginationRequestParameters'
+
   reportByChannelRequest:
     allOf:
-    - $ref: '#/definitions/reportFilterCommonParameters'
+    - $ref: '#/definitions/orderedReportFilterCommonParameters'
     - $ref: '#/definitions/paginationRequestParameters'
+
+  reportByProductRequest:
+    allOf:
+    - $ref: '#/definitions/orderedReportFilterCommonParameters'
+    - $ref: '#/definitions/paginationRequestParameters'
+    - type: object
+      required:
+      - beginPeriodUtcDate
+      - endPeriodUtcDate
+      - advancedFilters
+      - productState
+      properties:
+        productColumnsToDisplay:
+          $ref: '#/definitions/productColumnsToDisplay'
+        productState:
+         $ref: '#/definitions/productStateFilter'
+        productFilters:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
+
+  optimiseAllRequest:
+    allOf:
+    - $ref: '#/definitions/orderedReportFilterCommonParameters'
+    - type: object
+      required:
+      - beginPeriodUtcDate
+      - endPeriodUtcDate
+      - advancedFilters
+      - reportType
+      properties:
+        reportType:
+          $ref: '#/definitions/reportType'
+        productColumnsToDisplay:
+          $ref: '#/definitions/productColumnsToDisplay'
+        productState:
+          $ref: '#/definitions/productStateFilter'
+        productFilters:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
+
+  optimiseRequest:
+    allOf:
+    - $ref: '#/definitions/optimiseAllRequest'
+    - $ref: '#/definitions/paginationRequestParameters'
+    - type: object
+      required:
+      - beginPeriodUtcDate
+      - endPeriodUtcDate
+      - advancedFilters
+      - reportType
+      properties:
+        productState:
+          $ref: '#/definitions/productStateFilter'
+        reportType:
+          $ref: '#/definitions/reportType'
+        productFilters:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
 
   reportIndicatorFilterOperatorName:
     type: string
@@ -1741,6 +1744,14 @@ definitions:
         type: number
         description: Indicates the filter value to apply on this indicator
         example: 10.42
+
+  orderByDirection:
+    type: string
+    description: Indicate which direction to order results by
+    enum:
+    - Ascending
+    - Descending
+    example: Ascending
 
   performanceIndicatorType:
     type: string
@@ -1867,14 +1878,12 @@ definitions:
     properties:
       currencyCode:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CurrencyCode
-
 # [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
       globalPerformanceIndicators:
         type: array
         items:
           $ref: '#/definitions/globalPerformanceIndicatorByChannel'
-# [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
       days:
@@ -1908,13 +1917,37 @@ definitions:
         example: '2017-04-23T00:00:00.000Z'
       allChannels:
         $ref: '#/definitions/reportByDayAllChannels'
-# [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
       byChannels:
         type: array
         items:
           $ref: '#/definitions/reportByDayByChannel'
+
+  reportByCategoryLinks:
+    type: object
+    properties:
+      enableProducts:
+        $ref: '#/definitions/links.OptimiseByCategoryLink'
+      disableProducts:
+        $ref: '#/definitions/links.OptimiseByCategoryLink'
+
+  reportByChannelLinks:
+    type: object
+    properties:
+      enableProducts:
+        $ref: '#/definitions/links.OptimiseByChannelLink'
+      disableProducts:
+        $ref: '#/definitions/links.OptimiseByChannelLink'
+
+  reportByProductLinks:
+    description: Depending if the report concerned multiple channels or one channel.
+    type: object
+    properties:
+      oneChannelLinks:
+        $ref: '#/definitions/reportByProductOneChannelLinks'
+      allChannelsLinks:
+        $ref: '#/definitions/reportByProductAllChannelsLinks'
 
   reportByProductOneChannelLinks:
     type: object
@@ -1942,30 +1975,129 @@ definitions:
       disableProductForAllChannels:
         $ref: '#/definitions/links.OptimiseByProductLink'
 
-  reportByProductLinks:
-    description: Depending if the report concerned multiple channels or one channel.
+  reportByCategory:
     type: object
+    required:
+    - catalogCategoryId
+    - enabledProductCount
+    - catalogProductCount
+    - clickCount
+    - cost
+    - orderCount
+    - roi
+    - margin
+    - performanceIndicator
+    - totalSales
+    - soldProductCount
+    - links
     properties:
-      oneChannelLinks:
-        $ref: '#/definitions/reportByProductOneChannelLinks'
-      allChannelsLinks:
-        $ref: '#/definitions/reportByProductAllChannelsLinks'
+      catalogCategoryId:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryId'
+      catalogCategoryPath:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'
+      enabledProductCount:
+        type: integer
+        description: The enabled product count for this category
+        example: 101
+      catalogProductCount:
+        type: integer
+        description: The catalog product count related to this category
+        example: 101
+      clickCount:
+        type: integer
+        description: The click count for this category
+        example: 1001
+      cost:
+        type: number
+        description: The cost for this category
+        example: 12.42
+      orderCount:
+        type: integer
+        description: The order count for this category
+        example: 25.33
+      roi:
+        type: number
+        description: The Return On Investment for this category
+        example: 25.33
+      margin:
+        type: number
+        description: The margin for this category
+        example: 3.33
+      performanceIndicator:
+        type: number
+        description: The performance indicator based on the performance indicator formula indicated in the request for this category
+        example: 25.33
+      totalSales:
+        type: number
+        description: The total sales related to this category
+        example: 234.42
+      soldProductCount:
+        type: integer
+        description: The product sold count count for this category
+        example: 2
+      links:
+        $ref: '#/definitions/reportByCategoryLinks'
 
-  reportByCategoryLinks:
+  reportByChannel:
     type: object
+    required:
+    - channel
+    - enabledProductCount
+    - catalogProductCount
+    - clickCount
+    - cost
+    - orderCount
+    - roi
+    - margin
+    - performanceIndicator
+    - totalSales
+    - soldProductCount
+    - links
     properties:
-      enableProducts:
-        $ref: '#/definitions/links.OptimiseByCategoryLink'
-      disableProducts:
-        $ref: '#/definitions/links.OptimiseByCategoryLink'
-
-  reportByChannelLinks:
-    type: object
-    properties:
-      enableProducts:
-        $ref: '#/definitions/links.OptimiseByChannelLink'
-      disableProducts:
-        $ref: '#/definitions/links.OptimiseByChannelLink'
+      channel:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelBasicInfo'
+      enabledProductCount:
+        type: integer
+        description: The enabled product count for this channel
+        example: 101
+      catalogProductCount:
+        type: integer
+        description: The catalog product count for this channel
+        example: 101
+      clickCount:
+        type: integer
+        description: The click count for this channel
+        example: 1024
+      cost:
+        type: number
+        description: The cost for this channel
+        example: 1234.12
+      orderCount:
+        type: integer
+        description: The order count for this channel
+        example: 42
+      roi:
+        type: number
+        description: The Return On Investment for this channel
+        example: 42.42
+      margin:
+        type: number
+        description: The margin for this channel
+        example: 23.10
+      performanceIndicator:
+        type: number
+        description: The performance indicator based on the performance indicator formula indicated in the request for this channel
+        example: 12.21
+      totalSales:
+        type: number
+        description: The total sales related to this channel
+        example: 234.42
+      soldProductCount:
+        type: integer
+        description: The product sold count count for this channel
+        example: 2
+      links:
+        $ref: '#/definitions/reportByChannelLinks'
 
   reportByProduct:
     type: object
@@ -2028,135 +2160,6 @@ definitions:
       links:
         $ref: '#/definitions/reportByProductLinks'
 
-  reportByCategory:
-    type: object
-    required:
-    - catalogCategoryId
-    - enabledProductCount
-    - catalogProductCount
-    - clickCount
-    - cost
-    - orderCount
-    - roi
-    - margin
-    - performanceIndicator
-    - totalSales
-    - soldProductCount
-    - links
-    properties:
-      catalogCategoryId:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryId'
-      catalogCategoryPath:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'
-
-      enabledProductCount:
-        type: integer
-        description: The enabled product count for this category
-        example: 101
-      catalogProductCount:
-        type: integer
-        description: The catalog product count related to this category
-        example: 101
-      clickCount:
-        type: integer
-        description: The click count for this category
-        example: 1001
-      cost:
-        type: number
-        description: The cost for this category
-        example: 12.42
-      orderCount:
-        type: integer
-        description: The order count for this category
-        example: 25.33
-      roi:
-        type: number
-        description: The Return On Investment for this category
-        example: 25.33
-      margin:
-        type: number
-        description: The margin for this category
-        example: 3.33
-      performanceIndicator:
-        type: number
-        description: The performance indicator based on the performance indicator formula indicated in the request for this category
-        example: 25.33
-      totalSales:
-        type: number
-        description: The total sales related to this category
-        example: 234.42
-      soldProductCount:
-        type: integer
-        description: The product sold count count for this category
-        example: 2
-      links:
-        $ref: '#/definitions/reportByCategoryLinks'
-
-  reportByChannel:
-    type: object
-    required:
-    - channel
-    - enabledProductCount
-    - catalogProductCount
-    - clickCount
-    - cost
-    - orderCount
-    - roi
-    - margin
-    - performanceIndicator
-    - totalSales
-    - soldProductCount
-    - links
-    properties:
-      channel:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelBasicInfo'
-
-      enabledProductCount:
-        type: integer
-        description: The enabled product count for this channel
-        example: 101
-      catalogProductCount:
-        type: integer
-        description: The catalog product count for this channel
-        example: 101
-      clickCount:
-        type: integer
-        description: The click count for this channel
-        example: 1024
-      cost:
-        type: number
-        description: The cost for this channel
-        example: 1234.12
-      orderCount:
-        type: integer
-        description: The order count for this channel
-        example: 42
-      roi:
-        type: number
-        description: The Return On Investment for this channel
-        example: 42.42
-      margin:
-        type: number
-        description: The margin for this channel
-        example: 23.10
-      performanceIndicator:
-        type: number
-        description: The performance indicator based on the performance indicator formula indicated in the request for this channel
-        example: 12.21
-
-      totalSales:
-        type: number
-        description: The total sales related to this channel
-        example: 234.42
-
-      soldProductCount:
-        type: integer
-        description: The product sold count count for this channel
-        example: 2
-
-      links:
-        $ref: '#/definitions/reportByChannelLinks'
-
   reportByDayAllChannels:
     type: object
     required:
@@ -2193,12 +2196,10 @@ definitions:
         type: number
         description: The performance indicator based on the performance indicator formula indicated in the request for this day and all channels
         example: 23.09
-
       totalSales:
         type: number
         description: The total sales related to this day and all channels
         example: 234.42
-
       soldProductCount:
         type: integer
         description: The product sold count count for this day and all channels
@@ -2219,7 +2220,6 @@ definitions:
     properties:
       channel:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelBasicInfo'
-
       clickCount:
         type: integer
         description: The click count for this day and this channel
@@ -2248,7 +2248,6 @@ definitions:
         type: number
         description: The total sales related to this day and this channel
         example: 234.42
-
       soldProductCount:
         type: integer
         description: The product sold count count for this day and this channel
@@ -2488,7 +2487,6 @@ definitions:
         format: guid
         description: We tried to get the catalog product identifier based on the product SKU. This property can be null, if we cannot found the product. This is possible if the product is not referenced in the imported catalog.
         example: '6d469a54-8426-4855-abc2-9e062e2056b9'
-
       unitPrice:
         type: string
         description: "The product's unit price related to this external order. This property is voluntarily a string because the value could be an invalid one."
@@ -2698,7 +2696,6 @@ definitions:
     - rules
     - links
     properties:
-# [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
       rules:
@@ -2709,14 +2706,6 @@ definitions:
 
       links:
         $ref: '#/definitions/ruleListLinks'
-
-  optimisationActionName:
-    description: The optimisation action
-    type: string
-    enum:
-      - reenable
-      - disable
-    example: reenable
 
   ruleLastExecutionStatus:
     description: The status of the last execution
@@ -2858,20 +2847,6 @@ definitions:
         type: string
         example: '2016-08-29T09:12:33.001Z'
 
-  ruleExecutionReportings:
-    type: object
-    properties:
-# [Style Validator (22ad2f0f-c5e7-47ba-8ad2-76e53dfe00e9) : All model properties must have examples]: Field 'example' required in 'properties'
-# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
-# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
-      executions:
-        description: The rules executions history
-        type: array
-        items:
-          $ref: '#/definitions/ruleExecutionReporting'
-      paginationResult:
-       $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
-
   ruleExecutionReportingStatus:
         description: The status of the execution of the rule
         enum:
@@ -2965,6 +2940,19 @@ definitions:
         example: http://www.google.com
       links:
         $ref: '#/definitions/ruleExecutionReportingLinks'
+
+  ruleExecutionReportings:
+    type: object
+    properties:
+# [Style Validator (8c3bfea8-ddcf-4f79-8c7c-52fb930044e7) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (d4181c6e-f5b7-47c8-b188-98eaaaf65988) : All model properties must have examples]: Field 'example' required in 'properties'
+      executions:
+        description: The rules executions history
+        type: array
+        items:
+          $ref: '#/definitions/ruleExecutionReporting'
+      paginationResult:
+       $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
 
 x-azure-api-id: 'V2UserAnalytics'
 # host: api.beezup.com
