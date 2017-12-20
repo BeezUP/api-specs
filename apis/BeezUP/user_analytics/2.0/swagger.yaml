@@ -59,6 +59,8 @@ x-servers:
   description: Mock Server
 - url: https://api.beezup.com/v2/user/analytics
   description: Production Server
+  
+x-azure-api-id: 'V2UserAnalytics'
 
 ################################################################
 ################## API Description #############################
