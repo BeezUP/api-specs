@@ -234,8 +234,14 @@ definitions:
   BeezUP.Common.ProductFilterOperatorName:
     type: string
     description: Indicate the operator you want to make on the columnId
-    x-lov: ProductFilterOperator
-    example: Contains
+    enum:
+    - Equals
+    - Contains
+    - GreaterTo
+    - LowerTo
+    - InList
+    - IsNull
+    - IsNotNull
 
   BeezUP.Common.ProductBasicInfo:
     description: The basic information related to a product
