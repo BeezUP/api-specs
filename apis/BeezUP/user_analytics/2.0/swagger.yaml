@@ -28,6 +28,8 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
+    Adding some LOV links
+    Using specific ProductColumnFilters model instead of common
     Fixing bad names in build
     Adding Links to OptimiseAll and renaming links to Optimise
     Adding enableProductForOneChannel and disableProductForOneChannel to ReportByProductOneChannelLinks
@@ -1016,9 +1018,17 @@ definitions:
   analyticsIndexLovLinks:
     type: object
     properties:
+      performanceIndicatorTypeLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      performanceIndicatorTypeForReportsByChannelLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      performanceIndicatorTypeForReportsByCategoryLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      performanceIndicatorTypeForReportsByProductLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
       performanceIndicatorFormulaParameterTypeLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
-      performanceIndicatorLov:
+      performanceIndicatorFormulaOperatorNameLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
       storeOptimisationRuleExecutionStatusLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
@@ -1153,14 +1163,11 @@ definitions:
                   secondParamter: ROI
                   thirdParameter: 100
               productState: All
-              productFilters:
-                sku: M1234
-                title: Refrigérateur
-                additionalProductFilters:
-                  - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
-                    operatorName: GreaterTo
-                    values:
-                      - 100
+              productColumnFilters:
+                - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
+                  operatorName: GreaterTo
+                  values:
+                    - 100
 
   links.OptimiseLink:
     allOf:
@@ -1200,14 +1207,11 @@ definitions:
               pageSize: 100
               pageNumber: 1
               productState: All
-              productFilters:
-                sku: M1234
-                title: Refrigérateur
-                additionalProductFilters:
-                  - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
-                    operatorName: GreaterTo
-                    values:
-                      - 100
+              productColumnFilters:
+                - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
+                  operatorName: GreaterTo
+                  values:
+                    - 100
 
   links.OptimiseByChannelLink:
     allOf:
@@ -2468,8 +2472,51 @@ definitions:
           $ref: '#/definitions/productColumnsToDisplay'
         productState:
          $ref: '#/definitions/productStateFilter'
-        productFilters:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
+        productColumnFilters:
+          $ref: '#/definitions/productColumnFilters'
+
+  productColumnFilters:
+    type: object
+    description: |
+      Describes a filter on a product's column.
+      The key is the column identifier of your catalog or a custom column.
+    additionalProperties:
+      $ref: '#/definitions/productColumnFilter'
+
+  productColumnFilter:
+    type: object
+    required:
+    - operatorName
+    properties:
+      operatorName:
+        $ref: '#/definitions/productColumnFilterOperatorName'
+      values:
+        description: |
+          Must be null if the operator is "IsNull" or "IsNotNull".
+          Can contains multiple value in case of "InList" operator. Otherwise a single value is expected.
+        type: array
+        items:
+          type: string
+        example:
+          - My value
+    example:
+      '672644c7-5bd0-4e25-88c1-1f732bda5e4c':
+        operatorName: NumericGreaterTo
+        values:
+          - '100'
+
+  productColumnFilterOperatorName:
+    type: string
+    description: Indicate the operator you want to apply on the columnId
+    enum:
+    - Equals
+    - Contains
+    - InList
+    - IsNull
+    - IsNotNull
+    - NumericEquals
+    - NumericGreaterTo
+    - NumericLowerTo
 
   productColumnsToDisplay:
     type: array
@@ -2588,26 +2635,13 @@ definitions:
           $ref: '#/definitions/productColumnsToDisplay'
         productState:
           $ref: '#/definitions/productStateFilter'
-        productFilters:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
+        productColumnFilters:
+          $ref: '#/definitions/productColumnFilters'
 
   optimiseRequest:
     allOf:
     - $ref: '#/definitions/optimiseAllRequest'
     - $ref: '#/definitions/paginationRequestParameters'
-    - type: object
-      required:
-      - beginPeriodUtcDate
-      - endPeriodUtcDate
-      - advancedFilters
-      - reportType
-      properties:
-        productState:
-          $ref: '#/definitions/productStateFilter'
-        reportType:
-          $ref: '#/definitions/reportType'
-        productFilters:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
 
   copyOptimisationRequest:
     type: object
@@ -2723,8 +2757,8 @@ definitions:
           $ref: '#/definitions/productColumnsToDisplay'
         productState:
           $ref: '#/definitions/productStateFilter'
-        productFilters:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilters'
+        productColumnFilters:
+          $ref: '#/definitions/productColumnFilters'
 
   ruleList:
     type: object
