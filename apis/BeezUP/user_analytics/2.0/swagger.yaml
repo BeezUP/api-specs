@@ -13,7 +13,7 @@ info:
     url: "https://avatars0.githubusercontent.com/u/25665430"
     backgroundColor: "#FFFFFF"
   contact:
-    email: support@beezup.com
+    email: help@beezup.com
   license:
     name: BeezUP
     url: http://www.beezup.com
@@ -28,6 +28,10 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
+    Chaning contact email support to help
+    Adding LOV link for PerformanceIndicatorFilterOperatorName
+    Renaming ReportIndicatorFilter to PerformanceIndicatorFilter
+    Adding LOV links for ProductColumnFilterOperatorName
     Adding some LOV links
     Using specific ProductColumnFilters model instead of common
     Fixing bad names in build
@@ -1030,6 +1034,14 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
       performanceIndicatorFormulaOperatorNameLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      performanceIndicatorFilterOperatorNameLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      productColumnFilterOperatorNameLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      numericProductColumnFilterOperatorNameLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
+      stringProductColumnFilterOperatorNameLov:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
       storeOptimisationRuleExecutionStatusLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
 
@@ -1146,8 +1158,8 @@ definitions:
                 categoryPath:
                   - Home
                   - Bedroom
-              indicatorFilters:
-                - indicator: Cost
+              performanceIndicatorFilters:
+                - performanceIndicator: Cost
                   operatorName: Equals
                   value: 10.42
               advancedFilters:
@@ -1188,8 +1200,8 @@ definitions:
                 categoryPath:
                   - Home
                   - Bedroom
-              indicatorFilters:
-                - indicator: Cost
+              performanceIndicatorFilters:
+                - performanceIndicator: Cost
                   operatorName: Equals
                   value: 10.42
               advancedFilters:
@@ -2191,10 +2203,10 @@ definitions:
         example: '2006-12-20T00:00:00Z'
       categoryFilter:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryFilter'
-      indicatorFilters:
+      performanceIndicatorFilters:
         type: array
         items:
-          $ref: '#/definitions/reportIndicatorFilter'
+          $ref: '#/definitions/performanceIndicatorFilter'
         example:
           - indicator: Cost
             operatorName: Equals
@@ -2217,17 +2229,17 @@ definitions:
     - Last90Days
     - Last3Months
 
-  reportIndicatorFilter:
+  performanceIndicatorFilter:
     type: object
     required:
-    - indicator
+    - performanceIndicator
     - operatorName
     - value
     properties:
-      indicator:
+      performanceIndicator:
         $ref: '#/definitions/performanceIndicatorType'
       operatorName:
-        $ref: '#/definitions/reportIndicatorFilterOperatorName'
+        $ref: '#/definitions/performanceIndicatorFilterOperatorName'
       value:
         type: number
         description: Indicates the filter value to apply on this indicator
@@ -2250,7 +2262,7 @@ definitions:
     - PerformanceIndicator
     example: Cost
 
-  reportIndicatorFilterOperatorName:
+  performanceIndicatorFilterOperatorName:
     type: string
     description: Indicates the operator you want to apply on this indicator
     enum:
