@@ -3,7 +3,7 @@ info:
   version: '2.0'
   title: Marketplaces - Orders
   description: |
-    The features exposed in this API are centered around managing Orders harvested from your configured marketplaces.\ 
+    The features exposed in this API are centered around managing Orders harvested from your configured marketplaces.\
     This includes:
     - fetching current information (as known by BeezUP) for a single or multiple Orders,
     - requesting Order harvest to synchronize your marketplaces and BeezUP accounts,
@@ -15,12 +15,11 @@ info:
     backgroundColor: "#FFFFFF"
 
   contact:
-    email: support@beezup.com
-    
+    email: help@beezup.com
+
   license:
-    name: BeezUP 
-    url: http://www.beezup.com  
-  
+    name: BeezUP
+    url: http://www.beezup.com
 
 x-beezup-api-ops:
   repo: MP2-OM-API
@@ -28,6 +27,7 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
   apiName: V2UserMarketplacesOrders
   comment: |
+    Changing contact email support to help
     Removing required from ChangeOrderRequest (some changes do not require parameters)
     Adding information about max items per batch call
     Order Change link from Dictionary to Array
@@ -36,8 +36,6 @@ x-beezup-api-ops:
 x-host: api.beezup.com
 x-basePath: /v2/user/marketplaces/orders
 
-
-  
 externalDocs:
   description: BeezUP API documentation
   url: https://beezup.github.io/api-docs/
@@ -47,8 +45,6 @@ x-servers:
   description: Mock Server
 - url: https://api.beezup.com/v2/user/marketplaces/orders
   description: Production Server
-
-
 
 schemes:
   - https
@@ -67,19 +63,19 @@ security:
 tags:
 - name: Global
   description: All global operations (cross marketplace)
-  
+
 - name: AutoTransitions
   description: All auto transitions operations
 
 - name: List
-  description: All Order list operations 
+  description: All Order list operations
 
 - name: Order
-  description: All operations related to a single Order 
-  
+  description: All operations related to a single Order
+
 - name: Batches
   description: All batch operations on Orders to reduce call rate
-  
+
 - name: Exports
   description: All Order report exportation operations
 
@@ -96,7 +92,7 @@ parameters:
     required: true
     type: string
     x-example: Amazon
-    
+
   accountIdParameter:
     description: The account identifier
     name: accountId
@@ -105,7 +101,7 @@ parameters:
     type: integer
     format: int32
     x-example: 1001
-    
+
   beezUPOrderIdParameter:
     description: The BeezUP Order identifier
     name: beezUPOrderId
@@ -129,7 +125,7 @@ parameters:
     in: query
     required: true
     type: string
-  
+
   testModeInQueryParameter:
     name: testMode
     description: If true, the operation will be not be sent to marketplace. But the validation will be taken in account.
@@ -138,8 +134,7 @@ parameters:
     type: boolean
     default: false
     x-example: false
-  
-  
+
 paths:
 
   '/':
@@ -161,7 +156,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
-
 
   '/status':
     get:
@@ -241,19 +235,19 @@ paths:
         204:
           description: Successfully confirugred new or existing automatic Order status transition
         400:
-          description: Requested automatic Order status transition could not be configured 
+          description: Requested automatic Order status transition could not be configured
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
-  
+
 #  '/properties':
 #    get:
 #      tags:
 #      - One Order
 #      operationId: GetOrderProperties
-#      summary: Get the configuration of all order properties 
+#      summary: Get the configuration of all order properties
 #      responses:
 #        '200':
 #          description: Order properties
@@ -262,7 +256,7 @@ paths:
 #        default:
 #          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 #      deprecated: false
-  
+
   '/list/full':
     post:
       tags:
@@ -284,7 +278,7 @@ paths:
         collectionFormat: csv
         items:
           type: string
-        #x-example: 
+        #x-example:
         #- gzip
         #- deflate
       - name: request
@@ -406,7 +400,7 @@ paths:
           schema:
             $ref: '#/definitions/batchOrderOperationResponse'
         400:
-          description: Requested too many batch operations 
+          description: Requested too many batch operations
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
@@ -432,7 +426,7 @@ paths:
           schema:
             $ref: '#/definitions/batchOrderOperationResponse'
         400:
-          description: Requested too many batch operations 
+          description: Requested too many batch operations
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
@@ -445,7 +439,7 @@ paths:
       - Batches
       operationId: ChangeOrderList
       summary: Send a batch of operations to change your marketplace Order information (accept, ship, etc.)
-      description: The purpose of this operation is to reduce the amount of request to the API. 
+      description: The purpose of this operation is to reduce the amount of request to the API.
       parameters:
       - $ref: '#/parameters/changeOrderTypeParameter'
       - $ref: '#/parameters/userNameInQueryParameter'
@@ -461,7 +455,7 @@ paths:
           schema:
             $ref: '#/definitions/batchOrderOperationResponse'
         400:
-          description: Requested too many batch operations 
+          description: Requested too many batch operations
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
@@ -476,7 +470,7 @@ paths:
       summary: Get the meta information about the order (ETag, Last-Modified)
       description: |
         The purpose of this operation is to reduce the bandwith usage by getting just the meta information about the order (ETag, Last-Modified) with the body.
-        This could be useful 
+        This could be useful
       parameters:
       - $ref: '#/parameters/marketplaceTechnicalCodeParameter'
       - $ref: '#/parameters/accountIdParameter'
@@ -632,7 +626,7 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
-  
+
   '/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}/clearMerchantOrderInfo':
     post:
       tags:
@@ -693,7 +687,7 @@ paths:
         409:
           description: |
             Already processing a change request for this Order.\
-            Please refresh your clients Order information and retry later. 
+            Please refresh your clients Order information and retry later.
           headers:
             Retry-After:
               type: integer
@@ -705,7 +699,7 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
-       
+
 definitions:
 
   beezUPOrderId:
@@ -726,7 +720,7 @@ definitions:
     example: MyOrderMerchantId
 
   order_MerchantECommerceSoftwareName:
-    description: The e-commerce software name of the merchant 
+    description: The e-commerce software name of the merchant
     type: string
     example: Prestashop
 
@@ -784,7 +778,6 @@ definitions:
           $ref: '#/definitions/orderExportationReporting'
       links:
         $ref: '#/definitions/orderExportationsLinks'
-
 
   orderExportationReporting:
     description: Represent the reporting of the Order report exportations
@@ -905,7 +898,6 @@ definitions:
     type: string
     example: Monroe
 
-
   orderListRequestWithoutPagination:
     type: object
     required:
@@ -941,10 +933,10 @@ definitions:
       dateSearchType:
         $ref: '#/definitions/dateSearchType'
       beginPeriodUtcDate:
-        description: | 
+        description: |
           The begin period you want to make the search. \
           The period MUST not be greater than 30 days.
-          The begin period MUST be lower than the end period. 
+          The begin period MUST be lower than the end period.
         format: date-time
         type: string
         example: '2017-03-01T13:10:01Z'
@@ -952,7 +944,7 @@ definitions:
         description: |
           The end period of you search. \
           The period MUST not be greater than 30 days. \
-          The end period MUST be greater than the begin period. 
+          The end period MUST be greater than the begin period.
           The end period MUST be lower to the current date.
         format: date-time
         type: string
@@ -976,8 +968,7 @@ definitions:
           $ref: '#/definitions/order_MerchantOrderId'
         example:
         - MyOrderId1234
-        
-        
+
   orderListRequest:
     allOf:
     - $ref: '#/definitions/orderListRequestWithoutPagination'
@@ -993,7 +984,7 @@ definitions:
           $ref: '#/definitions/pageSize'
         pageNumber:
           $ref: '#/definitions/pageNumber'
-  
+
   exportOrderListFormat:
     description: The type of the file to export
     type: string
@@ -1001,7 +992,7 @@ definitions:
     - csv
     default: csv
     example: csv
-    
+
   exportOrderListRequest:
     description: The message request to export order list. The store identifier is requested to regroup the exportations.
     type: object
@@ -1026,8 +1017,7 @@ definitions:
     - AlreadyInProgress
     - Aborted
     - Suspended
-    example: Done        
-
+    example: Done
 
   automaticTransitionInfoListLinks:
     type: object
@@ -1060,7 +1050,6 @@ definitions:
     x-lov: OrderChangeBusinessOperationType
     example: ShipOrder
 
-
   automaticTransitionInfoLinks:
     type: object
     required:
@@ -1091,7 +1080,6 @@ definitions:
         links:
           $ref: '#/definitions/automaticTransitionInfoLinks'
 
-      
   configureAutomaticTransitionRequest:
     type: object
     required:
@@ -1104,7 +1092,7 @@ definitions:
         items:
           $ref: '#/definitions/automaticTransition'
         minLength: 1
-          
+
   automaticTransition:
     type: object
     required:
@@ -1175,7 +1163,7 @@ definitions:
         $ref: '#/definitions/order_MerchantECommerceSoftwareName'
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MerchantECommerceSoftwareVersion' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantECommerceSoftwareVersion' does not comply with the rule
-      order_MerchantECommerceSoftwareVersion: 
+      order_MerchantECommerceSoftwareVersion:
         $ref: '#/definitions/order_MerchantECommerceSoftwareVersion'
       orders:
         type: array
@@ -1212,7 +1200,6 @@ definitions:
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantOrderId' does not comply with the rule
         order_MerchantOrderId:
           $ref: '#/definitions/order_MerchantOrderId'
-      
 
   setMerchantOrderInfoRequest:
     type: object
@@ -1233,7 +1220,7 @@ definitions:
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MerchantECommerceSoftwareVersion' does not comply with the rule
       order_MerchantECommerceSoftwareVersion:
         $ref: '#/definitions/order_MerchantECommerceSoftwareVersion'
-  
+
   accountSynchronizationList:
     type: object
     properties:
@@ -1268,15 +1255,12 @@ definitions:
     type: boolean
     example: false
 
-
-
   links.GetOrderLink:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
     - example:
         href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000
         method: GET
-
 
   orderHeaderLinks:
     type: object
@@ -1286,7 +1270,6 @@ definitions:
       self:
         $ref: '#/definitions/links.GetOrderLink'
 
-  
   orderHeader:
     description: Describe the basic information related to an order. All properties with the prefix order_ are translated in the list of values /user/lov/OrderMetaInfoOrderDetails
     type: object
@@ -1379,7 +1362,7 @@ definitions:
       etag:
        $ref: '#/definitions/etag'
       links:
-       $ref: '#/definitions/orderHeaderLinks' 
+       $ref: '#/definitions/orderHeaderLinks'
 
   etag:
     description: |
@@ -1396,7 +1379,7 @@ definitions:
     - beezUPOrderItemId
     - orderItem_OrderItemType
     properties:
-      beezUPOrderItemId: 
+      beezUPOrderItemId:
         description: The BeezUP identifier of the order Item
         type: string
         example: '1'
@@ -1408,31 +1391,31 @@ definitions:
         example: Product
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_MerchantImportedProductId' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_MerchantImportedProductId' does not comply with the rule
-      orderItem_MerchantImportedProductId: 
+      orderItem_MerchantImportedProductId:
         description: The product id indicated in the catalog importation in BeezUP system for this order item. This property will help you to match the order to the inventory system.
         type: string
         example: '73267'
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_MerchantImportedProductIdColumnName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_MerchantImportedProductIdColumnName' does not comply with the rule
-      orderItem_MerchantImportedProductIdColumnName: 
+      orderItem_MerchantImportedProductIdColumnName:
         description: The column name for the product id indicated in the catalog importation in BeezUP system related to this order item. This property will help you to match the order to the inventory system.
         example: reference
         type: string
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_MerchantImportedProductUrl' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_MerchantImportedProductUrl' does not comply with the rule
-      orderItem_MerchantImportedProductUrl: 
+      orderItem_MerchantImportedProductUrl:
         description: The product url indicated in the catalog importation in BeezUP system related to this order item
         example: 'http://blabla.com/my-folder/73267.html'
         type: string
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_MerchantProductIdColumnName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_MerchantProductIdColumnName' does not comply with the rule
-      orderItem_MerchantProductIdColumnName: 
+      orderItem_MerchantProductIdColumnName:
         description: The column name indicate in the mapping for the product id related to the order item
         example: reference_produit
         type: string
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_BeezUPStoreId' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_BeezUPStoreId' does not comply with the rule
-      orderItem_BeezUPStoreId: 
+      orderItem_BeezUPStoreId:
         description: The store id in the beezup system related to the order item. This property will help you to match the order to the inventory system.
         example: '00000000-cceb-4c20-b2c9-000000000000'
         type: string
@@ -1445,13 +1428,13 @@ definitions:
         example: 0.0
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_Title' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_Title' does not comply with the rule
-      orderItem_Title: 
+      orderItem_Title:
         description: The title of the order item
         example: 'bLA acide-plomb 6v-4.5ah 70x48x106mm'
         type: string
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_ImageUrl' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_ImageUrl' does not comply with the rule
-      orderItem_ImageUrl: 
+      orderItem_ImageUrl:
         description: The URL of the image of the order item
         example: 'http://blabla.com//das6-45.jpg'
         type: string
@@ -1463,27 +1446,27 @@ definitions:
         type: string
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_MarketPlaceProductId' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_MarketPlaceProductId' does not comply with the rule
-      orderItem_MarketPlaceProductId: 
+      orderItem_MarketPlaceProductId:
         description: The marketplace product identifier of the order item
         example: ''
         type: string
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_ItemPrice' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_ItemPrice' does not comply with the rule
-      orderItem_ItemPrice: 
+      orderItem_ItemPrice:
         description: The price of the order item
         example: 6.86
         type: number
         format: decimal
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_Quantity' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_Quantity' does not comply with the rule
-      orderItem_Quantity: 
+      orderItem_Quantity:
         description: The quantity of the order item
         example: 1
         type: number
         format: decimal
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'orderItem_TotalPrice' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'orderItem_TotalPrice' does not comply with the rule
-      orderItem_TotalPrice: 
+      orderItem_TotalPrice:
         description: The total price of the order item
         example: 6.86
         type: number
@@ -1495,7 +1478,6 @@ definitions:
         type: number
         example: 0.00
         format: decimal
-
 
   orderLinks:
     allOf:
@@ -1517,14 +1499,12 @@ definitions:
         clearMerchantInfo:
           $ref: '#/definitions/links.ClearMerchantOrderInfoLink'
 
-
   links.GetOrderHistoryLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/history
         method: GET
-
 
   links.SetMerchantOrderInfoLink:
     allOf:
@@ -1537,7 +1517,6 @@ definitions:
             in: body
             type: object
             schema: setMerchantOrderInfoRequest
-
 
   links.ClearMerchantOrderInfoLink:
     allOf:
@@ -1552,7 +1531,6 @@ definitions:
     - example:
         href: /v2/user/marketplaces/orders/Amazon/1001/00000000000000000000000000000000000000000000000/harvest
         method: POST
-
 
   order:
     allOf:
@@ -1580,7 +1558,7 @@ definitions:
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_MarketPlaceChannel' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_MarketPlaceChannel' does not comply with the rule
         order_MarketPlaceChannel:
-          description: Useful to identify the origin of the order. For example in Amazon.  
+          description: Useful to identify the origin of the order. For example in Amazon.
           type: string
           example: Amazon France
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_TotalTax' does not comply with the rule
@@ -1599,13 +1577,13 @@ definitions:
           example: 0.0
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_PaymentMethod' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_PaymentMethod' does not comply with the rule
-        order_PaymentMethod: 
+        order_PaymentMethod:
           description: The payment method of this order
           type: string
           example: '1 / 1X'
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_PayingUtcDate' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_PayingUtcDate' does not comply with the rule
-        order_PayingUtcDate: 
+        order_PayingUtcDate:
           description: The UTC date of the payment of this order
           type: string
           format: date-time
@@ -1613,19 +1591,19 @@ definitions:
 
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Comment' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Comment' does not comply with the rule
-        order_Comment: 
+        order_Comment:
           description: The comment associated to this order
           type: string
           example: 'This is a comment'
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_Civility' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Civility' does not comply with the rule
-        order_Shipping_Civility: 
+        order_Shipping_Civility:
           description: The civility of the person in the shipping address for this order
           type: string
           example: MRS
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_CompanyName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_CompanyName' does not comply with the rule
-        order_Shipping_CompanyName: 
+        order_Shipping_CompanyName:
           description: The company name of the shipping address for this order
           type: string
           example: My Company
@@ -1637,13 +1615,13 @@ definitions:
           example: Jacques BAUREGARD
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_Email' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Email' does not comply with the rule
-        order_Shipping_Email: 
+        order_Shipping_Email:
           description: The email of the person in the shipping address for this order
           type: string
           example: client_000000@manomano.fr
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_AddressLine1' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_AddressLine1' does not comply with the rule
-        order_Shipping_AddressLine1: 
+        order_Shipping_AddressLine1:
           description: The shipping address line 1 of this order
           type: string
           example: '5 rue amélie'
@@ -1755,13 +1733,13 @@ definitions:
           example: 'Marsillia'
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_Email' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_Email' does not comply with the rule
-        order_Buyer_Email: 
+        order_Buyer_Email:
           description: The email of the buyer for this order
           type: string
           example: client_000000@manomano.fr
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_AddressLine1' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_AddressLine1' does not comply with the rule
-        order_Buyer_AddressLine1: 
+        order_Buyer_AddressLine1:
           description: The Buyer address line 1 of this order
           type: string
           example: '5 rue amélie'
@@ -1785,7 +1763,7 @@ definitions:
           example: '13014'
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_AddressCity' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_AddressCity' does not comply with the rule
-        order_Buyer_AddressCity: 
+        order_Buyer_AddressCity:
           description: The Buyer address city of this order
           type: string
           example: Marseille
@@ -1815,7 +1793,7 @@ definitions:
           example: '+33000000101'
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Buyer_MobilePhone' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Buyer_MobilePhone' does not comply with the rule
-        order_Buyer_MobilePhone: 
+        order_Buyer_MobilePhone:
           description: The mobile phone number of the buyer for this order
           type: string
           example: '+33000000042'
@@ -1851,7 +1829,6 @@ definitions:
       #      $ref: '#/definitions/orderItemProperty'
         transitionLinks:
           $ref: '#/definitions/orderTransitionLinks'
-          
 
   links.ChangeOrderLink:
     allOf:
@@ -1872,6 +1849,7 @@ definitions:
             in: header
             value: '"ca071a4580129f932a03971968ffef69"'
             required: true
+            type: string
           testMode:
             in: query
             type: boolean
@@ -1897,14 +1875,14 @@ definitions:
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_ShipperTrackingNumber' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_ShipperTrackingNumber' does not comply with the rule
-              order_Shipping_ShipperTrackingNumber: 
+              order_Shipping_ShipperTrackingNumber:
                 required: true
                 type: string
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_CarrierName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_CarrierName' does not comply with the rule
-              order_Shipping_CarrierName: 
+              order_Shipping_CarrierName:
                 required: true
                 type: string
                 lovRequired: true
@@ -1914,14 +1892,12 @@ definitions:
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_Method' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Method' does not comply with the rule
-              order_Shipping_Method: 
+              order_Shipping_Method:
                 required: true
                 type: string
                 lovRequired: false
                 lovLink:
                   href: /v2/user/ShippingMethod_PriceMinister
-                
-
 
   orderTransitionLinks:
     description: Contains the authorized change actions for an order
@@ -1938,6 +1914,7 @@ definitions:
             in: header
             value: '"ca071a4580129f932a03971968ffef69"'
             required: true
+            type: string
           testMode:
             in: query
             type: boolean
@@ -1963,14 +1940,14 @@ definitions:
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_ShipperTrackingNumber' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_ShipperTrackingNumber' does not comply with the rule
-              order_Shipping_ShipperTrackingNumber: 
+              order_Shipping_ShipperTrackingNumber:
                 required: true
                 type: string
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_CarrierName' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_CarrierName' does not comply with the rule
-              order_Shipping_CarrierName: 
+              order_Shipping_CarrierName:
                 required: true
                 type: string
                 lovRequired: true
@@ -1980,7 +1957,7 @@ definitions:
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Shipping_Method' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Shipping_Method' does not comply with the rule
-              order_Shipping_Method: 
+              order_Shipping_Method:
                 required: true
                 type: string
                 lovRequired: false
@@ -1996,6 +1973,7 @@ definitions:
             in: header
             value: '"ca071a4580129f932a03971968ffef69"'
             required: true
+            type: string
           testMode:
             in: query
             type: boolean
@@ -2018,8 +1996,6 @@ definitions:
                 required: true
                 type: string
 
-
-
 #  orderPropertyInfos:
 #    type: object
 #    required:
@@ -2034,7 +2010,7 @@ definitions:
   #      type: array
   #      items:
   #        $ref: '#/definitions/orderItemPropertyInfo'
-  #        
+  #
   #orderPropertyInfo:
   #  type: object
   #  properties:
@@ -2056,7 +2032,7 @@ definitions:
   #      type: string
   #    value:
   #      type: string
-  #      
+  #
   #type:
   #  description: The Data Type
   #  enum:
@@ -2067,7 +2043,7 @@ definitions:
   #  type: string
   #  example: string
 #
-  #    
+  #
   #orderItemProperty:
   #  type: object
   #  properties:
@@ -2080,7 +2056,6 @@ definitions:
 #
   #
 
-
   orderIndex:
     type: object
     required:
@@ -2091,8 +2066,7 @@ definitions:
         $ref: '#/definitions/orderIndexLinks'
       lovLinks:
         $ref: '#/definitions/orderIndexLovLinks'
-  
-  
+
   links.GetOrderIndexLink:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
@@ -2100,7 +2074,6 @@ definitions:
         href: /v2/user/marketplaces/orders
         method: GET
 
-  
   orderIndexLinks:
     description: Gives you all entry point operations you can do on this API
     type: object
@@ -2135,9 +2108,6 @@ definitions:
         $ref: '#/definitions/links.GetOrderListFullLink'
       lightOrders:
         $ref: '#/definitions/links.GetOrderListLightLink'
-
-
-
 
   orderIndexLovLinks:
     description: Gives you all the LOV to get the translations realated to operation name, codes, property names and statuses.
@@ -2185,8 +2155,6 @@ definitions:
 #    - example:
 #        href: /v2/user/lov/OrderMetaInfoOrderDetails
 
-
-
   links.GetOrderListFullLink:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
@@ -2201,7 +2169,7 @@ definitions:
           'Accept-Encoding':
             in: header
             required: true
-            type: array
+            "type": "​array"
             schema: string
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
@@ -2210,7 +2178,6 @@ definitions:
             required: false
             type: object
             schema: orderListRequest
-
 
   links.GetOrderListLightLink:
     allOf:
@@ -2226,7 +2193,6 @@ definitions:
             required: false
             type: object
             schema: orderListRequest
-
 
   links.GetAutomaticTransitionsLink:
     allOf:
@@ -2246,8 +2212,6 @@ definitions:
             in: body
             request: true
             schema: configureAutomaticTransitionRequest
-
-
 
   orderListLinks:
     description: The list of actions you can do from the order list response
@@ -2270,14 +2234,12 @@ definitions:
       status:
         $ref: '#/definitions/links.GetMarketplaceAccountsSynchronizationLink'
 
-
   links.GetMarketplaceAccountsSynchronizationLink:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
     - example:
         href: /v2/user/marketplaces/orders/status
         method: GET
-
 
   orderListLightLinks:
     allOf:
@@ -2308,7 +2270,7 @@ definitions:
       properties:
         self:
           $ref: '#/definitions/links.GetOrderListFullLink'
-          
+
   links.SetMerchantOrderInfoListLink:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
@@ -2321,14 +2283,13 @@ definitions:
             required: true
             type: object
             schema: setMerchantOrderInfoRequest
-        
+
   links.ClearMerchantOrderInfoListLink:
     allOf:
     - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3
     - example:
         href: /v2/user/marketplaces/orders/clearMerchantOrderInfos
         method: POST
-
 
   links.HarvestAllLink:
     allOf:
@@ -2340,7 +2301,7 @@ definitions:
   orderListLight:
     description: |
       The order list with minimum information we have from the orders.\
-      The paginationResult properties can be null if the list is empty. 
+      The paginationResult properties can be null if the list is empty.
     type: object
     required:
     - orders
@@ -2348,7 +2309,7 @@ definitions:
     properties:
       paginationResult:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
-  
+
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       orders:
@@ -2364,7 +2325,7 @@ definitions:
   orderListFull:
     description: |
       The order list with all information we have from the orders and its items.\
-      The paginationResult properties can be null if the list is empty. 
+      The paginationResult properties can be null if the list is empty.
     type: object
     required:
     - orders
@@ -2372,7 +2333,7 @@ definitions:
     properties:
       paginationResult:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
-  
+
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       orders:
@@ -2431,7 +2392,7 @@ definitions:
     enum:
     - Api
     - Go
-    example: Api  
+    example: Api
 
   executionUUID:
     description: The execution identifier
@@ -2486,7 +2447,7 @@ definitions:
         type: object
         additionalProperties:
           type: object
-  
+
   harvestOrderReporting:
     description: The reporting related to a harvest order operation
     type: object
@@ -2578,9 +2539,9 @@ definitions:
       order_Shipping_CarrierName: 'La poste'
       order_Shipping_FulfillmentDate: '2014-09-23T09:58:00.000Z'
       order_Shipping_EstimatedDeliveryDate: '2014-09-24T09:58:00.000Z'
-  
+
   batchOrderOperationResponse:
-    description: The response given by the batch operation 
+    description: The response given by the batch operation
     type: object
     required:
     - operations
@@ -2591,7 +2552,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/orderOperationResponse'
-      
+
   orderOperationResponse:
     description: The response given by the batch operation for an order
     type: object
