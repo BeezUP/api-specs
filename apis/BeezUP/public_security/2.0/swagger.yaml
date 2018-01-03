@@ -4,37 +4,33 @@ info:
   description: |
     This API will allow you to create your account and to get your tokens. \
     If you lost your password, you have an operation to get it back.
-  
+
   version: "2.0"
-  
+
   x-logo:
     url: "https://avatars0.githubusercontent.com/u/25665430"
     backgroundColor: "#FFFFFF"
-  
+
   contact:
-    email: support@beezup.com
-     
- 
+    email: help@beezup.com
+
   license:
-    name: BeezUP 
+    name: BeezUP
     url: http://www.beezup.com
-    
-    
+
 host: api.beezup.com
 basePath: /v2/public/security
-    
-    
-    
+
 x-beezup-api-ops:
   repo: Customer
   apiName: V2PublicSecurity
   appRoot: BeezUP.Customer.WebService
   namespace: BeezUP.Customer.WebService
   comment: |
+    Changing contact email support to help
     No change. Just server side generation.
 
 x-basePath: /v2/public/security
-
 
 schemes:
   - https
@@ -43,10 +39,10 @@ consumes:
   - application/json
 produces:
   - application/json
-  
+
 tags:
 - name: Security
-  
+
 paths:
   /login:
     post:
@@ -99,7 +95,6 @@ paths:
         '500':
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
       produces:
         - application/json
   /lostpassword:
@@ -149,7 +144,7 @@ definitions:
         type: string
         format: password
         example: I@mW0nder$Full
-  
+
   apiCredentials:
     type: object
     properties:
@@ -162,7 +157,7 @@ definitions:
         - productName: UserApi
           primaryToken: 3b22980d8d1143c6ba7adf4e55b9a153
           secondaryToken: 162ae17fd52044c38cce3388ea5b0c91
-  
+
   apiCredential:
     description: Your api credential
     type: object
@@ -182,9 +177,6 @@ definitions:
         type: string
         example: 162ae17fd52044c38cce3388ea5b0c91
 
- 
- 
-
   registerRequest:
     required:
       - email
@@ -200,7 +192,7 @@ definitions:
           The password you want to use for your new account. \
           The password length must be greater or equals to 6 and lower or equals to 128. \
           The password must contains at least one number and one special character
-          
+
         type: string
         example: I@mW0nder$Full
       cultureName:
