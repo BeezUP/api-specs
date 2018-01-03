@@ -1,17 +1,16 @@
-swagger: '2.0' 
+swagger: '2.0'
 info:
   version: "2.0"
   title: Catalogs
   description: This API allows you to manage your catalogs
-  
+
   contact:
-    email: support@beezup.com
+    email: help@beezup.com
 
   license:
-    name: BeezUP 
+    name: BeezUP
     url: http://www.beezup.com
-    
-    
+
 host: api.beezup.com
 basePath: /v2/user/catalogs
 
@@ -36,7 +35,8 @@ x-beezup-api-ops:
   useBeezUPFrameworkVersion2: true
   apiName: V2UserCatalogs
   comment: |
-    Added totalProductCount and selfProductCount in GET Categories
+    Changing contact email support to help
+    Addeding totalProductCount and selfProductCount in GET Categories
 
 x-basePath: /v2/user/catalogs
 
@@ -47,7 +47,7 @@ consumes:
   - application/json
 produces:
   - application/json
-  
+
 tags:
   - name: Auto
     description: All operations related to the Auto importation
@@ -59,10 +59,7 @@ tags:
     description: All operations related to the catalog information during the importation
 
   - name: Catalog
-    description: All operation related to the catalog 
-
-
-  
+    description: All operation related to the catalog
 
 securityDefinitions:
   api_key:
@@ -73,7 +70,6 @@ securityDefinitions:
 
 security:
 - api_key: []
-
 
 responses:
 
@@ -97,9 +93,6 @@ responses:
     description: A catalog importation is already in progress!
     schema:
       $ref: '#/definitions/importAlreadyInProgressResponse'
-
-
-
 
 parameters:
   executionId:
@@ -133,10 +126,7 @@ parameters:
     minimum: 0
     maximum: 99
 
-    
 paths:
-
-
 
   '/':
     get:
@@ -150,12 +140,9 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/catalogIndex'            
+            $ref: '#/definitions/catalogIndex'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
-
-
 
   '/beezupColumns':
     get:
@@ -172,12 +159,10 @@ paths:
             type: array
             items:
               $ref: '#/definitions/beezUPColumnConfiguration'
-            #example: 
-            
+            #example:
+
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
-
 
   '/{storeId}':
     get:
@@ -197,16 +182,13 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-
-
   '/{storeId}/inputConfiguration':
     get:
       tags:
         - Catalog
       operationId: Importation_GetManualUpdateLastInputConfig
       summary: Get the last input configuration
-      
+
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
       responses:
@@ -221,14 +203,13 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
   '/{storeId}/catalogColumns':
     get:
       tags:
         - Catalog
       operationId: Catalog_GetCatalogColumns
       summary: Get catalog column list
-      
+
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
       responses:
@@ -243,9 +224,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-    
-              
   '/{storeId}/catalogColumns/{columnId}/rename':
     post:
       tags:
@@ -277,18 +255,16 @@ paths:
         '409':
           $ref: '#/responses/importAlreadyInProgress'
 
-
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
   '/{storeId}/customColumns':
     get:
       tags:
         - Catalog
       operationId: Catalog_GetCustomColumns
       summary: Get custom column list
-      
+
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
       responses:
@@ -303,7 +279,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
   '/{storeId}/customColumns/{columnId}':
     put:
       tags:
@@ -311,7 +286,6 @@ paths:
       operationId: Catalog_SaveCustomColumn
       summary: Create or replace a custom column
 
-      
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
         - $ref: '#/parameters/customColumnId'
@@ -338,14 +312,12 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
     delete:
       tags:
         - Catalog
       summary: Delete custom column
       operationId: Catalog_DeleteCustomColumn
-      
-      
+
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
         - $ref: '#/parameters/customColumnId'
@@ -368,7 +340,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
   '/{storeId}/customColumns/{columnId}/rename':
     post:
       tags:
@@ -401,8 +372,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
-          
   '/{storeId}/customColumns/{columnId}/expression':
     get:
       tags:
@@ -424,7 +393,7 @@ paths:
             Occurs when a catalog custom column is not found.
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-    
+
     put:
       tags:
         - Catalog
@@ -459,8 +428,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-    
   '/{storeId}/customColumns/computeExpression':
     post:
       tags:
@@ -483,15 +450,13 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-
   '/{storeId}/categories':
     get:
       tags:
         - Catalog
       operationId: Catalog_GetCategories
       summary: Get category list
-      
+
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : camelCase]: 'Accept-Encoding' does not comply with the rule
@@ -523,14 +488,13 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
   '/{storeId}/products/list':
     post:
       tags:
         - Catalog
       operationId: Catalog_GetProducts
       summary: Get product list
-      
+
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
         - name: request
@@ -549,7 +513,6 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
 
   '/{storeId}/products/random':
     get:
@@ -572,15 +535,13 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-
   '/{storeId}/products/{productId}':
     get:
       tags:
         - Catalog
       operationId: Catalog_GetProductByProductId
       summary: Get product by ProductId
-      
+
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
         - name: productId
@@ -607,7 +568,7 @@ paths:
         - Catalog
       operationId: Catalog_GetProductBySku
       summary: Get product by Sku
-      
+
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
         - name: sku
@@ -634,7 +595,7 @@ paths:
         - Importation Process
       summary: Get the latest catalog importation reporting
       operationId: Importation_GetReportings
-      
+
       parameters:
 
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
@@ -668,7 +629,7 @@ paths:
       responses:
         '202':
           $ref: '#/responses/importStarted'
-         
+
         '400':
           description: >-
             Missing Input configuration in the request
@@ -688,22 +649,12 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
-
-
-
-    
-
-
-    
   '/{storeId}/importations/{executionId}':
     get:
       tags:
         - Importation Process
       summary: Get the importation status
       operationId: Importation_GetImportationMonitoring
-      
-
 
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
@@ -722,17 +673,14 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-          
 
-    
   '/{storeId}/importations/{executionId}/cancel':
     post:
       tags:
         - Importation Process
       summary: Cancel importation
       operationId: Importation_Cancel
-      
-      
+
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
         - $ref: '#/parameters/executionId'
@@ -759,8 +707,6 @@ paths:
         - Importation Process
       summary: Get technical progression
       operationId: Importation_TechnicalProgression
-      
-
 
       parameters:
 
@@ -786,9 +732,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-
-    
   '/{storeId}/importations/{executionId}/configureRemainingCatalogColumns':
     post:
       tags:
@@ -796,8 +739,7 @@ paths:
       summary: Configure remaining catalog columns
       description: This operation should be used after you have mapped the required BeezUP Columns
       operationId: Importation_ConfigureRemainingCatalogColumns
-      
-      
+
       parameters:
 
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
@@ -836,16 +778,13 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-    
   '/{storeId}/importations/{executionId}/commitColumns':
     post:
       tags:
         - Importation Process
       summary: Commit columns
       operationId: Importation_CommitColumns
-      
-      
+
       parameters:
 
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
@@ -884,8 +823,7 @@ paths:
         - Importation Process
       summary: Commit Importation
       operationId: Importation_Commit
-      
-      
+
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
         - $ref: '#/parameters/executionId'
@@ -911,15 +849,8 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
-
-
-
 ###################################################################################################################
 ###################################################################################################################
-
-
-
 
   '/{storeId}/importations/{executionId}/productSamples/{productSampleIndex}':
     get:
@@ -954,7 +885,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
   '/{storeId}/importations/{executionId}/productSamples/{productSampleIndex}/customColumns/{columnId}':
     get:
       tags:
@@ -989,7 +919,7 @@ paths:
             within 30 sec, please contact our support
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-        
+
         '409':
           description: >-
             Catalog preparation read step is not completed. Please refer to the
@@ -1000,11 +930,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-          
-
-    
-          
   '/{storeId}/importations/{executionId}/catalogColumns':
     get:
       tags:
@@ -1036,11 +961,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-    
-
-
-    
   '/{storeId}/importations/{executionId}/catalogColumns/{columnId}':
     post:
       tags:
@@ -1048,7 +968,6 @@ paths:
       summary: Configure catalog column
       operationId: Importation_ConfigureCatalogColumn
 
-      
       parameters:
 
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
@@ -1085,15 +1004,13 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
   '/{storeId}/importations/{executionId}/catalogColumns/{columnId}/ignore':
     post:
       tags:
         - Importation Catalog Info
       summary: Ignore Column
       operationId: Importation_IgnoreColumn
-      
-      
+
       parameters:
 
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
@@ -1120,16 +1037,14 @@ paths:
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-    
-          
+
   '/{storeId}/importations/{executionId}/catalogColumns/{columnId}/reattend':
     post:
       tags:
         - Importation Catalog Info
       summary: Reattend Column
       operationId: Importation_ReattendColumn
-      
-      
+
       parameters:
 
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
@@ -1154,10 +1069,6 @@ paths:
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
-
-
-
 
   '/{storeId}/importations/{executionId}/catalogColumns/{columnId}/map':
     post:
@@ -1196,15 +1107,13 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
   '/{storeId}/importations/{executionId}/catalogColumns/{columnId}/unmap':
     post:
       tags:
         - Importation Catalog Info
       summary: Unmap catalog column
       operationId: Importation_UnmapCatalogColumn
-      
-      
+
       parameters:
 
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
@@ -1228,9 +1137,6 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
-
-    
 
   '/{storeId}/importations/{executionId}/customColumns':
     get:
@@ -1264,9 +1170,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-    
-    
   '/{storeId}/importations/{executionId}/customColumns/{columnId}/expression':
     get:
       tags:
@@ -1302,10 +1205,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-    
-
-    
   '/{storeId}/importations/{executionId}/customColumns/{columnId}':
     put:
       tags:
@@ -1340,15 +1239,12 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-    
     delete:
       tags:
         - Importation Catalog Info
       summary: Delete Custom Column
       operationId: Importation_DeleteCustomColumn
-      
-      
+
       parameters:
 
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
@@ -1373,7 +1269,6 @@ paths:
       summary: Map custom column to a BeezUP column
       operationId: Importation_MapCustomColumn
 
-      
       parameters:
 
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
@@ -1404,15 +1299,13 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
   '/{storeId}/importations/{executionId}/customColumns/{columnId}/unmap':
     post:
       tags:
         - Importation Catalog Info
       summary: Unmap custom column
       operationId: Importation_UnmapCustomColumn
-      
-      
+
       parameters:
 
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
@@ -1438,17 +1331,9 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-
-
-
-
-
-
 ###################################################################################################################
 ###################################################################################################################
 ###################################################################################################################
-
 
   '/{storeId}/autoImport/activate':
     post:
@@ -1456,7 +1341,7 @@ paths:
         - Auto
       operationId: Importation_ActivateAutoImport
       summary: Activate the auto importation of the last successful manual catalog importation.
-      description: Once you have made your fist manual catalog importation with success, you can call this operation to import it automatically. No parameter required, we know which one it is.  
+      description: Once you have made your fist manual catalog importation with success, you can call this operation to import it automatically. No parameter required, we know which one it is.
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
       responses:
@@ -1476,8 +1361,6 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
-
 
   '/{storeId}/autoImport':
     get:
@@ -1499,8 +1382,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-
     delete:
       tags:
         - Auto
@@ -1521,9 +1402,6 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
-    
-
 
   '/{storeId}/autoImport/start':
     post:
@@ -1568,9 +1446,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
-
-    
   '/{storeId}/autoImport/pause':
     post:
       tags:
@@ -1593,15 +1468,13 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
   '/{storeId}/autoImport/resume':
     post:
       tags:
         - Auto
       operationId: Auto_ResumeAutoImport
       summary: Resume Auto Import
-      
-      
+
       parameters:
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/storeIdOnlyGeneralParameters'
       responses:
@@ -1617,7 +1490,6 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
 
   '/{storeId}/autoImport/scheduling/interval':
     post:
@@ -1651,7 +1523,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
   '/{storeId}/autoImport/scheduling/schedules':
     post:
       tags:
@@ -1687,7 +1558,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-    
 definitions:
 
 ##############################################################################################################################
@@ -1709,8 +1579,6 @@ definitions:
             type: object
             schema: computeExpressionRequest
 
-
-
   links.Catalog_ChangeCatalogColumnUserNameLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -1724,7 +1592,6 @@ definitions:
             type: object
             schema: changeUserColumnNameRequest
 
-
   links.Catalog_GetBeezUPColumnsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -1732,21 +1599,19 @@ definitions:
         href: /v2/user/catalogs/beezupColumns
         method: GET
 
-
   links.CatalogIndexLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/catalogs
         method: GET
-  
+
   links.CatalogStoreIndexLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3
         method: GET
-
 
   links.Auto_GetAutoImportConfigurationLink:
     allOf:
@@ -1789,7 +1654,6 @@ definitions:
             type: object
             schema: configureAutoImportIntervalRequest
 
-
   links.Auto_ScheduleAutoImportLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -1803,24 +1667,19 @@ definitions:
             type: object
             schema: scheduleAutoImportRequest
 
-
   links.Catalog_GetCatalogColumnsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/catalogColumns
         method: GET
-  
+
   links.Catalog_GetCustomColumnsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/customColumns
         method: GET
-
-
-
-
 
   links.Catalog_SaveCustomColumnLink:
     allOf:
@@ -1846,7 +1705,6 @@ definitions:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/customColumns/5b56bb78-bc0b-485e-abd8-8db7eed995cb
         method: DELETE
 
-
   links.Catalog_ChangeCustomColumnUserNameLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -1859,8 +1717,6 @@ definitions:
             required: true
             in: body
             schema: changeUserColumnNameRequest
-
-
 
   links.Catalog_GetCustomColumnExpressionLink:
     allOf:
@@ -1882,15 +1738,12 @@ definitions:
             in: body
             schema: changeCustomColumnExpressionRequest
 
-
-
   links.Catalog_GetCategoriesLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/categories
         method: GET
-
 
   links.Catalog_GetProductsLink:
     allOf:
@@ -1905,16 +1758,12 @@ definitions:
             type: object
             schema: getProductsRequest
 
-
   links.Catalog_GetRandomProductsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/products/random
         method: GET
-
-
-
 
 ##############################################################################################################################
 ##############################################################################################################################
@@ -1934,7 +1783,6 @@ definitions:
             required: true
             type: object
             schema: configureCatalogColumnCatalogRequest
-
 
   links.Importation_IgnoreColumnLink:
     allOf:
@@ -1963,7 +1811,6 @@ definitions:
             type: object
             schema: mapBeezUPColumnRequest
 
-
   links.Importation_UnmapCatalogColumnLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -1991,7 +1838,7 @@ definitions:
     - example:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/configureRemainingCatalogColumns
         method: POST
-        
+
   links.Importation_CommitColumnsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -2006,7 +1853,6 @@ definitions:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/commit
         method: POST
 
-
   links.Importation_TechnicalProgressionLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -2014,15 +1860,12 @@ definitions:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/technicalProgression
         method: GET
 
-
-
   links.Importation_GetReportingsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations
         method: GET
-    
 
   links.Importation_StartManualUpdateLink:
     allOf:
@@ -2044,7 +1887,6 @@ definitions:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/inputConfiguration
         method: GET
 
-
   links.Importation_GetDetectedCatalogColumnsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -2052,16 +1894,12 @@ definitions:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/catalogColumns
         method: GET
 
-
-
   links.Importation_GetCustomColumnsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/customColumns
         method: GET
-
-
 
   links.Importation_SaveCustomColumnLink:
     allOf:
@@ -2087,16 +1925,12 @@ definitions:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/customColumns/5b56bb78-bc0b-485e-abd8-8db7eed995cb
         method: DELETE
 
-
-
-
   links.Importation_GetCustomColumnExpressionLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/customColumns/5b56bb78-bc0b-485e-abd8-8db7eed995cb/expression
         method: GET
-
 
   links.Importation_MapCustomColumnLink:
     allOf:
@@ -2111,15 +1945,12 @@ definitions:
             type: object
             schema: mapBeezUPColumnRequest
 
-
   links.Importation_UnmapCustomColumnLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/importations/222ef571-bdb7-436d-a01a-e5a0e9161c0c/customColumns/5b56bb78-bc0b-485e-abd8-8db7eed995cb/map
         method: POST
-
-
 
   links.Importation_GetProductSampleLink:
     allOf:
@@ -2133,7 +1964,6 @@ definitions:
             required: true
             type: integer
 
-
   links.Importation_GetProductSampleCustomColumnValueLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -2146,7 +1976,6 @@ definitions:
             required: true
             type: integer
 
-
   links.Importation_ActivateAutoImportLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
@@ -2154,18 +1983,11 @@ definitions:
         href: /v2/user/catalogs/a42b780d-4585-4566-800e-4d77a4d6f8a3/autoImport/activate
         method: POST
 
-
-
 ##############################################################################################################################
 ##############################################################################################################################
 ##################################### MODELS DEFINITIONS #####################################################################
 ##############################################################################################################################
 ##############################################################################################################################
-
-
-
-
-
 
   catalogIndexLinks:
     type: object
@@ -2177,7 +1999,6 @@ definitions:
         $ref: '#/definitions/links.CatalogIndexLink'
       beezUPColumns:
         $ref: '#/definitions/links.Catalog_GetBeezUPColumnsLink'
-
 
   catalogIndexLOVLinks:
     type: object
@@ -2202,8 +2023,6 @@ definitions:
       compareOptionLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
 
-
-
   catalogIndex:
     type: object
     required:
@@ -2216,7 +2035,7 @@ definitions:
         $ref: '#/definitions/catalogIndexLOVLinks'
       storeLinks:
         $ref: '#/definitions/catalogStoreIndexList'
-        
+
   catalogStoreIndexList:
     type: object
     properties:
@@ -2254,12 +2073,6 @@ definitions:
         $ref: '#/definitions/links.Catalog_GetRandomProductsLink'
       computeExpression:
         $ref: '#/definitions/links.Catalog_ComputeExpressionLink'
-        
-        
- 
-        
-        
-
 
   catalogStoreStatus:
     description: |
@@ -2284,8 +2097,6 @@ definitions:
         $ref: '#/definitions/catalogStoreIndexLinks'
       status:
         $ref: '#/definitions/catalogStoreStatus'
-        
-      
 
   importationsResponseLinks:
     type: object
@@ -2294,7 +2105,7 @@ definitions:
         $ref: '#/definitions/links.Importation_GetReportingsLink'
       start:
         $ref: '#/definitions/links.Importation_StartManualUpdateLink'
-        
+
   importationsResponse:
     type: object
     properties:
@@ -2305,14 +2116,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/importationReporting'
-
-
-
-
-
-
-
-
 
   importAlreadyInProgressResponse:
     type: object
@@ -2329,8 +2132,6 @@ definitions:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage'
       links:
         $ref: '#/definitions/importAlreadyInProgressResponseLinks'
-      
-
 
   importAlreadyInProgressResponseLinks:
     description: The action links
@@ -2344,8 +2145,6 @@ definitions:
       cancelCurrentImportation:
         $ref: '#/definitions/links.Importation_CancelLink'
 
-
-
   schedulingType:
     description: >-
       Indicate the scheduling type. Schedule or Interval. We recommand you
@@ -2356,7 +2155,6 @@ definitions:
     type: string
     default: Interval
     example: Schedule
-
 
   duplicateProductValueStrategy:
     description: Indicate the duplicate product sku strategy.
@@ -2383,7 +2181,6 @@ definitions:
     default: None
     example: IgnoreCase
 
-
   autoImportConfigurationLinks:
     type: object
     required:
@@ -2403,8 +2200,6 @@ definitions:
         $ref: '#/definitions/links.Auto_ConfigureAutoImportIntervalLink'
       schedule:
         $ref: '#/definitions/links.Auto_ScheduleAutoImportLink'
-        
-
 
   autoImportConfiguration:
     type: object
@@ -2442,7 +2237,7 @@ definitions:
         type: boolean
         default: false
         example: false
-        
+
       pauseStatusChangedByUserId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserId'
       pauseStatusChangedUtcDate:
@@ -2459,8 +2254,7 @@ definitions:
         type: string
         default: Romance Standard Time
         example: Romance Standard Time
-  
-  
+
   inputConfiguration:
     description: Describe the input configuration
     required:
@@ -2480,7 +2274,7 @@ definitions:
         minItems: 1
         items:
           $ref: '#/definitions/inputFileConfiguration'
-  
+
   inputFileConfiguration:
     description: Describe how to get and read a file
     required:
@@ -2499,7 +2293,7 @@ definitions:
         $ref: '#/definitions/inputFileFetchConfiguration'
       read:
         $ref: '#/definitions/inputFileReadConfiguration'
-  
+
   downloadCatalogStrategy:
     description: >-
       Indicate the download strategy (simple uri, ftps, ftplatest file,
@@ -2514,7 +2308,7 @@ definitions:
       - Local
     type: string
     example: SimpleUri
-    
+
   compressionFormatStrategy:
     description: Indicate the compression type
     enum:
@@ -2527,8 +2321,6 @@ definitions:
     type: string
     example: None
 
-  
-        
   inputFileFetchConfiguration:
     description: Describe the way to download the file
     required:
@@ -2569,7 +2361,7 @@ definitions:
       - Json
     type: string
     example: Csv
-        
+
   inputFileReadConfiguration:
     description: >
       Describe how to read the file.
@@ -2595,8 +2387,6 @@ definitions:
       xmlFileReadProperties:
         $ref: '#/definitions/inputFileReadXmlConfiguration'
 
-          
-          
   credential:
     description: Provides the credentials
     required:
@@ -2612,8 +2402,7 @@ definitions:
         type: string
         example: MyPassword
         format: password
-        
-        
+
   inputFileReadCsvConfiguration:
     description: The CSV file description
     required:
@@ -2642,8 +2431,7 @@ definitions:
         type: string
         default: '"'
         example: '"'
-        
-        
+
   inputFileReadXmlConfiguration:
     description: The XML file description
     type: object
@@ -2659,8 +2447,7 @@ definitions:
         description: Indicate if the children xml nodes should be flatten with there parent to take in account the sub node values.
         type: boolean
         example: true
-        
-        
+
   configureAutoImportIntervalRequest:
     description: The message request to configure the auto import interval
     required:
@@ -2672,8 +2459,7 @@ definitions:
         type: string
         pattern: (00:1[5-9])|(00:[2-5][0-9])|(0[1-9]:[0-5][0-9])|(1[0-9]:[0-5][0-9])|(2[0-3]:[0-5][0-9])
         example: '04:00:00'
-        
-        
+
   scheduleAutoImportRequest:
     description: The message request to schedule the auto import
     required:
@@ -2697,7 +2483,7 @@ definitions:
         type: string
         default: Romance Standard Time
         example: Romance Standard Time
-        
+
   lastManualImportInputConfiguration:
     description: Last manual import input configuration
     type: object
@@ -2706,11 +2492,6 @@ definitions:
     properties:
       input:
         $ref: '#/definitions/inputConfiguration'
-
-
-
-
-
 
   displayGroupName:
     description: Indicate the display group name where the column must be putted
@@ -2754,8 +2535,7 @@ definitions:
         type: string
         description: Describe the BeezUP column
         example: Use for big text, like description
-      
-        
+
   changeUserColumnNameRequest:
     description: The message request for the change user column name
     required:
@@ -2774,7 +2554,6 @@ definitions:
     type: string
     example: apokpoa,opz,sixsoisiosnoisn
 
-        
   createCustomColumnRequest:
     description: The request message to create a custom column
     required:
@@ -2792,7 +2571,7 @@ definitions:
         $ref: '#/definitions/encryptedBlocklyExpression'
       displayGroupName:
         $ref: '#/definitions/displayGroupName'
-        
+
   changeCustomColumnExpressionRequest:
     description: The request message to change the custom column expression
     required:
@@ -2804,7 +2583,7 @@ definitions:
         $ref: '#/definitions/encryptedExpression'
       encryptedBlocklyExpression:
         $ref: '#/definitions/encryptedBlocklyExpression'
-        
+
   computeExpressionRequest:
     description: The request message to compute an expression based on the provided product values
     required:
@@ -2816,13 +2595,12 @@ definitions:
         $ref: '#/definitions/productValues'
       encryptedExpression:
         $ref: '#/definitions/encryptedExpression'
-  
+
   executionId:
     description: The execution identifier of the catalog importation
     format: guid
     type: string
     example: 'bf3bc288-604c-4267-925e-66b1a15dca75'
-
 
   importationMonitoring:
     description: Describe the reporting of the catalog importation
@@ -2833,7 +2611,7 @@ definitions:
     - lastUpdateUtcDate
     - beginUtcDate
     - steps
-    
+
     properties:
       userId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserId'
@@ -2873,8 +2651,7 @@ definitions:
           isSavedInDb: false
       links:
         $ref: '#/definitions/importationMonitoringLinks'
-          
-          
+
   importationMonitoringLinks:
     description: Applicable operations considering the state of the importation
     type: object
@@ -2897,7 +2674,6 @@ definitions:
       activateAutoImport:
         $ref: '#/definitions/links.Importation_ActivateAutoImportLink'
 
-
       catalogColumns:
         $ref: '#/definitions/links.Importation_GetDetectedCatalogColumnsLink'
 
@@ -2907,23 +2683,17 @@ definitions:
       productSamples:
         $ref: '#/definitions/links.Importation_GetProductSampleLink'
 
-  
-  
-  
-
   catalogColumnName:
     description: The catalog column name
     type: string
     example: SKU
-  
+
   columnId:
     description: The catalog column identifier
     type: string
     format: guid
     example: '8f6671d6-a9bc-4de0-a0c4-4643b0c3f871'
 
-  
-  
   detectedCatalogColumnListLinks:
     type: object
     required:
@@ -2931,8 +2701,6 @@ definitions:
     properties:
       self:
         $ref: '#/definitions/links.Importation_GetDetectedCatalogColumnsLink'
-        
-
 
   detectedCatalogColumnList:
     description: The list of detected catalog column
@@ -2949,7 +2717,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/detectedCatalogColumn'
-
 
   detectedCatalogColumnLinks:
     type: object
@@ -2985,8 +2752,6 @@ definitions:
         links:
           $ref: '#/definitions/detectedCatalogColumnLinks'
 
-          
-          
 #  existingCatalogColumnConfiguration:
 #    description: In case your catalog column already exists we indicate you the existing configuration.
 #    type: object
@@ -2998,9 +2763,7 @@ definitions:
 #        $ref: '#/definitions/userColumName'
 #      configuration:
 #        $ref: '#/definitions/columnConfiguration'
-        
-        
-  
+
   productValues:
     description: The key is the column identifier
     type: object
@@ -3011,26 +2774,24 @@ definitions:
       'b6d74510-41ce-42ec-947a-0bdf62e9beee': 'Refrigerateur'
       '012929c0-e78b-462a-a96e-25c061575385': 'http://media.conforama.fr/Medias/500000/80000/5000/500/10/G_585511_A.jpg'
       'ba270fa0-8482-46be-905a-cae4ca746b92': 'http://www.conforama.fr/gros-electromenager/encastrable/refrigerateur-encastrable/refrigerateur-combine-161-litres-far-r5115s/p/585511'
-      '46602e10-bc45-4944-a440-63d5f7ece1f8': '42'  
-  
+      '46602e10-bc45-4944-a440-63d5f7ece1f8': '42'
+
   productSample:
     description: Describe a product sample
     type: object
     properties:
       productValues:
         $ref: '#/definitions/productValues'
-          
-          
+
   configureCatalogColumnCatalogRequest:
-    description: The request to configure a catalog column 
+    description: The request to configure a catalog column
     required:
       - catalogColumn
     type: object
     properties:
       catalogColumn:
         $ref: '#/definitions/catalogColumn'
-  
-  
+
   catalogColumnList:
     type: object
     required:
@@ -3042,8 +2803,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/catalogColumn'
-
-
 
   customColumnListLinks:
     type: object
@@ -3063,14 +2822,13 @@ definitions:
     properties:
       links:
         $ref: '#/definitions/customColumnListLinks'
-        
+
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       customColumns:
         type: array
         items:
           $ref: '#/definitions/customColumn'
-  
 
   importationCustomColumnListLinks:
     type: object
@@ -3082,7 +2840,6 @@ definitions:
       add:
         $ref: '#/definitions/links.Importation_SaveCustomColumnLink'
 
-
   importationCustomColumnList:
     type: object
     required:
@@ -3091,24 +2848,19 @@ definitions:
     properties:
       links:
         $ref: '#/definitions/customColumnListLinks'
-        
+
 # [Style Validator (b8663e3a-1306-4dc5-a2ba-d6f21ae6d6a0) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       customColumns:
         type: array
         items:
           $ref: '#/definitions/importationCustomColumn'
-  
-
-
 
   catalogColumnLinks:
     type: object
     properties:
       rename:
         $ref: '#/definitions/links.Catalog_ChangeCatalogColumnUserNameLink'
-
-
 
   catalogColumn:
     description: The catalog column configuration
@@ -3128,7 +2880,7 @@ definitions:
           account during the importation process
         type: boolean
         default: false
-        
+
       duplicateProductValueConfiguration:
         $ref: '#/definitions/duplicateProductValueConfiguration'
       id:
@@ -3158,11 +2910,9 @@ definitions:
         columnFormat: MM/dd/yyyy
         canBeTruncated: false
         displayGroupName: Category
-    
-        
-        
+
   duplicateProductValueConfiguration:
-    description: Describe how you want to manage the duplication of the product value 
+    description: Describe how you want to manage the duplication of the product value
     required:
       - strategy
       - compareOptions
@@ -3172,7 +2922,7 @@ definitions:
         $ref: '#/definitions/duplicateProductValueStrategy'
       compareOptions:
         $ref: '#/definitions/compareOptions'
-        
+
   columnConfiguration:
     description: Indicates the configuration applied on the column (catalog or custom) during the importation process.
     type: object
@@ -3194,19 +2944,17 @@ definitions:
         $ref: '#/definitions/canBeTruncated'
       displayGroupName:
         $ref: '#/definitions/displayGroupName'
-        
-      
+
   columnCultureName:
     description: If non null, culture used to parse the value to the storage type of this column\r\n will be used for parsing and for consolidation proces
     type: string
     example: fr-FR
-  
-  
+
   columnFormat:
     description: If non null, format used to parse the value to the storage type of this column\r\n will be used for parsing and for consolidation proces
     type: string
-    example: 'MM/dd/yyyy'  
-          
+    example: 'MM/dd/yyyy'
+
   mapBeezUPColumnRequest:
     required:
       - beezUPColumnName
@@ -3214,7 +2962,7 @@ definitions:
     properties:
       beezUPColumnName:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.BeezUPColumnName'
-        
+
   importationReporting:
     description: The catalog importation reporting
     type: object
@@ -3298,11 +3046,9 @@ definitions:
           isCatalogUpdateCompleted: false
           isSavedInDb: false
 
-          
-          
   startManualImportRequest:
     description: >-
-      The message request start a manual importation process. 
+      The message request start a manual importation process.
       Indicate the way to handle duplicate product. Can be null if you want to reuse the configuration of the previous importation succeed.
     required:
       - input
@@ -3312,8 +3058,6 @@ definitions:
         $ref: '#/definitions/inputConfiguration'
       duplicateProductSkuConfiguration:
         $ref: '#/definitions/duplicateProductValueConfiguration'
-          
-
 
   importationTechnicalProgression:
     type: object
@@ -3327,7 +3071,7 @@ definitions:
           type: array
           items:
             type: string
-  
+
   changeCustomColumnRequest:
     description: The message request to change a custom column expression an user name
     required:
@@ -3342,11 +3086,10 @@ definitions:
         $ref: '#/definitions/encryptedBlocklyExpression'
       userColumName:
         $ref: '#/definitions/userColumName'
-        
-  
+
   customColumnLinks:
     type: object
-    required: 
+    required:
     - save
     - delete
     - rename
@@ -3364,7 +3107,6 @@ definitions:
       saveExpression:
         $ref: '#/definitions/links.Catalog_ChangeCustomColumnExpressionLink'
 
-        
   customColumn:
     description: The custom column configuration
     required:
@@ -3383,10 +3125,9 @@ definitions:
       links:
         $ref: '#/definitions/customColumnLinks'
 
-
   importationCustomColumnLinks:
     type: object
-    required: 
+    required:
     - save
     - delete
     - expression
@@ -3403,8 +3144,6 @@ definitions:
         $ref: '#/definitions/links.Importation_UnmapCustomColumnLink'
       productSampleValue:
         $ref: '#/definitions/links.Importation_GetProductSampleCustomColumnValueLink'
-        
-        
 
   importationCustomColumn:
     description: The custom column configuration
@@ -3424,7 +3163,6 @@ definitions:
       links:
         $ref: '#/definitions/importationCustomColumnLinks'
 
-
   randomProductList:
     type: object
     required:
@@ -3436,8 +3174,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/product'
-  
-  
+
   productList:
     type: object
     required:
@@ -3452,10 +3189,10 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/product'
-        
+
   product:
     description: Represent a catalog product
-    required: 
+    required:
     - productId
     - categoryId
     - values
@@ -3472,9 +3209,6 @@ definitions:
         description: Indicates if the product exists in the current catalog
         example: true
 
-
-
-        
   getProductsRequest:
     type: object
     description: The request message to get products based on these filters
@@ -3483,12 +3217,12 @@ definitions:
     - pageSize
     - columnIdList
     properties:
-    
+
       pageNumber:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PageNumber'
       pageSize:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PageSize'
-    
+
 # [Style Validator (88810c82-2db7-43ee-a1b3-f0bf2edf47bf) : All model properties must have examples]: Field 'example' required in 'properties'
       columnIdList:
         type: array
@@ -3496,7 +3230,7 @@ definitions:
         maxItems: 5
         items:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogColumnId'
-    
+
       exists:
         type: boolean
         description: Search for existing products or not. If null you will received both.
@@ -3516,15 +3250,14 @@ definitions:
         type: string
         example: Frigo
       categoryPath:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'     
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'
       orderbyCatalogColumnId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogColumnId'
       withoutSubCategories:
         type: boolean
         description: 'Do not retrieve sub categories. By default, this value is set to false'
         example: false
-      
-  
+
   categoryList:
     description: The object which contains the category list
     type: object
@@ -3538,7 +3271,7 @@ definitions:
         type: array
         items:
          $ref: '#/definitions/category'
-          
+
   category:
     description: The catalog category
     required:
@@ -3561,5 +3294,5 @@ definitions:
         format: int32
         description: The product count related to this category
         example: 101
-      
+
 x-azure-api-id: 'v2usercatalogs'
