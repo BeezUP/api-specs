@@ -4,7 +4,7 @@ info:
   title: Marketplaces - Channel catalogs
   description: This API allows you to manage your channel catalogs\' marketplace settings and fetch your account\'s catalog publication history
   contact:
-    email: support@beezup.com
+    email: help@beezup.com
   license:
     name: BeezUP
     url: http://www.beezup.com
@@ -21,6 +21,7 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.Publication.BackOffice.WebService
   apiName: V2UserMarketplacesChannelCatalogs
   comment: |
+    Changing contact email support to help
     Adding Accept-Language header to Properties call
     Fixing MarketplaceStorePropertyGroup information
     Adding MarketplaceStorePropertyLOV to Index
@@ -953,7 +954,7 @@ definitions:
         $ref: '#/definitions/channelCatalogMarketplacePropertyName'
       discriminatorType:
         $ref: '#/definitions/channelCatalogMarketplaceSettingDiscriminatorType'
-  
+
   channelCatalogMarketplaceStringSetting:
     allOf:
     - $ref: '#/definitions/channelCatalogMarketplaceSetting'
