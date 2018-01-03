@@ -4,11 +4,10 @@ info:
   title: 'Public - Channels'
   description: 'This api allows you to get access to the channels. The main use case is our public commercial web site.'
   contact:
-    email: support@beezup.com
-    
- 
+    email: help@beezup.com
+
   license:
-    name: BeezUP 
+    name: BeezUP
     url: http://www.beezup.com
 
 # host: api.beezup.com
@@ -20,8 +19,9 @@ x-beezup-api-ops:
   namespace: BeezUP.WebService.Commercial
   apiName: V2PublicChannels
   comment: |
-    Add sectors
-    Add If-None-Match and 304
+    Changing contact email support to help
+    Adding sectors
+    Adding If-None-Match and 304
 
 x-host: api.beezup.com
 x-basePath: /v2/public/channels
@@ -34,16 +34,14 @@ x-basePath: /v2/public/channels
 host: api.beezup.com
 basePath: /v2/public/channels
 
-
-
 schemes:
-  - https 
+  - https
 
 consumes:
   - application/json
 produces:
-  - application/json 
-  
+  - application/json
+
 x-servers:
 - url: https://virtserver.swaggerhub.com/BeezUP/public_channels/v2
   description: Mock Server
@@ -54,8 +52,7 @@ tags:
 - name: Public Channels
   description: All our public channels operations
 
-paths: 
-
+paths:
 
   '/':
     get:
@@ -76,7 +73,6 @@ paths:
 
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-
 
   '/{countryIsoCode}':
     get:
@@ -107,24 +103,20 @@ paths:
                 logoUrl: 'http://beezupcdn.blob.core.windows.net/comparators/Amazon%2520Direct%2520FRA.png'
                 types:
                 - Marketplace
-              
+
         304:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
-    
+
         404:
           description: Channel country not found
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-    
-
-
 
 definitions:
 
   # TODO: Add country display name
-  
 
   publicChannelIndex:
     type: object
@@ -135,19 +127,19 @@ definitions:
         additionalProperties:
           $ref: '#/definitions/links.GetChannelsLink'
         example:
-          FRA: 
+          FRA:
             href: /v2/public/channels/FRA
             method: GET
-          DEU: 
-            href: /v2/public/channels/DEU    
+          DEU:
+            href: /v2/public/channels/DEU
             method: GET
-          ESP: 
+          ESP:
             href: /v2/public/channels/ESP'
             method: GET
-          ITA: 
+          ITA:
             href: /v2/public/channels/ITA
             method: GET
-          GBR: 
+          GBR:
             href: /v2/public/channels/GBR
             method: GET
 
@@ -175,14 +167,13 @@ definitions:
           sectorLov:
             href: /v2/public/lov/ParamSector
             method: GET
-            
+
   links.GetPublicListOfValuesLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/public/lov/ChannelType
         method: GET
-
 
   links.GetChannelsLink:
     allOf:
@@ -198,8 +189,6 @@ definitions:
         href: /v2/public/channels
         method: GET
 
-
-
   channelInfoList:
     type: object
     properties:
@@ -214,8 +203,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/channelInfo'
-          
-          
+
   channelInfo:
     type: object
     required:
@@ -254,7 +242,5 @@ definitions:
         - BRICOLAGE
         - INFO
         - GENERALIST
-        
-        
-        
+
 x-azure-api-id: 'V2PublicChannels'
