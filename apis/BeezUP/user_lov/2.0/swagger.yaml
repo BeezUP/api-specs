@@ -4,18 +4,16 @@ info:
   description: This API gives you access to list of values.
   version: "2.0"
   contact:
-    email: support@beezup.com
-    
- 
+    email: help@beezup.com
+
   license:
-    name: BeezUP 
+    name: BeezUP
     url: http://www.beezup.com
-  
+
   x-changeComment: |
+    Changing contact email support to help
     No change. Server side regeneration.
 
-
- 
 host: api.beezup.com
 basePath: /v2/user/lov
 schemes:
@@ -28,7 +26,7 @@ x-beezup-api-ops:
   apiName: V2UserLOV
   comment: |
     Put in place dev branch.
-    
+
 x-basePath: /v2/user/lov
 
 consumes:
@@ -49,7 +47,6 @@ security:
 tags:
 - name: LOV
   description: All LOV operations
-
 
 paths:
   /:
@@ -81,7 +78,7 @@ paths:
             ETag:
               description: The ETag corresponding to the LOV Index
               type: string
-              
+
             Cache-Control:
               description: |
                 Indicates the directive around the caching mechanisms.\
@@ -90,10 +87,9 @@ paths:
               collectionFormat: csv
               items:
                 type: string
-          
+
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-            
 
   '/{listName}':
     get:
@@ -106,7 +102,7 @@ paths:
           in: path
           required: true
           description: The list of value name your want to get
-          type: string 
+          type: string
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/acceptLanguageParameter'
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
@@ -116,7 +112,7 @@ paths:
             ETag:
               description: The ETag corresponding to the LOV Index
               type: string
-              
+
             Cache-Control:
               description: |
                 Indicates the directive around the caching mechanisms.\
@@ -131,8 +127,7 @@ paths:
               collectionFormat: csv
               items:
                 type: string
-              
-              
+
           schema:
             $ref: '#/definitions/userListOfValuesResponse'
         304:
@@ -141,7 +136,7 @@ paths:
             ETag:
               description: The ETag corresponding to the LOV Index
               type: string
-              
+
             Cache-Control:
               description: |
                 Indicates the directive around the caching mechanisms.\
@@ -158,9 +153,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
 
-
-
-
 definitions:
 
   userLovIndex:
@@ -168,7 +160,7 @@ definitions:
     properties:
       links:
         $ref: '#/definitions/userLovIndexLinks'
-        
+
   userLovIndexLinks:
     type: object
     properties:
@@ -178,15 +170,11 @@ definitions:
       lists:
         $ref: '#/definitions/userLovLinks'
 
-
-    
-
   userLovLinks:
     description: List of lov link. The key is the list name.
     type: object
     additionalProperties:
       $ref: '#/definitions/links.GetUserListOfValuesLink'
-
 
   links.GetUserListOfValuesLink:
     allOf:
@@ -195,17 +183,12 @@ definitions:
         href: /v2/user/lov/Go2CultureName
         method: GET
 
-  
   links.GetUserLovIndexLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/lov
         method: GET
-        
-
-
-
 
   userListOfValuesResponse:
     type: object
@@ -218,15 +201,11 @@ definitions:
         type: array
         items:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ListOfValueItem'
-        
-            
-        
-  
+
   userListOfValuesResponseLinks:
     type: object
     properties:
       self:
         $ref: '#/definitions/links.GetUserListOfValuesLink'
-    
 
 x-azure-api-id: 'v2userlov'
