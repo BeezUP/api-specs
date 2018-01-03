@@ -8,7 +8,7 @@ info:
     backgroundColor: "#FFFFFF"
 
   contact:
-    email: support@beezup.com
+    email: help@beezup.com
 
   license:
     name: BeezUP
@@ -36,7 +36,8 @@ x-beezup-api-ops:
   useBeezUPFrameworkVersion2: true
   namespace: BeezUP2.Channel.ApiService
   comment: |
-    Removed DescriptionAvailable + typed link to self in GET GetAvailableChannels
+    Changing contact email support to help
+    Removing DescriptionAvailable + typed link to self in GET GetAvailableChannels
 
 x-basePath: /v2/user/channels
 
