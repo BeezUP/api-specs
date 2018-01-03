@@ -11,7 +11,7 @@ info:
     - access to your invoices
 
   contact:
-    email: support@beezup.com
+    email: help@beezup.com
 
   license:
     name: BeezUP
@@ -23,6 +23,7 @@ x-beezup-api-ops:
   namespace: BeezUP.Customer.WebService
   apiName: V2UserCustomer
   comment: |
+    Changing contact email support to help
     NotActivated account: accountInfo.personalInfo and accountInfo.companyInfo and accountInfo.profilPictureUrl are nullable
 
 x-host: api.beezup.com
@@ -3093,4 +3094,5 @@ definitions:
     - PreviousInvoiceProrataBonus
     - PreviousContractBonus
     type: string
+
 x-azure-api-id: 'v2usercustomer'
