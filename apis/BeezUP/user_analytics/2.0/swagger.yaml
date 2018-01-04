@@ -28,6 +28,7 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
+    Inclduing SKU and Title in Product Column Filters again
     Chaning contact email support to help
     Adding LOV link for PerformanceIndicatorFilterOperatorName
     Renaming ReportIndicatorFilter to PerformanceIndicatorFilter
@@ -1176,10 +1177,13 @@ definitions:
                   thirdParameter: 100
               productState: All
               productColumnFilters:
-                - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
-                  operatorName: GreaterTo
-                  values:
-                    - 100
+                sku: M1234
+                title: Refrigérateur
+                additionalProductColumnFilters:
+                  - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
+                    operatorName: NumericGreaterTo
+                    values:
+                      - 100
 
   links.OptimiseLink:
     allOf:
@@ -1220,10 +1224,13 @@ definitions:
               pageNumber: 1
               productState: All
               productColumnFilters:
-                - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
-                  operatorName: GreaterTo
-                  values:
-                    - 100
+                sku: M1234
+                title: Refrigérateur
+                additionalProductColumnFilters:
+                  - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
+                    operatorName: NumericGreaterTo
+                    values:
+                      - 100
 
   links.OptimiseByChannelLink:
     allOf:
@@ -2488,6 +2495,20 @@ definitions:
           $ref: '#/definitions/productColumnFilters'
 
   productColumnFilters:
+    type: object
+    properties:
+      sku:
+        type: string
+        description: The product sku filter
+        example: 'M1234'
+      title:
+        type: string
+        description: The product title filter
+        example: 'Refrigérateur'
+      additionalProductColumnFilters:
+        $ref: '#/definitions/additionalProductColumnFilters'
+  
+  additionalProductColumnFilters:
     type: object
     description: |
       Describes a filter on a product's column.
