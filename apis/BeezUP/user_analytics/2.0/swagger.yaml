@@ -28,7 +28,8 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
-    Inclduing SKU and Title in Product Column Filters again
+    Adding requiered AllProductCount to ReportByCategory Response
+    Including SKU and Title in Product Column Filters again
     Chaning contact email support to help
     Adding LOV link for PerformanceIndicatorFilterOperatorName
     Renaming ReportIndicatorFilter to PerformanceIndicatorFilter
@@ -1721,7 +1722,7 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductBasicInfo'
       ipAddress:
         type: string
-        description: The user IP address related to the click
+        description: The user IP address for the click
         example: '127.0.0.1'
       channel:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelBasicInfo'
@@ -1857,7 +1858,7 @@ definitions:
         description: Indicate if the payment of this external order has been validated or not
         example: false
       products:
-        description: Can be null. The product list related of the external order
+        description: Can be null. The product list included in the external order
         type: array
         items:
           $ref: '#/definitions/trackedExternalOrderProduct'
@@ -2132,7 +2133,7 @@ definitions:
         example: 23.09
       totalSales:
         type: number
-        description: The total sales related to this day and all channels
+        description: The total sales for this day and all channels
         example: 234.42
       soldProductCount:
         type: integer
@@ -2180,7 +2181,7 @@ definitions:
         example: 23.09
       totalSales:
         type: number
-        description: The total sales related to this day and this channel
+        description: The total sales for this day and this channel
         example: 234.42
       soldProductCount:
         type: integer
@@ -2335,8 +2336,8 @@ definitions:
     type: object
     required:
     - channel
-    - enabledProductCount
     - catalogProductCount
+    - enabledProductCount
     - clickCount
     - cost
     - orderCount
@@ -2349,13 +2350,13 @@ definitions:
     properties:
       channel:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ChannelBasicInfo'
-      enabledProductCount:
-        type: integer
-        description: The enabled product count for this channel
-        example: 101
       catalogProductCount:
         type: integer
         description: The catalog product count for this channel
+        example: 101
+      enabledProductCount:
+        type: integer
+        description: The enabled product count for this channel
         example: 101
       clickCount:
         type: integer
@@ -2383,7 +2384,7 @@ definitions:
         example: 12.21
       totalSales:
         type: number
-        description: The total sales related to this channel
+        description: The total sales for this channel
         example: 234.42
       soldProductCount:
         type: integer
@@ -2417,8 +2418,9 @@ definitions:
     type: object
     required:
     - catalogCategoryId
-    - enabledProductCount
+    - allProductCount
     - catalogProductCount
+    - enabledProductCount
     - clickCount
     - cost
     - orderCount
@@ -2433,13 +2435,17 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryId'
       catalogCategoryPath:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.CatalogCategoryPath'
-      enabledProductCount:
+      allProductCount:
         type: integer
-        description: The enabled product count for this category
+        description: The product count for this category. This includes all the products that have been imported and can still have associated clicks and orders.
         example: 101
       catalogProductCount:
         type: integer
-        description: The catalog product count related to this category
+        description: The catalog product count for this category. This includes all products that are still present in your imported catalog.
+        example: 101
+      enabledProductCount:
+        type: integer
+        description: The enabled product count for this category. This includes all products that are still present in your imported catalog and have not been disabled via the optimisation feature.
         example: 101
       clickCount:
         type: integer
@@ -2467,7 +2473,7 @@ definitions:
         example: 25.33
       totalSales:
         type: number
-        description: The total sales related to this category
+        description: The total sales for this category
         example: 234.42
       soldProductCount:
         type: integer
@@ -2643,7 +2649,7 @@ definitions:
         example: 10.12
       totalSales:
         type: number
-        description: The total sales related to this product
+        description: The total sales for this product
         example: 234.42
       soldProductCount:
         type: integer
