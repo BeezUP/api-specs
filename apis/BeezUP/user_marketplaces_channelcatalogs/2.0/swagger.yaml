@@ -1032,7 +1032,7 @@ definitions:
         items:
           $ref: '#/definitions/marketplaceChannelCatalog'
 
-  links.GetMarketplaceAccountStoresLink:
+  links.GetMarketplaceChannelCatalogsLink:
     allOf:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
@@ -1044,7 +1044,7 @@ definitions:
     - self
     properties:
       self:
-        $ref: '#/definitions/links.GetMarketplaceAccountStoresLink'
+        $ref: '#/definitions/links.GetMarketplaceChannelCatalogsLink'
 
   marketplaceChannelCatalog:
     description: This object indicates you the association between a channel catalog and a marketplace. The account identifier will be automatically defined based on your marketplace merchant identfier.
