@@ -21,6 +21,7 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.Publication.BackOffice.WebService
   apiName: V2UserMarketplacesChannelCatalogs
   comment: |
+    Adding StoreId to 
     Changing contact email support to help
     Adding Accept-Language header to Properties call
     Fixing MarketplaceStorePropertyGroup information
