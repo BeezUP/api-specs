@@ -25,8 +25,8 @@ x-beezup-api-ops:
     Adding Accept-Language header to Properties call
     Fixing MarketplaceStorePropertyGroup information
     Adding MarketplaceStorePropertyLOV to Index
-    Adding Enabled field on Marketplace Channel Catalog object
-    Adding RedirectionPageUrl in Marketplace Channel Catalog Properties request
+    Adding Enabled field on marketplace channel catalog object
+    Adding RedirectionPageUrl in marketplace channel catalog properties request
 
 x-basePath: /v2/user/marketplaces/channelcatalogs
 
@@ -84,13 +84,23 @@ paths:
     get:
       tags:
       - Global
-      summary: Get  you marketplace channel catalog list
-      operationId: GetMarketplaceAccountStores
+      summary: Get your marketplace channel catalog list
+      operationId: GetMarketplaceChannelCatalogs
+      parameters:
+      - name: storeId
+        in: query
+        required: false
+        description: The StoreId to filter by
+        type: string
+        format: guid
+        x-example: '04730364-9826-4ff3-92e4-51fccd02bf10'
       responses:
         200:
           description: Marketplace channel catalog list
           schema:
             $ref: '#/definitions/marketplaceChannelCatalogList'
+        404:
+          description: Store not found
 
   '/publications/{marketplaceTechnicalCode}/{accountId}/history':
     get:
@@ -142,15 +152,15 @@ paths:
             #$ref: '#/definitions/publicationType'
           #collectionFormat: multi
       responses:
-        '200':
+        200:
           description: Successfully fetched channel catalog settings
           schema:
             $ref: '#/definitions/accountPublications'
-        '400':
+        400:
           description: Feature only available for Amazon, Ebay, CDiscount and Mirakl marketplaces
-        '404':
+        404:
           description: Requested account, marketplace or authorization for current user not found
-        '503':
+        503:
           $ref: '#/responses/processingResponse'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -175,13 +185,13 @@ paths:
           format: uri
         - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/acceptLanguageParameter'
       responses:
-        '200':
+        200:
           description: Successfully fetched channel catalog properties
           schema:
             $ref: '#/definitions/channelCatalogMarketplaceProperties'
-        '404':
-          description: Requested channel catalog or authorization for current user not found
-        '503':
+        404:
+          description: Marketplace channel Catalog not found
+        503:
           $ref: '#/responses/processingResponse'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -200,13 +210,13 @@ paths:
           type: string
           format: guid
       responses:
-        '200':
+        200:
           description: Successfully fetched channel catalog settings
           schema:
             $ref: '#/definitions/channelCatalogMarketplaceSettings'
-        '404':
-          description: Requested channel catalog or authorization for current user not found
-        '503':
+        400:
+          description: Marketplace channel catalog not found
+        503:
           $ref: '#/responses/processingResponse'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
@@ -233,15 +243,15 @@ paths:
           schema:
             $ref: '#/definitions/setChannelCatalogMarketplaceSettingsRequest'
       responses:
-        '204':
-          description: Successfully saved channel catalog settings
-        '400':
-          description: One or more channel catalog property keys or values are invalid for requested channel catalog. See response for details.
+        204:
+          description: Successfully saved channel catalog marketplace settings
+        400:
+          description: One or more channel catalog marketplace property keys or values are invalid for requested marketplace channel catalog. See response for details.
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-        '404':
-          description: Requested channel catalog or authorization for current user not found
-        '503':
+        404:
+          description: Marketplace channel catalog not found
+        503:
           $ref: '#/responses/processingResponse'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
