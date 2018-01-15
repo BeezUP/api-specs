@@ -21,7 +21,7 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.Publication.BackOffice.WebService
   apiName: V2UserMarketplacesChannelCatalogs
   comment: |
-    Adding StoreId to 
+    Adding StoreId to marketplace channel catalog list for filter and admin mode
     Changing contact email support to help
     Adding Accept-Language header to Properties call
     Fixing MarketplaceStorePropertyGroup information
@@ -215,7 +215,7 @@ paths:
           description: Successfully fetched channel catalog settings
           schema:
             $ref: '#/definitions/channelCatalogMarketplaceSettings'
-        400:
+        404:
           description: Marketplace channel catalog not found
         503:
           $ref: '#/responses/processingResponse'
