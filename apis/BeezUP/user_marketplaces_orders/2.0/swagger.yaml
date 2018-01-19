@@ -27,6 +27,7 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
   apiName: V2UserMarketplacesOrders
   comment: |
+    Adding Store Id list to Order List request
     Changing contact email support to help
     Removing required from ChangeOrderRequest (some changes do not require parameters)
     Adding information about max items per batch call
@@ -918,12 +919,19 @@ definitions:
         example:
         - PRICEMINISTER
       accountIds:
-        description: Account id list
+        description: Account Id list
         type: array
         items:
           $ref: '#/definitions/accountId'
         example:
         - 12345
+# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
+      storeIds:
+        description: Store Id list
+        type: array
+        items:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.StoreId'
       beezUPOrderStatuses:
         type: array
         items:
