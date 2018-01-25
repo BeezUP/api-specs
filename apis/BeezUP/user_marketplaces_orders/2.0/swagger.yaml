@@ -27,14 +27,12 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
   apiName: V2UserMarketplacesOrders
   comment: |
-    Adding Store Id to Status request
     Adding Store Id list to Order List request
     Changing contact email support to help
     Removing required from ChangeOrderRequest (some changes do not require parameters)
     Adding information about max items per batch call
     Order Change link from Dictionary to Array
     Renaming AutomaticTransitionInfos to AutomaticTransitionInfoList to avoid overlap with property name
-
 x-host: api.beezup.com
 x-basePath: /v2/user/marketplaces/orders
 
@@ -167,13 +165,6 @@ paths:
       operationId: GetMarketplaceAccountsSynchronization
       summary: Get current synchronization status between your marketplaces and BeezUP accounts
       parameters:
-      - name: storeId
-        in: query
-        required: false
-        description: The StoreId to filter by
-        type: string
-        format: guid
-        x-example: '04730364-9826-4ff3-92e4-51fccd02bf10'
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
@@ -182,10 +173,6 @@ paths:
             $ref: '#/definitions/accountSynchronizationList'
         304:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
-        404:
-          description: Requested Store could not be found
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -254,6 +241,21 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
+
+#  '/properties':
+#    get:
+#      tags:
+#      - One Order
+#      operationId: GetOrderProperties
+#      summary: Get the configuration of all order properties
+#      responses:
+#        '200':
+#          description: Order properties
+#          schema:
+#            $ref: '#/definitions/orderPropertyInfos'
+#        default:
+#          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+#      deprecated: false
 
   '/list/full':
     post:
@@ -484,7 +486,6 @@ paths:
               description: |
                 Last modification UTC date of the order\
                 For more details go to this link: https://tools.ietf.org/html/rfc7232#section-2.2
-
             ETag:
               type: string
               description: |
