@@ -231,17 +231,11 @@ definitions:
     additionalProperties:
       $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.AdditionalProductFiltersValue'
 
-  BeezUP.Common.ProductFilterOperatorName:
+  BeezUP.Common.ProductColumnFilterOperatorName:
     type: string
     description: Indicate the operator you want to make on the columnId
-    enum:
-    - Equals
-    - Contains
-    - GreaterTo
-    - LowerTo
-    - InList
-    - IsNull
-    - IsNotNull
+    x-lov: ProductColumnFilterOperatorName
+  
 
   BeezUP.Common.ProductBasicInfo:
     description: The basic information related to a product
