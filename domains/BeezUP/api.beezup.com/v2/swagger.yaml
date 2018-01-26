@@ -208,7 +208,7 @@ definitions:
   #        description: The column identifier of your catalog or a custom column.
   #        example: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
       operatorName:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductFilterOperatorName'
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ProductColumnFilterOperatorName'
       values:
         description: |
           Must be null if the operator is "IsNull" or "IsNotNull".
