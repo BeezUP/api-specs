@@ -27,12 +27,14 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
   apiName: V2UserMarketplacesOrders
   comment: |
+    Adding Store Id to Status request
     Adding Store Id list to Order List request
     Changing contact email support to help
     Removing required from ChangeOrderRequest (some changes do not require parameters)
     Adding information about max items per batch call
     Order Change link from Dictionary to Array
     Renaming AutomaticTransitionInfos to AutomaticTransitionInfoList to avoid overlap with property name
+
 x-host: api.beezup.com
 x-basePath: /v2/user/marketplaces/orders
 
@@ -165,6 +167,13 @@ paths:
       operationId: GetMarketplaceAccountsSynchronization
       summary: Get current synchronization status between your marketplaces and BeezUP accounts
       parameters:
+      - name: storeId
+        in: query
+        required: false
+        description: The StoreId to filter by
+        type: string
+        format: guid
+        x-example: '04730364-9826-4ff3-92e4-51fccd02bf10'
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
@@ -173,6 +182,10 @@ paths:
             $ref: '#/definitions/accountSynchronizationList'
         304:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
+        404:
+          description: Requested Store could not be found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -209,6 +222,13 @@ paths:
       operationId: GetAutomaticTransitions
       summary: Get list of configured automatic Order status transitions
       parameters:
+      - name: storeId
+        in: query
+        required: false
+        description: The StoreId to filter by
+        type: string
+        format: guid
+        x-example: '04730364-9826-4ff3-92e4-51fccd02bf10'
       - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/parameters/ifNoneMatchParameter'
       responses:
         200:
@@ -217,6 +237,10 @@ paths:
             $ref: '#/definitions/automaticTransitionInfoList'
         304:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/304_NotModified'
+        404:
+          description: Requested Store could not be found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
@@ -241,21 +265,6 @@ paths:
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
       deprecated: false
-
-#  '/properties':
-#    get:
-#      tags:
-#      - One Order
-#      operationId: GetOrderProperties
-#      summary: Get the configuration of all order properties
-#      responses:
-#        '200':
-#          description: Order properties
-#          schema:
-#            $ref: '#/definitions/orderPropertyInfos'
-#        default:
-#          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-#      deprecated: false
 
   '/list/full':
     post:
@@ -486,6 +495,7 @@ paths:
               description: |
                 Last modification UTC date of the order\
                 For more details go to this link: https://tools.ietf.org/html/rfc7232#section-2.2
+
             ETag:
               type: string
               description: |
@@ -1043,7 +1053,6 @@ definitions:
     properties:
       links:
         $ref: '#/definitions/automaticTransitionInfoListLinks'
-
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       automaticTransitionInfos:
@@ -1594,7 +1603,6 @@ definitions:
           type: string
           format: date-time
           example: '2017-04-01T13:22:01Z'
-
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_Comment' does not comply with the rule
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : camelCase]: 'order_Comment' does not comply with the rule
         order_Comment:
@@ -1825,14 +1833,6 @@ definitions:
           type: array
           items:
             $ref: '#/definitions/orderItem'
-      #  orderProperties:
-      #    type: array
-      #    items:
-      #      $ref: '#/definitions/orderProperty'
-      #  orderItemsProperties:
-      #    type: array
-      #    items:
-      #      $ref: '#/definitions/orderItemProperty'
         transitionLinks:
           $ref: '#/definitions/orderTransitionLinks'
 
@@ -2002,66 +2002,6 @@ definitions:
                 required: true
                 type: string
 
-#  orderPropertyInfos:
-#    type: object
-#    required:
-#    - orderProperties
-#    - orderItemProperties
-#    properties:
-  #    orderProperties:
-  #      type: array
-  #      items:
-  #        $ref: '#/definitions/orderPropertyInfo'
-  #    orderItemProperties:
-  #      type: array
-  #      items:
-  #        $ref: '#/definitions/orderItemPropertyInfo'
-  #
-  #orderPropertyInfo:
-  #  type: object
-  #  properties:
-  #    code:
-  #      type: string
-  #    type:
-  #      $ref: '#/definitions/type'
-#
-#
-  #orderItemPropertyInfo:
-  #  allOf:
-  #  - $ref: '#/definitions/orderPropertyInfo'
-#
-#
-  #orderProperty:
-  #  type: object
-  #  properties:
-  #    code:
-  #      type: string
-  #    value:
-  #      type: string
-  #
-  #type:
-  #  description: The Data Type
-  #  enum:
-  #    - string
-  #    - integer
-  #    - boolean
-  #    - number
-  #  type: string
-  #  example: string
-#
-  #
-  #orderItemProperty:
-  #  type: object
-  #  properties:
-  #    beezUPOrderItemId:
-  #      type: string
-  #    properties:
-  #      type: array
-  #      items:
-  #        $ref: '#/definitions/orderProperty'
-#
-  #
-
   orderIndex:
     type: object
     required:
@@ -2132,34 +2072,6 @@ definitions:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
       orderPropertyPosted:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-
-#
-#  lovLinks.OrderChangeBusinessOperationTypeLink:
-#    allOf:
-#    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-#    - example:
-#        href: /v2/user/lov/OrderChangeBusinessOperationType
-#
-#
-#
-#  lovLinks.OrderStateLink:
-#    allOf:
-#    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-#    - example:
-#        href: /v2/user/lov/BeezUPOrderState
-#
-#
-#  lovLinks.OrderPropertyPostedLink:
-#    allOf:
-#    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-#    - example:
-#        href: /v2/user/lov/OrderMetaInfoPosted
-#
-#  lovLinks.OrderPropertyLink:
-#    allOf:
-#    - $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
-#    - example:
-#        href: /v2/user/lov/OrderMetaInfoOrderDetails
 
   links.GetOrderListFullLink:
     allOf:
@@ -2315,7 +2227,6 @@ definitions:
     properties:
       paginationResult:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
-
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       orders:
@@ -2324,9 +2235,6 @@ definitions:
           $ref: '#/definitions/orderHeader'
       links:
         $ref: '#/definitions/orderListLightLinks'
-
-#      info:
-#        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
 
   orderListFull:
     description: |
@@ -2339,7 +2247,6 @@ definitions:
     properties:
       paginationResult:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.PaginationResult
-
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (815c40eb-7d49-4bf7-af93-1fb5e6d1ecbf) : All model properties must have examples]: Field 'example' required in 'properties'
       orders:
@@ -2348,8 +2255,6 @@ definitions:
           $ref: '#/definitions/order'
       links:
         $ref: '#/definitions/orderListFullLinks'
-#      info:
-#        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
 
   beezUPOrderStatus:
     type: string
@@ -2389,8 +2294,6 @@ definitions:
       lastModificationUtcDate:
         format: date-time
         type: string
-#      info:
-#        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.InfoSummaries
 
   sourceType:
     description: Indicates the origin of the operation
@@ -2586,12 +2489,5 @@ definitions:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage'
 
 x-azure-api-id: 'v2usermarketplacesorders'
-# Added by API Auto Mocking Plugin
-#host: virtserver.swaggerhub.com
-#basePath: /BeezUP/user_marketplaces_orders/2.0
-
 host: api.beezup.com
 basePath: /v2/user/marketplaces/orders
-# Added by API Auto Mocking Plugin
-#host: virtserver.swaggerhub.com
-#basePath: /BeezUP/user_marketplaces_orders/2.0
