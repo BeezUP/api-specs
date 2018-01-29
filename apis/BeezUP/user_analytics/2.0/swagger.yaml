@@ -28,7 +28,8 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
-    Adding requiered AllProductCount to ReportByCategory Response
+    Margin and ROI are no longer required
+    Adding required AllProductCount to ReportByCategory Response
     Including SKU and Title in Product Column Filters again
     Chaning contact email support to help
     Adding LOV link for PerformanceIndicatorFilterOperatorName
@@ -2341,8 +2342,6 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - roi
-    - margin
     - performanceIndicator
     - totalSales
     - soldProductCount
@@ -2424,8 +2423,6 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - roi
-    - margin
     - performanceIndicator
     - totalSales
     - soldProductCount
@@ -2606,8 +2603,6 @@ definitions:
     - clickCount
     - cost
     - orderCount
-    - roi
-    - margin
     - performanceIndicator
     - totalSales
     - soldProductCount
