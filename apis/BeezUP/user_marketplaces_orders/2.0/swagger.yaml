@@ -27,6 +27,7 @@ x-beezup-api-ops:
   namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
   apiName: V2UserMarketplacesOrders
   comment: |
+    Adding Store Id to Harvest All request
     Adding Store Id to Status request
     Adding Store Id list to Order List request
     Changing contact email support to help
@@ -196,6 +197,14 @@ paths:
       - Global
       operationId: HarvestAll
       summary: Send harvest request to all your marketplaces
+      parameters:
+      - name: storeId
+        in: query
+        required: false
+        description: The StoreId to filter by
+        type: string
+        format: guid
+        x-example: '04730364-9826-4ff3-92e4-51fccd02bf10'
       responses:
         202:
           description: Successfully sent harvest request to all marketplaces
@@ -203,6 +212,10 @@ paths:
             Retry-After:
               type: integer
               description: Indicates the duration in seconds to wait to be able to make this request again
+        404:
+          description: Requested Store could not be found
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         409:
           description: Failed to send harvest request because allowed rate limits have been exceeded
           headers:
