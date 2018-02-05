@@ -28,6 +28,8 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
+    PerformanceIndicatorFilterOperatorName as x-lov instead of enum
+    Confirming to New LOV for ProductColumnFilters
     Margin and ROI are no longer required
     Adding required AllProductCount to ReportByCategory Response
     Including SKU and Title in Product Column Filters again
@@ -1041,7 +1043,7 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
       productColumnFilterOperatorNameLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
-      numericProductColumnFilterOperatorNameLov:
+      numericalProductColumnFilterOperatorNameLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
       stringProductColumnFilterOperatorNameLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
@@ -1183,7 +1185,7 @@ definitions:
                 title: Refrigérateur
                 additionalProductColumnFilters:
                   - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
-                    operatorName: NumericGreaterTo
+                    operatorName: NumericalGreaterThan
                     values:
                       - 100
 
@@ -1230,7 +1232,7 @@ definitions:
                 title: Refrigérateur
                 additionalProductColumnFilters:
                   - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
-                    operatorName: NumericGreaterTo
+                    operatorName: NumericalGreaterThan
                     values:
                       - 100
 
@@ -2274,10 +2276,7 @@ definitions:
   performanceIndicatorFilterOperatorName:
     type: string
     description: Indicates the operator you want to apply on this indicator
-    enum:
-    - Equals
-    - GreaterTo
-    - LowerTo
+    x-lov: PerformanceIndicatorFilterOperatorName
     example: Equals
 
   orderedReportFilterCommonParameters:
@@ -2537,7 +2536,7 @@ definitions:
           - My value
     example:
       '672644c7-5bd0-4e25-88c1-1f732bda5e4c':
-        operatorName: NumericGreaterTo
+        operatorName: NumericalGreaterThan
         values:
           - '100'
 
@@ -2545,14 +2544,7 @@ definitions:
     type: string
     description: Indicate the operator you want to apply on the columnId
     enum:
-    - Equals
-    - Contains
-    - InList
-    - IsNull
-    - IsNotNull
-    - NumericEquals
-    - NumericGreaterTo
-    - NumericLowerTo
+    x-lov: AnalyticsProductColumnFilterOperatorName
 
   productColumnsToDisplay:
     type: array
