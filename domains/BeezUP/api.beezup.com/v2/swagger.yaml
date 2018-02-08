@@ -699,13 +699,17 @@ definitions:
         description: schema of the parameter
         example: orderListRequest
       properties:
-        description: If the parameter is an object with flexible properties (additionProperties/dictionary), we will describe the properties of the object.
-        type: object
-        additionalProperties:
-          $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameterProperty3
-        example:
-          shipOrder:
-            type: string
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameterProperties3
+        
+  BeezUP.Common.LinkParameterProperties3:
+    description: If the parameter is an object with flexible properties (additionProperties/dictionary), we will describe the properties of the object.
+    type: object
+    additionalProperties:
+      $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameterProperty3
+    example:
+      shipOrder:
+        type: string
+
 
   BeezUP.Common.LinkParameterProperty3:
     type: object
