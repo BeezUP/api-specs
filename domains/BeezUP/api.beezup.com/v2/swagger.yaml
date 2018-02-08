@@ -698,7 +698,7 @@ definitions:
         type: string
         description: schema of the parameter
         example: orderListRequest
-     # properties:
+     # properties: ## If we put in comment this property everything is fine !
      #   $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameterProperties3
         
   BeezUP.Common.LinkParameterProperties3:
