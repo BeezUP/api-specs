@@ -682,8 +682,8 @@ definitions:
         example: true
       in:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ParameterIn
- #     type: ## If we put in comment this property everything is fine !
-#      $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ParameterType
+      type: ## If we put in comment this property everything is fine !
+      $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ParameterType
       lovLink:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
       lovRequired:
@@ -698,8 +698,8 @@ definitions:
         type: string
         description: schema of the parameter
         example: orderListRequest
-     # properties: ## If we put in comment this property everything is fine !
-     #   $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameterProperties3
+      properties: ## If we put in comment this property everything is fine !
+        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LinkParameterProperties3
         
   BeezUP.Common.LinkParameterProperties3:
     description: If the parameter is an object with flexible properties (additionProperties/dictionary), we will describe the properties of the object.
