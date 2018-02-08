@@ -682,8 +682,8 @@ definitions:
         example: true
       in:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ParameterIn
-      type:
-        $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ParameterType
+     # type: ## If we put in comment this property everything is fine !
+    #    $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ParameterType
       lovLink:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3
       lovRequired:
