@@ -2527,7 +2527,6 @@ definitions:
   productColumnFilterOperatorName:
     type: string
     description: Indicate the operator you want to apply on the columnId
-    enum:
     x-lov: AnalyticsProductColumnFilterOperatorName
 
   productColumnsToDisplay:
