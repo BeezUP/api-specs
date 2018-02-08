@@ -28,6 +28,7 @@ x-beezup-api-ops:
   apiName: V2UserAnalytics
   namespace: BeezUP.Channel.WebService
   comment: |
+    Renaming ProductColumnFilterOperatorName -> AnalyticsProductColumnFilterOperatorName
     CopyOptimisation returns 200 with new channel optimisations
     Better handling of global performance indicators
     PerformanceIndicatorFilterOperatorName as x-lov instead of enum
@@ -1045,11 +1046,11 @@ definitions:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
       performanceIndicatorFilterOperatorNameLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
-      productColumnFilterOperatorNameLov:
+      analyticsProductColumnFilterOperatorNameLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
-      numericalProductColumnFilterOperatorNameLov:
+      analyticsNumericalProductColumnFilterOperatorNameLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
-      stringProductColumnFilterOperatorNameLov:
+      analyticsStringProductColumnFilterOperatorNameLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
       storeOptimisationRuleExecutionStatusLov:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink3'
@@ -1184,10 +1185,10 @@ definitions:
                   secondParamter: ROI
                   thirdParameter: 100
               productState: All
-              productColumnFilters:
+              analyticsProductColumnFilters:
                 sku: M1234
                 title: Refrigérateur
-                additionalProductColumnFilters:
+                additionalAnalyticsProductColumnFilters:
                   - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
                     operatorName: NumericalGreaterThan
                     values:
@@ -1231,10 +1232,10 @@ definitions:
               pageSize: 100
               pageNumber: 1
               productState: All
-              productColumnFilters:
+              analyticsProductColumnFilters:
                 sku: M1234
                 title: Refrigérateur
-                additionalProductColumnFilters:
+                additionalAnalyticsProductColumnFilters:
                   - columnId: 672644c7-5bd0-4e25-88c1-1f732bda5e4c
                     operatorName: NumericalGreaterThan
                     values:
@@ -2477,10 +2478,10 @@ definitions:
           $ref: '#/definitions/productColumnsToDisplay'
         productState:
          $ref: '#/definitions/productStateFilter'
-        productColumnFilters:
-          $ref: '#/definitions/productColumnFilters'
+        analyticsProductColumnFilters:
+          $ref: '#/definitions/analyticsProductColumnFilters'
 
-  productColumnFilters:
+  analyticsProductColumnFilters:
     type: object
     properties:
       sku:
@@ -2491,24 +2492,24 @@ definitions:
         type: string
         description: The product title filter
         example: 'Refrigérateur'
-      additionalProductColumnFilters:
-        $ref: '#/definitions/additionalProductColumnFilters'
+      additionalAnalyticsProductColumnFilters:
+        $ref: '#/definitions/additionalAnalyticsProductColumnFilters'
   
-  additionalProductColumnFilters:
+  additionalAnalyticsProductColumnFilters:
     type: object
     description: |
       Describes a filter on a product's column.
       The key is the column identifier of your catalog or a custom column.
     additionalProperties:
-      $ref: '#/definitions/productColumnFilter'
+      $ref: '#/definitions/analyticsProductColumnFilter'
 
-  productColumnFilter:
+  analyticsProductColumnFilter:
     type: object
     required:
     - operatorName
     properties:
       operatorName:
-        $ref: '#/definitions/productColumnFilterOperatorName'
+        $ref: '#/definitions/analyticsProductColumnFilterOperatorName'
       values:
         description: |
           Must be null if the operator is "IsNull" or "IsNotNull".
@@ -2524,7 +2525,7 @@ definitions:
         values:
           - '100'
 
-  productColumnFilterOperatorName:
+  analyticsProductColumnFilterOperatorName:
     type: string
     description: Indicate the operator you want to apply on the columnId
     x-lov: AnalyticsProductColumnFilterOperatorName
@@ -2644,8 +2645,8 @@ definitions:
           $ref: '#/definitions/productColumnsToDisplay'
         productState:
           $ref: '#/definitions/productStateFilter'
-        productColumnFilters:
-          $ref: '#/definitions/productColumnFilters'
+        analyticsProductColumnFilters:
+          $ref: '#/definitions/analyticsProductColumnFilters'
 
   optimiseRequest:
     allOf:
@@ -2785,8 +2786,8 @@ definitions:
           $ref: '#/definitions/productColumnsToDisplay'
         productState:
           $ref: '#/definitions/productStateFilter'
-        productColumnFilters:
-          $ref: '#/definitions/productColumnFilters'
+        analyticsProductColumnFilters:
+          $ref: '#/definitions/analyticsProductColumnFilters'
 
   ruleList:
     type: object
