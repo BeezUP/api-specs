@@ -990,3 +990,35 @@ definitions:
     - success
     - failed
     example: success
+    
+  BeezUP.Common.ApiCredentials:
+    type: object
+    properties:
+      credentials:
+        description: Your API credential list
+        type: array
+        items:
+          $ref: '#/definitions/BeezUP.Common.ApiCredential'
+        example:
+        - productName: UserApi
+          primaryToken: 3b22980d8d1143c6ba7adf4e55b9a153
+          secondaryToken: 162ae17fd52044c38cce3388ea5b0c91
+
+  BeezUP.Common.ApiCredential:
+    description: Your api credential
+    type: object
+    properties:
+      productName:
+        description: The product name related to this credential
+        type: string
+        example: UserAPI
+      primaryToken:
+        description: The primary token to be used in the next call in the user scope API
+        type: string
+        example: 3b22980d8d1143c6ba7adf4e55b9a153
+      secondaryToken:
+        description: >-
+          The secondary token. Could be usefull if you want to share your access
+          with someone else.
+        type: string
+        example: 162ae17fd52044c38cce3388ea5b0c91
