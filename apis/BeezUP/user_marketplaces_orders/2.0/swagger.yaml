@@ -463,8 +463,10 @@ paths:
       tags:
       - Batches
       operationId: ChangeOrderList
-      summary: Send a batch of operations to change your marketplace Order information (accept, ship, etc.)
-      description: The purpose of this operation is to reduce the amount of request to the API.
+      summary: "Send a batch of operations to change your marketplace Order information: accept, ship, etc.  (max 100 items per call)"
+      description: |
+        The purpose of this operation is to reduce the amount of request to the API. 
+        Max 100 items per call.
       parameters:
       - $ref: '#/parameters/changeOrderTypeParameter'
       - $ref: '#/parameters/userNameInQueryParameter'
@@ -2587,7 +2589,7 @@ definitions:
 
   changeOrderListRequest:
     type: object
-    description: Contains all change order operations you want to make
+    description: Contains all change order operations you want to make.  (max 100 items per call)
     required:
     - changeOrders
     properties:
