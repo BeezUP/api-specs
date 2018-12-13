@@ -822,7 +822,7 @@ definitions:
     - example:
         href: /v2/user/marketplaces/channelcatatalogs/6a90fcfd-24c7-422e-a65f-aadb1725bbfe/settings
         method: POST
-        paramters:
+        parameters:
           request:
             in: body
             type: object
