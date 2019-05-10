@@ -1022,11 +1022,3 @@ definitions:
           with someone else.
         type: string
         example: 162ae17fd52044c38cce3388ea5b0c91
-        
-  BeezUP.Common.ZendeskToken:
-    description: JWT token to access Zendesk restricted help center
-    type: object
-    properties:
-      token:
-        description: A JWT token build from your name and email to use on Zendesk
-        type: string
