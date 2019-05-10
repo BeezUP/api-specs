@@ -129,6 +129,28 @@ paths:
           schema:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
 
+  /zendeskToken:
+    post:
+      tags: 
+      - Security
+      summary: Zendesk token
+      description: 'Zendesk token - Generates a JWT token to access BeezUP restricted Help Center in SSO as described here: https://support.zendesk.com/hc/en-us/articles/222874768-Using-restricted-Help-Center-content-with-the-Web-Widget'
+      operationId: ZendeskToken
+      parameters: 
+        - name: request
+          in: body
+          schema:
+            $ref: '#/definitions/zendeskTokenRequest'
+          required: true
+      responses:
+        '200':
+          description: A JWT token to connect the Zendesk Web Widget 
+          schema: 
+            $ref: '#/definitions/zendeskToken'
+        '500': 
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+          
+
 definitions:
 
   loginRequest:
@@ -174,4 +196,26 @@ definitions:
         description: The user id of your commercial in BeezUP.
         type: string
         example: 47ea14ab-195d-4f9a-a24e-32c329ee40f6
+        
+  zendeskTokenRequest:
+    required:
+      - name
+      - email
+    type: object
+    properties:
+      name:
+        type: string
+        description: Customer name
+      email:
+        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Email'
+
+  zendeskToken:
+    description: JWT token to access Zendesk restricted help center
+    type: object
+    properties:
+      token:
+        description: A JWT token build from your name and email to use on Zendesk
+        type: string
+        example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+
 x-azure-api-id: 'V2PublicSecurity'
