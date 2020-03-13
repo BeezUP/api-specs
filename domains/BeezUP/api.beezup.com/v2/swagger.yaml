@@ -867,7 +867,6 @@ definitions:
             value:
               type: object
               description: The value of the parameter. Depending to the type.
-              #example: b24d0dd8-a561-478a-9b26-34f573f03527
 
   BeezUP.Common.InfoSummaries:
     type: object
