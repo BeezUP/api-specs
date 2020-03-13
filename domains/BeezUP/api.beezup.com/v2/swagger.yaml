@@ -675,7 +675,6 @@ definitions:
       value:
         type: object
         description: The value of the parameter. It can be an integer a string or an object.
-        example: '1234'
       required:
         type: boolean
         default: false
@@ -720,7 +719,6 @@ definitions:
       value:
         type: object
         description: The value of the parameter. It can be an integer a string or an object.
-        example: '1234'
       required:
         type: boolean
         example: true
