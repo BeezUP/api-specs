@@ -1,6 +1,9 @@
 ### Domains, a place to put your reuseable components
 
 ### Examples...
+info:
+  title: api.beezup.com
+  version: "v2"
 
 parameters:
   storeIdOnlyGeneralParameters:
