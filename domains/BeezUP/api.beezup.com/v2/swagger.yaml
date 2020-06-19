@@ -761,7 +761,7 @@ definitions:
       type:
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ParameterType
       lovLink:
-        description: This parameter expect the values indicated in this list of values.
+        #description: This parameter expect the values indicated in this list of values.
         $ref: https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.LOVLink2
       lovRequired:
         type: boolean
