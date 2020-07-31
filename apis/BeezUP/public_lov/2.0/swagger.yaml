@@ -28,6 +28,9 @@ x-beezup-ops:
   comment: |
     Changing contact email support to help
     Integrating dev branch.
+    
+  packages:
+  - BeezUPWebApi
 
 x-basePath: /v2/public/lov
 
