@@ -19,13 +19,17 @@ basePath: /v2/user/lov
 schemes:
   - https
 
-x-beezup-api-ops:
+x-beezup-ops:
+  codeGenType: webapi
   repo: LOVWebService
+  product: BeezUP
+  group: BeezUP
+  applicationShortName: Framework.LOV.WS
   appRoot: BeezUP.Framework.LOV.WebService
   namespace: BeezUP.Framework.LOV.WebService
-  apiName: V2UserLOV
+  apiName: V2PublicLOV
+  useBeezUPFrameworkVersion2: false
   comment: |
-    Put in place dev branch.
 
 x-basePath: /v2/user/lov
 
