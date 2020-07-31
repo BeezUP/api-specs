@@ -15,11 +15,16 @@ basePath: /v2/public/lov
 schemes:
   - https
 
-x-beezup-api-ops:
+x-beezup-ops:
+  codeGenType: webapi
   repo: LOVWebService
+  product: BeezUP
+  group: BeezUP
+  applicationShortName: Framework.LOV.WS
   appRoot: BeezUP.Framework.LOV.WebService
   namespace: BeezUP.Framework.LOV.WebService
   apiName: V2PublicLOV
+  useBeezUPFrameworkVersion2: false
   comment: |
     Changing contact email support to help
     Integrating dev branch.
