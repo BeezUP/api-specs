@@ -27,7 +27,7 @@ x-beezup-ops:
   applicationShortName: Framework.LOV.WS
   appRoot: BeezUP.Framework.LOV.WebService
   namespace: BeezUP.Framework.LOV.WebService
-  apiName: V2PublicLOV
+  apiName: V2UserLOV
   useBeezUPFrameworkVersion2: false
   comment: |
 
