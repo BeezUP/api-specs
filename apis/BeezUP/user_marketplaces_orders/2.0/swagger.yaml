@@ -20,12 +20,17 @@ info:
   license:
     name: BeezUP
     url: http://www.beezup.com
-
-x-beezup-api-ops:
+    
+x-beezup-ops:
+  codeGenType: webapi
   repo: MP2-OM-API
+  product: BeezUP
+  group: BeezUP
+  applicationShortName: MarketPlace2.OM2.Api.WS2
   appRoot: BeezUP.MarketPlace2.OM2.Api.WebService2
   namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
   apiName: V2UserMarketplacesOrders
+  useBeezUPFrameworkVersion2: false
   comment: |
     Adding order_IsPrime
     Adding order merchant info synchronization status
