@@ -15,11 +15,16 @@ info:
 host: api.beezup.com
 basePath: /v2/user/marketplaces/channelcatalogs
 
-x-beezup-api-ops:
+x-beezup-ops:
+  codeGenType: webapi
   repo: MP2-PUB3-BackOffice
+  product: BeezUP
+  group: BeezUP
+  applicationShortName: MarketPlace2.Publication.BackOffice.WS
   appRoot: BeezUP.MarketPlace2.Publication.BackOffice.WebService
   namespace: BeezUP.MarketPlace2.Publication.BackOffice.WebService
   apiName: V2UserMarketplacesChannelCatalogs
+  useBeezUPFrameworkVersion2: false
   comment: |
     Adding StoreId to marketplace channel catalog list for filter and admin mode
     Changing contact email support to help
