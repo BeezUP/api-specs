@@ -762,7 +762,8 @@ definitions:
     - $ref: '#/definitions/channelCatalogMarketplaceProperty'
     - type: object
       properties:
-        default:
+      #ETO TEST
+        _default:
           description: Indicate the default values of the property
           type: array
           items:
@@ -775,7 +776,8 @@ definitions:
     - $ref: '#/definitions/channelCatalogMarketplaceProperty'
     - type: object
       properties:
-        default:
+        #ETO TEST
+        _default:
           description: Indicate the default values of the property
           type: array
           items:
@@ -788,7 +790,8 @@ definitions:
     - $ref: '#/definitions/channelCatalogMarketplaceProperty'
     - type: object
       properties:
-        default:
+        #ETO TEST
+        _default:
           description: Indicate the default values of the property
           type: boolean
           example: false
@@ -798,7 +801,8 @@ definitions:
     - $ref: '#/definitions/channelCatalogMarketplaceProperty'
     - type: object
       properties:
-        default:
+        #ETO TEST
+        _default:
           description: Indicate the default values of the property
           type: array
           items:
