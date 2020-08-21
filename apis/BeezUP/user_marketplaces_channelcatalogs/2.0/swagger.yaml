@@ -146,7 +146,7 @@ paths:
           x-lov: MarketplacePublicationType
           in: query
           description: Publication types by which to filter (optional)
-          required: false
+          required: true
           type: array
           items:
             type: string
