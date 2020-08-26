@@ -21,11 +21,16 @@ info:
 host: api.beezup.com
 basePath: /v2/public/security
 
-x-beezup-api-ops:
+x-beezup-ops:
+  codeGenType: webapi
   repo: Customer
-  apiName: V2PublicSecurity
+  product: BeezUP
+  group: BeezUP
+  applicationShortName: Customer.WS
   appRoot: BeezUP.Customer.WebService
   namespace: BeezUP.Customer.WebService
+  apiName: V2PublicSecurity
+  useBeezUPFrameworkVersion2: false
   comment: |
     Changing contact email support to help
     No change. Just server side generation.
