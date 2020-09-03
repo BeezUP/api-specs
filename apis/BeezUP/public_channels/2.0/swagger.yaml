@@ -13,11 +13,16 @@ info:
 # host: api.beezup.com
 # basePath: /v2/public/channels
 
-x-beezup-api-ops:
+x-beezup-ops:
+  codeGenType: webapi
   repo: Commercial
+  product: BeezUP
+  group: BeezUP
+  applicationShortName: WS.Commercial
   appRoot: BeezUP.WebService.Commercial
   namespace: BeezUP.WebService.Commercial
   apiName: V2PublicChannels
+  useBeezUPFrameworkVersion2: false
   comment: |
     Changing contact email support to help
     Adding sectors
