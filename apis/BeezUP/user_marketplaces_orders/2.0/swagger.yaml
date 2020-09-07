@@ -26,7 +26,7 @@ x-beezup-ops:
   repo: MP2-OM-API
   product: BeezUP
   group: BeezUP
-  applicationShortName: MarketPlace2.OM2.Api.WS2
+  applicationShortName: MarketPlace2.OM2.Api.WS
   appRoot: BeezUP.MarketPlace2.OM2.Api.WebService2
   namespace: BeezUP.MarketPlace2.OM2.Api.WebService2
   apiName: V2UserMarketplacesOrders
@@ -91,8 +91,6 @@ tags:
 - name: Exports
   description: All Order report exportation operations
   
-- name: Subscriptions
-  description: All orders subscription operations
 
 consumes:
   - application/json
@@ -734,173 +732,6 @@ paths:
       deprecated: false
 
 
-  '/subscriptions':
-    post:
-      tags:
-      - Subscriptions
-      operationId: CreateSubscription
-      summary: Creates a subscription to the orders
-      parameters:
-      - name: request
-        in: body
-        required: true
-        schema:
-          $ref: '#/definitions/createSubscriptionRequest'
-      responses:
-        201:
-          description: Subscription created
-          schema:
-            $ref: '#/definitions/subscription'
-        400:
-          description: Invalid subscription request.
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-        409:
-          description: |
-            There is already a subscription on for the same eventType and the same target Url.
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
-
-    get:
-      tags:
-      - Subscriptions
-      operationId: GetSubscriptionList
-      summary: Get the subscription list
-      responses:
-        200:
-          description: The suscription list
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/subscription'
-        400:
-          description: Invalid subscription request.
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-        409:
-          description: |
-            There is already a subscription on for the same eventType and the same target Url.
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
-
-  '/subscriptions/{id}':
-    get:
-      tags:
-      - Subscriptions
-      operationId: GetSubscription
-      summary: Get a subscription to the orders
-      parameters:
-      - name: id
-        in: path
-        required: true
-        type: string
-# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'X-Hook-Secret' does not comply with the rule
-      - name: X-Hook-Secret
-        in: header
-        required: true
-        type: string
-        x-example: blablabla
-      responses:
-        200:
-          description: Subscription info
-          schema:
-            $ref: '#/definitions/subscription'
-        404:
-          description: Invalid subscription id or X-Hook-Secret.
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-
-    delete:
-      tags:
-      - Subscriptions
-      operationId: DeleteSubscription
-      summary: Delete a subscription to the orders
-      parameters:
-      - name: id
-        in: path
-        required: true
-        type: string
-# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'X-Hook-Secret' does not comply with the rule
-      - name: X-Hook-Secret
-        in: header
-        required: true
-        type: string
-        x-example: blablabla
-      responses:
-        204:
-          description: Subscription deleted
-        404:
-          description: Invalid subscription id or X-Hook-Secret.
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
-
-  '/subscriptions/{id}/activate':
-    post:
-      tags:
-      - Subscriptions
-      operationId: ActivateSubscription
-      summary: Activate a subscription to the orders
-      parameters:
-      - name: id
-        in: path
-        required: true
-        type: string
-# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'X-Hook-Secret' does not comply with the rule
-      - name: X-Hook-Secret
-        in: header
-        required: true
-        type: string
-        x-example: blablabla
-      responses:
-        200:
-          description: Subscription activated
-          schema:
-            $ref: '#/definitions/subscription'
-        404:
-          description: Invalid subscription id or X-Hook-Secret.
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-
-  '/subscriptions/{id}/deactivate':
-    post:
-      tags:
-      - Subscriptions
-      operationId: DeactivateSubscription
-      summary: Deactivate a subscription to the orders
-      parameters:
-      - name: id
-        in: path
-        required: true
-        type: string
-# [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'X-Hook-Secret' does not comply with the rule
-      - name: X-Hook-Secret
-        in: header
-        required: true
-        type: string
-        x-example: blablabla
-      responses:
-        200:
-          description: Subscription deactivated
-          schema:
-            $ref: '#/definitions/subscription'
-        404:
-          description: Invalid subscription id or X-Hook-Secret.
-          schema:
-            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
-
-        default:
-          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
 
 definitions:
 
@@ -1986,6 +1817,12 @@ definitions:
           type: boolean
           example: true
 # [Style Validator (57ac916a-8714-4f1c-8fd3-529d6f08a61d) : camelCase]: 'order_OrderSourceUri' does not comply with the rule
+        order_FulfilledBy:
+          description: The order FulfilledBy
+          type: string
+        order_IsBusiness:
+          description: The order IsBusiness
+          type: boolean
         order_OrderSourceUri:
           description: |
             Technical information: The url to the source of this order. We received this information from the marketplace.
@@ -2628,94 +2465,11 @@ definitions:
         items:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.UserErrorMessage'
 
-  createSubscriptionRequest:
-    type: object
-    required:
-    - targetUrl
-    - name
-    - applicationName
-    properties:
-      targetUrl:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
-      eventTypes:
-        $ref: '#/definitions/subscriptionOrderEventTypeList'
-      name:
-        $ref: '#/definitions/subscriptionName'
-      applicationName:
-        $ref: '#/definitions/subscriptionApplicationName'
-      applicationVersion:
-        $ref: '#/definitions/subscriptionApplicationVersion'
 
-  subscriptionOrderEventTypeList:
-    type: array
-    items:
-      $ref: '#/definitions/orderEventType'
-    default:
-    - order.created
-    - order.updated
-    example:
-    - order.created
-    - order.updated
-  subscriptionName:
-    type: string
-    description: The subscription name you want to use
-    example: MySubscriptionName
-  subscriptionApplicationName:
-    type: string
-    description: The name of your application
-    example: MyApp
-  subscriptionApplicationVersion:
-    type: string
-    description: The version of your application
-    default: '1.0'
-    example: '1.0'
-      
-  subscription:
-    type: object
-    description: The subscription definition
-    required:
-    - id
-    - targetUrl
-    - eventTypes
-    - status
-    - name
-    - applicationName
-    - applicationVersion
-    properties:
-      id:
-        $ref: '#/definitions/subscriptionId'
-      status:
-        $ref: '#/definitions/subscriptionStatus'
-      targetUrl:
-        $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.HttpUrl'
-      eventTypes:
-        $ref: '#/definitions/subscriptionOrderEventTypeList'
-      name:
-        $ref: '#/definitions/subscriptionName'
-      applicationName:
-        $ref: '#/definitions/subscriptionApplicationName'
-      applicationVersion:
-        $ref: '#/definitions/subscriptionApplicationVersion'
-      
-  subscriptionId:
-    type: string
-    format: guid
-
-  subscriptionStatus:
-    type: string
-    description: The status of your subscription
-    enum:
-    - active
-    - inactive
-    example: active
+        
+        
   
-  orderEventType:
-    type: string
-    description: The event type you can subscribe to
-    enum:
-    - order_created
-    - order_updated
-    example: order_created
+
   
 x-azure-api-id: 'v2usermarketplacesorders'
 host: api.beezup.com
