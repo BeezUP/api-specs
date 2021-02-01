@@ -171,11 +171,14 @@ paths:
 
   '/status':
     get:
+      deprecated: true
+      x-releaseStatus: DEPRECATED
       tags:
       - Global
       x-tagGroups: Martketplaces Orders
       operationId: GetMarketplaceAccountsSynchronization
       summary: Get current synchronization status between your marketplaces and BeezUP accounts
+      description: Use /orders/v3
       parameters:
       - name: storeId
         in: query
@@ -198,10 +201,11 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
 
   '/harvest':
     post:
+      deprecated: true
+      x-releaseStatus: DEPRECATED
       tags:
       - Global
       operationId: HarvestAll
@@ -235,7 +239,6 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
 
   '/automaticTransitions':
     get:
@@ -290,11 +293,14 @@ paths:
 
   '/list/full':
     post:
+      deprecated: true
+      x-releaseStatus: DEPRECATED
       tags:
       - List
       operationId: GetOrderListFull
       summary: Get a paginated list of all Orders with all Order and Order Item(s) properties
       description: |
+        DEPRECATED - Use /orders/v3 instead
         The purpose of this operation is to reduce the amount of request to the API.\
         \
         Previous implmentation of this feature only returned a partial (light) version of the Orders. The purpose of this API is to reduce the number of incoming requests by returning the complete (full) Order and Order Item(s) properties.
@@ -327,14 +333,16 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
 
   '/list/light':
     post:
+      deprecated: true
+      x-releaseStatus: DEPRECATED
       tags:
       - List
       operationId: GetOrderListLight
-      summary:  Get a paginated list of all Orders without details
+      summary: Get a paginated list of all Orders without details
+      description: Use /orders/v3 instead
       parameters:
       - name: request
         in: body
@@ -352,7 +360,6 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
 
   '/exportations':
     get:
@@ -496,11 +503,14 @@ paths:
 
   '/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}':
     head:
+      deprecated: true
+      x-releaseStatus: DEPRECATED
       tags:
       - Order
       operationId: HeadOrder
-      summary: Get the meta information about the order (ETag, Last-Modified)
+      summary: DEPRECATED - Get the meta information about the order (ETag, Last-Modified)
       description: |
+        DEPRECATED - Use /orders/v3 instead
         The purpose of this operation is to reduce the bandwith usage by getting just the meta information about the order (ETag, Last-Modified) with the body.
         This could be useful
       parameters:
@@ -532,12 +542,14 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
     get:
+      deprecated: true
+      x-releaseStatus: DEPRECATED
       tags:
       - Order
       operationId: GetOrder
-      summary: Get full Order and Order Item(s) properties
+      summary: DEPRECATED - Get full Order and Order Item(s) properties
+      description: DEPRECATED - Use /orders/v3 instead
       parameters:
       - $ref: '#/parameters/marketplaceTechnicalCodeParameter'
       - $ref: '#/parameters/accountIdParameter'
@@ -568,10 +580,11 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
 
   '/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}/history':
     get:
+      deprecated: true
+      x-releaseStatus: DEPRECATED
       tags:
       - Order
       operationId: GetOrderHistory
@@ -594,10 +607,11 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
 
   '/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}/harvest':
     post:
+      deprecated: true
+      x-releaseStatus: DEPRECATED
       tags:
       - Order
       operationId: HarvestOrder
@@ -627,10 +641,11 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
 
   '/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}/setMerchantOrderInfo':
     post:
+      deprecated: true
+      x-releaseStatus: DEPRECATED
       tags:
       - Order
       operationId: SetMerchantOrderInfo
@@ -657,7 +672,6 @@ paths:
             $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
 
   '/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}/clearMerchantOrderInfo':
     post:
@@ -686,6 +700,9 @@ paths:
 
   '/{marketplaceTechnicalCode}/{accountId}/{beezUPOrderId}/{changeOrderType}':
     post:
+      deprecated: true
+      x-releaseStatus: DEPRECATED
+
       tags:
       - Order
       operationId: ChangeOrder
@@ -729,7 +746,6 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/412_PreConditionFailed'
         default:
           $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
-      deprecated: false
 
 
 
