@@ -18,13 +18,9 @@ basePath: /v2/user/marketplaces/channelcatalogs
 x-beezup-ops:
   codeGenType: webapi
   repo: MP2-PUB3-BackOffice
-  product: BeezUP
-  group: BeezUP
-  applicationShortName: MarketPlace2.Publication.BackOffice.WS
   appRoot: BeezUP.MarketPlace2.Publication.BackOffice.WebService
   namespace: BeezUP.MarketPlace2.Publication.BackOffice.WebService
   apiName: V2UserMarketplacesChannelCatalogs
-  useBeezUPFrameworkVersion2: false
   comment: |
     Adding StoreId to marketplace channel catalog list for filter and admin mode
     Changing contact email support to help
@@ -107,6 +103,47 @@ paths:
             $ref: '#/definitions/marketplaceChannelCatalogList'
         404:
           description: Store not found
+
+
+  '/publications/{marketplaceTechnicalCode}/{accountId}/publish':
+    post:
+      tags:
+        - Publications
+      summary: Launch a publication of the catalog to the marketplace
+      x-releaseStatus: PREVIEW
+      operationId: PublishCatalogToMarketplace
+      parameters:
+        - name: marketplaceTechnicalCode
+          in: path
+          description: Marketplace Technical Code to query (required)
+          required: true
+          type: string
+          x-lov: MarketplaceTechnicalCode
+        - name: accountId
+          in: path
+          description: Account Id to query (required)
+          required: true
+          type: integer
+          format: int32
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/publishCatalogToMarketplaceRequest'
+      responses:
+        202:
+          description: Publication request accepted
+        400:
+          description: One or more channel catalog marketplace property keys or values are invalid for requested marketplace channel catalog. See response for details.
+          schema:
+            $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.ErrorResponseMessage'
+        404:
+          description: Requested account, marketplace or authorization for current user not found
+        503:
+          $ref: '#/responses/processingResponse'
+        default:
+          $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/responses/GeneralError'
+      deprecated: false
 
   '/publications/{marketplaceTechnicalCode}/{accountId}/history':
     get:
@@ -526,7 +563,7 @@ definitions:
               position: 1
               readOnly: true
               values:
-                - ebaytokenblabla
+                - AgAAAA**AQAAAA**aAAAAA**2VFhVg**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AElISgCJaLpwWdj6x9nY+seQ**OEsBAA**AAMAAA**jzsVAMwj1dPBsyCEp0Fuj/toSBrfZF2JpKKDrrXIirMzgvgbsyxnA2h1wl7WjFD+TfdCmaBq3CAFLOog/433G5gsse1DLTT6uXFajdiHnPVfnL7QtKIpQEIwL8ZO5Tx1dGl0XQLsU7knPwbGHn5X6Z3JzXrCGvvpw2+MIzDNhasYlqPfOEr8Lct5dcsIIdhXl/qgrzALe5++v76/XjaXvP6eic3uCWBEXBiXC1uisjEtOqaNIPkFaiICBaXsQUzVZdM68bQatBg5bwf6hxvqOyNJRw4pttGStovcXXjL+aszw7ejbxLv1lJ6qeTMj5oRwTPl0AzBAejcY+DTBrLEmgdzrvWHLvMOa1ijGOGzVodBoDGimiqadCPQpAVZr0e7HvQIVbOlbmKpuCUFJ4RPCv0NxpkCm1/nxZWeS9H8gd/SfLf9Chgd115dcKzgxFBoSh7myJcw+MRM7szPQ2Pwv980dTRyHvbI8XR4OieYvXmU4H7Nl51N8B3qkjYFkdcp6J06eqs4dO68lDNdWZfXHkjwI3dY6umDUp4y82IdQl8IykPty3/DZfUAfqafgiAwMHZvXjewp5HhPjDi2zgf+5EcDlvf6rNMzjsghjdWUQi4WldDk+LXgkos6jswIQaNPdpW1D4KyPYWtGYknx0Xzzuc6WmBoVwGFalgMvCWWI9Gs2w6PG5GqB9zm1Fnr3svtPbNYPQ6q3VQpkKL2SWQXy383O1cp6ZMLI9GwZe0FnrqCxb/wc4XJUVw2RoR3qiX
             - name: PayPalEmailAddress
               position: 2
               required: true
@@ -643,7 +680,7 @@ definitions:
             position: 1
             readOnly: true
             values:
-              - ebaytokenblabla
+              - AgAAAA**AQAAAA**aAAAAA**2VFhVg**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6AElISgCJaLpwWdj6x9nY+seQ**OEsBAA**AAMAAA**jzsVAMwj1dPBsyCEp0Fuj/toSBrfZF2JpKKDrrXIirMzgvgbsyxnA2h1wl7WjFD+TfdCmaBq3CAFLOog/433G5gsse1DLTT6uXFajdiHnPVfnL7QtKIpQEIwL8ZO5Tx1dGl0XQLsU7knPwbGHn5X6Z3JzXrCGvvpw2+MIzDNhasYlqPfOEr8Lct5dcsIIdhXl/qgrzALe5++v76/XjaXvP6eic3uCWBEXBiXC1uisjEtOqaNIPkFaiICBaXsQUzVZdM68bQatBg5bwf6hxvqOyNJRw4pttGStovcXXjL+aszw7ejbxLv1lJ6qeTMj5oRwTPl0AzBAejcY+DTBrLEmgdzrvWHLvMOa1ijGOGzVodBoDGimiqadCPQpAVZr0e7HvQIVbOlbmKpuCUFJ4RPCv0NxpkCm1/nxZWeS9H8gd/SfLf9Chgd115dcKzgxFBoSh7myJcw+MRM7szPQ2Pwv980dTRyHvbI8XR4OieYvXmU4H7Nl51N8B3qkjYFkdcp6J06eqs4dO68lDNdWZfXHkjwI3dY6umDUp4y82IdQl8IykPty3/DZfUAfqafgiAwMHZvXjewp5HhPjDi2zgf+5EcDlvf6rNMzjsghjdWUQi4WldDk+LXgkos6jswIQaNPdpW1D4KyPYWtGYknx0Xzzuc6WmBoVwGFalgMvCWWI9Gs2w6PG5GqB9zm1Fnr3svtPbNYPQ6q3VQpkKL2SWQXy383O1cp6ZMLI9GwZe0FnrqCxb/wc4XJUVw2RoR3qiX
           - name: PaypalAddress
             position: 2
             required: true
@@ -762,8 +799,7 @@ definitions:
     - $ref: '#/definitions/channelCatalogMarketplaceProperty'
     - type: object
       properties:
-      #ETO TEST
-        _default:
+        default:
           description: Indicate the default values of the property
           type: array
           items:
@@ -776,8 +812,7 @@ definitions:
     - $ref: '#/definitions/channelCatalogMarketplaceProperty'
     - type: object
       properties:
-        #ETO TEST
-        _default:
+        default:
           description: Indicate the default values of the property
           type: array
           items:
@@ -790,8 +825,7 @@ definitions:
     - $ref: '#/definitions/channelCatalogMarketplaceProperty'
     - type: object
       properties:
-        #ETO TEST
-        _default:
+        default:
           description: Indicate the default values of the property
           type: boolean
           example: false
@@ -801,8 +835,7 @@ definitions:
     - $ref: '#/definitions/channelCatalogMarketplaceProperty'
     - type: object
       properties:
-        #ETO TEST
-        _default:
+        default:
           description: Indicate the default values of the property
           type: array
           items:
@@ -818,6 +851,38 @@ definitions:
     properties:
       settings:
         $ref: '#/definitions/channelCatalogMarketplaceSettingArray'
+
+  publishCatalogToMarketplaceRequest:
+    description: Publish the catalog to the marketplace
+    type: object
+    required:
+    - publicationTypes
+    - purgeAndPublish
+    properties:
+        publicationStrategyKind:
+          $ref: '#/definitions/publicationStrategyKind'
+        publicationTypes:        
+          type: array
+          items:
+            $ref: '#/definitions/publicationFeedType'
+
+  publicationFeedType:
+    type: string
+    enum:
+    - Products
+    - Offers
+
+  publicationStrategyKind:
+    type: string
+    description: |
+      Define the publication strategy kind, for that you have 2 choices 
+      * Delta - This is the recommanded publication strategy kind, this strategy will push to the marketplace only the difference between your catalog and the previous published feeds done by BeezUP. 
+      * Full - If you want to force the publication of all your catalog feeds to the marketplace. 
+            !WARNING! Depending to the marketplace this operation will purge the existing offers on the marketplace that are not in the catalog or unknown from the publication feed referential.
+    enum:
+    - Delta
+    - Full
+    default: Delta
 
   links.GetChannelCatalogMarketplaceSettingsLink:
     allOf:
@@ -1033,8 +1098,8 @@ definitions:
     properties:
       links:
         $ref: '#/definitions/marketplaceChannelCatalogListLinks'
-# [Style Validator (ee8a4c75-7b52-4c2e-be8c-95d5387eb4e1) : All model properties must have examples]: Field 'example' required in 'properties'
 # [Style Validator (4a994891-7084-43d6-837c-76deda0681aa) : All model properties must have examples]: Field 'example' required in 'properties'
+# [Style Validator (ee8a4c75-7b52-4c2e-be8c-95d5387eb4e1) : All model properties must have examples]: Field 'example' required in 'properties'
       marketplaceChannelCatalogs:
         description: The list of marketplace channel catalog
         type: array
@@ -1114,6 +1179,14 @@ definitions:
           'Ebay_PayPalEmailAddress': 'yourEbayId@paypal.com'
       marketplaceAccountId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceAccountId'
+      isPub3Marketplace:
+        type: boolean
+        default: false
+      allowedPublicationFeedTypes:
+        type: array
+        description: These feed types are expected when you want to do a publish operation
+        items:
+          $ref: '#/definitions/publicationFeedType'
       lovLinks:
        $ref: '#/definitions/marketplaceChannelCatalogLovLinks'
       links:
@@ -1124,6 +1197,13 @@ definitions:
     - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
     - example:
         href: /v2/user/marketplaces/channelcatalogs/publications/Amazon/123/history
+
+
+  links.PublishCatalogToMarketplaceLink:
+    allOf:
+    - $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.Link3'
+    - example:
+        href: /v2/user/marketplaces/channelcatalogs/publications/Cdiscount/123/publish
 
   marketplaceChannelCatalogLovLinks:
     type: object
@@ -1155,5 +1235,7 @@ definitions:
         $ref: '#/definitions/links.GetChannelCatalogMarketplaceSettingsLink'
       publications:
         $ref: '#/definitions/links.GetPublicationsLink'
+      publish:
+        $ref: '#/definitions/links.PublishCatalogToMarketplaceLink'
 
 x-azure-api-id: 'V2UserMarketplacesChannelCatalogs'
