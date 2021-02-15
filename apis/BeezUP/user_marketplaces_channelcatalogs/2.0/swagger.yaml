@@ -1237,6 +1237,12 @@ definitions:
 
   marketplaceChannelCatalogPublicationOption:
     type: object
+    required:
+    - kind
+    - feedType
+    - withUnpublish
+    - strategy
+    - link
     properties:
       kind:
         $ref: '#/definitions/publicationStrategyKind'
