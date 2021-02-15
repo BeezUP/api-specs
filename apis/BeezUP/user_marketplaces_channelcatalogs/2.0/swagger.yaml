@@ -301,6 +301,11 @@ paths:
 
 definitions:
 
+  publicationStrategy:
+    description: The Publication Type
+    type: string
+    x-lov: MarketplacePublicationV3Strategy ## to be declared in 
+
   publicationType:
     description: The Publication Type
     type: string
@@ -856,23 +861,17 @@ definitions:
     description: Publish the catalog to the marketplace
     type: object
     required:
-    - publicationType
+    - feedType
     - publicationStrategyKind
     - withUnpublish
     properties:
         publicationStrategyKind:
           $ref: '#/definitions/publicationStrategyKind'
-        publicationType:        
-          $ref: '#/definitions/publicationFeedType'
+        feedType:        
+          $ref: '#/definitions/feedType'
         withUnpublish:
           type: boolean
           description: In full publication strategy kind, for some marktetplace, you can ask to unpublish or not your existing feeds on the markeptlace absent from your exported catalog.
-
-  publicationFeedType:
-    type: string
-    enum:
-    - Products
-    - Offers
 
   publicationStrategyKind:
     type: string
@@ -1181,15 +1180,11 @@ definitions:
           'Ebay_PayPalEmailAddress': 'yourEbayId@paypal.com'
       marketplaceAccountId:
         $ref: 'https://api.swaggerhub.com/domains/BeezUP/api.beezup.com/v2#/definitions/BeezUP.Common.MarketplaceAccountId'
-      allowedPublicationFeedTypes:
-        type: array
-        description: These feed types are expected when you want to do a publish operation
-        items:
-          $ref: '#/definitions/publicationFeedType'
       lovLinks:
        $ref: '#/definitions/marketplaceChannelCatalogLovLinks'
       links:
         $ref: '#/definitions/marketplaceChannelCatalogLinks'
+
 
   links.GetPublicationsLink:
     allOf:
@@ -1234,7 +1229,26 @@ definitions:
         $ref: '#/definitions/links.GetChannelCatalogMarketplaceSettingsLink'
       publications:
         $ref: '#/definitions/links.GetPublicationsLink'
-      publish:
+      publishOptions:
+        type: array
+        items:
+          $ref: '#/definitions/marketplaceChannelCatalogPublicationOption'
+
+
+  marketplaceChannelCatalogPublicationOption:
+    type: object
+    properties:
+      kind:
+        $ref: '#/definitions/publicationStrategyKind'
+      feedType:
+        $ref: '#/definitions/feedType'
+      withUnpublish:
+        type: boolean
+      strategy:
+        $ref: '#/definitions/publicationStrategy'
+      link:
         $ref: '#/definitions/links.PublishCatalogToMarketplaceLink'
+        
+
 
 x-azure-api-id: 'V2UserMarketplacesChannelCatalogs'
