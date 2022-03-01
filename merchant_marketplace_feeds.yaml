@@ -128,6 +128,8 @@ responses:
     description: Occurs when something goes wrong
     schema:
       $ref: "#/definitions/errorResponseMessage"
+
+      
 parameters:
 
   marketplaceTechnicalCodeInPath:
@@ -217,9 +219,19 @@ definitions:
     type: object
     required:
       - feedType
+      - publicationType
     properties: 
       feedType:
         $ref: '#/definitions/feedType'
+      publicationType:
+        $ref: '#/definitions/publicationType'
+
+
+  publicationType:
+    type: string
+    enum:
+      - FULL
+      - DELTA
 
 
   marketplaceTechnicalCode:
@@ -238,7 +250,7 @@ definitions:
       sku:
         $ref: '#/definitions/sku'
       action:
-        $ref: '#/definitions/actionType'
+        $ref: '#/definitions/feedActionType'
       properties:
         type: array
         items:
@@ -253,6 +265,7 @@ definitions:
         type: string
       value:
         type: string
+
 
 
   publicationId:
@@ -272,8 +285,9 @@ definitions:
     - OFFER
     - PRODUCTANDOFFER
 
-  actionType:
+  feedActionType:
     type: string
     enum:
-    - PUBLISH
-    - UNPUBLISH
+    - REPLACE
+    - MERGE
+    - DELETE
