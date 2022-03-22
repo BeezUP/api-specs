@@ -1,8 +1,8 @@
 swagger: '2.0'
 info:
   version: '0.1'
-  title: DRAFT - Merchant Marketplace Feeds API
-  description: DRAFT - Merchant Marketplace Feeds API
+  title: DRAFT - Products API
+  description: DRAFT - Products API
   contact: 
    email: johnny@beezup.com
    url: Point BeezUP on Teams
@@ -10,57 +10,60 @@ info:
 
 
 tags:
-- name: Feeds
-  description: Feed management
+- name: Products
+  description: Product management
 
 
 paths: 
 
-  '/merchant/marketplace/feeds/v1/{marketplaceTechnicalCode}/{accountId}/publications/{publicationId}/start':
+  '/merchant/products/v1/{storeId}/publications/{publicationId}/start':
     post:
       tags:
-        - Feeds
-      summary: Start the publication
+        - Products
+      summary: Start the product publication
       description: | 
         This operation will inform BeezUP that the publication has been started by the merchant.
-        We will be able to control if there is already a publication in progress or not to avoid any risk.
+                
+        The reasons BeezUP asks you to declare first want you do before doing it:
+        1. Improve the quality of the reporting
+        2. Improve the efficiency of the diagnostic in case of issue
+        3. Improve the communication between you and our support
+        4. BeezUP will adapt the processing to give you the best performance possible
+        5. Ensure that we have only one publication at the time to avoid any risk
       parameters:
-        - $ref: '#/parameters/marketplaceTechnicalCodeInPath'
-        - $ref: '#/parameters/marketplaceAccountIdInPath'
-        - $ref: '#/parameters/feedTypeInPath'
+        - $ref: '#/parameters/storeIdInPath'
         - $ref: '#/parameters/publicationIdInPath'
         - name: request
           in: body
           required:  true
           schema:
-            $ref: '#/definitions/startFeedPublicationRequest'
+            $ref: '#/definitions/startProductPublicationRequest'
       responses:
         202:
           $ref: '#/responses/202_Accepted'
         400:
           $ref: '#/responses/400_Request_Invalid'
         404:
-          $ref: '#/responses/404_Account_NotFound'
+          $ref: '#/responses/404_Store_NotFound'
         409:
           $ref: '#/responses/409_Publication_Already_Exists'
         default:
           $ref: "#/responses/GeneralError"
 
 
-  '/merchant/marketplace/feeds/v1/{marketplaceTechnicalCode}/{accountId}/publications/{publicationId}/messages':
+  '/merchant/products/v1/{storeId}/publications/{publicationId}/messages':
     post:
       tags:
-        - Feeds
-      summary: Push feed messages
+        - Products
+      summary: Push product messages
       parameters:
-        - $ref: '#/parameters/marketplaceTechnicalCodeInPath'
-        - $ref: '#/parameters/marketplaceAccountIdInPath'
+        - $ref: '#/parameters/storeIdInPath'
         - $ref: '#/parameters/publicationIdInPath'
         - name: request
           in: body
           required: true
           schema:
-            $ref: '#/definitions/pushFeedsRequest'
+            $ref: '#/definitions/pushProductsRequest'
       responses:
         202:
           $ref: '#/responses/202_Accepted'
@@ -73,15 +76,14 @@ paths:
         default:
           $ref: "#/responses/GeneralError"
 
-  '/merchant/marketplace/feeds/v1/{marketplaceTechnicalCode}/{accountId}/publications/{publicationId}/complete':
+  '/merchant/products/v1/{storeId}/publications/{publicationId}/complete':
     post:
       tags:
-        - Feeds
+        - Products
       summary: Complete the publication
-      description: This operation will inform BeezUP that the publication has been completed by the merchant to allow BeezUP to start the publication now to the marketplace
+      description: This operation will inform BeezUP that the publication has been completed by the merchant
       parameters:
-        - $ref: '#/parameters/marketplaceTechnicalCodeInPath'
-        - $ref: '#/parameters/marketplaceAccountIdInPath'
+        - $ref: '#/parameters/storeIdInPath'
         - $ref: '#/parameters/publicationIdInPath'
       responses:
         202:
@@ -103,13 +105,13 @@ responses:
     schema:
       $ref: "#/definitions/errorResponseMessage"
 
-  404_Account_NotFound:
-    description: The Marketplace technical code or the Account Id is not found
+  404_Store_NotFound:
+    description: The store is not found
     schema:
       $ref: "#/definitions/errorResponseMessage"
 
   404_Publication_NotFound:
-    description: The combination of MarketplaceTechnicalCode, AccountId and publication id is not found
+    description: The publication id is not found
     schema:
       $ref: "#/definitions/errorResponseMessage"
   409_Publication_Already_Completed:
@@ -120,38 +122,29 @@ responses:
     description: The publication id  already exists
     schema:
       $ref: "#/definitions/errorResponseMessage"
-  400_MBC_Or_Request_Invalid:
-    description: The marketplace technical code is invalid or the request is invalid
-    schema:
-      $ref: "#/definitions/errorResponseMessage"
+
   GeneralError:
     description: Occurs when something goes wrong
     schema:
       $ref: "#/definitions/errorResponseMessage"
 
-      
+
 parameters:
 
-  marketplaceTechnicalCodeInPath:
-    name: marketplaceTechnicalCode
+  storeIdInPath:
+    name: storeId
     in: path
     required: true
     type: string
-    format: MarketplaceTechnicalCode
+    format: StoreId
 
-  marketplaceAccountIdInPath:
-    name: accountId
-    in: path
-    required: true
-    type: integer
-    format: MarketplaceAccountId
 
-  feedTypeInPath:
-    name: feedType
+  productActionTypeInPath:
+    name: productActionType
     in: path
     required: true
     type: string
-    format: FeedType
+    format: ProductActionType
 
   publicationIdInPath:
     name: publicationId
@@ -201,7 +194,7 @@ definitions:
           $ref: "#/definitions/userErrorMessage"
 
 
-  pushFeedsRequest:
+  pushProductsRequest:
     type: object
     required:
       - messages
@@ -212,61 +205,54 @@ definitions:
         maxItems: 1000
         uniqueItems: true
         items:
-          $ref: '#/definitions/feed'
+          $ref: '#/definitions/product'
 
 
-  startFeedPublicationRequest:
+  startProductPublicationRequest:
     type: object
     required:
-      - feedType
-      - publicationType
+      - actionType
     properties: 
-      feedType:
-        $ref: '#/definitions/feedType'
-      publicationType:
-        $ref: '#/definitions/publicationType'
+      actionType:
+        $ref: '#/definitions/productGlobalActionType'
 
 
-  publicationType:
-    type: string
-    enum:
-      - FULL
-      - DELTA
-
-
-  marketplaceTechnicalCode:
-    type: string
-
-  marketplaceAccountId:
-    type: integer
-
-
-  feed:
+  product:
     type: object
+    description: The product size must not be bigger than 2MB
     required: 
     - sku
     - action
     properties:
       sku:
         $ref: '#/definitions/sku'
-      action:
-        $ref: '#/definitions/feedActionType'
       properties:
         type: array
+        minItems: 1
+        maxItems: 1000
         items:
-          $ref: '#/definitions/feedProperty'
+          $ref: '#/definitions/productProperty'
 
-  feedProperty:
+  productProperty:
     type: object
     required:
-      - key
+      - name
     properties: 
-      key:
-        type: string
+      name:
+        $ref: '#/definitions/productPropertyName'
       value:
-        type: string
+        $ref: '#/definitions/productPropertyValue'
 
 
+  productPropertyName:
+    type: string
+    description: Product property name
+    maxLength: 250
+
+  productPropertyValue:
+    type: string
+    description: Product property value
+    maxLength: 1000000
 
   publicationId:
     type: string
@@ -275,18 +261,18 @@ definitions:
 
   sku:
     type: string
-    maxLength: 50
+    maxLength: 250
     description: The Stock Keeping Unit (SKU), i.e. a merchant-specific identifier for a product or service, or the product to which the offer refers. http://schema.org/sku
 
-  feedType:
+  productGlobalActionType:
     type: string
-    enum:
-    - PRODUCT
-    - OFFER
-    - PRODUCTANDOFFER
-
-  feedActionType:
-    type: string
+    description: |
+      Values:
+      - REPLACE: Add or replace the existing product. If there is any custom column already declared on the catalog, the custom columns computation will be applied on the fly based on the product properties provided in the message
+      - MERGE: Update the product properties of the existing product.
+              You cannot remove a product property using this action type, you must using REPLACE action type for that. 
+              If there is any custom column already declared on the catalog, the custom columns computation will be applied on the fly based on the product properties provided in the message if it's possible or asynchronously.
+      - DELETE: Simply delete the product
     enum:
     - REPLACE
     - MERGE
