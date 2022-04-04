@@ -1,12 +1,15 @@
 swagger: '2.0'
 info:
-  version: '0.1'
+  version: '0.2'
   title: DRAFT - Products API
-  description: DRAFT - Products API
+  description: |
+    DRAFT - Products API
+
   contact: 
    email: johnny@beezup.com
    url: Point BeezUP on Teams
    name: Johnny KNOBLAUCH
+
 
 
 tags:
@@ -16,89 +19,290 @@ tags:
 
 paths: 
 
-  '/merchant/products/v1/{storeId}/publications/{publicationId}/start':
+  '/merchant/products/v1/{storeId}':
+    get:
+      tags:
+        - Products
+      summary: Get the product list
+      description: Get the products currently stored on BeezUP
+      parameters:
+        - $ref: '#/parameters/storeIdInPath'
+        - name: pageSize
+          in: query
+          type: integer
+          format: int32
+          default: 100
+        - name: continuationToken
+          in: query
+          type: string
+      responses:
+        200:
+          description: The product list
+          headers:
+            X-BEEZUP-NEXT-CONTINUATION-TOKEN:
+              type: string
+              description: The next continuation token to get the next page
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/product'
+        404:
+          $ref: '#/responses/404_Store_NotFound'
+        default:
+          $ref: "#/responses/GeneralError"
+
+  '/merchant/products/v1/{storeId}/{sku}':
+    put:
+      tags:
+        - Products
+      summary: Create or replace the product
+      description: |
+        Use this operation for chirurgical change otherwise we recommend you to use the importation operations
+        Create or replace the product currently stored on BeezUP
+      parameters:
+        - $ref: '#/parameters/storeIdInPath'
+        - $ref: '#/parameters/skuInPath'
+        - name: request
+          in: body
+          schema:
+            $ref: '#/definitions/productFields'
+      responses:
+        202:
+          description: The creation or replace product request has been accepted
+        404:
+          $ref: '#/responses/404_Store_NotFound'
+        409:
+          $ref: '#/responses/409_Importation_Already_InProgress'
+        default:
+          $ref: "#/responses/GeneralError"
+    patch:
+      tags:
+        - Products
+      summary: Update the product
+      description:  |
+        Use this operation for chirurgical change otherwise we recommend you to use the importation operations
+        Update the product currently stored on BeezUP
+      parameters:
+        - $ref: '#/parameters/storeIdInPath'
+        - $ref: '#/parameters/skuInPath'
+        - name: request
+          in: body
+          schema:
+            $ref: '#/definitions/productFields'
+      responses:
+        202:
+          description: The update product request has been accepted
+        404:
+          $ref: '#/responses/404_Product_NotFound'
+        409:
+          $ref: '#/responses/409_Importation_Already_InProgress'
+        default:
+          $ref: "#/responses/GeneralError"
+
+    delete:
+      tags:
+        - Products
+      summary: Delete the product
+      description: |
+        Use this operation for chirurgical change otherwise we recommend you to use the importation operations
+        Delete the product currently stored on BeezUP
+      parameters:
+        - $ref: '#/parameters/storeIdInPath'
+        - $ref: '#/parameters/skuInPath'
+      responses:
+        202:
+          description: The delete product request has been accepted
+        404:
+          $ref: '#/responses/404_Store_NotFound'
+        409:
+          $ref: '#/responses/409_Importation_Already_InProgress'
+        default:
+          $ref: "#/responses/GeneralError"
+
+    get:
+      tags:
+        - Products
+      summary: Get the product
+      description: Show the product currently stored on BeezUP
+      parameters:
+        - $ref: '#/parameters/storeIdInPath'
+        - $ref: '#/parameters/skuInPath'
+      responses:
+        200:
+          description: The product
+          schema:
+            $ref: '#/definitions/productFields'
+        404:
+          $ref: '#/responses/404_Product_NotFound'
+
+        default:
+          $ref: "#/responses/GeneralError"
+
+
+
+
+  '/merchant/products/v1/{storeId}/importations':
     post:
       tags:
         - Products
-      summary: Start the product publication
+      summary: Create/Start a new product importation process
       description: | 
-        This operation will inform BeezUP that the publication has been started by the merchant.
+        Use this operation when you want to do a full synchronization of your product catalog.
+
+        This operation will inform BeezUP that the importation has been started by the merchant.
                 
         The reasons BeezUP asks you to declare first want you do before doing it:
         1. Improve the quality of the reporting
         2. Improve the efficiency of the diagnostic in case of issue
         3. Improve the communication between you and our support
         4. BeezUP will adapt the processing to give you the best performance possible
-        5. Ensure that we have only one publication at the time to avoid any risk
+        5. Ensure that we have only one importation at the time to avoid any risk
+
+        The response will contain in the header the importation identifier to use in the next steps.
       parameters:
         - $ref: '#/parameters/storeIdInPath'
-        - $ref: '#/parameters/publicationIdInPath'
         - name: request
           in: body
           required:  true
           schema:
-            $ref: '#/definitions/startProductPublicationRequest'
+            $ref: '#/definitions/startProductImportationRequest'
       responses:
-        202:
-          $ref: '#/responses/202_Accepted'
+        201:
+          $ref: '#/responses/201_Importation_Created'
+          
         400:
           $ref: '#/responses/400_Request_Invalid'
         404:
           $ref: '#/responses/404_Store_NotFound'
         409:
-          $ref: '#/responses/409_Publication_Already_Exists'
+          $ref: '#/responses/409_Importation_Already_Exists'
+        default:
+          $ref: "#/responses/GeneralError"
+    get:
+      tags:
+        - Products
+      summary: Get latest importation reportings
+      description: This operation gives you the latest importation
+      parameters:
+        - $ref: '#/parameters/storeIdInPath'
+        - name: pageSize
+          in: query
+          type: integer
+          format: int32
+          default: 100
+        - name: continuationToken
+          in: query
+          type: string
+      responses:
+        200:
+          description: The importation reporting
+          headers:
+            X-BEEZUP-NEXT-CONTINUATION-TOKEN:
+              type: string
+              description: The next continuation token to get the next page
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/productImportationReporting'
+        404:
+          $ref: '#/responses/404_Store_NotFound'
         default:
           $ref: "#/responses/GeneralError"
 
 
-  '/merchant/products/v1/{storeId}/publications/{publicationId}/messages':
+
+
+
+
+  '/merchant/products/v1/{storeId}/importations/{importationId}/batches':
     post:
       tags:
         - Products
-      summary: Push product messages
+      summary: Push product batches
       parameters:
         - $ref: '#/parameters/storeIdInPath'
-        - $ref: '#/parameters/publicationIdInPath'
+        - $ref: '#/parameters/productImportationIdInPath'
         - name: request
           in: body
           required: true
           schema:
-            $ref: '#/definitions/pushProductsRequest'
+            $ref: '#/definitions/productList'
       responses:
         202:
-          $ref: '#/responses/202_Accepted'
+          $ref: '#/responses/202_Import_Operation_Request_Accepted'
         400:
           $ref: '#/responses/400_Request_Invalid'
         404:
-          $ref: '#/responses/404_Publication_NotFound'
+          $ref: '#/responses/404_Importation_NotFound'
         409:
-          $ref: '#/responses/409_Publication_Already_Completed'
+          $ref: '#/responses/409_Importation_Already_Completed'
         default:
           $ref: "#/responses/GeneralError"
 
-  '/merchant/products/v1/{storeId}/publications/{publicationId}/complete':
+  '/merchant/products/v1/{storeId}/importations/{importationId}/complete':
     post:
       tags:
         - Products
-      summary: Complete the publication
-      description: This operation will inform BeezUP that the publication has been completed by the merchant
+      summary: Complete the importation
+      description: This operation will inform BeezUP that the importation has been completed by the merchant
       parameters:
         - $ref: '#/parameters/storeIdInPath'
-        - $ref: '#/parameters/publicationIdInPath'
+        - $ref: '#/parameters/productImportationIdInPath'
       responses:
         202:
-          $ref: '#/responses/202_Accepted'
+          $ref: '#/responses/202_Import_Operation_Request_Accepted'
         404:
-          $ref: '#/responses/404_Publication_NotFound'
+          $ref: '#/responses/404_Importation_NotFound'
         409:
-          $ref: '#/responses/409_Publication_Already_Completed'
+          $ref: '#/responses/409_Importation_Already_Completed'
         default:
           $ref: "#/responses/GeneralError"
 
+
+
+  '/merchant/products/v1/{storeId}/importations/{importationId}':
+    get:
+      tags:
+        - Products
+      summary: Get the importation reporting
+      description: This operation informed you about the importation status
+      parameters:
+        - $ref: '#/parameters/storeIdInPath'
+        - $ref: '#/parameters/productImportationIdInPath'
+      responses:
+        200:
+          description: The importation reporting
+          schema:
+            $ref: '#/definitions/productImportationReporting'
+        404:
+          $ref: '#/responses/404_Importation_NotFound'
+        409:
+          $ref: '#/responses/409_Importation_Already_Completed'
+        default:
+          $ref: "#/responses/GeneralError"
+
+
+
+
+
 responses:
 
-  202_Accepted:
+
+  201_Importation_Created:
+    description: Importation created
+    headers:
+      X-BEEZUP-PRODUCT-PUBLICATION-ID:
+        type: string
+        format: ImportationId
+        description: The product importation identifier
+
+  202_Import_Operation_Request_Accepted:
     description: Request accepted
+    headers:
+      X-BEEZUP-PRODUCT-PUBLICATION-ID:
+        type: string
+        format: ImportationId
+        description: The product importation identifier
 
   400_Request_Invalid:
     description: The request is invalid
@@ -110,16 +314,41 @@ responses:
     schema:
       $ref: "#/definitions/errorResponseMessage"
 
-  404_Publication_NotFound:
-    description: The publication id is not found
+  404_Product_NotFound:
+    description: The product is not found
     schema:
       $ref: "#/definitions/errorResponseMessage"
-  409_Publication_Already_Completed:
-    description: The publication id is already completed
+
+  404_Importation_NotFound:
+    description: The importation id is not found
     schema:
       $ref: "#/definitions/errorResponseMessage"
-  409_Publication_Already_Exists:
-    description: The publication id  already exists
+  409_Importation_Already_Completed:
+    description: The importation id is already completed
+    schema:
+      $ref: "#/definitions/errorResponseMessage"
+
+
+  409_Importation_Already_InProgress:
+    description: A importation is already in progress
+    headers:
+      X-BEEZUP-PRODUCT-PUBLICATION-ID:
+        type: string
+        format: ImportationId
+        description: The product importation identifier
+    schema:
+      $ref: "#/definitions/errorResponseMessage"
+
+
+
+
+  409_Importation_Already_Exists:
+    description: A importation already exists 
+    headers:
+      X-BEEZUP-PRODUCT-PUBLICATION-ID:
+        type: string
+        format: ImportationId
+        description: The product importation identifier
     schema:
       $ref: "#/definitions/errorResponseMessage"
 
@@ -131,6 +360,13 @@ responses:
 
 parameters:
 
+  skuInPath:
+    name: sku
+    required: true
+    in: path
+    type: string
+    format: Sku
+
   storeIdInPath:
     name: storeId
     in: path
@@ -139,21 +375,40 @@ parameters:
     format: StoreId
 
 
-  productActionTypeInPath:
-    name: productActionType
-    in: path
-    required: true
-    type: string
-    format: ProductActionType
 
-  publicationIdInPath:
-    name: publicationId
+  productImportationIdInPath:
+    name: importationId
     in: path
     required: true
     type: string
-    format: PublicationId
+    format: ProductImportationId
 
 definitions:
+
+
+
+  productImportationReporting:
+    type: object
+    required:
+      - id
+      - actionType
+      - startedUtcDate
+    properties:
+      id:
+        $ref: '#/definitions/productImportationId'
+      actionType:
+        $ref: '#/definitions/productGlobalActionType'
+      startedUtcDate:
+        type: string
+        format: date-time
+      completedUtcDate:
+        type: string
+        format: date-time
+      productCount:
+        type: integer
+        format: int32
+
+
   docUrl:
     x-exclude: true
     type: string
@@ -194,21 +449,16 @@ definitions:
           $ref: "#/definitions/userErrorMessage"
 
 
-  pushProductsRequest:
-    type: object
-    required:
-      - messages
-    properties: 
-      messages:
-        type: array
-        minItems: 1
-        maxItems: 1000
-        uniqueItems: true
-        items:
-          $ref: '#/definitions/product'
+  productList:
+    type: array
+    minItems: 1
+    maxItems: 1000
+    uniqueItems: true
+    items:
+      $ref: '#/definitions/product'
 
 
-  startProductPublicationRequest:
+  startProductImportationRequest:
     type: object
     required:
       - actionType
@@ -217,47 +467,50 @@ definitions:
         $ref: '#/definitions/productGlobalActionType'
 
 
+  productFields:
+    type: array
+    minItems: 1
+    maxItems: 1000
+    items:
+      $ref: '#/definitions/productField'
+
   product:
     type: object
     description: The product size must not be bigger than 2MB
     required: 
     - sku
-    - action
     properties:
       sku:
         $ref: '#/definitions/sku'
-      properties:
-        type: array
-        minItems: 1
-        maxItems: 1000
-        items:
-          $ref: '#/definitions/productProperty'
+      fields:
+        $ref: '#/definitions/productFields'
 
-  productProperty:
+  productField:
     type: object
     required:
       - name
+      - value
     properties: 
       name:
-        $ref: '#/definitions/productPropertyName'
+        $ref: '#/definitions/productFieldName'
       value:
-        $ref: '#/definitions/productPropertyValue'
+        $ref: '#/definitions/productFieldValue'
 
 
-  productPropertyName:
+  productFieldName:
     type: string
-    description: Product property name
+    description: Product field name
     maxLength: 250
 
-  productPropertyValue:
+  productFieldValue:
     type: string
-    description: Product property value
+    description: Product field value
     maxLength: 1000000
 
-  publicationId:
+  productImportationId:
     type: string
     format: uuid
-
+    description: The product importation identifier
 
   sku:
     type: string
