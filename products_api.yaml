@@ -43,9 +43,7 @@ paths:
         400:
           $ref: '#/responses/400_Request_Invalid'
         404:
-          $ref: '#/responses/404_Importation_NotFound'
-        409:
-          $ref: '#/responses/409_Importation_Already_Completed'
+          $ref: '#/responses/404_Store_NotFound'
         default:
           $ref: "#/responses/GeneralError"
 
@@ -85,38 +83,14 @@ responses:
     schema:
       $ref: "#/definitions/errorResponseMessage"
 
-  404_Importation_NotFound:
-    description: The importation id is not found
+  404_Store_NotFound:
+    description: The store id is not found
     schema:
       $ref: "#/definitions/errorResponseMessage"
-  409_Importation_Already_Completed:
-    description: The importation id is already completed
-    schema:
-      $ref: "#/definitions/errorResponseMessage"
-
-
-  409_Importation_Already_InProgress:
-    description: A importation is already in progress
-    headers:
-      X-BEEZUP-PRODUCT-PUBLICATION-ID:
-        type: string
-        format: ImportationId
-        description: The product importation identifier
-    schema:
-      $ref: "#/definitions/errorResponseMessage"
+      
 
 
 
-
-  409_Importation_Already_Exists:
-    description: A importation already exists 
-    headers:
-      X-BEEZUP-PRODUCT-PUBLICATION-ID:
-        type: string
-        format: ImportationId
-        description: The product importation identifier
-    schema:
-      $ref: "#/definitions/errorResponseMessage"
 
   GeneralError:
     description: Occurs when something goes wrong
