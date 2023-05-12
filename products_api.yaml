@@ -19,261 +19,29 @@ tags:
 
 paths: 
 
-  '/merchant/products/v1/{storeId}':
-    get:
-      tags:
-        - Products
-      summary: Get the product list
-      description: Get the products currently stored on BeezUP
-      parameters:
-        - $ref: '#/parameters/storeIdInPath'
-        - name: pageSize
-          in: query
-          type: integer
-          format: int32
-          default: 100
-        - name: continuationToken
-          in: query
-          type: string
-      responses:
-        200:
-          description: The product list
-          headers:
-            X-BEEZUP-NEXT-CONTINUATION-TOKEN:
-              type: string
-              description: The next continuation token to get the next page
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/product'
-        404:
-          $ref: '#/responses/404_Store_NotFound'
-        default:
-          $ref: "#/responses/GeneralError"
 
-  '/merchant/products/v1/{storeId}/{sku}':
-    put:
-      tags:
-        - Products
-      summary: Create or replace the product
-      description: |
-        Use this operation for chirurgical change otherwise we recommend you to use the importation operations
-        Create or replace the product currently stored on BeezUP
-      parameters:
-        - $ref: '#/parameters/storeIdInPath'
-        - $ref: '#/parameters/skuInPath'
-        - name: request
-          in: body
-          schema:
-            $ref: '#/definitions/productFields'
-      responses:
-        202:
-          description: The creation or replace product request has been accepted
-        404:
-          $ref: '#/responses/404_Store_NotFound'
-        409:
-          $ref: '#/responses/409_Importation_Already_InProgress'
-        default:
-          $ref: "#/responses/GeneralError"
-    patch:
-      tags:
-        - Products
-      summary: Update the product
-      description:  |
-        Use this operation for chirurgical change otherwise we recommend you to use the importation operations
-        Update the product currently stored on BeezUP
-      parameters:
-        - $ref: '#/parameters/storeIdInPath'
-        - $ref: '#/parameters/skuInPath'
-        - name: request
-          in: body
-          schema:
-            $ref: '#/definitions/productFields'
-      responses:
-        202:
-          description: The update product request has been accepted
-        404:
-          $ref: '#/responses/404_Product_NotFound'
-        409:
-          $ref: '#/responses/409_Importation_Already_InProgress'
-        default:
-          $ref: "#/responses/GeneralError"
-
-    delete:
-      tags:
-        - Products
-      summary: Delete the product
-      description: |
-        Use this operation for chirurgical change otherwise we recommend you to use the importation operations
-        Delete the product currently stored on BeezUP
-      parameters:
-        - $ref: '#/parameters/storeIdInPath'
-        - $ref: '#/parameters/skuInPath'
-      responses:
-        202:
-          description: The delete product request has been accepted
-        404:
-          $ref: '#/responses/404_Store_NotFound'
-        409:
-          $ref: '#/responses/409_Importation_Already_InProgress'
-        default:
-          $ref: "#/responses/GeneralError"
-
-    get:
-      tags:
-        - Products
-      summary: Get the product
-      description: Show the product currently stored on BeezUP
-      parameters:
-        - $ref: '#/parameters/storeIdInPath'
-        - $ref: '#/parameters/skuInPath'
-      responses:
-        200:
-          description: The product
-          schema:
-            $ref: '#/definitions/productFields'
-        404:
-          $ref: '#/responses/404_Product_NotFound'
-
-        default:
-          $ref: "#/responses/GeneralError"
-
-
-
-
-  '/merchant/products/v1/{storeId}/importations':
-    post:
-      tags:
-        - Products
-      summary: Create/Start a new product importation process
-      description: | 
-        Use this operation when you want to do a full synchronization of your product catalog.
-
-        This operation will inform BeezUP that the importation has been started by the merchant.
-                
-        The reasons BeezUP asks you to declare first want you do before doing it:
-        1. Improve the quality of the reporting
-        2. Improve the efficiency of the diagnostic in case of issue
-        3. Improve the communication between you and our support
-        4. BeezUP will adapt the processing to give you the best performance possible
-        5. Ensure that we have only one importation at the time to avoid any risk
-
-        The response will contain in the header the importation identifier to use in the next steps.
-      parameters:
-        - $ref: '#/parameters/storeIdInPath'
-        - name: request
-          in: body
-          required:  true
-          schema:
-            $ref: '#/definitions/startProductImportationRequest'
-      responses:
-        201:
-          $ref: '#/responses/201_Importation_Created'
-          
-        400:
-          $ref: '#/responses/400_Request_Invalid'
-        404:
-          $ref: '#/responses/404_Store_NotFound'
-        409:
-          $ref: '#/responses/409_Importation_Already_Exists'
-        default:
-          $ref: "#/responses/GeneralError"
-    get:
-      tags:
-        - Products
-      summary: Get latest importation reportings
-      description: This operation gives you the latest importation
-      parameters:
-        - $ref: '#/parameters/storeIdInPath'
-        - name: pageSize
-          in: query
-          type: integer
-          format: int32
-          default: 100
-        - name: continuationToken
-          in: query
-          type: string
-      responses:
-        200:
-          description: The importation reporting
-          headers:
-            X-BEEZUP-NEXT-CONTINUATION-TOKEN:
-              type: string
-              description: The next continuation token to get the next page
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/productImportationReporting'
-        404:
-          $ref: '#/responses/404_Store_NotFound'
-        default:
-          $ref: "#/responses/GeneralError"
-
-
-
-
-
-
-  '/merchant/products/v1/{storeId}/importations/{importationId}/batches':
+ '/merchant/products/v1/{storeId}/batches/{actionType}':
     post:
       tags:
         - Products
       summary: Push product batches
       parameters:
         - $ref: '#/parameters/storeIdInPath'
-        - $ref: '#/parameters/productImportationIdInPath'
+        - name: actionType
+          in: path
+          required: true
+          type: string
+          format: productActionType
         - name: request
           in: body
           required: true
           schema:
-            $ref: '#/definitions/productList'
+             $ref: '#/definitions/productList'
       responses:
         202:
           $ref: '#/responses/202_Import_Operation_Request_Accepted'
         400:
           $ref: '#/responses/400_Request_Invalid'
-        404:
-          $ref: '#/responses/404_Importation_NotFound'
-        409:
-          $ref: '#/responses/409_Importation_Already_Completed'
-        default:
-          $ref: "#/responses/GeneralError"
-
-  '/merchant/products/v1/{storeId}/importations/{importationId}/complete':
-    post:
-      tags:
-        - Products
-      summary: Complete the importation
-      description: This operation will inform BeezUP that the importation has been completed by the merchant
-      parameters:
-        - $ref: '#/parameters/storeIdInPath'
-        - $ref: '#/parameters/productImportationIdInPath'
-      responses:
-        202:
-          $ref: '#/responses/202_Import_Operation_Request_Accepted'
-        404:
-          $ref: '#/responses/404_Importation_NotFound'
-        409:
-          $ref: '#/responses/409_Importation_Already_Completed'
-        default:
-          $ref: "#/responses/GeneralError"
-
-
-
-  '/merchant/products/v1/{storeId}/importations/{importationId}':
-    get:
-      tags:
-        - Products
-      summary: Get the importation reporting
-      description: This operation informed you about the importation status
-      parameters:
-        - $ref: '#/parameters/storeIdInPath'
-        - $ref: '#/parameters/productImportationIdInPath'
-      responses:
-        200:
-          description: The importation reporting
-          schema:
-            $ref: '#/definitions/productImportationReporting'
         404:
           $ref: '#/responses/404_Importation_NotFound'
         409:
@@ -288,18 +56,16 @@ paths:
 responses:
 
 
-  201_Importation_Created:
-    description: Importation created
-    headers:
-      X-BEEZUP-PRODUCT-PUBLICATION-ID:
-        type: string
-        format: ImportationId
-        description: The product importation identifier
+
 
   202_Import_Operation_Request_Accepted:
     description: Request accepted
     headers:
-      X-BEEZUP-PRODUCT-PUBLICATION-ID:
+      X-BEEZUP-PRODUCT-IMPORTATION-ID:
+        type: string
+        format: ImportationId
+        description: The product importation identifier
+      X-BEEZUP-PRODUCT-IMPORTATION-BATCH-ID:
         type: string
         format: ImportationId
         description: The product importation identifier
@@ -387,26 +153,7 @@ definitions:
 
 
 
-  productImportationReporting:
-    type: object
-    required:
-      - id
-      - actionType
-      - startedUtcDate
-    properties:
-      id:
-        $ref: '#/definitions/productImportationId'
-      actionType:
-        $ref: '#/definitions/productGlobalActionType'
-      startedUtcDate:
-        type: string
-        format: date-time
-      completedUtcDate:
-        type: string
-        format: date-time
-      productCount:
-        type: integer
-        format: int32
+
 
 
   docUrl:
@@ -458,13 +205,6 @@ definitions:
       $ref: '#/definitions/product'
 
 
-  startProductImportationRequest:
-    type: object
-    required:
-      - actionType
-    properties: 
-      actionType:
-        $ref: '#/definitions/productGlobalActionType'
 
 
   productFields:
@@ -487,9 +227,9 @@ definitions:
 
   productField:
     type: object
+    description: If the value is null the property will be remove from the product
     required:
       - name
-      - value
     properties: 
       name:
         $ref: '#/definitions/productFieldName'
@@ -517,7 +257,7 @@ definitions:
     maxLength: 250
     description: The Stock Keeping Unit (SKU), i.e. a merchant-specific identifier for a product or service, or the product to which the offer refers. http://schema.org/sku
 
-  productGlobalActionType:
+  productActionType:
     type: string
     description: |
       Values:
