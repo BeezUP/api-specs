@@ -25,7 +25,11 @@ paths:
       tags:
         - Products
       summary: Push product batches
-      description: After 5 minutes delay, the importation will automatically start or when you reach 100 batches or when you are touching more than 100K products
+      description: | 
+        The importation will automatically start if one of the following condition occured
+        - after 5 minutes delay, 
+        - when you reach 100 batches
+        - when you are touching more than 100K products
       parameters:
         - $ref: '#/parameters/storeIdInPath'
         - name: actionType
