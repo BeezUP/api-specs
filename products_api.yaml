@@ -26,7 +26,7 @@ paths:
         - Products
       summary: Push product batches
       description: | 
-        The importation will automatically start if one of the following condition occured
+        The importation will automatically start if one of the following condition occured:
         - after 5 minutes delay, 
         - when you reach 100 batches
         - when you are touching more than 100K products
