@@ -64,13 +64,13 @@ responses:
   202_Import_Operation_Request_Accepted:
     description: Request accepted
     headers:
-      X-BEEZUP-PRODUCT-IMPORTATION-ID:
+      X-BEEZUP-PRODUCT-EXECUTION-ID:
         type: string
-        format: ImportationId
+        format: ExecutionId
         description: The product importation identifier
       X-BEEZUP-PRODUCT-IMPORTATION-BATCH-ID:
         type: string
-        format: ImportationId
+        format: BatchId
         description: The product importation identifier
 
   400_Request_Invalid:
